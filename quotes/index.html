@@ -1,9 +1,7 @@
 <!--
-  Protótipo: Quotes Site v2
-  Lê forum-data.json e apresenta as citações de forma elegante.
-  Para rodar localmente:
-    python3 -m http.server 8765 --directory .
-    # abra http://localhost:8765
+  Quotes Site v3 — Editorial Gallery Experience
+  ProBoards forum "Trechos" archive, 1,608 quotes.
+  Mix B+C: minimal gallery layout + editorial catalog details.
 -->
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
@@ -11,9 +9,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trechos | anavanzin</title>
+  <meta name="description" content="Coleção de 1.608 trechos literários reunidos entre 2014 e 2026.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="site-header">
@@ -24,7 +24,7 @@
     </div>
     <nav class="toolbar">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Buscar por palavra, autor, trecho..." autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Buscar por palavra, autor..." autocomplete="off">
         <kbd>Ctrl+K</kbd>
       </div>
       <button id="randomBtn" title="Sortear um trecho">🎲</button>
@@ -39,13 +39,18 @@
     <span id="progressText"></span>
   </div>
 
+  <footer class="site-footer">
+    anavanzin · 2014–2026
+  </footer>
+
   <div class="overlay" id="overlay">
+    <div class="overlay-bg"></div>
     <div class="overlay-card" id="overlayCard">
       <button class="close-overlay" id="closeOverlay">&times;</button>
       <div class="overlay-quote" id="overlayQuote"></div>
       <div class="overlay-meta" id="overlayMeta"></div>
       <div class="overlay-actions">
-        <button id="copyBtn">📋 Copiar</button>
+        <button id="copyBtn">Copiar</button>
         <button id="prevRandom">← Anterior</button>
         <button id="nextRandom">Próximo →</button>
       </div>
