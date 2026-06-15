@@ -1,0 +1,79 @@
+/* ICONOCRACIA — Base layer
+   Element defaults, helpers and the motion vocabulary. Quiet,
+   archival, document-first. Imported after tokens + fonts. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-normal);
+  color: var(--text-primary);
+  background-color: var(--surface-page);
+  background-image: var(--grain);
+  background-repeat: repeat;
+  background-size: 200px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-normal);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+/* The mono voice — small-caps designation, classification, meta. */
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* The display voice, almost always set in italic for inscription. */
+.rubric {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+/* A label: mono, letterspaced, gold, uppercase — the corpus' caption voice. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-sm);
+  letter-spacing: var(--tracking-small-caps);
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+a { color: var(--accent); text-decoration: none; }
+button { cursor: pointer; font-family: inherit; }
+input, textarea, select { font-family: var(--font-body); font-size: 15px; }
+
+::selection { background: var(--selection); color: var(--ink); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--warm-gray); }
+
+:focus-visible { outline: 2px solid var(--state-active); outline-offset: 2px; }
+button:focus:not(:focus-visible), a:focus:not(:focus-visible) { outline: none; }
+
+/* ── Motion vocabulary ──────────────────────────
+   Soft, settling fades on a single decelerating curve.
+   No bounces. The archive does not bounce. */
+@keyframes fadeSlideUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn      { from { opacity:0; } to { opacity:1; } }
+@keyframes cardReveal  { from { opacity:0; transform:translateY(24px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes goldPulse   { 0%,100% { opacity:.5; } 50% { opacity:.9; } }
+@keyframes shimmer     { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
+@keyframes plateIn     { 0% { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.anim-item { animation: fadeSlideUp var(--dur-slow) var(--ease-out) both; }
+.anim-card { animation: cardReveal var(--dur-slow) var(--ease-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

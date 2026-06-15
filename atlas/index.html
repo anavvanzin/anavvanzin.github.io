@@ -1,0 +1,102 @@
+<!-- @dsCard group="Companion" viewport="1280x900" name="Atlas — página da pesquisa" subtitle="Página única rolável: tese, corpus, atlas, radiografia, léxico, método — com Tweaks" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICONOCRACIA — Atlas da Pesquisa</title>
+<link rel="stylesheet" href="../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script src="data.js"></script>
+<script type="text/babel" src="parts.jsx"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    body { transition: none; }
+  }
+  body { margin: 0; transition: background .35s var(--ease-out); }
+  .atlas-root { position: relative; min-height: 100vh; }
+  .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 1; background-image: var(--c-grain); background-size: 200px; opacity: .8; mix-blend-mode: multiply; }
+  .reveal > * { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal > * { animation: fadeSlideUp .7s var(--ease-out) both; }
+    .reveal > *:nth-child(1){animation-delay:.02s} .reveal > *:nth-child(2){animation-delay:.10s}
+    .reveal > *:nth-child(3){animation-delay:.16s} .reveal > *:nth-child(4){animation-delay:.22s}
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSelect, TweakColor, TweakSlider, TweakText } = window;
+  const P = window.AtlasParts;
+
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "tone": "claro",
+    "accent": "#8A5FA8",
+    "scale": 1.1,
+    "density": "regular",
+    "heroSplit": "texto dominante",
+    "title": "A alegoria feminina ",
+    "kicker": "ICONOCRACIA · Tese de Doutorado · PPGD\/UFSC"
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    const theme = P.atlasTheme(t);
+
+    React.useEffect(() => {
+      document.body.style.background = theme["--c-ground"];
+    }, [theme["--c-ground"]]);
+
+    return (
+      <div className="atlas-root" style={{ ...theme, background:"var(--c-ground)", color:"var(--c-ink)", fontFamily:"var(--font-body)" }}>
+        <div className="grain-overlay" />
+        <div style={{ position:"relative", zIndex:2 }}>
+          <P.Nav tone={t.tone} />
+          <div className="reveal">
+            <P.Hero t={t} />
+            <P.Stats />
+          </div>
+          <P.Argument />
+          <P.Anatomia />
+          <P.CorpusWall t={t} />
+          <P.AtlasBand />
+          <P.Radiografia />
+          <P.Lexico />
+          <P.Method />
+          <P.Colophon />
+        </div>
+
+        <TweaksPanel>
+          <TweakSection label="Tom & paleta" />
+          <TweakRadio label="Tom" value={t.tone} options={["claro","cabinet"]}
+            onChange={(v)=>setTweak('tone', v)} />
+          <TweakColor label="Acento" value={t.accent}
+            options={["#8A5FA8","#A04030","#B8924A","#2A7A5A","#1D2548"]}
+            onChange={(v)=>setTweak('accent', v)} />
+          <TweakSection label="Tipografia" />
+          <TweakSlider label="Escala" value={t.scale} min={0.85} max={1.25} step={0.05}
+            onChange={(v)=>setTweak('scale', v)} />
+          <TweakSection label="Layout" />
+          <TweakRadio label="Densidade" value={t.density} options={["compacto","regular","amplo"]}
+            onChange={(v)=>setTweak('density', v)} />
+          <TweakSelect label="Proporção do herói" value={t.heroSplit}
+            options={["equilíbrio","imagem dominante","texto dominante"]}
+            onChange={(v)=>setTweak('heroSplit', v)} />
+          <TweakSection label="Texto" />
+          <TweakText label="Título" value={t.title} onChange={(v)=>setTweak('title', v)} />
+          <TweakText label="Kicker" value={t.kicker} onChange={(v)=>setTweak('kicker', v)} />
+        </TweaksPanel>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

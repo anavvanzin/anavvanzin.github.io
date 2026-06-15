@@ -1,0 +1,44 @@
+/* ICONOCRACIA — Typography tokens
+   Three voices, each a register of legal writing:
+   · Instrument Serif  — display / rubrics / cartouche inscription (often italic)
+   · Crimson Pro       — body prose, the reading voice of the thesis
+   · JetBrains Mono    — classification labels, small-caps designation, meta */
+
+:root {
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body:    "Crimson Pro", Georgia, serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* ── Type scale ─────────────────────────────── */
+  --text-micro:    9px;   /* corner folios, tiniest meta            */
+  --text-mono-sm:  10px;  /* mono labels                           */
+  --text-caption:  11px;  /* plate captions                        */
+  --text-body-sm:  13px;
+  --text-body:     14px;  /* UI body                               */
+  --text-body-lg:  16px;  /* reading prose                         */
+  --text-h3:       20px;  /* card / verbete titles                 */
+  --text-h2:       28px;  /* page titles                           */
+  --text-h1:       46px;  /* section display                       */
+  --text-display:  64px;  /* atlas / hero display                  */
+
+  /* ── Reading prose (thesis reader) ──────────── */
+  --reader-body:   18px;
+  --leading-tight: 1.1;
+  --leading-snug:  1.4;
+  --leading-body:  1.65;
+  --leading-prose: 1.9;
+
+  /* ── Weights ────────────────────────────────── */
+  --weight-light:  300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold:   700;
+
+  /* ── Tracking ───────────────────────────────── */
+  --tracking-display:   -.01em; /* tight display serif             */
+  --tracking-body:      0;
+  --tracking-label:     2px;    /* mono small-caps designation     */
+  --tracking-small-caps:3px;    /* sidebar / section labels        */
+  --tracking-wide:      4px;    /* logo lockup                     */
+}
