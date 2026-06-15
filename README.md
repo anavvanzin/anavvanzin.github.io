@@ -5,7 +5,7 @@
 
 Tese de Doutorado · **Ana Vanzin** · Programa de Pós-Graduação em Direito (PPGD/UFSC) · Grupo Ius Gentium · Florianópolis · MMXXVI
 
-🔗 **No ar:** https://anavvanzin.github.io/iconocracia/
+🔗 **No ar:** https://anavanzin.com/atlas/
 
 ---
 

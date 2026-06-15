@@ -149,7 +149,7 @@ function Desktop() {
   const open = (id) => {
     if (id === 'sobre') { window.location.href = 'readme.html'; return; }
     if (id === 'conceitos') { window.location.href = 'conceitos.html'; return; }
-    if (id === 'iconocracia') { window.location.href = 'iconocracia/'; return; }
+    if (id === 'iconocracia') { window.location.href = 'atlas/'; return; }
     if (id === 'quotes') { window.location.href = 'quotes/'; return; }
     if (id === 'trabalhos') { window.location.href = 'trabalhos.html'; return; }
     setSel(id);

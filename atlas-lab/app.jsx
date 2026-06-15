@@ -156,7 +156,7 @@ function downloadNotes() {
     d.stepNotes.forEach((s) => { md += "**" + s.label + "** — " + s.text + "\n\n"; });
     if (d.research.trim()) md += "**Nota de pesquisa** — " + d.research + "\n\n";
   });
-  md += "\n---\n_ICONOCRACIA · Ana Vanzin · PPGD/UFSC · anavanzin.com/iconocracia_\n";
+  md += "\n---\n_ICONOCRACIA · Ana Vanzin · PPGD/UFSC · anavanzin.com/atlas-lab_\n";
   const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
