@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anavanzin.com · conceitos</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { overflow: hidden; font-family: var(--font-body); color: var(--ink); }
+
+  /* ---- desktop / wallpaper ---- */
+  .desk { position: fixed; inset: 0; background: var(--ink);
+    background-image: url('assets/pixel-justitia-sky.png');
+    background-size: cover; background-position: center 16%; background-repeat: no-repeat;
+    image-rendering: pixelated; overflow: hidden; }
+  /* the field where icons live */
+  .field { position: absolute; inset: 0; }
+
+  ::selection { background: var(--rubric); color: var(--paper); }
+
+  /* ---- floating brand chip (top-left) ---- */
+  .brand { position: absolute; top: 14px; left: 16px; z-index: 60;
+    display: flex; align-items: center; gap: 9px; padding: 6px 12px 6px 8px;
+    background: var(--paper); border: 1px solid var(--ink); box-shadow: 3px 3px 0 0 var(--ink);
+    border-radius: 14px; text-decoration: none; color: var(--ink); cursor: pointer; }
+  .brand:hover .lbl { color: var(--accent-hover); }
+  .brand img { width: 22px; height: 22px; display: block; }
+  .brand b { font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: .01em; white-space: nowrap; }
+  .brand .div { width: 1px; height: 15px; background: var(--rule-hairline); }
+  .brand .lbl { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .2em; font-size: 10.5px; color: var(--rubric); }
+
+  /* ---- floating filter bar (top-center) — echoes the reference nav ---- */
+  .nav { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 60;
+    display: flex; align-items: stretch; gap: 7px; }
+  .tab { font-family: var(--font-body); font-weight: 500; font-size: 13px; letter-spacing: .01em;
+    color: var(--ink); background: var(--paper); border: 1px solid var(--ink);
+    box-shadow: 3px 3px 0 0 var(--ink); padding: 7px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 7px; }
+  .tab:hover { color: var(--rubric); }
+  .tab .ct { font-family: var(--font-display); font-weight: 600; font-size: 12px; color: var(--text-faint); }
+  .tab[aria-pressed="true"] { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 0 var(--gold-2); }
+  .tab[aria-pressed="true"] .ct { color: var(--gold-2); }
+
+  /* ---- clock / count (top-right) ---- */
+  .meta { position: absolute; top: 14px; right: 16px; z-index: 60;
+    display: flex; align-items: center; gap: 10px; padding: 7px 12px;
+    background: var(--paper); border: 1px solid var(--ink); box-shadow: 3px 3px 0 0 var(--ink);
+    font-size: 11px; letter-spacing: .14em; color: var(--text-faint); white-space: nowrap; border-radius: 999px; }
+  .meta .clk { font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: .12em; color: var(--gold); }
+  .meta .div { width: 1px; height: 14px; background: var(--rule-hairline); }
+
+  /* ---- search popover ---- */
+  .search { position: absolute; top: 60px; right: 16px; z-index: 60; display: none;
+    background: var(--paper); border: 1px solid var(--ink); box-shadow: 3px 3px 0 0 var(--ink);
+    padding: 9px 11px; align-items: center; gap: 9px; border-radius: 14px; }
+  .search.open { display: flex; }
+  .search label { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .2em; font-size: 10px; color: var(--rubric); }
+  .search input { font-family: var(--font-body); font-size: 13px; color: var(--ink); background: var(--paper);
+    border: 0; border-bottom: 1px solid var(--ink); padding: 3px 2px; width: 150px; outline: none; }
+  .search input::placeholder { color: var(--text-faint); }
+
+  /* ---- desktop icons ---- */
+  .icon { position: absolute; width: 92px; padding: 5px 4px 4px; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: none; border: 0; cursor: pointer; touch-action: none; }
+  .icon .gx { display: flex; align-items: center; justify-content: center; position: relative;
+    width: 56px; height: 56px; padding: 2px; outline: 2px solid transparent; outline-offset: 2px; }
+  .icon svg, .icon .gx > img { display: block; }
+  .icon .nm { font-family: var(--font-body); font-size: 12px; line-height: 1.22; text-align: center;
+    color: var(--ink); background: var(--paper); border: 1px solid var(--ink); padding: 1px 6px; max-width: 88px; }
+  .icon .nm em { font-style: normal; font-family: var(--font-display); color: var(--text-faint); font-size: 11px; }
+  /* selected */
+  .icon[data-sel="1"] .gx { outline-color: var(--rubric); }
+  .icon[data-sel="1"] .nm { background: var(--rubric); color: var(--paper); border-color: var(--rubric); }
+  .icon[data-hidden="1"] { display: none; }
+
+  /* the núcleo icon — slightly larger plate */
+  .icon[data-core="1"] .gx { width: 64px; height: 64px; }
+
+  /* rascunho — capítulo a definir: small rubric tag on the icon */
+  .icon[data-draft="1"] .gx::after { content: ''; position: absolute; top: 0; right: 0;
+    width: 9px; height: 9px; background: var(--rubric); border: 1.5px solid var(--paper); box-sizing: border-box; }
+
+  /* enquadramento control (top-left, under brand) */
+  .frame-ctl { position: absolute; left: 16px; top: 60px; z-index: 60; display: flex; align-items: center; gap: 6px;
+    font-family: var(--font-body); font-size: 12px; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--ink); box-shadow: 3px 3px 0 0 var(--ink); border-radius: 999px; padding: 6px 14px; cursor: pointer; white-space: nowrap; }
+  .frame-ctl:hover { color: var(--rubric); }
+  .frame-ctl .fi { font-size: 12px; line-height: 1; color: var(--gold); }
+  .frame-ctl b { font-family: var(--font-display); font-weight: 600; }
+
+  /* draft badge inside windows */
+  .draft { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: .12em;
+    font-size: 9px; color: var(--rubric); border: 1px solid var(--rubric); border-radius: 999px;
+    padding: 1px 7px; margin-left: 8px; vertical-align: middle; }
+  .draft-v { color: var(--rubric); font-style: italic; }
+
+  /* ---- windows ---- */
+  .win { position: absolute; width: 440px; max-width: calc(100vw - 28px); background: var(--paper);
+    border: 1px solid var(--ink); box-shadow: 5px 5px 0 0 var(--ink); z-index: 20; }
+  .win[data-active="0"] { box-shadow: 3px 3px 0 0 var(--ink-50); }
+  .bar { display: flex; align-items: center; gap: 9px; height: 30px; padding: 0 9px;
+    border-bottom: 1px solid var(--ink); cursor: grab; user-select: none; touch-action: none; background: var(--paper); }
+  .bar .cb { width: 15px; height: 15px; border: 1.5px solid var(--ink); background: var(--paper);
+    box-sizing: border-box; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; }
+  .bar .stripe { flex: 1; height: 11px; align-self: center; min-width: 12px;
+    background: repeating-linear-gradient(to bottom, var(--ink) 0 1px, transparent 1px 3px); }
+  .win[data-active="0"] .bar .stripe { background: none; }
+  .win[data-active="0"] .bar .cb { opacity: .4; }
+  .bar .t { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: .02em; white-space: nowrap; }
+  .win[data-active="0"] .bar .t { color: var(--text-faint); }
+  .wb { padding: 20px 22px 22px; max-height: 62vh; overflow: auto; }
+
+  .eyebrow { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .22em; font-size: 11px; color: var(--rubric); margin: 0; }
+  .eyebrow.ink { color: var(--ink); }
+  .wt { font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 1.08; margin: 9px 0 0; }
+  .metarow { display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 16px 0 0;
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule-hairline); }
+  .metarow > div { padding: 9px 12px 9px 0; border-left: 1px solid var(--rule-hairline); padding-left: 12px; }
+  .metarow > div:first-child { border-left: 0; padding-left: 0; }
+  .metarow .k { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .16em; font-size: 9.5px; color: var(--text-faint); }
+  .metarow .v { font-size: 13px; line-height: 1.35; margin-top: 3px; color: var(--ink); }
+  .lead { font-size: 15px; line-height: 1.6; margin: 16px 0 0; max-width: 56ch; color: var(--ink); }
+  .ref { font-size: 12.5px; line-height: 1.5; margin: 14px 0 0; color: var(--text-muted); }
+  .ref sup { color: var(--rubric); font-weight: 600; }
+  .rel { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule-hairline); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip { font-family: var(--font-body); font-size: 12.5px; padding: 5px 11px; background: var(--paper);
+    border: 1px solid var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); border-radius: 999px; }
+  .chip:hover { color: var(--rubric); border-color: var(--rubric); }
+  .chip .ar { color: var(--rubric); }
+  .chip.static { cursor: default; border-color: var(--ink-30); color: var(--text-muted); }
+  .chip.static:hover { color: var(--text-muted); border-color: var(--ink-30); }
+  .chip.static .ar { display: none; }
+
+  /* glossary table */
+  .gloss { margin-top: 14px; }
+  .gloss .row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline;
+    padding: 11px 0; border-top: 1px solid var(--rule-hairline); }
+  .gloss .row:first-child { border-top: 1px solid var(--ink); }
+  .gloss .nm2 { font-family: var(--font-display); font-weight: 600; font-size: 17px; }
+  .gloss .src { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+  .gloss .cap { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .12em; font-size: 10.5px; color: var(--text-faint); white-space: nowrap; }
+  .gloss .tg { display: inline-block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 1px 6px; border: 1px solid var(--ink-30); color: var(--text-muted); margin-left: 8px; vertical-align: middle; }
+  .gloss .tg.orig { border-color: var(--rubric); color: var(--rubric); }
+
+  /* image plate window (núcleo hero) */
+  .plate { background: var(--ink); padding: 10px; display: flex; justify-content: center; }
+  .plate img { max-width: 100%; max-height: 300px; image-rendering: pixelated; border: 1px solid var(--gold-2); }
+
+  /* ---- dock (only when windows open) ---- */
+  .dock { position: absolute; left: 0; right: 0; bottom: 0; height: 38px; background: var(--ink);
+    color: var(--paper); display: none; align-items: center; gap: 8px; padding: 0 12px; z-index: 70; }
+  .dock.on { display: flex; }
+  .dock .dt { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .26em; font-size: 11px; color: var(--gold-2); white-space: nowrap; }
+  .dock .div { width: 1px; height: 16px; background: rgba(242,234,217,.25); }
+  .dock .tabs { display: flex; align-items: center; gap: 6px; overflow: hidden; }
+  .dock button { font-family: var(--font-body); font-size: 12.5px; white-space: nowrap; cursor: pointer;
+    background: transparent; color: var(--paper); border: 1px solid rgba(242,234,217,.35); padding: 3px 10px; border-radius: 999px; }
+  .dock button[data-on="1"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .dock .hint { margin-left: auto; font-size: 11px; color: rgba(242,234,217,.5); white-space: nowrap; }
+
+  /* no entrance animation — icons rest visible (brand favours minimal motion) */
+
+  /* language toggle */
+  .langtog { display: inline-flex; align-items: stretch; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; }
+  .langtog button { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .12em;
+    border: 0; background: var(--paper); color: var(--text-faint); padding: 2px 9px; cursor: pointer; line-height: 1.6; }
+  .langtog button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .langtog button:not([aria-pressed="true"]):hover { color: var(--rubric); }
+
+  /* ============================================================
+     MOBILE / TOUCH — scattered desktop folds into a clean card grid;
+     windows become bottom sheets. Wallpaper stays as a fixed header band.
+     ============================================================ */
+  @media (max-width: 760px) {
+    .frame-ctl { display: none; }
+    .brand { top: 12px; left: 12px; }
+    .meta { top: 12px; right: 12px; padding: 6px 10px; }
+    .meta .clk, .meta .div { display: none; }
+
+    /* wallpaper becomes a fixed band behind a scrolling sheet of cards */
+    .desk { background-position: center 14% !important; background-size: cover !important; }
+    .desk::before { content: ''; position: absolute; left: 0; right: 0; top: 168px; bottom: 0;
+      background: var(--paper); border-top: 1px solid var(--ink); z-index: 1; }
+
+    .nav { display: flex; position: absolute; top: 132px; left: 0; right: 0; transform: none;
+      justify-content: flex-start; gap: 6px; padding: 0 12px 4px; overflow-x: auto; z-index: 40;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .tab { box-shadow: 2px 2px 0 0 var(--ink); flex: 0 0 auto; padding: 6px 13px; font-size: 12.5px; }
+
+    .field { position: absolute; left: 0; right: 0; top: 180px; bottom: 0; z-index: 2;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(98px, 1fr)); gap: 14px 10px;
+      align-content: start; padding: 18px 14px 40px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .icon { position: static !important; width: auto; padding: 0; }
+    .icon .gx { width: 100%; height: 66px; background: var(--paper-deep); border: 1px solid var(--ink);
+      border-radius: 12px; outline-offset: -2px; }
+    .icon[data-core="1"] .gx { width: 100%; height: 66px; }
+    .icon .nm { width: 100%; max-width: none; box-sizing: border-box; }
+    .icon[data-draft="1"] .gx::after { top: 5px; right: 5px; }
+
+    .search { top: auto; bottom: 12px; left: 12px; right: 12px; border-radius: 14px; z-index: 80; }
+    .search input { flex: 1; width: auto; }
+
+    /* windows → bottom sheet */
+    .win { position: fixed !important; left: 0 !important; right: 0 !important; bottom: 0 !important; top: auto !important;
+      width: 100% !important; max-width: 100% !important; border-radius: 16px 16px 0 0;
+      box-shadow: 0 -4px 0 0 var(--ink) !important; z-index: 90; }
+    .win .bar { cursor: default; height: 38px; }
+    .wb { max-height: 72vh; }
+    .dock { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="field" id="field"></div>
+
+  <a class="brand" href="index.html" title="← voltar à mesa">
+    <img src="assets/sun-seal.svg" alt="">
+    <b>ana vanzin</b>
+    <span class="div"></span>
+    <span class="lbl" id="brand-lbl">conceitos</span>
+  </a>
+
+  <button class="frame-ctl" id="framectl" title="trocar o enquadramento do fundo">
+    <span class="fi" aria-hidden="true">▦</span> <span id="frame-pre">enquadramento</span> · <b id="framelabel">completo</b>
+  </button>
+
+  <nav class="nav" id="nav" aria-label="Filtrar conceitos"></nav>
+
+  <div class="meta">
+    <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+    <span class="div"></span>
+    <span class="clk" id="clk">—</span>
+  </div>
+
+  <div class="search" id="search">
+    <label for="q" id="search-lbl">buscar</label>
+    <input id="q" type="text" placeholder="nome do conceito…" autocomplete="off">
+  </div>
+
+  <div class="dock" id="dock">
+    <span class="dt" id="dock-title">conceitos</span>
+    <span class="div"></span>
+    <div class="tabs" id="docktabs"></div>
+    <span class="hint" id="dock-hint">toque/2× abre · arraste para mover</span>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Conceitos — desktop imersivo. Vanilla JS, tokens da marca.
+   ============================================================ */
+
+/* ---- glifos (SVG on-brand: papel/tinta/rubrica/ouro, cantos retos) ---- */
+const G = {
+  iconologia: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <path d="M11 5 H30 L37 12 V43 H11 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <path d="M30 5 V12 H37 Z" fill="var(--paper-deep)" stroke="var(--ink)" stroke-width="1.6"/>
+    <line x1="15" y1="19" x2="29" y2="19" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <line x1="15" y1="24" x2="26" y2="24" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <circle cx="26" cy="33" r="7" fill="var(--paper)" stroke="var(--rubric)" stroke-width="2"/>
+    <line x1="31" y1="38" x2="40" y2="45" stroke="var(--rubric)" stroke-width="2.6"/></svg>`,
+  iconometria: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <rect x="7" y="8" width="34" height="32" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <line x1="7" y1="14" x2="41" y2="14" stroke="var(--ink-30)" stroke-width="1"/>
+    <line x1="13" y1="8" x2="13" y2="11" stroke="var(--ink-50)" stroke-width="1"/>
+    <line x1="20" y1="8" x2="20" y2="11" stroke="var(--ink-50)" stroke-width="1"/>
+    <line x1="27" y1="8" x2="27" y2="11" stroke="var(--ink-50)" stroke-width="1"/>
+    <line x1="34" y1="8" x2="34" y2="11" stroke="var(--ink-50)" stroke-width="1"/>
+    <rect x="12" y="29" width="4" height="7" fill="var(--ink)"/>
+    <rect x="19" y="23" width="4" height="13" fill="var(--rubric)"/>
+    <rect x="26" y="26" width="4" height="10" fill="var(--ink)"/>
+    <rect x="33" y="19" width="4" height="17" fill="var(--gold)"/></svg>`,
+  visiocracia: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <path d="M5 24 Q24 9 43 24 Q24 39 5 24 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <circle cx="24" cy="24" r="7" fill="var(--ink)"/>
+    <circle cx="24" cy="24" r="2.6" fill="var(--rubric)"/>
+    <circle cx="26.5" cy="21.5" r="1.3" fill="var(--paper)"/></svg>`,
+  economia: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <circle cx="24" cy="24" r="16" fill="var(--gold-soft)" stroke="var(--ink)" stroke-width="1.6"/>
+    <circle cx="24" cy="24" r="11.5" fill="none" stroke="var(--gold)" stroke-width="1.2"/>
+    <rect x="19" y="17" width="10" height="14" fill="var(--paper)" stroke="var(--rubric)" stroke-width="1.5"/>
+    <line x1="21.5" y1="21" x2="26.5" y2="21" stroke="var(--rubric)" stroke-width="1.2"/>
+    <line x1="21.5" y1="24" x2="26.5" y2="24" stroke="var(--ink-50)" stroke-width="1"/></svg>`,
+  contrato: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <path d="M11 4 H30 L37 11 V44 H11 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <path d="M30 4 V11 H37 Z" fill="var(--paper-deep)" stroke="var(--ink)" stroke-width="1.6"/>
+    <line x1="15" y1="17" x2="33" y2="17" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <line x1="15" y1="22" x2="33" y2="22" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <line x1="15" y1="27" x2="27" y2="27" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <circle cx="29" cy="36" r="6.5" fill="var(--rubric)" stroke="var(--ink)" stroke-width="1.4"/>
+    <path d="M26 41 l-2 5 5 -2.6 5 2.6 -2 -5" fill="var(--rubric)" stroke="var(--ink)" stroke-width="1"/></svg>`,
+  feminilidade: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <path d="M14 14 l3 -7 3.5 5 3.5 -7 3.5 7 3.5 -5 3 7 Z" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.2"/>
+    <circle cx="24" cy="23" r="10.5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="14.5" y="21" width="19" height="3.4" fill="var(--rubric)"/>
+    <path d="M16 33 q8 7 16 0 v9 h-16 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/></svg>`,
+  atlas: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <rect x="6" y="8" width="36" height="32" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="10" y="12" width="12" height="10" fill="none" stroke="var(--rubric)" stroke-width="1.5"/>
+    <rect x="26" y="12" width="12" height="10" fill="none" stroke="var(--ink-50)" stroke-width="1.3"/>
+    <rect x="10" y="26" width="12" height="10" fill="none" stroke="var(--ink-50)" stroke-width="1.3"/>
+    <rect x="26" y="26" width="12" height="10" fill="none" stroke="var(--ink-50)" stroke-width="1.3"/></svg>`,
+  glossario: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <rect x="5" y="11" width="22" height="8" fill="var(--gold)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="4" y="16" width="40" height="26" fill="var(--gold-2)" stroke="var(--ink)" stroke-width="1.6"/>
+    <rect x="4" y="16" width="40" height="6" fill="var(--gold)"/>
+    <line x1="4" y1="22" x2="44" y2="22" stroke="var(--ink)" stroke-width="1.1"/>
+    <path d="M19 27 l2.6 0 1.4 9 1.4 -9 2.6 0" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+    <line x1="20.3" y1="32" x2="24.3" y2="32" stroke="var(--ink)" stroke-width="1.2"/></svg>`,
+  buscar: `<svg width="50" height="50" viewBox="0 0 48 48" shape-rendering="crispEdges" aria-hidden="true">
+    <circle cx="21" cy="21" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+    <circle cx="21" cy="21" r="7" fill="none" stroke="var(--ink-50)" stroke-width="1.4"/>
+    <line x1="30" y1="30" x2="42" y2="42" stroke="var(--ink)" stroke-width="3.4"/></svg>`,
+};
+
+/* ---- dados dos conceitos (pt + en) ---- */
+const CONCEPTS = [
+  { id:'iconocracia', name:'iconocracia', cat:'nucleo', core:true, x:'33%', y:'12%',
+    tipo:'Mobilizado · núcleo', fonte:'Mondzain (2002) + tese', cap:'Cap. 2',
+    def:'Regime em que o poder se exerce e se legitima pela imagem. A tese investiga as alegorias femininas do direito — Justitia, a República-como-mulher — sob esse regime visual: como a imagem governa, e como o direito governa a imagem.',
+    plate:true,
+    rel:['visiocracia','feminilidade','iconologia','Regime Iconocrático'],
+    en:{ name:'iconocracy', tipo:'Mobilised · core', fonte:'Mondzain (2002) + thesis',
+      def:'A regime in which power is exercised and legitimised through the image. The thesis examines the female allegories of law — Justitia, the Republic-as-woman — under this visual regime: how the image governs, and how law governs the image.' } },
+
+  { id:'iconologia', name:'iconologia', cat:'metodo', x:'7%', y:'25%',
+    tipo:'Método · qualitativo', fonte:'Tese', cap:'Cap. 3',
+    def:'Abordagem qualitativa da interpretação de imagens: significados simbólicos, contextos culturais e leituras históricas dos elementos visuais. Na Iconocracia, complementa a análise quantitativa ao explorar os sentidos das alegorias femininas.',
+    rel:['iconometria','atlas','iconocracia'],
+    en:{ name:'iconology', tipo:'Method · qualitative', fonte:'Thesis',
+      def:'A qualitative approach to image interpretation: symbolic meanings, cultural contexts and historical readings of visual elements. Within Iconocracy it complements the quantitative analysis by exploring the meanings of the female allegories.' } },
+
+  { id:'iconometria', name:'iconometria', cat:'metodo', x:'6%', y:'55%',
+    tipo:'Método · quantitativo', fonte:'Tese', cap:'Cap. 3',
+    def:'Abordagem quantitativa da análise de imagens: aspectos mensuráveis e padrões dentro de um corpus visual. Envolve a contagem e a análise sistemática de elementos iconográficos para identificar tendências e significância estatística.',
+    rel:['iconologia','atlas','Corpus'],
+    en:{ name:'iconometry', tipo:'Method · quantitative', fonte:'Thesis',
+      def:'A quantitative approach to image analysis: measurable aspects and patterns within a visual corpus. It involves counting and systematically analysing iconographic elements to identify trends and statistical significance.' } },
+
+  { id:'atlas', name:'atlas iconográfico', cat:'metodo', x:'9%', y:'78%',
+    tipo:'Método · síntese', fonte:'Tese', cap:'Cap. 4',
+    def:'Componente sintético da pesquisa: organiza e visualiza os achados das análises quantitativa (Iconometria) e qualitativa (Iconologia). Mapeia relações entre elementos iconográficos, períodos históricos e quadros conceituais.',
+    rel:['iconologia','iconometria','Pathosformel','Zwischenraum'],
+    en:{ name:'iconographic atlas', tipo:'Method · synthesis', fonte:'Thesis',
+      def:'The synthetic component of the research: it organises and visualises the findings of the quantitative (Iconometry) and qualitative (Iconology) analyses. It maps relations between iconographic elements, historical periods and conceptual frameworks.' } },
+
+  { id:'visiocracia', name:'visiocracia', cat:'teoria', x:'76%', y:'19%',
+    tipo:'Mobilizado', fonte:'Goodrich (2014)', cap:'Cap. 1',
+    def:'Quadro analítico proposto por Goodrich: nas sociedades modernas, as representações visuais e o ato de ver moldam cada vez mais o poder político e a ordem social. O controle do campo visual traduz-se em controle da sociedade.',
+    rel:['iconocracia','contrato','economia'],
+    en:{ name:'visiocracy', tipo:'Mobilised', fonte:'Goodrich (2014)',
+      def:'An analytic framework proposed by Goodrich: in modern societies, visual representations and the act of seeing increasingly shape political power and social order. Control of the visual field translates into control of society.' } },
+
+  { id:'economia', name:'economia icônica', cat:'teoria', x:'87%', y:'43%',
+    tipo:'Mobilizado', fonte:'Mondzain (2002)', cap:'Cap. 2',
+    def:'Analisa a circulação e o valor das imagens dentro de uma sociedade, enquadrando-as como uma forma de moeda. Ajuda a entender como as representações alegóricas da forma feminina acumulam valor simbólico e político.',
+    refn:'Mondzain, M-J. (2002). <em>Image, a modern magic: the life of images in the west</em>. Stanford University Press.',
+    rel:['contrato','visiocracia','Patrimônio visual'],
+    en:{ name:'iconic economy', tipo:'Mobilised', fonte:'Mondzain (2002)',
+      def:'Analyses the circulation and value of images within a society, framing them as a form of currency. It helps explain how allegorical representations of the female form accumulate symbolic and political value.' } },
+
+  { id:'contrato', name:'contrato sexual visual', cat:'teoria', x:'78%', y:'65%',
+    tipo:'Original', fonte:'Tese · sobre Pateman', cap:'Cap. 1',
+    def:'Desenvolve o contrato sexual de Pateman no campo visual: examina como as representações — particularmente da forma feminina — constroem e reforçam normas sociais e jurídicas de poder, gênero e sexualidade.',
+    rel:['economia','visiocracia','feminilidade'],
+    en:{ name:'visual sexual contract', tipo:'Original', fonte:'Thesis · on Pateman',
+      def:'Extends Pateman\'s sexual contract into the visual field: it examines how representations — particularly of the female form — construct and reinforce social and legal norms of power, gender and sexuality.' } },
+
+  { id:'feminilidade', name:'feminilidade de estado', cat:'teoria', x:'68%', y:'83%',
+    tipo:'Original', fonte:'Tese', cap:'Cap. 2',
+    def:'Personificação do Estado ou da nação por figuras alegóricas femininas. Examina como a escolha da imagem feminina para o Estado molda as percepções de sua natureza, poder e governo.',
+    rel:['iconocracia','contrato','Alegoria'],
+    en:{ name:'state femininity', tipo:'Original', fonte:'Thesis',
+      def:'The personification of the State or nation through female allegorical figures. It examines how choosing the female image for the State shapes perceptions of its nature, power and governance.' } },
+
+  { id:'glossario', name:'glossário', cat:'nucleo', glossary:true, x:'90%', y:'80%',
+    tipo:'Índice', fonte:'Conceitos operativos', cap:'Cap. 1–8',
+    def:'',
+    en:{ name:'glossary', tipo:'Index', fonte:'Operative concepts' } },
+];
+
+/* tokens livres usados em "relacionados" (sem ficha própria) */
+const TOK = {
+  'Regime Iconocrático':'Iconocratic Regime', 'Corpus':'Corpus',
+  'Pathosformel':'Pathosformel', 'Zwischenraum':'Zwischenraum',
+  'Patrimônio visual':'Visual heritage', 'Alegoria':'Allegory',
+};
+
+/* glifo por conceito */
+function glyphFor(c){
+  if (c.core) return `<img src="assets/sun-seal.svg" alt="" style="width:60px;height:60px">`;
+  if (c.glossary) return G.glossario;
+  const map = { iconologia:'iconologia', iconometria:'iconometria', atlas:'atlas',
+    visiocracia:'visiocracia', economia:'economia', contrato:'contrato', feminilidade:'feminilidade' };
+  return G[map[c.id]] || G.iconologia;
+}
+
+const byId = Object.fromEntries(CONCEPTS.map(c => [c.id, c]));
+
+/* ============================================================
+   i18n — idioma + dicionário
+   ============================================================ */
+let lang = 'pt';
+try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') lang = s; } catch (e) {}
+
+/* valor de campo do conceito no idioma atual (cai pra PT se faltar) */
+const F = (c, k) => (lang === 'en' && c.en && c.en[k] != null) ? c.en[k] : c[k];
+
+const UI = {
+  pt: { lbl:'conceitos', voltar:'← voltar à mesa', framePre:'enquadramento', buscar:'buscar', ph:'nome do conceito…',
+    dockTitle:'conceitos', dockHint:'toque/2× abre · arraste para mover', clkLocale:'pt-BR',
+    nav:{ todos:'todos', teoria:'teorias', metodo:'métodos', nucleo:'núcleo' },
+    cat:{ teoria:'Teoria', metodo:'Método', nucleo:'Núcleo' },
+    conceito:'Conceito', rascunho:'rascunho', adefinir:'a definir', winSuffix:'.conceito',
+    kFonte:'Fonte', kTipo:'Tipo', kCap:'Capítulo', relTitle:'Conceitos relacionados',
+    glossEyebrow:'Conceitos operativos', glossTitle:'Glossário',
+    glossLead:'Termos-chave mobilizados e originais da tese, com fonte e capítulo de uso.',
+    frames:{ completo:'completo', 'sem venda':'sem venda', 'sem cabeça':'sem cabeça', 'sem balança':'sem balança', 'só a balança':'só a balança', pedestal:'pedestal' } },
+  en: { lbl:'concepts', voltar:'← back to desktop', framePre:'framing', buscar:'search', ph:'concept name…',
+    dockTitle:'concepts', dockHint:'tap/2× to open · drag to move', clkLocale:'en-GB',
+    nav:{ todos:'all', teoria:'theories', metodo:'methods', nucleo:'core' },
+    cat:{ teoria:'Theory', metodo:'Method', nucleo:'Core' },
+    conceito:'Concept', rascunho:'draft', adefinir:'to be defined', winSuffix:'.concept',
+    kFonte:'Source', kTipo:'Type', kCap:'Chapter', relTitle:'Related concepts',
+    glossEyebrow:'Operative concepts', glossTitle:'Glossary',
+    glossLead:'Key terms — mobilised and original — used in the thesis, with source and chapter.',
+    frames:{ completo:'full', 'sem venda':'no blindfold', 'sem cabeça':'no head', 'sem balança':'no scales', 'só a balança':'scales only', pedestal:'pedestal' } },
+};
+const T = () => UI[lang];
+const tpLabel = (tp) => lang === 'en' ? ({ 'Mobilizado':'Mobilised', 'Original':'Original', 'Mobilizado & tese':'Mobilised & thesis' }[tp] || tp) : tp;
+const capLabel = (cap) => (lang === 'en' && cap) ? cap.replace('Cap.', 'Ch.') : cap;
+const isDraft = (c) => !c.glossary && (c.cap === '—' || !c.cap);
+
+/* glossário operativo (de glossario.md) — nomes próprios/termos cunhados ganham EN onde difere */
+const GLOSS = [
+  { nm:'Iconocracia', src:'Mondzain (2002) & tese', tp:'Mobilizado', cap:'Cap. 2', en:{ nm:'Iconocracy', src:'Mondzain (2002) & thesis' } },
+  { nm:'Visiocracia', src:'Goodrich (2014)', tp:'Mobilizado', cap:'Cap. 1', en:{ nm:'Visiocracy' } },
+  { nm:'Contrato Sexual Visual', src:'Original', tp:'Original', cap:'Cap. 1', en:{ nm:'Visual Sexual Contract' } },
+  { nm:'Feminilidade de Estado', src:'Original', tp:'Original', cap:'Cap. 2', en:{ nm:'State Femininity' } },
+  { nm:'Regime Iconocrático', src:'Original', tp:'Original', cap:'Cap. 2', en:{ nm:'Iconocratic Regime' } },
+  { nm:'Acoplamento imagem-norma', src:'Original', tp:'Original', cap:'Cap. 5', en:{ nm:'Image–norm coupling' } },
+  { nm:'Pintura de alma', src:'Legendre · Goodrich · Mondzain', tp:'Original', cap:'Cap. 1', en:{ nm:'Soul-painting' } },
+  { nm:'endurecimento', src:'Original', tp:'Original', cap:'Cap. 6–7', en:{ nm:'hardening' } },
+  { nm:'Purificação Clássica', src:'Original', tp:'Original', cap:'Cap. 5–6', en:{ nm:'Classical Purification' } },
+  { nm:'Pathosformel', src:'Warburg', tp:'Mobilizado', cap:'Cap. 4' },
+  { nm:'Zwischenraum', src:'Warburg', tp:'Mobilizado', cap:'Cap. 8' },
+];
+
+/* ============================================================
+   estado + util
+   ============================================================ */
+const field = document.getElementById('field');
+let z = 30;
+let selId = null;
+let activeCat = 'todos';
+const winEls = {};   // id -> window element
+
+/* ---- clock ---- */
+function tick(){
+  document.getElementById('clk').textContent =
+    new Date().toLocaleTimeString(T().clkLocale, { hour:'2-digit', minute:'2-digit' });
+}
+tick(); setInterval(tick, 15000);
+
+/* ============================================================
+   abas-filtro
+   ============================================================ */
+const NAV = ['todos', 'teoria', 'metodo', 'nucleo'];
+const navEl = document.getElementById('nav');
+NAV.forEach(id => {
+  const count = id === 'todos' ? CONCEPTS.length : CONCEPTS.filter(c => c.cat === id).length;
+  const b = document.createElement('button');
+  b.className = 'tab';
+  b.setAttribute('aria-pressed', id === 'todos' ? 'true' : 'false');
+  b.innerHTML = `<span class="tl">${T().nav[id]}</span> <span class="ct">${count}</span>`;
+  b.onclick = () => setCat(id);
+  b.dataset.cat = id;
+  navEl.appendChild(b);
+});
+function relabelNav(){ navEl.querySelectorAll('.tab').forEach(t => t.querySelector('.tl').textContent = T().nav[t.dataset.cat]); }
+function setCat(cat){
+  activeCat = cat;
+  navEl.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-pressed', t.dataset.cat === cat ? 'true' : 'false'));
+  refreshVisibility();
+}
+
+/* filtro + busca combinados: esconde os que não casam (decisão: trocar de "página") */
+let query = '';
+function refreshVisibility(){
+  document.querySelectorAll('.icon').forEach(ic => {
+    const id = ic.dataset.id;
+    if (id === '__buscar'){ ic.dataset.hidden = '0'; return; }   /* a lupa fica sempre */
+    const c = byId[id];
+    if (!c){ ic.dataset.hidden = '0'; return; }
+    const catOk = activeCat === 'todos' || c.cat === activeCat;
+    const qOk = !query || F(c, 'name').toLowerCase().includes(query);
+    ic.dataset.hidden = (catOk && qOk) ? '0' : '1';
+  });
+}
+
+/* ============================================================
+   busca
+   ============================================================ */
+const searchBox = document.getElementById('search');
+const qInput = document.getElementById('q');
+qInput.addEventListener('input', () => { query = qInput.value.trim().toLowerCase(); refreshVisibility(); });
+
+/* ============================================================
+   ícones espalhados
+   ============================================================ */
+function makeIcon(c){
+  const el = document.createElement('button');
+  el.className = 'icon';
+  el.dataset.id = c.id;
+  if (c.core) el.dataset.core = '1';
+  if (isDraft(c)) { el.dataset.draft = '1'; el.title = T().rascunho + ' — ' + T().kCap + ' ' + T().adefinir; }
+  el.style.left = c.x; el.style.top = c.y;
+  el.innerHTML = `<span class="gx">${glyphFor(c)}</span><span class="nm">${iconLabel(c)}</span>`;
+  field.appendChild(el);
+  wireIcon(el, c);
+  return el;
+}
+
+function wireIcon(el, c){
+  let down = null, moved = false;
+  el.addEventListener('pointerdown', (e) => {
+    e.stopPropagation();
+    selectIcon(c.id);
+    const r = el.getBoundingClientRect();
+    const fr = field.getBoundingClientRect();
+    down = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr };
+    moved = false;
+    el.setPointerCapture(e.pointerId);
+    el.style.cursor = 'grabbing';
+  });
+  el.addEventListener('pointermove', (e) => {
+    if (!down) return;
+    if (Math.abs(e.movementX) + Math.abs(e.movementY) > 0) moved = true;
+    const { fr } = down;
+    let nx = e.clientX - fr.left - down.dx;
+    let ny = e.clientY - fr.top - down.dy;
+    nx = Math.max(0, Math.min(nx, fr.width - el.offsetWidth));
+    ny = Math.max(0, Math.min(ny, fr.height - el.offsetHeight));
+    el.style.left = nx + 'px'; el.style.top = ny + 'px';
+  });
+  el.addEventListener('pointerup', (e) => { down = null; el.style.cursor = ''; });
+  /* tap / click (without drag) and keyboard both open */
+  el.addEventListener('click', (e) => { if (!moved) openWin(c.id); });
+}
+
+/* rótulo do ícone no idioma atual */
+function iconLabel(c){
+  const ext = c.glossary ? (lang === 'en' ? 'index' : 'índice') : T().cat[c.cat].toLowerCase();
+  return `${F(c, 'name')}<br><em>${ext}</em>`;
+}
+function relabelIcons(){
+  document.querySelectorAll('.icon').forEach(ic => {
+    if (ic.dataset.id === '__buscar'){ ic.querySelector('.nm').textContent = T().buscar; return; }
+    const c = byId[ic.dataset.id];
+    if (c){ ic.querySelector('.nm').innerHTML = iconLabel(c);
+      if (isDraft(c)) ic.title = T().rascunho + ' — ' + T().kCap + ' ' + T().adefinir; }
+  });
+}
+
+function selectIcon(id){
+  selId = id;
+  document.querySelectorAll('.icon').forEach(ic => ic.dataset.sel = ic.dataset.id === id ? '1' : '0');
+}
+
+/* the search "icon" — its own scattered desktop affordance */
+function makeSearchIcon(){
+  const el = document.createElement('button');
+  el.className = 'icon';
+  el.dataset.id = '__buscar';
+  el.style.left = '58%'; el.style.top = '11%';
+  el.innerHTML = `<span class="gx">${G.buscar}</span><span class="nm">${T().buscar}</span>`;
+  field.appendChild(el);
+  let down = null, moved = false;
+  el.addEventListener('pointerdown', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.icon').forEach(ic => ic.dataset.sel = ic.dataset.id === '__buscar' ? '1' : '0');
+    const r = el.getBoundingClientRect(); const fr = field.getBoundingClientRect();
+    down = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr }; moved = false;
+    el.setPointerCapture(e.pointerId);
+  });
+  el.addEventListener('pointermove', (e) => {
+    if (!down) return; const { fr } = down;
+    if (Math.abs(e.movementX) + Math.abs(e.movementY) > 0) moved = true;
+    let nx = Math.max(0, Math.min(e.clientX - fr.left - down.dx, fr.width - el.offsetWidth));
+    let ny = Math.max(0, Math.min(e.clientY - fr.top - down.dy, fr.height - el.offsetHeight));
+    el.style.left = nx + 'px'; el.style.top = ny + 'px';
+  });
+  el.addEventListener('pointerup', () => { down = null; });
+  const toggle = () => {
+    searchBox.classList.toggle('open');
+    if (searchBox.classList.contains('open')) setTimeout(() => qInput.focus(), 30);
+  };
+  el.addEventListener('click', (e) => { if (!moved) toggle(); });
+}
+
+/* ============================================================
+   janelas System-7
+   ============================================================ */
+function relChip(token){
+  const c = byId[token];
+  if (c) return `<button class="chip" data-open="${token}">${F(c,'name')} <span class="ar">→</span></button>`;
+  const label = lang === 'en' ? (TOK[token] || token) : token;
+  return `<span class="chip static">${label}</span>`;
+}
+
+function winBody(c){
+  if (c.glossary){
+    let rows = GLOSS.map(g => {
+      const nm = (lang === 'en' && g.en && g.en.nm) ? g.en.nm : g.nm;
+      const src = (lang === 'en' && g.en && g.en.src) ? g.en.src : g.src;
+      return `<div class="row"><div><div class="nm2">${nm}<span class="tg ${g.tp==='Original'?'orig':''}">${tpLabel(g.tp)}</span></div>
+        <div class="src">${src}</div></div><div class="cap">${capLabel(g.cap)}</div></div>`;
+    }).join('');
+    return `<p class="eyebrow">${T().glossEyebrow}</p>
+      <h2 class="wt">${T().glossTitle}</h2>
+      <p class="lead">${T().glossLead}</p>
+      <div class="gloss">${rows}</div>`;
+  }
+  const metaCat = T().cat[c.cat] || T().conceito;
+  const draft = isDraft(c);
+  const capVal = draft ? `<span class="draft-v">${T().adefinir}</span>` : capLabel(c.cap);
+  const plate = c.plate ? `<div class="plate"><img src="assets/pixel-justitia-sky.png" alt="Justitia, pixel art"></div>` : '';
+  const ref = c.refn ? `<p class="ref"><sup>1</sup> ${c.refn}</p>` : '';
+  const rel = (c.rel && c.rel.length)
+    ? `<div class="rel"><p class="eyebrow ink" style="font-size:10.5px">${T().relTitle}</p>
+        <div class="chips">${c.rel.map(relChip).join('')}</div></div>` : '';
+  return `<p class="eyebrow">${T().conceito} · ${metaCat}${draft ? ` <span class="draft">${T().rascunho}</span>` : ''}</p>
+    <h2 class="wt">${F(c,'name')}</h2>
+    <div class="metarow">
+      <div><div class="k">${T().kFonte}</div><div class="v">${F(c,'fonte')}</div></div>
+      <div><div class="k">${T().kTipo}</div><div class="v">${F(c,'tipo')}</div></div>
+      <div><div class="k">${T().kCap}</div><div class="v">${capVal}</div></div>
+    </div>
+    ${plate}
+    <p class="lead">${F(c,'def')}</p>
+    ${ref}${rel}`;
+}
+
+function openWin(id){
+  const c = byId[id];
+  if (!c) return;
+  if (winEls[id]){ focusWin(id); winEls[id].dataset.min = '0'; winEls[id].style.display = ''; refreshDock(); return; }
+
+  const open = Object.keys(winEls).length;
+  const w = document.createElement('div');
+  w.className = 'win';
+  w.dataset.id = id;
+  const fr = field.getBoundingClientRect();
+  const ww = c.glossary ? 500 : 440;
+  const x = Math.min(150 + open * 30, Math.max(14, fr.width - ww - 16));
+  const y = Math.min(70 + open * 26, fr.height - 160);
+  w.style.left = x + 'px'; w.style.top = y + 'px';
+  if (c.glossary) w.style.width = '500px';
+  w.style.zIndex = ++z;
+  const title = c.glossary ? T().glossTitle.toLowerCase() : (F(c,'name') + T().winSuffix);
+  w.innerHTML = `<div class="bar">
+      <button class="cb" title="Fechar" data-close="1"></button>
+      <span class="stripe"></span>
+      <span class="t">${title}</span>
+      <span class="stripe"></span>
+      <button class="cb" title="Minimizar" data-min="1"><span style="width:7px;height:1.5px;background:var(--ink)"></span></button>
+    </div>
+    <div class="wb">${winBody(c)}</div>`;
+  field.appendChild(w);
+  winEls[id] = w;
+
+  /* interactions */
+  w.addEventListener('pointerdown', () => focusWin(id));
+  w.querySelector('[data-close]').addEventListener('click', (e) => { e.stopPropagation(); closeWin(id); });
+  w.querySelector('[data-min]').addEventListener('click', (e) => { e.stopPropagation(); minWin(id); });
+  w.querySelectorAll('.chip[data-open]').forEach(ch =>
+    ch.addEventListener('click', (e) => { e.stopPropagation(); openWin(ch.dataset.open); }));
+  dragWin(w, id);
+  focusWin(id);
+  refreshDock();
+}
+
+function dragWin(w, id){
+  const bar = w.querySelector('.bar');
+  let d = null;
+  bar.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('.cb')) return;
+    focusWin(id);
+    const r = w.getBoundingClientRect(); const fr = field.getBoundingClientRect();
+    d = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr };
+    bar.setPointerCapture(e.pointerId);
+    bar.style.cursor = 'grabbing';
+  });
+  bar.addEventListener('pointermove', (e) => {
+    if (!d) return; const { fr } = d;
+    let nx = Math.max(0, Math.min(e.clientX - fr.left - d.dx, fr.width - 70));
+    let ny = Math.max(0, Math.min(e.clientY - fr.top - d.dy, fr.height - 44));
+    w.style.left = nx + 'px'; w.style.top = ny + 'px';
+  });
+  bar.addEventListener('pointerup', () => { d = null; bar.style.cursor = 'grab'; });
+}
+
+function focusWin(id){
+  Object.entries(winEls).forEach(([k, el]) => el.dataset.active = k === id ? '1' : '0');
+  if (winEls[id]){ winEls[id].style.zIndex = ++z; winEls[id].dataset.min = '0'; winEls[id].style.display = ''; }
+  refreshDock();
+}
+function closeWin(id){ const w = winEls[id]; if (w){ w.remove(); delete winEls[id]; } refreshDock(); }
+function minWin(id){ const w = winEls[id]; if (w){ w.dataset.min = '1'; w.style.display = 'none'; } refreshDock(); }
+
+/* ============================================================
+   dock
+   ============================================================ */
+const dock = document.getElementById('dock');
+const dockTabs = document.getElementById('docktabs');
+function refreshDock(){
+  const ids = Object.keys(winEls);
+  dock.classList.toggle('on', ids.length > 0);
+  dockTabs.innerHTML = '';
+  ids.forEach(id => {
+    const c = byId[id];
+    const w = winEls[id];
+    const min = w.dataset.min === '1';
+    const on = !min && w.dataset.active === '1';
+    const b = document.createElement('button');
+    b.dataset.on = on ? '1' : '0';
+    b.style.opacity = min ? '.6' : '1';
+    b.textContent = c.glossary ? T().glossTitle.toLowerCase() : F(c,'name');
+    b.onclick = () => { if (min) focusWin(id); else if (on) minWin(id); else focusWin(id); };
+    dockTabs.appendChild(b);
+  });
+}
+
+/* ============================================================
+   enquadramento do wallpaper (variações: completo / sem venda / sem cabeça / balança / figura)
+   ============================================================ */
+const desk = document.querySelector('.desk');
+const FRAMES = [
+  { id:'completo',    pos:'center 8%',  size:'cover' },
+  { id:'sem venda',   pos:'center 34%', size:'cover' },
+  { id:'sem cabeça',  pos:'center 47%', size:'cover' },
+  { id:'sem balança', pos:'18% 44%',    size:'150%' },
+  { id:'só a balança',pos:'100% 28%',   size:'150%' },
+  { id:'pedestal',    pos:'center 100%',size:'cover' },
+];
+let frameIdx = 0;
+try { const s = localStorage.getItem('av_conceitos_frame'); if (s !== null) frameIdx = Math.min(FRAMES.length - 1, Math.max(0, parseInt(s, 10) || 0)); } catch (e) {}
+function applyFrame(){
+  const f = FRAMES[frameIdx];
+  desk.style.backgroundPosition = f.pos;
+  desk.style.backgroundSize = f.size;
+  document.getElementById('framelabel').textContent = T().frames[f.id] || f.id;
+  try { localStorage.setItem('av_conceitos_frame', String(frameIdx)); } catch (e) {}
+}
+document.getElementById('framectl').addEventListener('click', (e) => {
+  e.stopPropagation();
+  frameIdx = (frameIdx + 1) % FRAMES.length;
+  applyFrame();
+});
+applyFrame();
+
+/* ============================================================
+   idioma — aplicar PT/EN em toda a interface
+   ============================================================ */
+const langtog = document.getElementById('langtog');
+function applyLang(){
+  const t = T();
+  document.documentElement.lang = lang;
+  document.getElementById('brand-lbl').textContent = t.lbl;
+  const brandLink = document.querySelector('.brand'); if (brandLink) brandLink.title = t.voltar;
+  document.getElementById('frame-pre').textContent = t.framePre;
+  document.getElementById('search-lbl').textContent = t.buscar;
+  qInput.placeholder = t.ph;
+  document.getElementById('dock-title').textContent = t.dockTitle;
+  document.getElementById('dock-hint').textContent = t.dockHint;
+  langtog.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'));
+  relabelNav(); relabelIcons(); applyFrame(); tick();
+  /* re-render janelas abertas */
+  Object.entries(winEls).forEach(([id, w]) => {
+    const c = byId[id]; if (!c) return;
+    const tt = w.querySelector('.bar .t');
+    if (tt) tt.textContent = c.glossary ? t.glossTitle.toLowerCase() : (F(c,'name') + t.winSuffix);
+    const wb = w.querySelector('.wb');
+    if (wb){ wb.innerHTML = winBody(c);
+      wb.querySelectorAll('.chip[data-open]').forEach(ch =>
+        ch.addEventListener('click', (e) => { e.stopPropagation(); openWin(ch.dataset.open); })); }
+  });
+  refreshDock();
+  try { localStorage.setItem('av_lang', lang); } catch (e) {}
+}
+langtog.querySelectorAll('button').forEach(b => b.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  applyLang();
+}));
+
+/* ============================================================
+   init
+   ============================================================ */
+CONCEPTS.forEach(makeIcon);
+makeSearchIcon();
+applyLang();
+/* clicking empty desktop clears selection */
+document.querySelector('.desk').addEventListener('pointerdown', () => selectIcon(null));
+</script>
+</body>
+</html>

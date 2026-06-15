@@ -1,39 +1,28 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ana Vanzin</title>
-<meta name="description" content="Ana Vanzin — pesquisadora em direito, história e iconografia jurídica (PPGD/UFSC).">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ana vanzin · desktop</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds_bundle.js"></script>
 <style>
-  :root { color-scheme: light dark; }
-  html,body { margin:0; padding:0; height:100%; }
-  body {
-    font: 16px/1.55 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
-    background: #faf8f4; color: #1b1b1b;
-    display:grid; place-items:center;
-  }
-  @media (prefers-color-scheme: dark) {
-    body { background:#101012; color:#e9e7e1; }
-    a { color:#9bbcff; }
-  }
-  main { max-width: 32rem; padding: 3rem 1.5rem; }
-  h1 { font-size: 2rem; margin: 0 0 .5rem; letter-spacing: -.01em; }
-  p  { margin: .8rem 0; }
-  hr { border:0; border-top:1px solid currentColor; opacity:.15; margin: 2rem 0; }
-  a  { color:#1f4faa; text-decoration: underline; text-underline-offset: 3px; }
-  small { opacity:.7; }
+  html, body { margin: 0; height: 100%; background: var(--paper); overflow: hidden; }
+  ::selection { background: var(--rubric); color: var(--paper); }
 </style>
 </head>
-<body>
-<main>
-  <h1>Ana Vanzin</h1>
-  <p>Doutoranda em Direito — PPGD/UFSC. Pesquisa em história do direito penal e iconografia jurídica.</p>
-  <p>Tese em andamento: <em>ICONOCRACIA — Alegoria Feminina na História da Cultura Jurídica (séc. XIX–XX)</em>.</p>
-  <hr>
-  <p><a href="mailto:ana.vanzin@posgrad.ufsc.br">ana.vanzin@posgrad.ufsc.br</a></p>
-  <p><a href="/quotes/">📚 Trechos — 1.608 citações (2014–2026)</a></p>
-  <p><small>Em construção.</small></p>
-</main>
+<body style="font-family: sans-serif">
+<div id="root"></div>
+<script type="text/babel" src="icons.js"></script>
+<script type="text/babel" src="WindowContents.js"></script>
+<script type="text/babel" src="Desktop.js"></script>
+<script type="text/babel">
+  const Desktop = window.Desktop;
+  ReactDOM.createRoot(document.getElementById('root')).render(<Desktop />);
+</script>
 </body>
 </html>
