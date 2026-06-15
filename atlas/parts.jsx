@@ -194,6 +194,7 @@ function CorpusWall({ t }) {
         <div>
           <Cap>Corpus iconográfico · {D.corpus.length} placas em vitrine</Cap>
           <h2 style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"var(--t-h1)", color:"var(--c-ink)", margin:"6px 0 0" }}>A parede de espécimes</h2>
+          <p className="mono" style={{ fontSize:9, letterSpacing:"1.5px", color:"var(--c-ink-3)", textTransform:"uppercase", margin:"8px 0 0" }}>clique numa placa para abrir a ficha →</p>
         </div>
         <div style={{ display:"flex", gap:14, flexWrap:"wrap" }}>
           {regs.map(r => (
@@ -207,10 +208,11 @@ function CorpusWall({ t }) {
       <DoubleRule style={{ margin:"18px 0 24px" }} />
       <div style={{ display:"grid", gridTemplateColumns:`repeat(auto-fill,minmax(${corpusMin(t.density)},1fr))`, gap:"var(--gap)" }}>
         {D.corpus.map(it => (
-          <div key={it.id} style={{ position:"relative" }}>
+          <a key={it.id} href={"../corpus/"+it.id+".html"} style={{ position:"relative", display:"block", textDecoration:"none", transition:"transform var(--dur,.25s) var(--ease-out,ease)" }}
+            onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";}} onMouseLeave={e=>{e.currentTarget.style.transform="none";}}>
             <Plate it={it} />
             <span style={{ position:"absolute", top:8, left:8, width:9, height:9, borderRadius:"50%", background:REG[it.regime], boxShadow:"0 0 0 2px rgba(0,0,0,.25)" }} />
-          </div>
+          </a>
         ))}
       </div>
     </section>
