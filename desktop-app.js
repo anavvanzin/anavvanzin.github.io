@@ -147,6 +147,7 @@ function Desktop() {
 
   const focus = (id) => setWins((ws) => { const z = zTop; setZTop((p) => p + 1); return ws.map((w) => w.id === id ? { ...w, z, min: false } : w); });
   const open = (id) => {
+    if (id === 'sobre') { window.location.href = 'readme.html'; return; }
     if (id === 'conceitos') { window.location.href = 'conceitos.html'; return; }
     if (id === 'iconocracia') { window.location.href = 'iconocracia/'; return; }
     if (id === 'quotes') { window.location.href = 'quotes/'; return; }

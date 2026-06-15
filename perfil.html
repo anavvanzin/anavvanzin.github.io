@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anavanzin.com · perfil</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{height:100%;margin:0}
+  body{overflow:hidden;font-family:var(--font-body)}
+  ::selection{background:var(--rubric);color:var(--paper)}
+  .desk{position:fixed;inset:0;background:var(--paper);
+    background-image:radial-gradient(var(--ink-15) 0.8px,transparent 0.8px);background-size:26px 26px}
+  .menu{position:absolute;top:0;left:0;right:0;min-height:42px;border-bottom:1px solid var(--ink);display:flex;align-items:center;gap:12px;padding:6px 16px;background:var(--paper);z-index:50;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:600;font-size:16px;white-space:nowrap;text-decoration:none;color:var(--ink)}
+  .brand img{width:21px;height:21px}
+  .brand:hover{color:var(--rubric)}
+  .menu .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .menu .hint{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--text-faint);white-space:nowrap}
+  .vista{display:flex;border:1px solid var(--ink);font-family:var(--font-body)}
+  .vista a{font-size:11.5px;padding:5px 12px;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+  .vista a.on{background:var(--ink);color:var(--paper)}
+  .vista a+a{border-left:1px solid var(--ink)}
+  .langtog{display:inline-flex;border:1px solid var(--ink);overflow:hidden}
+  .langtog button{font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:.12em;border:0;background:var(--paper);color:var(--text-faint);padding:4px 9px;cursor:pointer}
+  .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .langtog button:not([aria-pressed="true"]):hover{color:var(--rubric)}
+  .field{position:absolute;inset:42px 0 0 0;overflow:hidden}
+  .win{position:absolute;background:var(--paper);border:1px solid var(--ink);box-shadow:5px 5px 0 0 var(--ink)}
+  .bar{display:flex;align-items:center;gap:8px;height:28px;padding:0 9px;border-bottom:1px solid var(--ink);cursor:grab;touch-action:none;user-select:none}
+  .box{width:13px;height:13px;border:1.5px solid var(--ink);box-sizing:border-box}
+  .stripe{flex:1;height:9px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 3px);opacity:.9}
+  .bar .t{font-family:var(--font-display);font-weight:600;font-size:13.5px;white-space:nowrap}
+  .wb{padding:16px 18px}
+  .eyebrow{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--rubric);margin:0 0 9px}
+  .wt{font-family:var(--font-display);font-weight:600;line-height:1.08;margin:0}
+  .wp{font-size:13.5px;line-height:1.55;color:var(--text-muted);margin:9px 0 0}
+  .pub{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--rule-hairline);font-size:13px}
+  .pub .y{font-family:var(--font-display);font-weight:500;color:var(--text-faint);min-width:34px}
+  .pub i{font-style:italic}
+  .imgwin .plate{background:var(--ink);padding:8px;display:flex;justify-content:center}
+  .imgwin .plate img{height:230px;image-rendering:pixelated;border:1px solid var(--gold-2)}
+  .imgwin .cap{font-size:11px;color:var(--text-faint);padding:7px 10px;display:flex;justify-content:space-between}
+  a{color:var(--rubric)}
+  .mini{position:absolute;right:18px;bottom:18px;width:150px;height:104px;background:var(--paper);border:1px solid var(--ink);box-shadow:3px 3px 0 0 var(--ink);z-index:50}
+  .mini .mh{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.16em;font-size:9px;color:var(--text-faint);padding:4px 7px;border-bottom:1px solid var(--rule-hairline)}
+  .mini .mb{position:relative;height:74px}
+  .mini .mb span{position:absolute;border:1px solid var(--ink);background:var(--ink-15)}
+  .mini .vp{position:absolute;border:1.5px solid var(--rubric)!important;background:transparent!important}
+  @media(max-width:760px){.mini{display:none}.menu .hint{display:none}}
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="menu">
+    <a class="brand" href="index.html" title="← voltar à mesa"><img src="assets/sun-seal.svg" alt=""> ana vanzin</a>
+    <span class="right">
+      <span class="hint" id="hint">arraste as janelas</span>
+      <span class="vista"><a href="perfil.html" class="on">janela</a><a href="readme.html">readme</a></span>
+      <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </span>
+    </span>
+  </div>
+  <div class="field" id="field"></div>
+  <div class="mini">
+    <div class="mh" id="mini-h">mesa</div>
+    <div class="mb">
+      <span style="top:6px;left:10px;width:46px;height:30px"></span>
+      <span style="top:34px;left:24px;width:48px;height:24px"></span>
+      <span style="top:10px;right:26px;width:26px;height:40px"></span>
+      <span style="top:42px;right:36px;width:34px;height:18px"></span>
+      <span class="vp" style="top:2px;left:4px;width:96px;height:64px"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+let lang = 'pt';
+try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') lang = s; } catch(e){}
+
+const UI = { pt:{ hint:'arraste as janelas', mesa:'mesa' }, en:{ hint:'drag the windows', mesa:'desktop' } };
+
+const WINS = [
+  { id:'tese', x:'60px', y:'34px', w:300, rot:-1,
+    title:{pt:'tese',en:'thesis'}, eyebrow:'Iconocracia',
+    wt:{pt:'A venda como sátira',en:'The blindfold as satire'},
+    body:{pt:'<p class="wp">Em 1494, um bobo cobre os olhos da Justiça — a primeira venda nasce como crítica, não como virtude.</p><p class="wp"><a href="conceitos.html">Ver os conceitos →</a></p>',
+          en:'<p class="wp">In 1494, a fool covers Justice’s eyes — the first blindfold is born as critique, not as virtue.</p><p class="wp"><a href="conceitos.html">See the concepts →</a></p>'} },
+  { id:'perfis', x:'140px', y:'250px', w:340, rot:0.8,
+    title:{pt:'perfis',en:'profiles'}, eyebrow:{pt:'Publicações',en:'Publications'},
+    wt:null,
+    body:{pt:'<div class="pub"><span class="y">2025</span><span><i>A venda de Justitia: sátira e virtude no Narrenschiff</i><br>Revista Sequência, n. 96.</span></div><div class="pub"><span class="y">2024</span><span><i>A República como mulher</i><br>Direito e Práxis, v. 15.</span></div><div class="pub"><span class="y">·</span><span><a href="readme.html">Ver o perfil completo →</a></span></div>',
+          en:'<div class="pub"><span class="y">2025</span><span><i>Justitia’s blindfold: satire and virtue in the Narrenschiff</i><br>Revista Sequência, no. 96.</span></div><div class="pub"><span class="y">2024</span><span><i>The Republic as a woman</i><br>Direito e Práxis, v. 15.</span></div><div class="pub"><span class="y">·</span><span><a href="readme.html">See the full profile →</a></span></div>'} },
+  { id:'justitia', x:null, rx:'230px', y:'70px', w:210, rot:1.2, img:true,
+    title:'justitia.png', cap:'16-bit' },
+  { id:'contato', x:null, rx:'300px', y:'330px', w:250, rot:-0.6,
+    title:{pt:'contato',en:'contact'}, eyebrow:{pt:'Contato',en:'Contact'},
+    wt:null,
+    body:{pt:'<p class="wp" style="font-size:15px;color:var(--text-body)"><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></p><p class="wp">PPGD/UFSC · resposta em até cinco dias úteis.</p>',
+          en:'<p class="wp" style="font-size:15px;color:var(--text-body)"><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></p><p class="wp">PPGD/UFSC · reply within five business days.</p>'} },
+];
+
+const field = document.getElementById('field');
+const L = (v) => (v && typeof v === 'object') ? (v[lang] ?? v.pt) : v;
+let zTop = 10;
+
+function winHtml(w){
+  const title = L(w.title);
+  const barL = `<span class="box"></span><span class="stripe"></span><span class="t">${title}</span><span class="stripe"></span><span class="box"></span>`;
+  if (w.img){
+    return `<div class="bar">${barL}</div>
+      <div class="plate"><img src="assets/pixel-justitia.png" alt="Justitia, pixel art"></div>
+      <div class="cap"><span>justitia.png</span><span>${w.cap}</span></div>`;
+  }
+  const eb = w.eyebrow ? `<p class="eyebrow">${L(w.eyebrow)}</p>` : '';
+  const wt = w.wt ? `<h2 class="wt" style="font-size:26px">${L(w.wt)}</h2>` : '';
+  return `<div class="bar">${barL}</div><div class="wb">${eb}${wt}${L(w.body)}</div>`;
+}
+
+function build(){
+  field.innerHTML = '';
+  WINS.forEach(w => {
+    const el = document.createElement('div');
+    el.className = 'win' + (w.img ? ' imgwin' : '');
+    el.style.width = w.w + 'px';
+    el.style.top = w.y;
+    if (w.x) el.style.left = w.x; else el.style.right = w.rx;
+    el.style.transform = `rotate(${w.rot}deg)`;
+    el.style.zIndex = ++zTop;
+    el.innerHTML = winHtml(w);
+    field.appendChild(el);
+    dragify(el, w);
+  });
+}
+
+function dragify(el, w){
+  const bar = el.querySelector('.bar');
+  let d = null;
+  const focus = () => { el.style.zIndex = ++zTop; };
+  el.addEventListener('pointerdown', focus);
+  bar.addEventListener('pointerdown', (e) => {
+    focus();
+    const fr = field.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    d = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr };
+    el.style.transform = 'rotate(0deg)';   /* straighten while dragging */
+    bar.setPointerCapture(e.pointerId);
+    bar.style.cursor = 'grabbing';
+  });
+  bar.addEventListener('pointermove', (e) => {
+    if (!d) return; const { fr } = d;
+    let nx = Math.max(0, Math.min(e.clientX - fr.left - d.dx, fr.width - 70));
+    let ny = Math.max(0, Math.min(e.clientY - fr.top - d.dy, fr.height - 36));
+    el.style.left = nx + 'px'; el.style.right = 'auto'; el.style.top = ny + 'px';
+  });
+  bar.addEventListener('pointerup', () => { d = null; bar.style.cursor = 'grab'; });
+}
+
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.getElementById('hint').textContent = UI[lang].hint;
+  document.getElementById('mini-h').textContent = UI[lang].mesa;
+  document.querySelectorAll('#langtog button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true':'false'));
+  build();
+}
+document.querySelectorAll('#langtog button').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem('av_lang', lang); } catch(e){}
+  applyLang();
+}));
+applyLang();
+</script>
+</body>
+</html>

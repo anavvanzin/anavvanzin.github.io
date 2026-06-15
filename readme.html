@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anavanzin.com · readme</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{--dev:#6C63E6;--mono:'JetBrains Mono',monospace;--rline:color-mix(in srgb,var(--ink) 14%,var(--paper))}
+  html,body{margin:0}
+  body{background:var(--paper);font-family:var(--font-body)}
+  ::selection{background:var(--rubric);color:var(--paper)}
+  /* top chrome */
+  .chrome{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:12px clamp(16px,4vw,40px);border-bottom:1px solid var(--ink);background:var(--paper);flex-wrap:wrap}
+  .wm{font-family:var(--mono);font-weight:700;font-size:17px;white-space:nowrap;text-decoration:none;color:var(--ink)}
+  .wm .b{color:var(--dev)}
+  .crumb{font-family:var(--mono);font-size:13px;color:var(--text-muted)}
+  .crumb a{color:var(--ink);font-weight:500;text-decoration:none}
+  .crumb a:hover{color:var(--dev)}
+  .chrome .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:var(--paper);padding:6px 12px;white-space:nowrap;display:flex;gap:7px;align-items:center;cursor:pointer;text-decoration:none;color:var(--ink)}
+  .btn .star{color:var(--gold)}
+  .btn.primary{background:var(--dev);color:#fff;border-color:var(--dev)}
+  .btn:hover{border-color:var(--dev)}
+  .vista{display:flex;border:1px solid var(--ink);font-family:var(--mono)}
+  .vista a{font-size:11px;padding:6px 11px;text-decoration:none;color:var(--ink)}
+  .vista a.on{background:var(--ink);color:var(--paper)}
+  .vista a+a{border-left:1px solid var(--ink)}
+  .langtog{display:inline-flex;border:1px solid var(--ink);overflow:hidden;font-family:var(--mono)}
+  .langtog button{font-size:11px;letter-spacing:.06em;border:0;background:var(--paper);color:var(--text-faint);padding:6px 9px;cursor:pointer}
+  .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .langtog button:not([aria-pressed="true"]):hover{color:var(--dev)}
+  .layout{display:grid;grid-template-columns:230px 1fr;gap:0;max-width:1180px;margin:0 auto}
+  /* file tree */
+  .tree{border-right:1px solid var(--rline);padding:18px 12px;min-height:80vh}
+  .tree .th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-faint);margin:0 6px 10px}
+  .tree a{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--ink);text-decoration:none;padding:5px 8px}
+  .tree a:hover{background:color-mix(in srgb,var(--dev) 8%,var(--paper))}
+  .tree a.on{background:color-mix(in srgb,var(--dev) 12%,var(--paper));border-left:2px solid var(--dev);padding-left:6px}
+  .tree a .ic{color:var(--text-faint)}
+  .tree a.dir .ic{color:var(--gold)}
+  /* readme pane */
+  .pane{padding:0;min-width:0}
+  .filehdr{display:flex;align-items:center;gap:10px;padding:11px 22px;border-bottom:1px solid var(--rline);font-family:var(--mono);font-size:13px;color:var(--text-muted)}
+  .filehdr .dot{width:9px;height:9px;border:1.5px solid var(--gold);border-radius:50%}
+  .filehdr .meta{margin-left:auto}
+  .md{padding:30px clamp(20px,4vw,48px) 70px;max-width:760px}
+  .md h1{font-family:var(--font-display);font-weight:600;font-size:44px;line-height:1.05;margin:0;display:flex;align-items:center;gap:14px}
+  .md h1 img{width:38px;height:38px}
+  .md .badges{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 6px}
+  .badge{font-family:var(--mono);font-size:11px;display:flex;border:1px solid var(--ink)}
+  .badge span{padding:3px 8px}
+  .badge .k{background:var(--ink);color:var(--paper)}
+  .badge .v{background:var(--paper);color:var(--ink)}
+  .badge.dev .v{color:var(--dev)}
+  .md p{font-size:16px;line-height:1.62;margin:18px 0 0;color:var(--text-body)}
+  .md h2{font-family:var(--font-display);font-weight:600;font-size:25px;margin:34px 0 0;padding-bottom:8px;border-bottom:1px solid var(--rline)}
+  .md a{color:var(--dev);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dev) 40%,var(--paper))}
+  .md ul{margin:14px 0 0;padding-left:0;list-style:none}
+  .md li{font-size:15.5px;line-height:1.7;padding-left:22px;position:relative}
+  .md li::before{content:"–";position:absolute;left:4px;color:var(--dev)}
+  .code{font-family:var(--mono);font-size:13px;line-height:1.7;background:#1e1b27;color:#cfc9e6;padding:14px 16px;margin:16px 0 0;overflow:auto}
+  .code .c{color:#7d76a8}
+  .code .p{color:#9a93e6}
+  .code .s{color:#b7934c}
+  .pubrow{display:flex;gap:14px;font-family:var(--mono);font-size:13.5px;padding:10px 0;border-top:1px solid var(--rline)}
+  .pubrow .y{color:var(--text-faint);min-width:38px}
+  .pubrow i{font-style:italic;font-family:var(--font-display);font-size:16px}
+  @media(max-width:760px){.layout{grid-template-columns:1fr}.tree{display:none}.md h1{font-size:34px}.chrome .crumb{display:none}}
+</style>
+</head>
+<body>
+  <div class="chrome">
+    <a class="wm" href="index.html" title="← voltar à mesa"><span class="b">&lt;ana&gt;</span>vanzin</a>
+    <span class="crumb"><a href="index.html">anavanzin</a> / <b id="crumb-leaf">perfil</b></span>
+    <span class="right">
+      <span class="vista"><a href="perfil.html" id="v-janela">janela</a><a href="readme.html" class="on" id="v-readme">readme</a></span>
+      <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </span>
+      <a class="btn primary" id="btn-cv" href="#">Lattes ↗</a>
+    </span>
+  </div>
+  <div class="layout">
+    <aside class="tree">
+      <p class="th" id="tree-th">anavanzin / main</p>
+      <a href="readme.html" class="on"><span class="ic">≡</span> README.md</a>
+      <a href="conceitos.html" class="dir"><span class="ic">▸</span> conceitos/</a>
+      <a href="trabalhos.html" class="dir"><span class="ic">▸</span> trabalhos/</a>
+      <a href="iconocracia/" class="dir"><span class="ic">▸</span> iconocracia/</a>
+      <a href="trabalhos.html" class="dir"><span class="ic">▸</span> ius-gentium/</a>
+      <a href="quotes/"><span class="ic">{}</span> quotes/</a>
+      <a href="perfil.html"><span class="ic">#</span> <span id="tree-contato">contato.md</span></a>
+    </aside>
+    <main class="pane">
+      <div class="filehdr"><span class="dot"></span> README.md <span class="meta" id="filemeta">incunábulo · UTF-8</span></div>
+      <article class="md" id="md"></article>
+    </main>
+  </div>
+
+<script>
+let lang = 'pt';
+try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') lang = s; } catch(e){}
+
+const DATA = {
+  pt: {
+    crumb:'perfil', cv:'Lattes ↗', treeTh:'anavanzin / main', contato:'contato.md', filemeta:'incunábulo · UTF-8',
+    badges:[ ['área','direito · história · gênero'], ['doc','PPGD/UFSC'], ['lang','PT · EN · ES · IT'] ],
+    intro:'Advogada e historiadora do direito — doutoranda em Direito (PPGD/UFSC), mestra em Direito Internacional. Pesquiso as <strong>alegorias femininas do direito</strong> — Justitia, a República-como-mulher — e a condição jurídica da mulher entre a história, o gênero e a nacionalidade.',
+    h_sobre:'$ sobre',
+    code:'<span class="c"># a tese, em uma linha</span><br><span class="p">const</span> tese = <span class="s">"a primeira Justitia vendada nasceu como sátira, não como virtude"</span>;',
+    h_pub:'## publicações &amp; comunicações',
+    pubs:[
+      ['2025','<i>A venda de Justitia: sátira e virtude no Narrenschiff</i> · Revista Sequência, n. 96.'],
+      ['2024','<i>Images of the Nation in Modern Legal Iconography</i> · comunicação, Universiteit Gent &amp; UFSC.'],
+      ['2024','<i>The History of Women’s Legal Rights</i> · XIX Encontro de História do Direito, UFSC.'],
+      ['2024','<i>Law, Fascism and Neo-Fascism between Italy and Brazil</i> · XXI Encontro de História do Direito, UFSC.'],
+      ['trad.','Luigi Lacchè, <i>Monumentos do Direito Internacional</i> · Rev. Bras. de História das Ciências Sociais.'],
+    ],
+    h_diss:'## dissertação de mestrado',
+    diss:['2024','<i>“United by Marriage, Chained by Nationality”: o estatuto jurídico e a nacionalidade da mulher nas normas internacionais do início do séc. XX</i> · Mestrado em Direito Internacional, UFSC. <a href="https://repositorio.ufsc.br/handle/123456789/263834" target="_blank" rel="noopener">Repositório UFSC →</a>'],
+    h_links:'## links',
+    links:[
+      '<a href="#">Currículo Lattes →</a>',
+      'Grupos: <a href="trabalhos.html">Ius Gentium</a> (Direito Internacional) · Ius Commune (História do Direito)',
+      '<a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a>',
+    ],
+  },
+  en: {
+    crumb:'profile', cv:'Lattes CV ↗', treeTh:'anavanzin / main', contato:'contact.md', filemeta:'incunabulum · UTF-8',
+    badges:[ ['field','law · history · gender'], ['role','PhD cand. · PPGD/UFSC'], ['lang','PT · EN · ES · IT'] ],
+    intro:'Lawyer and legal historian — PhD candidate in Law (PPGD/UFSC), Master in International Law. I research the <strong>female allegories of law</strong> — Justitia, the Republic-as-woman — and the legal condition of women across history, gender and nationality.',
+    h_sobre:'$ about',
+    code:'<span class="c"># the thesis, in one line</span><br><span class="p">const</span> thesis = <span class="s">"the first blindfolded Justitia was born as satire, not as virtue"</span>;',
+    h_pub:'## publications &amp; talks',
+    pubs:[
+      ['2025','<i>Justitia’s blindfold: satire and virtue in the Narrenschiff</i> · Revista Sequência, no. 96.'],
+      ['2024','<i>Images of the Nation in Modern Legal Iconography</i> · talk, Universiteit Gent &amp; UFSC.'],
+      ['2024','<i>The History of Women’s Legal Rights</i> · 19th Meeting on Legal History, UFSC.'],
+      ['2024','<i>Law, Fascism and Neo-Fascism between Italy and Brazil</i> · 21st Meeting on Legal History, UFSC.'],
+      ['transl.','Luigi Lacchè, <i>Monuments of International Law</i> · Braz. Journal of the History of Social Sciences.'],
+    ],
+    h_diss:'## master’s dissertation',
+    diss:['2024','<i>“United by Marriage, Chained by Nationality”: the legal status and nationality of women in early-20th-century international norms</i> · Master in International Law, UFSC. <a href="https://repositorio.ufsc.br/handle/123456789/263834" target="_blank" rel="noopener">UFSC Repository →</a>'],
+    h_links:'## links',
+    links:[
+      '<a href="#">Lattes CV →</a>',
+      'Groups: <a href="trabalhos.html">Ius Gentium</a> (International Law) · Ius Commune (Legal History)',
+      '<a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a>',
+    ],
+  },
+};
+
+function render(){
+  const d = DATA[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('crumb-leaf').textContent = d.crumb;
+  document.getElementById('btn-cv').textContent = d.cv;
+  document.getElementById('tree-th').textContent = d.treeTh;
+  document.getElementById('tree-contato').textContent = d.contato;
+  document.getElementById('filemeta').textContent = d.filemeta;
+  document.querySelectorAll('#langtog button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true':'false'));
+
+  const badges = d.badges.map(([k,v]) => `<span class="badge${k==='doc'||k==='role'?' dev':''}"><span class="k">${k}</span><span class="v">${v}</span></span>`).join('');
+  const pubs = d.pubs.map(([y,h]) => `<div class="pubrow"><span class="y">${y}</span><span>${h}</span></div>`).join('');
+  const diss = `<div class="pubrow"><span class="y">${d.diss[0]}</span><span>${d.diss[1]}</span></div>`;
+  const links = d.links.map(h => `<li>${h}</li>`).join('');
+
+  document.getElementById('md').innerHTML = `
+    <h1><img src="assets/sun-seal.svg" alt=""> ana vanzin</h1>
+    <div class="badges">${badges}</div>
+    <p>${d.intro}</p>
+    <h2>${d.h_sobre}</h2>
+    <div class="code">${d.code}</div>
+    <h2>${d.h_pub}</h2>
+    ${pubs}
+    <h2>${d.h_diss}</h2>
+    ${diss}
+    <h2>${d.h_links}</h2>
+    <ul>${links}</ul>`;
+}
+document.querySelectorAll('#langtog button').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem('av_lang', lang); } catch(e){}
+  render();
+}));
+render();
+</script>
+</body>
+</html>
