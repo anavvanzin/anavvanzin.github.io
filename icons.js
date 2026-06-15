@@ -77,6 +77,35 @@ function QuoteIcon({ size = 46 }) {
   );
 }
 
+function AtlasIcon({ size = 46 }) {
+  /* ICONOCRACIA atlas — a Warburg mounting board with specimen tiles */
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" style={_crisp} aria-hidden="true">
+      <rect x="5" y="6" width="38" height="36" fill="var(--ink)" stroke="var(--ink)" strokeWidth="1.6" />
+      <rect x="9" y="10" width="12" height="11" fill="var(--paper)" />
+      <rect x="27" y="10" width="12" height="11" fill="var(--gold-2)" />
+      <rect x="9" y="27" width="12" height="11" fill="var(--paper-deep)" />
+      <rect x="27" y="27" width="12" height="11" fill="var(--paper)" />
+      <rect x="27" y="10" width="12" height="11" fill="none" stroke="var(--rubric)" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+function WorksIcon({ size = 46 }) {
+  /* Trabalhos — a dossier of stacked sheets with a rubric clip */
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" style={_crisp} aria-hidden="true">
+      <rect x="9" y="10" width="26" height="31" fill="var(--paper-deep)" stroke="var(--ink)" strokeWidth="1.4" />
+      <rect x="13" y="7" width="26" height="31" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1.6" />
+      <rect x="22" y="4" width="8" height="5" fill="var(--rubric)" stroke="var(--ink)" strokeWidth="1.2" />
+      <line x1="18" y1="17" x2="34" y2="17" stroke="var(--ink-50)" strokeWidth="1.4" />
+      <line x1="18" y1="22" x2="34" y2="22" stroke="var(--ink-50)" strokeWidth="1.4" />
+      <line x1="18" y1="27" x2="30" y2="27" stroke="var(--ink-50)" strokeWidth="1.4" />
+      <line x1="18" y1="32" x2="34" y2="32" stroke="var(--gold)" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
 function CloseBox({ active }) {
   return (
     <span aria-hidden="true" style={{ width: 13, height: 13, border: '1.5px solid var(--ink)',
@@ -85,4 +114,4 @@ function CloseBox({ active }) {
   );
 }
 
-Object.assign(window, { FolderIcon, DocIcon, MailIcon, GroupIcon, ImageIcon, SealIcon, QuoteIcon, CloseBox });
+Object.assign(window.avapp = window.avapp || {}, { FolderIcon, DocIcon, MailIcon, GroupIcon, ImageIcon, SealIcon, QuoteIcon, AtlasIcon, WorksIcon, CloseBox });

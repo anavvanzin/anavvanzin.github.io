@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anavanzin.com · trabalhos</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--rubric); color: var(--paper); }
+  a { color: inherit; }
+
+  /* ---- top bar ---- */
+  .bar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 12px;
+    height: 54px; padding: 0 18px; background: var(--paper); border-bottom: 1px solid var(--ink); }
+  .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); }
+  .brand img { width: 22px; height: 22px; display: block; }
+  .brand b { font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: .01em; white-space: nowrap; }
+  .brand .div { width: 1px; height: 15px; background: var(--rule-hairline); }
+  .brand .lbl { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .2em; font-size: 10.5px; color: var(--rubric); }
+  .brand:hover .lbl { color: var(--accent-hover); }
+  .spacer { flex: 1; }
+  .langtog { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; }
+  .langtog button { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .12em;
+    border: 0; background: var(--paper); color: var(--text-faint); padding: 3px 10px; cursor: pointer; line-height: 1.6; }
+  .langtog button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .langtog button:not([aria-pressed="true"]):hover { color: var(--rubric); }
+
+  /* ---- page column ---- */
+  .wrap { max-width: 780px; margin: 0 auto; padding: 54px 24px 96px; }
+  .eyebrow { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .24em; font-size: 11px; color: var(--rubric); margin: 0; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.4rem, 6vw, 3.4rem);
+    line-height: 1.04; margin: 12px 0 0; letter-spacing: .005em; }
+  .intro { font-size: 1.0625rem; line-height: 1.6; color: var(--text-muted); margin: 16px 0 0; max-width: 56ch; }
+
+  /* ---- section ---- */
+  section.grp { margin-top: 54px; }
+  .grp > .head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--ink); }
+  .grp > .head .ix { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--text-faint); }
+  .grp > .head h2 { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .18em; font-size: 13px; margin: 0; color: var(--ink); }
+
+  /* ---- entry ---- */
+  .entry { display: grid; grid-template-columns: 96px 1fr; gap: 22px; padding: 22px 0;
+    border-bottom: 1px solid var(--rule-hairline); }
+  .entry .when { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--text-faint);
+    letter-spacing: .02em; padding-top: 3px; }
+  .entry .tt { font-family: var(--font-display); font-weight: 600; font-size: 1.55rem; line-height: 1.12; margin: 0; }
+  .entry .meta { font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .14em; font-size: 10.5px; color: var(--text-faint); margin: 7px 0 0; }
+  .entry .desc { font-size: 14.5px; line-height: 1.55; color: var(--text-muted); margin: 9px 0 0; max-width: 54ch; text-wrap: pretty; }
+  .links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+  .lk { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; cursor: pointer;
+    white-space: nowrap;
+    font-family: var(--font-body); font-size: 13px; color: var(--ink);
+    border: 1px solid var(--ink); border-radius: 999px; padding: 5px 13px; background: var(--paper); }
+  .lk:hover { color: var(--rubric); border-color: var(--rubric); }
+  .lk.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .lk.primary:hover { background: var(--rubric); border-color: var(--rubric); color: var(--paper); }
+  .lk .ar { font-size: 12px; }
+
+  /* reserved slot */
+  .reserved { display: grid; grid-template-columns: 96px 1fr; gap: 22px; padding: 22px 0; }
+  .reserved .when { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--ink-30); padding-top: 3px; }
+  .reserved .box { border: 1px dashed var(--ink-30); border-radius: 4px; padding: 16px 18px;
+    color: var(--text-faint); font-size: 13.5px; line-height: 1.5; }
+  .reserved .box b { font-family: var(--font-display); font-weight: 600; color: var(--text-muted); }
+
+  footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    font-size: 12px; letter-spacing: .04em; color: var(--text-faint); }
+  footer a { color: var(--rubric); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .entry, .reserved { grid-template-columns: 1fr; gap: 4px; }
+    .entry .when, .reserved .when { padding-top: 0; }
+    .brand b { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="index.html" title="← voltar à mesa">
+    <img src="assets/sun-seal.svg" alt="">
+    <b>ana vanzin</b>
+    <span class="div"></span>
+    <span class="lbl" id="brand-lbl">trabalhos</span>
+  </a>
+  <span class="spacer"></span>
+  <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </span>
+</header>
+
+<main class="wrap">
+  <p class="eyebrow" id="kicker">anavanzin.com · trabalhos</p>
+  <h1 id="title">Trabalhos &amp; Seminários</h1>
+  <p class="intro" id="intro"></p>
+  <div id="sections"></div>
+  <footer>
+    <span id="foot-l">PPGD/UFSC · Grupo Ius Gentium · Florianópolis</span>
+    <a href="index.html" id="foot-back">← voltar à mesa</a>
+  </footer>
+</main>
+
+<script>
+/* ---------- i18n + dados ---------- */
+let lang = 'pt';
+try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') lang = s; } catch (e) {}
+const L = (o) => (o && typeof o === 'object') ? (o[lang] ?? o.pt) : o;
+
+const UI = {
+  pt: { lbl:'trabalhos', kicker:'anavanzin.com · trabalhos', title:'Trabalhos & Seminários',
+    intro:'Seminários, grupo de pesquisa e materiais acadêmicos — cada peça leva ao seu próprio espaço.',
+    foot:'PPGD/UFSC · Grupo Ius Gentium · Florianópolis', back:'← voltar à mesa',
+    soon:'em breve', reserved:'Novos trabalhos e seminários entram aqui.' },
+  en: { lbl:'works', kicker:'anavanzin.com · works', title:'Works & Seminars',
+    intro:'Seminars, research group and academic materials — each piece opens its own space.',
+    foot:'PPGD/UFSC · Ius Gentium Group · Florianópolis', back:'← back to desktop',
+    soon:'soon', reserved:'New works and seminars will appear here.' },
+};
+
+const SECTIONS = [
+  { ix:'I', head:{ pt:'Seminários', en:'Seminars' }, items:[
+    { when:'2026', title:'Do Poder-Dever ao Dever-Poder',
+      meta:{ pt:'Seminário 8 · Ana Vanzin & Vinícius Oliveira · PPGD/UFSC', en:'Seminar 8 · Ana Vanzin & Vinícius Oliveira · PPGD/UFSC' },
+      desc:{ pt:'Administração Pública orientada por dados, governo aberto, LGPD e decisão algorítmica: o Estado como regulador ⇄ regulado — de quem edita a regra a quem mais a descumpre.',
+              en:'Data-driven public administration, open government, data-protection law and algorithmic decision-making: the State as regulator ⇄ regulated.' },
+      links:[
+        { label:{ pt:'Abrir o seminário', en:'Open the seminar' }, href:'seminario8-dever-poder/', primary:true },
+        { label:{ pt:'Guia de estudo (colegas)', en:'Study guide (peers)' }, href:'seminario8-dever-poder/colegas.html' },
+      ] },
+  ] },
+  { ix:'II', head:{ pt:'Grupo de pesquisa', en:'Research group' }, items:[
+    { when:'Ius', title:'Ius Gentium',
+      meta:{ pt:'História da cultura jurídica · PPGD/UFSC', en:'Legal-culture history · PPGD/UFSC' },
+      desc:{ pt:'Grupo de pesquisa em iconografia e iconologia do direito; encontros quinzenais, abertos à graduação e à pós-graduação.',
+              en:'Research group on the iconography and iconology of law; fortnightly meetings, open to undergraduate and graduate students.' },
+      links:[ { label:{ pt:'Site do grupo', en:'Group site' }, href:'grupoiusgentium.com.br/', primary:true } ] },
+    { when:'⌘', title:{ pt:'Biblioteca digital', en:'Digital library' },
+      meta:{ pt:'Ius Gentium · acervo', en:'Ius Gentium · collection' },
+      desc:{ pt:'Acervo digital do grupo: referências e fontes da pesquisa em cultura jurídica e iconografia.',
+              en:'The group’s digital collection: references and sources for research in legal culture and iconography.' },
+      links:[ { label:{ pt:'Abrir a biblioteca', en:'Open the library' }, href:'grupoiusgentium.com.br/biblioteca.html', primary:true } ] },
+  ] },
+];
+
+/* ---------- render ---------- */
+function linkChip(lk) {
+  return `<a class="lk ${lk.primary ? 'primary' : ''}" href="${lk.href}" target="_blank" rel="noopener">${L(lk.label)} <span class="ar">↗</span></a>`;
+}
+function entryHtml(e) {
+  return `<div class="entry">
+    <div class="when">${e.when}</div>
+    <div>
+      <h3 class="tt">${L(e.title)}</h3>
+      <p class="meta">${L(e.meta)}</p>
+      <p class="desc">${L(e.desc)}</p>
+      <div class="links">${e.links.map(linkChip).join('')}</div>
+    </div>
+  </div>`;
+}
+function sectionHtml(s) {
+  return `<section class="grp">
+    <div class="head"><span class="ix">${s.ix}</span><h2>${L(s.head)}</h2></div>
+    ${s.items.map(entryHtml).join('')}
+  </section>`;
+}
+function reservedHtml() {
+  const u = UI[lang];
+  return `<section class="grp"><div class="reserved">
+    <div class="when">${u.soon}</div>
+    <div class="box"><b>${u.soon.toUpperCase()}</b> — ${u.reserved}</div>
+  </div></section>`;
+}
+
+function render() {
+  const u = UI[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('brand-lbl').textContent = u.lbl;
+  document.getElementById('kicker').textContent = u.kicker;
+  document.getElementById('title').textContent = u.title;
+  document.getElementById('intro').textContent = u.intro;
+  document.getElementById('foot-l').textContent = u.foot;
+  document.getElementById('foot-back').textContent = u.back;
+  document.querySelectorAll('#langtog button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'));
+  document.getElementById('sections').innerHTML = SECTIONS.map(sectionHtml).join('') + reservedHtml();
+}
+
+document.querySelectorAll('#langtog button').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem('av_lang', lang); } catch (e) {}
+  render();
+}));
+render();
+</script>
+</body>
+</html>
