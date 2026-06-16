@@ -3,8 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>anavanzin.com · perfil</title>
+<title>Perfil · ana vanzin</title>
 <link rel="icon" href="assets/sun-seal.svg">
+<meta name="description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ana vanzin">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://anavanzin.com/perfil.html">
+<meta property="og:title" content="Perfil · ana vanzin">
+<meta property="og:description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta property="og:image" content="https://anavanzin.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Perfil · ana vanzin">
+<meta name="twitter:description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta name="twitter:image" content="https://anavanzin.com/assets/og-image.png">
+<meta name="theme-color" content="#F2EAD9">
 <link rel="stylesheet" href="styles.css">
 <style>
   html,body{height:100%;margin:0}
@@ -27,28 +42,54 @@
   .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
   .langtog button:not([aria-pressed="true"]):hover{color:var(--rubric)}
   .field{position:absolute;inset:42px 0 0 0;overflow:hidden}
-  .win{position:absolute;background:var(--paper);border:1px solid var(--ink);box-shadow:5px 5px 0 0 var(--ink)}
-  .bar{display:flex;align-items:center;gap:8px;height:28px;padding:0 9px;border-bottom:1px solid var(--ink);cursor:grab;touch-action:none;user-select:none}
+
+  /* hero card */
+  .card{position:absolute;left:calc(50% - 415px);top:84px;width:830px;background:var(--paper);border:1px solid var(--ink);box-shadow:7px 7px 0 0 var(--ink)}
+  .bar{display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-bottom:1px solid var(--ink);cursor:grab;touch-action:none;user-select:none}
   .box{width:13px;height:13px;border:1.5px solid var(--ink);box-sizing:border-box}
   .stripe{flex:1;height:9px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 3px);opacity:.9}
-  .bar .t{font-family:var(--font-display);font-weight:600;font-size:13.5px;white-space:nowrap}
-  .wb{padding:16px 18px}
-  .eyebrow{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--rubric);margin:0 0 9px}
-  .wt{font-family:var(--font-display);font-weight:600;line-height:1.08;margin:0}
-  .wp{font-size:13.5px;line-height:1.55;color:var(--text-muted);margin:9px 0 0}
-  .pub{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--rule-hairline);font-size:13px}
-  .pub .y{font-family:var(--font-display);font-weight:500;color:var(--text-faint);min-width:34px}
-  .pub i{font-style:italic}
-  .imgwin .plate{background:var(--ink);padding:8px;display:flex;justify-content:center}
-  .imgwin .plate img{height:230px;image-rendering:pixelated;border:1px solid var(--gold-2)}
-  .imgwin .cap{font-size:11px;color:var(--text-faint);padding:7px 10px;display:flex;justify-content:space-between}
-  a{color:var(--rubric)}
-  .mini{position:absolute;right:18px;bottom:18px;width:150px;height:104px;background:var(--paper);border:1px solid var(--ink);box-shadow:3px 3px 0 0 var(--ink);z-index:50}
-  .mini .mh{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.16em;font-size:9px;color:var(--text-faint);padding:4px 7px;border-bottom:1px solid var(--rule-hairline)}
-  .mini .mb{position:relative;height:74px}
-  .mini .mb span{position:absolute;border:1px solid var(--ink);background:var(--ink-15)}
-  .mini .vp{position:absolute;border:1.5px solid var(--rubric)!important;background:transparent!important}
-  @media(max-width:760px){.mini{display:none}.menu .hint{display:none}}
+  .bar .t{font-family:var(--font-display);font-weight:600;font-size:14px;white-space:nowrap}
+  .cardbody{display:flex}
+  .plate{background:var(--ink);padding:16px;border-right:1px solid var(--ink);display:flex;align-items:center;flex:none}
+  .plate img{display:block;height:248px;width:auto;image-rendering:pixelated;border:1px solid var(--gold-2)}
+  .meat{flex:1;padding:24px 28px}
+  .eyebrow{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--rubric);margin:0 0 10px}
+  .nm{font-family:var(--font-display);font-weight:600;line-height:1.02;margin:0;font-size:42px;color:var(--ink)}
+  .intro{font-size:14.5px;line-height:1.55;color:var(--text-muted);margin:12px 0 4px;max-width:42ch}
+  #lines{margin-top:14px;border-top:1px solid var(--rule-hairline);padding-top:4px}
+  .rl{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:14.5px;line-height:1.45;color:var(--text-body)}
+  .rl .b{color:var(--rubric);font-weight:600;line-height:1.45}
+  .more{display:inline-block;margin-top:14px;font-family:var(--font-display);font-weight:600;font-size:13.5px;color:var(--rubric);text-decoration:none}
+  .more:hover{text-decoration:underline}
+
+  /* dock */
+  .dock{position:absolute;left:50%;transform:translateX(-50%);bottom:30px;display:flex;gap:16px;align-items:flex-end;background:var(--paper);border:1px solid var(--ink);box-shadow:5px 5px 0 0 var(--ink);padding:13px 20px;z-index:40}
+  .di{display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none}
+  .ico{position:relative;width:44px;height:44px;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--ink);background:var(--paper);transition:transform .12s ease,background .12s ease,color .12s ease}
+  .ico.ig{border-radius:10px}
+  .ico.ig i{position:absolute;width:15px;height:15px;border:1.6px solid currentColor;border-radius:50%}
+  .ico.ig em{position:absolute;top:7px;right:7px;width:3.4px;height:3.4px;background:currentColor;border-radius:50%}
+  .di .lb{font-size:11.5px;color:var(--text-faint);font-family:var(--font-body);white-space:nowrap}
+  .di:hover .ico{background:var(--ink);color:var(--paper);transform:translateY(-4px)}
+  .di:hover .lb{color:var(--ink)}
+  .dsep{width:1px;align-self:stretch;background:var(--rule-hairline);margin:2px 4px}
+
+  @media(max-width:820px){
+    body{overflow:auto}
+    .field{position:static;padding:22px 16px 30px;overflow:visible}
+    .card{position:static;left:auto;top:auto;width:auto;max-width:560px;margin:18px auto 26px}
+    .cardbody{flex-direction:column}
+    .plate{border-right:0;border-bottom:1px solid var(--ink);justify-content:center}
+    .plate img{height:200px}
+    .dock{position:static;transform:none;margin:0 auto;width:max-content;max-width:100%;flex-wrap:wrap;justify-content:center}
+    .menu .hint{display:none}
+  }
+</style>
+<style>
+  .avnav{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+  .avnav a{font-family:var(--font-body);font-size:13px;color:var(--ink);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:1.5px solid transparent;letter-spacing:.01em}
+  .avnav a:hover{color:var(--rubric)}
+  .avnav a.cur{color:var(--rubric);border-bottom-color:var(--rubric)}
 </style>
 </head>
 <body>
@@ -56,24 +97,42 @@
   <div class="menu">
     <a class="brand" href="index.html" title="← voltar à mesa"><img src="assets/sun-seal.svg" alt=""> ana vanzin</a>
     <span class="right">
-      <span class="hint" id="hint">arraste as janelas</span>
-      <span class="vista"><a href="perfil.html" class="on">janela</a><a href="readme.html">readme</a></span>
+      <span class="hint" id="hint">arraste o cartão</span>
+      <nav class="avnav" id="avnav" aria-label="Navegação do site">
+    <a data-page="conceitos.html" data-pt="conceitos" data-en="concepts" href="conceitos.html">conceitos</a>
+    <a data-page="trabalhos.html" data-pt="trabalhos" data-en="works" href="trabalhos.html">trabalhos</a>
+    <a data-page="readme.html|perfil.html" data-pt="perfil" data-en="profile" href="readme.html">perfil</a>
+    <a data-pt="contato" data-en="contact" href="mailto:anavvanzin@outlook.com">contato</a>
+  </nav>
+  <span class="vista"><a href="perfil.html" class="on">janela</a><a href="readme.html">readme</a></span>
       <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true">PT</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </span>
     </span>
   </div>
-  <div class="field" id="field"></div>
-  <div class="mini">
-    <div class="mh" id="mini-h">mesa</div>
-    <div class="mb">
-      <span style="top:6px;left:10px;width:46px;height:30px"></span>
-      <span style="top:34px;left:24px;width:48px;height:24px"></span>
-      <span style="top:10px;right:26px;width:26px;height:40px"></span>
-      <span style="top:42px;right:36px;width:34px;height:18px"></span>
-      <span class="vp" style="top:2px;left:4px;width:96px;height:64px"></span>
-    </div>
+  <div class="field" id="field">
+    <article class="card" id="card">
+      <div class="bar" id="bar"><span class="box"></span><span class="stripe"></span><span class="t" id="cardtitle">perfil</span><span class="stripe"></span><span class="box"></span></div>
+      <div class="cardbody">
+        <div class="plate"><img src="assets/pixel-justitia.png" alt="Justitia, pixel art"></div>
+        <div class="meat">
+          <p class="eyebrow" id="eyebrow">Iconocracia</p>
+          <h1 class="nm">ana vanzin</h1>
+          <p class="intro" id="intro"></p>
+          <div id="lines"></div>
+          <a class="more" id="more" href="readme.html"></a>
+        </div>
+      </div>
+    </article>
+
+    <nav class="dock" id="dock" aria-label="perfis">
+      <a class="di" href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener"><span class="ico">L</span><span class="lb">Lattes</span></a>
+      <a class="di" href="https://instagram.com/anavanzin" target="_blank" rel="noopener"><span class="ico ig"><i></i><em></em></span><span class="lb">Instagram</span></a>
+      <a class="di" href="http://hookahr.tumblr.com/" target="_blank" rel="noopener"><span class="ico">t</span><span class="lb">Tumblr</span></a>
+      <span class="dsep"></span>
+      <a class="di" href="mailto:anavvanzin@outlook.com"><span class="ico">@</span><span class="lb" id="lb-mail">E-mail</span></a>
+    </nav>
   </div>
 </div>
 
@@ -81,98 +140,73 @@
 let lang = 'pt';
 try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') lang = s; } catch(e){}
 
-const UI = { pt:{ hint:'arraste as janelas', mesa:'mesa' }, en:{ hint:'drag the windows', mesa:'desktop' } };
-
-const WINS = [
-  { id:'tese', x:'60px', y:'34px', w:300, rot:-1,
-    title:{pt:'tese',en:'thesis'}, eyebrow:'Iconocracia',
-    wt:{pt:'A venda como sátira',en:'The blindfold as satire'},
-    body:{pt:'<p class="wp">Em 1494, um bobo cobre os olhos da Justiça — a primeira venda nasce como crítica, não como virtude.</p><p class="wp"><a href="conceitos.html">Ver os conceitos →</a></p>',
-          en:'<p class="wp">In 1494, a fool covers Justice’s eyes — the first blindfold is born as critique, not as virtue.</p><p class="wp"><a href="conceitos.html">See the concepts →</a></p>'} },
-  { id:'perfis', x:'140px', y:'250px', w:340, rot:0.8,
-    title:{pt:'perfis',en:'profiles'}, eyebrow:{pt:'Publicações',en:'Publications'},
-    wt:null,
-    body:{pt:'<div class="pub"><span class="y">2025</span><span><i>A venda de Justitia: sátira e virtude no Narrenschiff</i><br>Revista Sequência, n. 96.</span></div><div class="pub"><span class="y">2024</span><span><i>A República como mulher</i><br>Direito e Práxis, v. 15.</span></div><div class="pub"><span class="y">·</span><span><a href="readme.html">Ver o perfil completo →</a></span></div>',
-          en:'<div class="pub"><span class="y">2025</span><span><i>Justitia’s blindfold: satire and virtue in the Narrenschiff</i><br>Revista Sequência, no. 96.</span></div><div class="pub"><span class="y">2024</span><span><i>The Republic as a woman</i><br>Direito e Práxis, v. 15.</span></div><div class="pub"><span class="y">·</span><span><a href="readme.html">See the full profile →</a></span></div>'} },
-  { id:'justitia', x:null, rx:'230px', y:'70px', w:210, rot:1.2, img:true,
-    title:'justitia.png', cap:'16-bit' },
-  { id:'contato', x:null, rx:'300px', y:'330px', w:250, rot:-0.6,
-    title:{pt:'contato',en:'contact'}, eyebrow:{pt:'Contato',en:'Contact'},
-    wt:null,
-    body:{pt:'<p class="wp" style="font-size:15px;color:var(--text-body)"><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></p><p class="wp">PPGD/UFSC · resposta em até cinco dias úteis.</p>',
-          en:'<p class="wp" style="font-size:15px;color:var(--text-body)"><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></p><p class="wp">PPGD/UFSC · reply within five business days.</p>'} },
-];
-
-const field = document.getElementById('field');
-const L = (v) => (v && typeof v === 'object') ? (v[lang] ?? v.pt) : v;
-let zTop = 10;
-
-function winHtml(w){
-  const title = L(w.title);
-  const barL = `<span class="box"></span><span class="stripe"></span><span class="t">${title}</span><span class="stripe"></span><span class="box"></span>`;
-  if (w.img){
-    return `<div class="bar">${barL}</div>
-      <div class="plate"><img src="assets/pixel-justitia.png" alt="Justitia, pixel art"></div>
-      <div class="cap"><span>justitia.png</span><span>${w.cap}</span></div>`;
+const T = {
+  pt:{
+    hint:'arraste o cartão', cardtitle:'perfil', eyebrow:'Iconocracia', mail:'E-mail',
+    intro:'Advogada e historiadora do direito. Doutoranda e mestra em Direito (PPGD/UFSC), na linha Direito dos Grupos Vulneráveis.',
+    lines:['Alegorias femininas do direito','Feminilidade de Estado — a nação como mulher','Condição jurídica da mulher — nacionalidade e cidadania'],
+    more:'Ver o perfil completo →'
+  },
+  en:{
+    hint:'drag the card', cardtitle:'profile', eyebrow:'Iconocracy', mail:'Email',
+    intro:'Lawyer and legal historian. PhD candidate and Master in Law (PPGD/UFSC), Vulnerable Groups research line.',
+    lines:['Female allegories of law','State Femininity — the nation as a woman','Women’s legal condition — nationality and citizenship'],
+    more:'See the full profile →'
   }
-  const eb = w.eyebrow ? `<p class="eyebrow">${L(w.eyebrow)}</p>` : '';
-  const wt = w.wt ? `<h2 class="wt" style="font-size:26px">${L(w.wt)}</h2>` : '';
-  return `<div class="bar">${barL}</div><div class="wb">${eb}${wt}${L(w.body)}</div>`;
-}
+};
 
-function build(){
-  field.innerHTML = '';
-  WINS.forEach(w => {
-    const el = document.createElement('div');
-    el.className = 'win' + (w.img ? ' imgwin' : '');
-    el.style.width = w.w + 'px';
-    el.style.top = w.y;
-    if (w.x) el.style.left = w.x; else el.style.right = w.rx;
-    el.style.transform = `rotate(${w.rot}deg)`;
-    el.style.zIndex = ++zTop;
-    el.innerHTML = winHtml(w);
-    field.appendChild(el);
-    dragify(el, w);
-  });
-}
-
-function dragify(el, w){
-  const bar = el.querySelector('.bar');
-  let d = null;
-  const focus = () => { el.style.zIndex = ++zTop; };
-  el.addEventListener('pointerdown', focus);
-  bar.addEventListener('pointerdown', (e) => {
-    focus();
-    const fr = field.getBoundingClientRect();
-    const r = el.getBoundingClientRect();
-    d = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr };
-    el.style.transform = 'rotate(0deg)';   /* straighten while dragging */
-    bar.setPointerCapture(e.pointerId);
-    bar.style.cursor = 'grabbing';
-  });
-  bar.addEventListener('pointermove', (e) => {
-    if (!d) return; const { fr } = d;
-    let nx = Math.max(0, Math.min(e.clientX - fr.left - d.dx, fr.width - 70));
-    let ny = Math.max(0, Math.min(e.clientY - fr.top - d.dy, fr.height - 36));
-    el.style.left = nx + 'px'; el.style.right = 'auto'; el.style.top = ny + 'px';
-  });
-  bar.addEventListener('pointerup', () => { d = null; bar.style.cursor = 'grab'; });
-}
-
-function applyLang(){
+function render(){
+  const d = T[lang];
   document.documentElement.lang = lang;
-  document.getElementById('hint').textContent = UI[lang].hint;
-  document.getElementById('mini-h').textContent = UI[lang].mesa;
+  document.getElementById('hint').textContent = d.hint;
+  document.getElementById('cardtitle').textContent = d.cardtitle;
+  document.getElementById('eyebrow').textContent = d.eyebrow;
+  document.getElementById('intro').textContent = d.intro;
+  document.getElementById('more').textContent = d.more;
+  document.getElementById('lb-mail').textContent = d.mail;
+  document.getElementById('lines').innerHTML = d.lines.map(t => `<div class="rl"><span class="b">·</span><span>${t}</span></div>`).join('');
   document.querySelectorAll('#langtog button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true':'false'));
-  build();
 }
 document.querySelectorAll('#langtog button').forEach(b => b.addEventListener('click', () => {
   if (b.dataset.lang === lang) return;
   lang = b.dataset.lang;
   try { localStorage.setItem('av_lang', lang); } catch(e){}
-  applyLang();
+  render();
 }));
-applyLang();
+render();
+
+/* drag the hero card (desktop only) */
+const field = document.getElementById('field');
+const card = document.getElementById('card');
+const bar = document.getElementById('bar');
+let d = null;
+bar.addEventListener('pointerdown', (e) => {
+  if (window.matchMedia('(max-width:820px)').matches) return;
+  const fr = field.getBoundingClientRect();
+  const r = card.getBoundingClientRect();
+  d = { dx: e.clientX - r.left, dy: e.clientY - r.top, fr };
+  bar.setPointerCapture(e.pointerId);
+  bar.style.cursor = 'grabbing';
+});
+bar.addEventListener('pointermove', (e) => {
+  if (!d) return; const { fr } = d;
+  let nx = Math.max(0, Math.min(e.clientX - fr.left - d.dx, fr.width - 90));
+  let ny = Math.max(0, Math.min(e.clientY - fr.top - d.dy, fr.height - 40));
+  card.style.left = nx + 'px'; card.style.top = ny + 'px';
+});
+bar.addEventListener('pointerup', () => { d = null; bar.style.cursor = 'grab'; });
+</script>
+<script>
+(function(){
+  var nav=document.getElementById('avnav'); if(!nav) return;
+  var path=(location.pathname.split('/').pop()||'index.html');
+  function lang(){try{return localStorage.getItem('av_lang')==='en'?'en':'pt';}catch(e){return 'pt';}}
+  function paint(){var l=lang();nav.querySelectorAll('a[data-pt]').forEach(function(a){a.textContent=a.getAttribute('data-'+l);});}
+  nav.querySelectorAll('a[data-page]').forEach(function(a){if(a.getAttribute('data-page').split('|').indexOf(path)>=0)a.classList.add('cur');});
+  paint();
+  document.addEventListener('click',function(e){var b=e.target.closest('.langtog button, #langtog button');if(b)setTimeout(paint,40);});
+  setInterval(paint,800);
+})();
 </script>
 </body>
 </html>
