@@ -1,19 +1,41 @@
-# anavanzin.com — pacote (+ perfil README & janela)
+# anavanzin.com — pacote COMPLETO (subir tudo de uma vez)
 
-Novidades:
-- **readme.html** — perfil/CV em estilo repositório (vista "readme").
-- **perfil.html** — o mesmo perfil em janelas flutuantes (vista "janela", mesa espacial).
-- As duas têm um seletor **janela | readme** que alterna entre elas, PT/EN e voltam à mesa.
-- O ícone **sobre / about** da mesa agora abre **readme.html**.
+Como você ainda não aplicou as mudanças do dia, **ignore os cartões soltos
+anteriores** e use só este pacote: ele tem o site inteiro e atual.
 
-## Subir no repo anavvanzin.github.io (Upload files → arraste tudo, sobrescreve)
-index.html · conceitos.html · trabalhos.html · readme.html · perfil.html
-styles.css · _ds_bundle.js · icons.js · desktop-app.js · window-contents.js
-assets/ · .nojekyll · CNAME
+## Como publicar (repo anavvanzin.github.io)
+1. Abra o repositório no GitHub → **Add file → Upload files**.
+2. Arraste **todo o conteúdo desta pasta** (incl. as subpastas `assets/` e
+   `slides/`, e os arquivos ocultos `.nojekyll` e `CNAME`), substituindo o que
+   existir.
+3. **Commit changes**. Em ~1 min, `anavanzin.com` mostra a versão nova.
 
-APAGUE, se ainda existirem, os antigos **Desktop.js** e **WindowContents.js**.
-NÃO apague quotes/, seminario8-dever-poder/, grupoiusgentium.com.br/.
-Commit → ~1 min → anavanzin.com atualiza.
+> NÃO apague as pastas que já estão no repo e não vêm aqui: `quotes/`,
+> `seminario8-dever-poder/`, `grupoiusgentium.com.br/`. O upload só adiciona/
+> substitui — elas permanecem.
+> Se aparecerem `Desktop.js` ou `WindowContents.js` antigos no repo, **apague-os**
+> (foram renomeados para `desktop-app.js` / `window-contents.js`).
 
-.nojekyll é essencial (sem ele o GitHub ignora _ds_bundle.js).
-readme.html usa JetBrains Mono (Google Fonts) — precisa de internet para a fonte exata.
+## O que tem no pacote
+Páginas: index · conceitos · trabalhos · perfil · readme · 404
+Scripts da mesa (pré-compilados, sem Babel): icons.js · desktop-app.js · window-contents.js
+Estilo + componentes: styles.css · _ds_bundle.js
+assets/ : pixel-justitia, sun-seal, **banner.png** (tese), **avo.png** (foto com a avó), **og-image.png** (preview social)
+slides/ : os 5 .pptx/.pdf das apresentações
+.nojekyll (essencial — sem ele o GitHub ignora _ds_bundle.js) · CNAME (anavanzin.com)
+
+## Resumo do que mudou hoje
+- Mesa **mobile** própria; **sem Babel** em produção (mais rápido).
+- **Open Graph** + favicon + página **404**.
+- **Menu** consistente (conceitos · trabalhos · perfil · contato).
+- **Perfil** com CV real do Lattes; **banner** do doutorado na janela “tese”;
+  **vó.jpg** (foto com a avó) na mesa.
+- **Conceitos** repensada (índice + leitura, sem arrasto).
+- **Comunicações** unificadas na página Trabalhos.
+
+## Editar a mesa depois
+A fonte editável fica em `ui_kits/desktop/` (JSX). Se mexer no JSX, é preciso
+**recompilar** para gerar os .js — me peça que eu regenero o pacote.
+
+As fontes (Cormorant Garamond + Hanken Grotesk) vêm do Google Fonts — o site
+precisa de internet para a tipografia exata.

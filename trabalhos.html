@@ -3,8 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>anavanzin.com · trabalhos</title>
+<title>Trabalhos & Seminários · ana vanzin</title>
 <link rel="icon" href="assets/sun-seal.svg">
+<meta name="description" content="Apresentações, seminários e o grupo de pesquisa Ius Gentium — bruxaria, contrato social, nacionalidade feminina e mais.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ana vanzin">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://anavanzin.com/trabalhos.html">
+<meta property="og:title" content="Trabalhos & Seminários · ana vanzin">
+<meta property="og:description" content="Apresentações, seminários e o grupo de pesquisa Ius Gentium — bruxaria, contrato social, nacionalidade feminina e mais.">
+<meta property="og:image" content="https://anavanzin.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trabalhos & Seminários · ana vanzin">
+<meta name="twitter:description" content="Apresentações, seminários e o grupo de pesquisa Ius Gentium — bruxaria, contrato social, nacionalidade feminina e mais.">
+<meta name="twitter:image" content="https://anavanzin.com/assets/og-image.png">
+<meta name="theme-color" content="#F2EAD9">
 <link rel="stylesheet" href="styles.css">
 <style>
   html, body { height: 100%; margin: 0; }
@@ -84,6 +99,12 @@
     .brand b { font-size: 15px; }
   }
 </style>
+<style>
+  .avnav{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+  .avnav a{font-family:var(--font-body);font-size:13px;color:var(--ink);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:1.5px solid transparent;letter-spacing:.01em}
+  .avnav a:hover{color:var(--rubric)}
+  .avnav a.cur{color:var(--rubric);border-bottom-color:var(--rubric)}
+</style>
 </head>
 <body>
 <header class="bar">
@@ -94,6 +115,12 @@
     <span class="lbl" id="brand-lbl">trabalhos</span>
   </a>
   <span class="spacer"></span>
+  <nav class="avnav" id="avnav" aria-label="Navegação do site">
+    <a data-page="conceitos.html" data-pt="conceitos" data-en="concepts" href="conceitos.html">conceitos</a>
+    <a data-page="trabalhos.html" data-pt="trabalhos" data-en="works" href="trabalhos.html">trabalhos</a>
+    <a data-page="readme.html|perfil.html" data-pt="perfil" data-en="profile" href="readme.html">perfil</a>
+    <a data-pt="contato" data-en="contact" href="mailto:anavvanzin@outlook.com">contato</a>
+  </nav>
   <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
     <button type="button" data-lang="pt" aria-pressed="true">PT</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -139,7 +166,71 @@ const SECTIONS = [
         { label:{ pt:'Guia de estudo (colegas)', en:'Study guide (peers)' }, href:'seminario8-dever-poder/colegas.html' },
       ] },
   ] },
-  { ix:'II', head:{ pt:'Grupo de pesquisa', en:'Research group' }, items:[
+  { ix:'II', head:{ pt:'Apresentações & comunicações', en:'Presentations & talks' }, items:[
+    { when:'2026', title:'Como se inventa uma bruxa',
+      meta:{ pt:'O Malleus Maleficarum e a construção jurídico-penal da bruxaria · 2026', en:'The Malleus Maleficarum and the juridical-penal construction of witchcraft · 2026' },
+      desc:{ pt:'Como o tratado inquisitorial de 1487 codificou a bruxaria como crime e fixou a mulher como sua figura-alvo — a fabricação jurídica de um sujeito perseguível.',
+              en:'How the 1487 inquisitorial treatise codified witchcraft as a crime and fixed woman as its target figure — the legal fabrication of a persecutable subject.' },
+      links:[
+        { label:{ pt:'Ver a apresentação', en:'View the presentation' }, href:'https://canva.link/comoseinventaumabruxa', primary:true },
+        { label:{ pt:'Baixar slides', en:'Download slides' }, href:'slides/malleus-maleficarum.pptx', dl:true },
+      ] },
+    { when:'✦', title:'The Allegorical Sexual Contract',
+      meta:{ pt:'ou “The Sexual Spectacle of the Social Contract” · comunicação em conferência', en:'or “The Sexual Spectacle of the Social Contract” · conference talk' },
+      desc:{ pt:'O contrato social lido pela imagem: como a alegoria feminina encena, e naturaliza, o pacto sexual que Pateman expõe — diálogo direto com o conceito de contrato sexual visual.',
+              en:'The social contract read through the image: how the female allegory stages, and naturalises, the sexual pact Pateman exposes — in direct dialogue with the visual sexual contract.' },
+      links:[
+        { label:{ pt:'Ver a apresentação', en:'View the presentation' }, href:'https://canva.link/contratosocialvisual', primary:true },
+        { label:{ pt:'Baixar PDF', en:'Download PDF' }, href:'slides/allegorical-sexual-contract.pdf', dl:true },
+      ] },
+    { when:'TCC', title:{ pt:'Nacionalidade feminina', en:'Female nationality' },
+      meta:{ pt:'Apresentação de TCC · Graduação em Direito', en:'Undergraduate thesis defence · Law' },
+      desc:{ pt:'A condição jurídica e a nacionalidade da mulher: como o vínculo conjugal subordinava a nacionalidade feminina — semente da pesquisa de mestrado.',
+              en:'The legal condition and nationality of women: how marriage subordinated a woman’s nationality — the seed of the master’s research.' },
+      links:[
+        { label:{ pt:'Ver a apresentação', en:'View the presentation' }, href:'https://canva.link/nacionalidadefemininatcc', primary:true },
+        { label:{ pt:'Baixar slides', en:'Download slides' }, href:'slides/nacionalidade-feminina.pptx', dl:true },
+      ] },
+    { when:'IT', title:'Madre della Nazione',
+      meta:{ pt:'Presentazione didattica · em italiano', en:'Didactic presentation · in Italian' },
+      desc:{ pt:'A nação figurada como mãe: a alegoria feminina da pátria e o que ela ensina sobre pertencimento, sangue e cidadania — diálogo direto com a feminilidade de estado.',
+              en:'The nation figured as mother: the female allegory of the homeland and what it teaches about belonging, blood and citizenship — in dialogue with state femininity.' },
+      links:[
+        { label:{ pt:'Ver a apresentação', en:'View the presentation' }, href:'https://canva.link/madredellanazione', primary:true },
+        { label:{ pt:'Baixar slides', en:'Download slides' }, href:'slides/madre-della-nazione.pptx', dl:true },
+      ] },
+    { when:'$', title:{ pt:'Quem é a mulher no nosso dinheiro?', en:'Who is the woman on our money?' },
+      meta:{ pt:'Marianne, Her Brazilian Sister and the Transnational Allegory of the State', en:'Marianne, Her Brazilian Sister and the Transnational Allegory of the State' },
+      desc:{ pt:'A alegoria do Estado que circula na moeda: Marianne e sua irmã tropical, a República brasileira — como a figura feminina da nação atravessa fronteiras e se naturaliza no dinheiro.',
+              en:'The allegory of the State that circulates on currency: Marianne and her tropical sister, the Brazilian Republic — how the female figure of the nation crosses borders and naturalises itself on money.' },
+      links:[
+        { label:{ pt:'Ver a apresentação', en:'View the presentation' }, href:'https://canva.link/marianneesuairmatropical', primary:true },
+        { label:{ pt:'Baixar slides', en:'Download slides' }, href:'slides/marianne-irma-tropical.pptx', dl:true },
+      ] },
+  ] },
+  { ix:'III', head:{ pt:'Comunicações & traduções', en:'Talks & translations' }, items:[
+    { when:'2024', title:'Images of the Nation in Modern Legal Iconography',
+      meta:{ pt:'Comunicação · Germania, Britannia, Marianne e o uso simbólico do feminino', en:'Talk · Germania, Britannia, Marianne and the symbolic use of the feminine' },
+      desc:{ pt:'As figuras femininas da nação e o uso simbólico do feminino na legitimação do poder.',
+              en:'The female figures of the nation and the symbolic use of the feminine in legitimising power.' },
+      links:[] },
+    { when:'2024', title:{ pt:'História do Direito das Mulheres', en:'The History of Women’s Legal Rights' },
+      meta:{ pt:'XIX Encontro de História do Direito · UFSC', en:'19th Meeting on Legal History · UFSC' },
+      desc:{ pt:'A trajetória dos direitos das mulheres na história do direito.',
+              en:'The trajectory of women’s rights in legal history.' },
+      links:[] },
+    { when:'2024', title:{ pt:'Direito, fascismos e neofascismos entre Itália e Brasil', en:'Law, Fascism and Neo-Fascism between Italy and Brazil' },
+      meta:{ pt:'XXI Encontro de História do Direito · UFSC', en:'21st Meeting on Legal History · UFSC' },
+      desc:{ pt:'Direito e (neo)fascismo em perspectiva comparada entre Itália e Brasil.',
+              en:'Law and (neo)fascism in comparative perspective between Italy and Brazil.' },
+      links:[] },
+    { when:'trad.', title:{ pt:'Monumentos do Direito Internacional', en:'Monuments of International Law' },
+      meta:{ pt:'Tradução de Luigi Lacchè · Rev. Bras. de História e Ciências Sociais', en:'Translation of Luigi Lacchè · Braz. J. of History & Social Sciences' },
+      desc:{ pt:'Tradução do ensaio de Lacchè sobre Alberico Gentili e Hugo Grotius na construção do direito internacional (1875–1886).',
+              en:'Translation of Lacchè’s essay on Alberico Gentili and Hugo Grotius in the making of international law (1875–1886).' },
+      links:[] },
+  ] },
+  { ix:'IV', head:{ pt:'Grupo de pesquisa', en:'Research group' }, items:[
     { when:'Ius', title:'Ius Gentium',
       meta:{ pt:'História da cultura jurídica · PPGD/UFSC', en:'Legal-culture history · PPGD/UFSC' },
       desc:{ pt:'Grupo de pesquisa em iconografia e iconologia do direito; encontros quinzenais, abertos à graduação e à pós-graduação.',
@@ -155,7 +246,9 @@ const SECTIONS = [
 
 /* ---------- render ---------- */
 function linkChip(lk) {
-  return `<a class="lk ${lk.primary ? 'primary' : ''}" href="${lk.href}" target="_blank" rel="noopener">${L(lk.label)} <span class="ar">↗</span></a>`;
+  const cls = lk.primary ? 'primary' : '';
+  if (lk.dl) return `<a class="lk ${cls}" href="${lk.href}" download>${L(lk.label)} <span class="ar">↓</span></a>`;
+  return `<a class="lk ${cls}" href="${lk.href}" target="_blank" rel="noopener">${L(lk.label)} <span class="ar">↗</span></a>`;
 }
 function entryHtml(e) {
   return `<div class="entry">
@@ -202,6 +295,18 @@ document.querySelectorAll('#langtog button').forEach(b => b.addEventListener('cl
   render();
 }));
 render();
+</script>
+<script>
+(function(){
+  var nav=document.getElementById('avnav'); if(!nav) return;
+  var path=(location.pathname.split('/').pop()||'index.html');
+  function lang(){try{return localStorage.getItem('av_lang')==='en'?'en':'pt';}catch(e){return 'pt';}}
+  function paint(){var l=lang();nav.querySelectorAll('a[data-pt]').forEach(function(a){a.textContent=a.getAttribute('data-'+l);});}
+  nav.querySelectorAll('a[data-page]').forEach(function(a){if(a.getAttribute('data-page').split('|').indexOf(path)>=0)a.classList.add('cur');});
+  paint();
+  document.addEventListener('click',function(e){var b=e.target.closest('.langtog button, #langtog button');if(b)setTimeout(paint,40);});
+  setInterval(paint,800);
+})();
 </script>
 </body>
 </html>

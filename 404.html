@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · ana vanzin</title>
+<link rel="icon" href="/assets/sun-seal.svg">
+<link rel="stylesheet" href="/styles.css">
+<meta name="robots" content="noindex">
+<style>
+  html,body{height:100%;margin:0}
+  body{background:var(--paper);font-family:var(--font-body);
+    background-image:radial-gradient(var(--ink-15) 0.8px,transparent 0.8px);background-size:26px 26px;
+    display:flex;align-items:center;justify-content:center;padding:24px}
+  ::selection{background:var(--rubric);color:var(--paper)}
+  .win{width:min(560px,100%);background:var(--paper);border:1px solid var(--ink);box-shadow:7px 7px 0 0 var(--ink)}
+  .bar{display:flex;align-items:center;gap:9px;height:32px;padding:0 11px;border-bottom:1px solid var(--ink)}
+  .box{width:14px;height:14px;border:1.5px solid var(--ink);box-sizing:border-box}
+  .stripe{flex:1;height:10px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 3px);opacity:.9}
+  .bar .t{font-family:var(--font-display);font-weight:600;font-size:14px;white-space:nowrap}
+  .body{padding:36px 34px 34px;text-align:center}
+  .body img{height:150px;image-rendering:pixelated;margin-bottom:14px}
+  .code{font-family:var(--font-display);font-weight:600;font-size:64px;line-height:1;color:var(--ink);margin:0}
+  .rule{width:120px;height:1px;background:var(--rubric);margin:16px auto}
+  .msg{font-size:16px;line-height:1.55;color:var(--text-muted);margin:0 auto;max-width:38ch}
+  .sub{font-size:13px;color:var(--text-faint);margin:8px 0 0;font-style:italic}
+  .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+  .btn{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;padding:11px 22px;text-decoration:none;border:1px solid var(--ink);color:var(--ink);background:var(--paper);white-space:nowrap}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn:hover{border-color:var(--rubric);color:var(--rubric)}
+  .btn.primary:hover{background:var(--rubric);border-color:var(--rubric);color:var(--paper)}
+</style>
+</head>
+<body>
+  <div class="win">
+    <div class="bar"><span class="box"></span><span class="stripe"></span><span class="t">erro · error</span><span class="stripe"></span><span class="box"></span></div>
+    <div class="body">
+      <img src="/assets/pixel-justitia.png" alt="">
+      <p class="code">404</p>
+      <div class="rule"></div>
+      <p class="msg">Esta página não foi encontrada — talvez tenha mudado de lugar na mesa.</p>
+      <p class="sub">This page could not be found.</p>
+      <div class="acts">
+        <a class="btn primary" href="/">← voltar à mesa</a>
+        <a class="btn" href="/conceitos.html">conceitos</a>
+        <a class="btn" href="/trabalhos.html">trabalhos</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
