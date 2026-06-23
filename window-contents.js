@@ -356,6 +356,7 @@ Object.assign(window.avapp = window.avapp || {}, {
   WContato,
   WJustitia,
   WCv,
-  WVo
+  WVo,
+  WLeituraIconografia
 });
 })();

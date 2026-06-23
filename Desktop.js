@@ -10,6 +10,7 @@ const REG = {
   curriculo:   { title: { pt: 'currículo', en: 'curriculum' },    w: 460, Body: WCv },
   contato:     { title: { pt: 'contato', en: 'contact' },         w: 420, Body: WContato },
   justitia:    { title: { pt: 'justitia.png', en: 'justitia.png' },w: 360, Body: WJustitia },
+  leitura:     { title: { pt: 'leitura-iconografia', en: 'reading-iconography' }, w: 960, Body: WLeituraIconografia },
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
 
@@ -22,13 +23,14 @@ const DESK_ICONS = [
   { id: 'ius', label: { pt: 'ius gentium', en: 'ius gentium' }, Icon: GroupIcon },
   { id: 'curriculo', label: { pt: 'currículo', en: 'curriculum' }, Icon: DocIcon },
   { id: 'justitia', label: { pt: 'justitia.png', en: 'justitia.png' }, Icon: ImageIcon },
+  { id: 'leitura', label: { pt: 'leitura', en: 'reading' }, Icon: FolderIcon },
   { id: 'contato', label: { pt: 'contato', en: 'contact' }, Icon: MailIcon },
 ];
 
-const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
+const MENUS = ['sobre', 'tese', 'leitura', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
-  pt: { sobre: 'Sobre', tese: 'Tese', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
-  en: { sobre: 'About', tese: 'Thesis', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
+  pt: { sobre: 'Sobre', tese: 'Tese', leitura: 'Leitura', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
+  en: { sobre: 'About', tese: 'Thesis', leitura: 'Reading', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
 };
 const UI = {
   pt: { welcome: 'bem-vinda', tagline: 'direito & iconografia', enter: 'entrar →',
