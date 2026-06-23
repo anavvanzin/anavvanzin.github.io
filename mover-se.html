@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mover-se · ana vanzin</title>
+<link rel="icon" href="assets/sun-seal.svg">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{margin:0;height:100%}
+  body{background:var(--paper);color:var(--ink);font-family:var(--font-body);line-height:var(--leading-body);min-height:100vh;display:flex;flex-direction:column;
+    background-image:radial-gradient(var(--ink-15) 0.7px,transparent 0.7px);background-size:26px 26px;}
+  ::selection{background:var(--rubric);color:var(--paper);}
+  a{color:inherit;}
+
+  /* top bar */
+  .top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:18px;
+    padding:14px clamp(18px,5vw,56px);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(3px);
+    border-bottom:1.5px solid var(--ink);}
+  .top .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:20px;white-space:nowrap;}
+  .top .brand img{width:24px;height:24px;}
+  .top .mode-name{margin-left:auto;font-family:var(--font-display);font-weight:600;text-transform:uppercase;
+    letter-spacing:var(--tracking-eyebrow);font-size:var(--text-eyebrow);color:var(--ink-50);}
+  .top .back{margin-left:12px;font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--ink-70);text-decoration:none;border-bottom:1.5px solid transparent;}
+  .top .back:hover{color:var(--ink);border-color:var(--rubric);}
+
+  /* stage */
+  .stage{flex:1;position:relative;}
+  .mode{display:none;}
+  .mode.on{display:block;}
+
+  /* animations */
+  @keyframes rise{0%{transform:translateY(16px);}100%{transform:none;}}
+  @keyframes slideL{0%{transform:translateX(-14px);}100%{transform:none;}}
+  @keyframes pop{0%{transform:scale(.5);}60%{transform:scale(1.14);}100%{transform:scale(1);}}
+  @keyframes fade{0%{transform:translateY(6px);}100%{transform:none;}}
+  @keyframes thread{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+  @keyframes cardIn{0%{transform:translateY(14px) scale(.94);}100%{transform:none;}}
+
+  .mode.on.play .eyebrow{animation:rise .5s cubic-bezier(.22,1,.36,1) .05s both;}
+  .mode.on.play .mode-lead{animation:rise .55s cubic-bezier(.22,1,.36,1) .16s both;}
+
+  /* fio */
+  .fio.on.play .item{animation:rise .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d);}
+  .fio.on.play .item .knot{animation:pop .55s cubic-bezier(.34,1.7,.5,1) both;animation-delay:calc(var(--d) + .08s);}
+  .fio.on.play .thread{transform-origin:top center;animation:thread .7s cubic-bezier(.5,0,.18,1) .2s both;}
+  .fio.on.play .item:nth-child(1){--d:.3s;} .fio.on.play .item:nth-child(2){--d:.42s;}
+  .fio.on.play .item:nth-child(3){--d:.54s;} .fio.on.play .item:nth-child(4){--d:.66s;}
+  .fio.on.play .item:nth-child(5){--d:.78s;}
+
+  /* margem */
+  .margem.on.play .mlbl{animation:rise .5s ease .15s both;}
+  .margem.on.play .mi{animation:slideL .5s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d);}
+  .margem.on.play .mi:nth-child(2){--d:.26s;} .margem.on.play .mi:nth-child(3){--d:.36s;}
+  .margem.on.play .mi:nth-child(4){--d:.46s;} .margem.on.play .mi:nth-child(5){--d:.56s;}
+
+  /* venda */
+  .venda.on.play .sec{animation:rise .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d);}
+  .venda.on.play .sec:nth-child(1){--d:.3s;} .venda.on.play .sec:nth-child(2){--d:.42s;}
+  .venda.on.play .sec:nth-child(3){--d:.54s;} .venda.on.play .sec:nth-child(4){--d:.66s;}
+  .venda.on.play .sec:nth-child(5){--d:.78s;}
+
+  /* fichario */
+  .fichario.on.play .chips{animation:rise .5s ease .25s both;}
+  .fichario.on.play .card{animation:cardIn .5s cubic-bezier(.34,1.5,.5,1) both;animation-delay:var(--d);}
+  .fichario.on.play .card:nth-child(1){--d:.34s;} .fichario.on.play .card:nth-child(2){--d:.44s;}
+  .fichario.on.play .card:nth-child(3){--d:.54s;} .fichario.on.play .card:nth-child(4){--d:.64s;}
+  .fichario.on.play .card:nth-child(5){--d:.74s;}
+
+  @media(prefers-reduced-motion:reduce){
+    .mode.on.play *{animation:none!important;opacity:1!important;transform:none!important;}
+    .fio.on.play .thread{transform:scaleY(1)!important;}
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(40px,7vh,90px) clamp(18px,5vw,56px) 100px;}
+  .eyebrow{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);
+    font-size:var(--text-eyebrow);color:var(--rubric);margin:0 0 10px;}
+  .mode-lead{font-family:var(--font-display);font-style:italic;font-size:var(--text-lead);color:var(--ink-70);
+    max-width:48ch;margin:0 0 44px;line-height:var(--leading-tight);}
+
+  /* FIO RUBRICO */
+  .fio .col{position:relative;max-width:680px;margin:0 auto;padding-left:56px;}
+  .fio .thread{position:absolute;top:8px;bottom:8px;left:13px;width:0;border-left:2px solid var(--rubric);}
+  .fio .item{position:relative;padding:26px 0;border-bottom:1px solid var(--ink-15);cursor:pointer;}
+  .fio .item:last-child{border-bottom:0;}
+  .fio .knot{position:absolute;left:-49px;top:30px;width:16px;height:16px;border-radius:50%;background:var(--paper);
+    border:2px solid var(--rubric);transition:background .2s,transform .2s;}
+  .fio .item:hover .knot,.fio .item.on .knot{background:var(--rubric);transform:scale(1.18);}
+  .fio .rn{font-family:var(--font-display);font-style:italic;font-weight:600;color:var(--rubric);font-size:1rem;}
+  .fio .ti{font-family:var(--font-display);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.3rem);line-height:1;
+    margin:2px 0 0;transition:color .15s;}
+  .fio .item:hover .ti,.fio .item.on .ti{color:var(--rubric);}
+  .fio .gl{font-size:var(--text-small);color:var(--ink-50);margin:8px 0 0;}
+  .fio .open{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .35s ease,margin .35s ease;margin-top:0;}
+  .fio .item.on .open{max-height:120px;opacity:1;margin-top:14px;}
+  .fio .open p{margin:0;font-size:var(--text-base);max-width:56ch;}
+
+  /* MARGEM VIVA */
+  .margem .wrap{display:grid;grid-template-columns:208px 1.5px minmax(0,1fr);gap:0;align-items:stretch;
+    column-gap:clamp(28px,5vw,60px);}
+  @media(max-width:760px){.margem .wrap{grid-template-columns:1fr;}}
+  .margem .gutter{align-self:stretch;background:var(--ink);width:1.5px;}
+  @media(max-width:760px){.margem .gutter{display:none;}}
+  .margem .menu{position:sticky;top:84px;align-self:start;padding-right:0;display:flex;flex-direction:column;}
+  @media(max-width:760px){.margem .menu{position:static;border-bottom:1.5px solid var(--ink);padding-bottom:16px;
+    flex-direction:row;flex-wrap:wrap;gap:8px;}}
+  .margem .mlbl{font-family:var(--font-display);font-weight:600;text-transform:uppercase;
+    letter-spacing:var(--tracking-eyebrow);font-size:11px;color:var(--ink-50);margin-bottom:14px;}
+  .margem .mi{display:flex;align-items:baseline;gap:10px;padding:9px 0;text-decoration:none;cursor:pointer;
+    border:none;background:none;text-align:left;font:inherit;}
+  .margem .mi .mn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-50);}
+  .margem .mi .mt{font-family:var(--font-display);font-weight:600;font-size:1.18rem;color:var(--ink-70);
+    transition:color .15s;white-space:nowrap;}
+  .margem .mi:hover .mt{color:var(--ink);}
+  .margem .mi.on .mt,.margem .mi.on .mn{color:var(--rubric);}
+  .margem .mi.on{border-left:2px solid var(--rubric);margin-left:-12px;padding-left:10px;}
+  .margem .panel{min-height:300px;}
+  .margem .panel .rn{font-family:var(--font-display);font-style:italic;color:var(--rubric);font-size:1.1rem;}
+  .margem .panel h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,5.5vw,4rem);
+    line-height:.98;margin:6px 0 0;letter-spacing:-.01em;}
+  .margem .panel .pg{font-family:var(--font-display);font-style:italic;font-size:var(--text-lead);color:var(--ink-70);
+    margin:16px 0 24px;}
+  .margem .panel .ln{height:8px;background:var(--ink-15);border-radius:5px;margin:0 0 11px;}
+  .margem .panel .fade{animation:fade .4s ease;}
+
+  /* A VENDA */
+  .venda .wrap{max-width:760px;}
+  .venda .sec{position:relative;border:1.5px solid var(--ink);margin-bottom:20px;overflow:hidden;background:var(--paper);}
+  .venda .inside{padding:28px 30px;}
+  .venda .inside .rn{font-family:var(--font-display);font-style:italic;color:var(--rubric);font-size:1rem;}
+  .venda .inside h2{font-family:var(--font-display);font-weight:600;font-size:clamp(1.7rem,4vw,2.4rem);
+    line-height:1;margin:4px 0 10px;}
+  .venda .inside p{margin:0;font-size:var(--text-base);color:var(--ink-70);max-width:56ch;}
+  .venda .cover{position:absolute;inset:0;background:var(--ink);color:var(--paper);border-left:4px solid var(--rubric);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 28px;cursor:pointer;
+    transition:opacity .5s ease,transform .5s ease;}
+  .venda .cover .cl{font-family:var(--font-display);font-weight:600;font-size:clamp(1.4rem,3.4vw,2rem);}
+  .venda .cover .ch{font-family:var(--font-display);font-style:italic;font-size:var(--text-small);
+    color:color-mix(in srgb,var(--paper) 65%,var(--ink));white-space:nowrap;}
+  .venda .sec.lifted .cover{opacity:0;transform:translateY(-100%);pointer-events:none;}
+  .venda .replay{margin-top:6px;background:none;border:1.5px solid var(--ink);font:inherit;
+    font-family:var(--font-display);font-weight:600;font-size:13px;padding:8px 16px;cursor:pointer;color:var(--ink);
+    transition:background .15s,color .15s;}
+  .venda .replay:hover{background:var(--ink);color:var(--paper);}
+
+  /* FICHARIO */
+  .fichario .chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:30px;}
+  .fichario .chip{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;border:1.5px solid var(--ink);
+    background:var(--paper);color:var(--ink);padding:6px 14px;cursor:pointer;transition:background .15s,color .15s;}
+  .fichario .chip.on{background:var(--ink);color:var(--paper);}
+  .fichario .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .fichario .card{border:1.5px solid var(--ink);background:var(--paper);padding:18px 18px 20px;display:flex;
+    flex-direction:column;gap:10px;min-height:170px;text-decoration:none;
+    transition:box-shadow .15s,transform .15s;cursor:pointer;}
+  .fichario .card:hover{box-shadow:5px 6px 0 rgba(33,27,22,.14);transform:translate(-1px,-1px);}
+  .fichario .card .cota{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--rubric);letter-spacing:.04em;}
+  .fichario .card .rn{font-family:var(--font-display);font-style:italic;color:var(--ink-50);font-size:.95rem;}
+  .fichario .card h3{font-family:var(--font-display);font-weight:600;font-size:1.5rem;line-height:1.04;margin:0;}
+  .fichario .card .gl{font-size:var(--text-small);color:var(--ink-50);margin-top:auto;}
+  .fichario .card .type{align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:10px;
+    text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--ink-30);padding:3px 8px;color:var(--ink-70);}
+  .fichario .card[hidden]{display:none;}
+
+  /* paradigm selector */
+  .selector{position:fixed;bottom:0;left:0;right:0;height:56px;z-index:30;display:flex;align-items:center;
+    justify-content:center;gap:8px;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(3px);
+    border-top:1.5px solid var(--ink);}
+  .selector button{appearance:none;border:1.5px solid var(--ink);background:var(--paper);cursor:pointer;
+    font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:7px 14px;color:var(--ink);transition:background .15s,color .15s;}
+  .selector button.on{background:var(--ink);color:var(--paper);}
+  .selector button:hover:not(.on){background:var(--ink-15);}
+  @media(max-width:760px){.selector{flex-wrap:wrap;height:auto;padding:8px;gap:6px;}}
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <span class="brand"><img src="assets/sun-seal.svg" alt=""> ana vanzin</span>
+    <span class="mode-name" id="modeName">fio rubrico</span>
+    <a class="back" href="index.html">← voltar</a>
+  </div>
+
+  <main class="stage">
+
+    <!-- 1 · FIO RUBRICO -->
+    <section class="mode fio on" data-mode="fio">
+      <div class="wrap">
+        <p class="eyebrow">navegação · um só fio</p>
+        <p class="mode-lead">Um único fio rubrico desce pela página e costura as cinco seções. Tocar um nó abre a entrada — a leitura é contínua, como uma linha que não se corta.</p>
+        <div class="col">
+          <div class="thread"></div>
+          <div id="fioList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · MARGEM VIVA -->
+    <section class="mode margem" data-mode="margem">
+      <div class="wrap">
+        <aside class="menu" aria-label="seções">
+          <span class="mlbl">índice vivo</span>
+          <div id="margemMenu"></div>
+        </aside>
+        <div class="gutter" aria-hidden="true"></div>
+        <div class="panel" id="margemPanel"></div>
+      </div>
+    </section>
+
+    <!-- 3 · A VENDA -->
+    <section class="mode venda" data-mode="venda">
+      <div class="wrap">
+        <p class="eyebrow">navegação · vendado</p>
+        <p class="mode-lead">As seções chegam vendadas — uma faixa de tinta sobre o conteúdo. Levantar a venda revela a seção; no site, revelam-se ao rolar.</p>
+        <div id="vendaList"></div>
+        <button class="replay" id="vendaReplay">vendar tudo de novo</button>
+      </div>
+    </section>
+
+    <!-- 4 · FICHARIO -->
+    <section class="mode fichario" data-mode="fichario">
+      <div class="wrap">
+        <p class="eyebrow">navegação · catálogo</p>
+        <p class="mode-lead">Um fichário de biblioteca: cada seção é uma ficha com cota. Filtra-se por tipo, como num catálogo de obras.</p>
+        <div class="chips" id="fichChips"></div>
+        <div class="grid" id="fichGrid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- paradigm selector -->
+  <div class="selector" id="selector">
+    <button data-v="fio" class="on">Fio</button>
+    <button data-v="margem">Margem</button>
+    <button data-v="venda">Venda</button>
+    <button data-v="fichario">Fichário</button>
+  </div>
+
+<script>
+  var SECTIONS = [
+    {n:'i', r:'i', t:'tese', gl:'Iconocracia — as imagens do direito', fol:'01', type:'tese', body:'A tese em curso: como uma alegoria de crítica se torna emblema de Estado.'},
+    {n:'1', r:'ii', t:'publicações', gl:'artigos, capítulos e ensaios', fol:'14', type:'texto', body:'Artigos e capítulos sobre iconografia jurídica, em revistas e coletâneas.'},
+    {n:'2', r:'iii', t:'ius gentium', gl:'notas de direito internacional', fol:'28', type:'nota', body:'Notas breves de direito internacional — a comunidade e a condição feminina.'},
+    {n:'3', r:'iv', t:'advocacia', gl:'atuação e áreas', fol:'41', type:'prática', body:'Atuação em advocacia: áreas, contencioso e consultoria.'},
+    {n:'4', r:'v', t:'contato', gl:'ana@anavanzin.com', fol:'52', type:'contato', body:'Florianópolis · ana@anavanzin.com · agenda para orientações e parcerias.'}
+  ];
+
+  var roman = true;
+  var gloss = true;
+  var currentMode = 'fio';
+  var reduceMv = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  try {
+    var saved = localStorage.getItem('av_moverse_mode');
+    if (saved && ['fio','margem','venda','fichario'].indexOf(saved) >= 0) currentMode = saved;
+  } catch(e) {}
+
+  function num(s) { return roman ? s.r : String(SECTIONS.indexOf(s)+1).padStart(2,'0'); }
+  var modeNames = {fio:'fio rubrico', margem:'margem viva', venda:'a venda', fichario:'fichário'};
+
+  /* ---- FIO ---- */
+  var fioList = document.getElementById('fioList');
+  SECTIONS.forEach(function(s, i) {
+    var d = document.createElement('div');
+    d.className = 'item' + (i === 0 ? ' on' : '');
+    d.dataset.i = i;
+    d.innerHTML = '<span class="knot"></span><span class="rn">' + num(s) + '</span>' +
+      '<div class="ti">' + s.t + '</div><div class="gl">' + s.gl + '</div>' +
+      '<div class="open"><p>' + s.body + '</p></div>';
+    d.addEventListener('click', function() {
+      var items = fioList.children;
+      for (var j = 0; j < items.length; j++) {
+        items[j].classList.toggle('on', items[j] === d);
+      }
+    });
+    fioList.appendChild(d);
+  });
+
+  /* ---- MARGEM ---- */
+  var margemMenu = document.getElementById('margemMenu');
+  var margemPanel = document.getElementById('margemPanel');
+  function showMargem(i) {
+    var s = SECTIONS[i];
+    var btns = margemMenu.children;
+    for (var j = 0; j < btns.length; j++) btns[j].classList.toggle('on', j === i);
+    margemPanel.innerHTML = '<div class="fade"><span class="rn">' + num(s) + '</span><h2>' + s.t + '</h2>' +
+      '<p class="pg">' + s.gl + '</p>' +
+      '<div class="ln" style="width:96%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:92%"></div><div class="ln" style="width:70%"></div></div>';
+  }
+  SECTIONS.forEach(function(s, i) {
+    var b = document.createElement('button');
+    b.className = 'mi' + (i === 0 ? ' on' : '');
+    b.innerHTML = '<span class="mn">' + num(s) + '</span><span class="mt">' + s.t + '</span>';
+    b.addEventListener('click', function() { showMargem(i); });
+    margemMenu.appendChild(b);
+  });
+  showMargem(0);
+
+  /* ---- VENDA ---- */
+  var vendaList = document.getElementById('vendaList');
+  function buildVenda() {
+    vendaList.innerHTML = '';
+    SECTIONS.forEach(function(s, i) {
+      var sec = document.createElement('div');
+      sec.className = 'sec';
+      sec.innerHTML = '<div class="inside"><span class="rn">' + num(s) + '</span><h2>' + s.t + '</h2><p>' + s.body + '</p></div>' +
+        '<div class="cover"><span class="cl">' + s.t + '</span><span class="ch">vendado — toque para revelar</span></div>';
+      sec.querySelector('.cover').addEventListener('click', function() { sec.classList.add('lifted'); });
+      vendaList.appendChild(sec);
+    });
+  }
+  buildVenda();
+  document.getElementById('vendaReplay').addEventListener('click', buildVenda);
+
+  /* ---- FICHARIO ---- */
+  var fichChips = document.getElementById('fichChips');
+  var fichGrid = document.getElementById('fichGrid');
+  var types = ['tudo'];
+  SECTIONS.forEach(function(s) { if (types.indexOf(s.type) < 0) types.push(s.type); });
+  var filter = 'tudo';
+  types.forEach(function(t) {
+    var c = document.createElement('button');
+    c.className = 'chip' + (t === 'tudo' ? ' on' : '');
+    c.textContent = t;
+    c.dataset.t = t;
+    c.addEventListener('click', function() {
+      filter = t;
+      var chips = fichChips.children;
+      for (var j = 0; j < chips.length; j++) chips[j].classList.toggle('on', chips[j] === c);
+      applyFilter();
+    });
+    fichChips.appendChild(c);
+  });
+  SECTIONS.forEach(function(s, i) {
+    var a = document.createElement('div');
+    a.className = 'card';
+    a.dataset.type = s.type;
+    a.innerHTML = '<span class="cota">AV·' + (340 + i) + '</span><span class="type">' + s.type + '</span>' +
+      '<h3>' + s.t + '</h3><span class="gl">' + s.gl + '</span>';
+    fichGrid.appendChild(a);
+  });
+  function applyFilter() {
+    var cards = fichGrid.children;
+    for (var j = 0; j < cards.length; j++) {
+      cards[j].hidden = filter !== 'tudo' && cards[j].dataset.type !== filter;
+    }
+  }
+
+  /* ---- MODE SWITCHING ---- */
+  function setMode(m) {
+    currentMode = m;
+    var modes = document.querySelectorAll('.mode');
+    for (var i = 0; i < modes.length; i++) {
+      modes[i].classList.toggle('on', modes[i].dataset.mode === m);
+    }
+    document.getElementById('modeName').textContent = modeNames[m];
+    var active = document.querySelector('.mode.on');
+    if (active && !reduceMv) {
+      active.classList.remove('play');
+      void active.offsetWidth;
+      active.classList.add('play');
+    } else if (active) {
+      active.classList.add('play');
+    }
+    var btns = document.getElementById('selector').children;
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].classList.toggle('on', btns[j].dataset.v === m);
+    }
+    try { localStorage.setItem('av_moverse_mode', m); } catch(e) {}
+  }
+
+  document.getElementById('selector').addEventListener('click', function(e) {
+    var b = e.target.closest('button');
+    if (b && b.dataset.v) setMode(b.dataset.v);
+  });
+
+  /* ---- INIT ---- */
+  setMode(currentMode);
+</script>
+</body>
+</html>

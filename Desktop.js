@@ -29,10 +29,10 @@ const DESK_ICONS = [
   { id: 'contato', label: { pt: 'contato', en: 'contact' }, Icon: MailIcon },
 ];
 
-const MENUS = ['sobre', 'tese', 'leitura', 'sala', 'manifesto', 'conceitos', 'publicacoes', 'ius', 'contato'];
+const MENUS = ['sobre', 'tese', 'leitura', 'sala', 'manifesto', 'mover-se', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
-  pt: { sobre: 'Sobre', tese: 'Tese', leitura: 'Leitura', sala: 'Sala', manifesto: 'Manifesto', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
-  en: { sobre: 'About', tese: 'Thesis', leitura: 'Reading', sala: 'Room', manifesto: 'Manifesto', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
+  pt: { sobre: 'Sobre', tese: 'Tese', leitura: 'Leitura', sala: 'Sala', manifesto: 'Manifesto', 'mover-se': 'Mover-se', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
+  en: { sobre: 'About', tese: 'Thesis', leitura: 'Reading', sala: 'Room', manifesto: 'Manifesto', 'mover-se': 'Navigate', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
 };
 const UI = {
   pt: { welcome: 'bem-vinda', tagline: 'direito & iconografia', enter: 'entrar →',
@@ -150,6 +150,7 @@ function Desktop() {
   const focus = (id) => setWins((ws) => { const z = zTop; setZTop((p) => p + 1); return ws.map((w) => w.id === id ? { ...w, z, min: false } : w); });
   const open = (id) => {
     if (id === 'manifesto') { window.location.href = 'manifesto.html'; return; }
+    if (id === 'mover-se') { window.location.href = 'mover-se.html'; return; }
     if (id === 'conceitos') { window.location.href = 'conceitos.html'; return; }
     if (id === 'quotes') { window.location.href = 'quotes/'; return; }
     setSel(id);
