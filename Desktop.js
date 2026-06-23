@@ -11,6 +11,7 @@ const REG = {
   contato:     { title: { pt: 'contato', en: 'contact' },         w: 420, Body: WContato },
   justitia:    { title: { pt: 'justitia.png', en: 'justitia.png' },w: 360, Body: WJustitia },
   leitura:     { title: { pt: 'leitura-iconografia', en: 'reading-iconography' }, w: 960, Body: WLeituraIconografia },
+  sala:        { title: { pt: 'sala de leitura', en: 'reading room' }, w: 860, Body: WSalaLeitura },
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
 
@@ -24,13 +25,14 @@ const DESK_ICONS = [
   { id: 'curriculo', label: { pt: 'currículo', en: 'curriculum' }, Icon: DocIcon },
   { id: 'justitia', label: { pt: 'justitia.png', en: 'justitia.png' }, Icon: ImageIcon },
   { id: 'leitura', label: { pt: 'leitura', en: 'reading' }, Icon: FolderIcon },
+  { id: 'sala', label: { pt: 'sala', en: 'room' }, Icon: FolderIcon },
   { id: 'contato', label: { pt: 'contato', en: 'contact' }, Icon: MailIcon },
 ];
 
-const MENUS = ['sobre', 'tese', 'leitura', 'manifesto', 'conceitos', 'publicacoes', 'ius', 'contato'];
+const MENUS = ['sobre', 'tese', 'leitura', 'sala', 'manifesto', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
-  pt: { sobre: 'Sobre', tese: 'Tese', leitura: 'Leitura', manifesto: 'Manifesto', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
-  en: { sobre: 'About', tese: 'Thesis', leitura: 'Reading', manifesto: 'Manifesto', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
+  pt: { sobre: 'Sobre', tese: 'Tese', leitura: 'Leitura', sala: 'Sala', manifesto: 'Manifesto', conceitos: 'Conceitos', publicacoes: 'Perfis', ius: 'Ius Gentium', contato: 'Contato' },
+  en: { sobre: 'About', tese: 'Thesis', leitura: 'Reading', sala: 'Room', manifesto: 'Manifesto', conceitos: 'Concepts', publicacoes: 'Profiles', ius: 'Ius Gentium', contato: 'Contact' },
 };
 const UI = {
   pt: { welcome: 'bem-vinda', tagline: 'direito & iconografia', enter: 'entrar →',
