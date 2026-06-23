@@ -64,12 +64,13 @@ function ChromeBox({ children, active, onClick, label }) {
   );
 }
 
-function TitleBar({ title, active, onClose, onMin, onDown, draggable = true }) {
+function TitleBar({ title, active, onClose, onMin, onDown, draggable = true, isMobile = false }) {
   const stripes = active ? 'repeating-linear-gradient(to bottom, var(--ink) 0 1px, transparent 1px 3px)' : 'none';
   const flank = { flex: 1, height: 11, alignSelf: 'center', background: stripes, opacity: active ? 0.9 : 0, minWidth: 12 };
   return (
     <div onPointerDown={draggable ? onDown : undefined} style={{ display: 'flex', alignItems: 'center', gap: 9, height: draggable ? 30 : 38, padding: '0 9px',
-      background: 'var(--paper)', borderBottom: '1px solid var(--ink)', cursor: draggable ? 'grab' : 'default', userSelect: 'none', touchAction: 'none' }}>
+      background: 'var(--paper)', borderBottom: '1px solid var(--ink)', cursor: draggable ? 'grab' : 'default', userSelect: 'none', touchAction: 'none', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 4 : 9 }}>
+      {isMobile && <div style={{ width: 36, height: 4, borderRadius: 2, background: 'var(--ink-30)', marginBottom: 2 }} />}
       <ChromeBox active={active} onClick={onClose} label="Fechar"></ChromeBox>
       <div style={flank}></div>
       <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, letterSpacing: '0.02em', whiteSpace: 'nowrap', color: active ? 'var(--ink)' : 'var(--text-faint)' }}>{title}</span>
@@ -85,13 +86,14 @@ function WindowFrame({ win, active, onClose, onMin, onFocus, onDragStart, lang, 
   const frame = isMobile
     ? { position: 'fixed', left: 0, right: 0, bottom: 0, width: '100%', maxWidth: '100%',
         zIndex: 9500 + win.z, background: 'var(--paper)', border: '1px solid var(--ink)',
-        borderRadius: '16px 16px 0 0', boxShadow: '0 -4px 0 0 var(--ink)' }
+        borderRadius: '16px 16px 0 0', boxShadow: '0 -4px 0 0 var(--ink)',
+        animation: 'slideUp .3s cubic-bezier(0.22,1,0.36,1)' }
     : { position: 'absolute', left: win.x, top: win.y, width: winW(win.id),
         zIndex: win.z, background: 'var(--paper)', border: '1px solid var(--ink)',
         boxShadow: active ? '5px 5px 0 0 var(--ink)' : '3px 3px 0 0 var(--ink-50)' };
   return (
     <div onPointerDown={() => onFocus(win.id)} style={frame}>
-      <TitleBar title={regTitle(win.id, lang)} active={active || isMobile} onClose={() => onClose(win.id)} onMin={() => onMin(win.id)} onDown={(e) => onDragStart(e, win.id)} draggable={!isMobile} />
+      <TitleBar title={regTitle(win.id, lang)} active={active || isMobile} onClose={() => onClose(win.id)} onMin={() => onMin(win.id)} onDown={(e) => onDragStart(e, win.id)} draggable={!isMobile} isMobile={isMobile} />
       <div style={{ padding: win.id === 'justitia' ? 12 : 22, maxHeight: isMobile ? '70vh' : '58vh', overflow: 'auto' }}><Body lang={lang} /></div>
     </div>
   );
@@ -185,6 +187,7 @@ function Desktop() {
   const topId = visible.reduce((a, w) => (!a || w.z > a.z ? w : a), null)?.id;
 
   return (
+    <style>{`@keyframes slideUp{from{transform:translateY(100%);}to{transform:none;}} @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}`}</style>
     <div onPointerDown={() => setSel(null)} style={{ position: 'fixed', inset: 0, background: 'var(--paper)', overflow: 'hidden', fontFamily: 'var(--font-body)' }}>
       {/* wallpaper */}
       <img src="assets/pixel-justitia.png" alt="" aria-hidden="true" style={{ position: 'absolute', right: '4%', bottom: 40, height: '80%', width: 'auto', imageRendering: 'pixelated', opacity: 0.15, pointerEvents: 'none' }} />
@@ -196,7 +199,7 @@ function Desktop() {
           {!isMobile && <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>ana vanzin</span>}
         </span>
         <span style={{ width: 1, height: 16, background: 'var(--rule-hairline)' }}></span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 13 : 16, overflowX: isMobile ? 'auto' : 'hidden', flex: isMobile ? 1 : '0 1 auto', minWidth: 0 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 11 : 16, overflowX: isMobile ? 'auto' : 'hidden', flex: isMobile ? 1 : '0 1 auto', minWidth: 0, scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}>
           {MENUS.map((id) => (
             <button key={id} onPointerDown={(e) => e.stopPropagation()} onClick={() => open(id)}
               style={{ background: 'none', border: 0, cursor: 'pointer', fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 13.5, color: 'var(--ink)', padding: '4px 2px', whiteSpace: 'nowrap', borderBottom: topId === id ? '1.5px solid var(--rubric)' : '1.5px solid transparent' }}>{MENU_LABEL[lang][id]}</button>
@@ -215,16 +218,16 @@ function Desktop() {
 
       {/* desktop icons */}
       <div style={isMobile
-        ? { position: 'absolute', top: 42, left: 0, right: 0, bottom: 42, overflowY: 'auto', WebkitOverflowScrolling: 'touch', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(86px, 1fr))', gap: 16, padding: '20px 14px 28px', zIndex: 1, alignContent: 'start' }
+        ? { position: 'absolute', top: 42, left: 0, right: 0, bottom: 42, overflowY: 'auto', WebkitOverflowScrolling: 'touch', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', gap: 12, padding: '16px 12px 24px', zIndex: 1, alignContent: 'start' }
         : { position: 'absolute', top: 50, left: 16, display: 'flex', flexDirection: 'column', gap: 16, zIndex: 1 }}>
         {DESK_ICONS.map(({ id, label, Icon }) => {
           const active = sel === id;
           return (
             <button key={id} onPointerDown={(e) => { e.stopPropagation(); setSel(id); }} onDoubleClick={() => open(id)} onClick={(e) => { if (isMobile || e.detail === 0) open(id); }}
-              style={{ background: 'none', border: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5, width: isMobile ? 'auto' : 84, padding: 3 }}>
+              style={{ background: 'none', border: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, width: isMobile ? 'auto' : 84, padding: isMobile ? '6px 2px' : 3, WebkitTapHighlightColor: 'transparent' }}>
               <span style={isMobile
-                ? { width: '100%', height: 64, background: 'var(--paper-deep)', border: '1px solid var(--ink)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', outline: active ? '2px solid var(--rubric)' : '2px solid transparent', outlineOffset: -2 }
-                : { padding: 3, outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent', outlineOffset: 1 }}><Icon size={44} /></span>
+                ? { width: '100%', height: 58, background: 'var(--paper-deep)', border: '1px solid var(--ink)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', outline: active ? '2px solid var(--rubric)' : '2px solid transparent', outlineOffset: -2, transition: 'outline-color .15s, background .15s' }
+                : { padding: 3, outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent', outlineOffset: 1 }}><Icon size={40} /></span>
               <span style={{ fontSize: 12, lineHeight: 1.2, textAlign: 'center', background: active ? 'var(--rubric)' : 'transparent', color: active ? 'var(--paper)' : 'var(--ink)', padding: '1px 5px' }}>{label[lang]}</span>
             </button>
           );
