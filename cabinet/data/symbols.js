@@ -10,7 +10,7 @@ const SYMBOLS = [
     legalFunction: 'Sinal de equidistância entre as partes; posteriormente convertida em emblema da Justiça moderna.',
     whatToNotice: 'A venda raramente cobre completamente os olhos. Na maioria das imagens, ela é faixa, ameaça de cegueira ou promessa.',
     color: '#8A5FA8',
-    route: '/iconocracy/justice-was-not-always-blind.html',
+    route: '/marginalia/justice-was-not-born-blind.html',
     icon: 'blindfold'
   },
   {

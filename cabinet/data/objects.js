@@ -19,7 +19,7 @@ const OBJECTS = [
     whatToNotice: 'A venda raramente é total. Na maioria das representações, ela é faixa, ameaça ou promessa — nunca absoluta cegueira.',
     relatedObjects: ['obj-scale-001', 'obj-sword-001'],
     relatedEssays: ['essay-blind'],
-    relatedReadings: ['read-schneider', 'read-goodrich'],
+    relatedReadings: ['read-schlosser', 'read-goodrich'],
     status: 'seed',
     slug: 'justitia-vendada-narrenschiff-1494',
     summary: 'A primeira Justitia vendada nasce como sátira; a venda só depois vira virtude.'
@@ -41,7 +41,7 @@ const OBJECTS = [
     whatToNotice: 'Bruegel mostra Justitia de olhos abertos. A venda ainda não é obrigatória; a balança já é.',
     relatedObjects: ['obj-blindfold-001', 'obj-sword-001'],
     relatedEssays: ['essay-scale'],
-    relatedReadings: ['read-legendre', 'read-resnik'],
+    relatedReadings: ['read-legendre'],
     status: 'seed',
     slug: 'justitia-com-balanca-bruegel-1559',
     summary: 'A balança converte conflito em peso — e esconde quem calibra o prato.'
@@ -63,7 +63,7 @@ const OBJECTS = [
     whatToNotice: 'A figura serena da moeda republicana francesa de 1849 e o corpo armado da Britannia de 1912 medem, nos dez indicadores, a distância entre serenidade e endurecimento.',
     relatedObjects: ['obj-blindfold-001', 'obj-scale-001', 'obj-crown-001'],
     relatedEssays: ['essay-facade'],
-    relatedReadings: ['read-wahrman', 'read-hunt'],
+    relatedReadings: ['read-hunt'],
     status: 'seed',
     slug: 'britannia-armada-penny-1912',
     summary: 'O corpo alegórico torna-se arsenal: a espada revela o regime.'
@@ -85,7 +85,7 @@ const OBJECTS = [
     whatToNotice: 'A República não é retratada como instituição, mas como mulher. Quem governa fica fora do quadro.',
     relatedObjects: ['obj-folio-001', 'obj-sword-001'],
     relatedEssays: ['essay-facade'],
-    relatedReadings: ['read-aguilar', 'read-wiener'],
+    relatedReadings: ['read-wiener'],
     status: 'seed',
     slug: 'retrato-da-republica-villares-1896',
     summary: 'Onde o Estado precisou ser visto, vestiu uma mulher.'
@@ -107,7 +107,7 @@ const OBJECTS = [
     whatToNotice: 'A Constituição é texto, mas também é imagem. Seu frontispício já antecipa quem pode ser cidadão.',
     relatedObjects: ['obj-crown-001'],
     relatedEssays: ['essay-blind'],
-    relatedReadings: ['read-garcia', 'read-santos'],
+    relatedReadings: [],
     status: 'seed',
     slug: 'folio-republicano-brasil-1889',
     summary: 'Sobre o folio do jurista, alegoria e norma se escrevem uma sobre a outra.'

@@ -24,7 +24,7 @@ const ESSAYS = [
       }
     ],
     relatedObjects: ['obj-blindfold-001'],
-    relatedReadings: ['read-schneider', 'read-goodrich'],
+    relatedReadings: ['read-schlosser', 'read-goodrich'],
     route: '/marginalia/justice-was-not-born-blind.html',
     lang: 'pt'
   },

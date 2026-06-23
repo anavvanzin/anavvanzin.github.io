@@ -73,7 +73,7 @@ const SHELVES = [
     title: 'História da cultura jurídica',
     readings: [
       {
-        id: 'read-schneider',
+        id: 'read-schlosser',
         author: 'Hans Schlosser',
         title: 'Einführung in die neuerere Privatrechtsgeschichte',
         year: '2005',
