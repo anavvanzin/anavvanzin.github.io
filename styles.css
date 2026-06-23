@@ -1,3 +1,5 @@
+@import url('fonts/fonts.css'); /* self-hosted webfonts (Instrument Serif, Crimson Pro, JetBrains Mono + incunabulum) — MUST stay first: an @import after any rule is ignored per CSS spec */
+
 /* Ana Vanzin — Vanguard Design System Manifest */
 
 /* --- colors.css --- */

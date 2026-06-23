@@ -25,9 +25,13 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
 
 # family display name -> (slug, CSS2 query). Order = brand display, brand body, dev mono.
 FAMILIES = {
+    # Vanguard "Three Voices" — what the live styles.css actually calls for
+    "Instrument Serif":   ("instrument-serif",   "Instrument+Serif:ital@0;1"),
+    "Crimson Pro":        ("crimson-pro",        "Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400"),
+    "JetBrains Mono":     ("jetbrains-mono",     "JetBrains+Mono:wght@400;500;700"),
+    # Incunabulum brand — kept self-hosted for the desktop/Cabinet pages that still use them
     "Cormorant Garamond": ("cormorant-garamond", "Cormorant+Garamond:ital,wght@0,500;0,600;1,500"),
     "Hanken Grotesk":     ("hanken-grotesk",     "Hanken+Grotesk:wght@400;500;600"),
-    "JetBrains Mono":     ("jetbrains-mono",     "JetBrains+Mono:wght@400;500;700"),
 }
 
 BLOCK_RE = re.compile(r"/\*\s*(?P<subset>[\w-]+)\s*\*/\s*(?P<face>@font-face\s*\{.*?\})", re.S)
