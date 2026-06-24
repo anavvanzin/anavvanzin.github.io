@@ -188,13 +188,6 @@ const DESK_ICONS = [{
   },
   Icon: ImageIcon
 }, {
-  id: 'galeria',
-  label: {
-    pt: 'galeria',
-    en: 'gallery'
-  },
-  Icon: ImageIcon
-}, {
   id: 'contato',
   label: {
     pt: 'contato',
@@ -512,11 +505,14 @@ function Boot({
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
-    alt: "",
+    src: "assets/avatar-pixel.png",
+    alt: "Ana Vanzin",
     style: {
-      height: 150,
-      imageRendering: 'pixelated'
+      height: 168,
+      width: 'auto',
+      borderRadius: 14,
+      border: '1px solid var(--ink)',
+      boxShadow: '4px 4px 0 0 var(--ink)'
     }
   }), /*#__PURE__*/React.createElement("h1", {
     style: {
@@ -645,10 +641,6 @@ function Desktop() {
       window.location.href = 'advocacia.html';
       return;
     }
-    if (id === 'galeria') {
-      window.location.href = 'galeria.html';
-      return;
-    }
     if (id === 'quotes') {
       window.location.href = 'quotes/';
       return;
@@ -761,8 +753,20 @@ function Desktop() {
       alignItems: 'center',
       gap: 8
     }
-  }, /*#__PURE__*/React.createElement(SealIcon, {
-    size: 20
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/avatar-pixel.png",
+    alt: "Ana Vanzin",
+    width: 22,
+    height: 22,
+    style: {
+      width: 22,
+      height: 22,
+      borderRadius: '50%',
+      objectFit: 'cover',
+      objectPosition: 'top center',
+      border: '1px solid var(--ink)',
+      flexShrink: 0
+    }
   }), !isMobile && /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: 'var(--font-display)',
