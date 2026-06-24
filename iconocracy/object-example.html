@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Objeto · ICONOCRACY Cabinet</title>
+<meta name="description" content="Exemplo de página de objeto do Cabinet iconocrático.">
+<link rel="icon" href="../assets/sun-seal.svg">
+<link rel="stylesheet" href="../cabinet/cabinet.css">
+<style>
+  .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script src="../cabinet/data/schema.js"></script>
+<script src="../cabinet/data/symbols.js"></script>
+<script src="../cabinet/data/themes.js"></script>
+<script src="../cabinet/data/objects.js"></script>
+<script src="../cabinet/components/utils.jsx" type="text/babel"></script>
+<script src="../cabinet/components/nav.jsx" type="text/babel"></script>
+<script src="../cabinet/components/footer.jsx" type="text/babel"></script>
+<script src="../cabinet/components/object-page.jsx" type="text/babel"></script>
+<script type="text/babel">
+  const { createElement: h } = React;
+  const { Nav, Footer, ObjectPage } = window;
+  const object = window.CabinetObjects.find(o => o.id === 'obj-blindfold-001');
+  function App() {
+    return h('div', { className: 'page-shell' }, [
+      h(Nav, { backTo: '/iconocracy/', backLabel: 'Cabinet' }),
+      h('main', { id: 'main', className: 'page-main' }, h(ObjectPage, { object })),
+      h(Footer)
+    ]);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

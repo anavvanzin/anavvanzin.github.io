@@ -118,6 +118,13 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }, {
+  id: 'cabinet',
+  label: {
+    pt: 'cabinet',
+    en: 'cabinet'
+  },
+  Icon: FolderIcon
+}, {
   id: 'quotes',
   label: {
     pt: 'citações',
@@ -603,6 +610,10 @@ function Desktop() {
     }
     if (id === 'iconocracia') {
       window.location.href = 'iconocracia/';
+      return;
+    }
+    if (id === 'cabinet') {
+      window.location.href = 'iconocracy/';
       return;
     }
     if (id === 'quotes') {
