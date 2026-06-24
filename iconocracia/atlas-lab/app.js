@@ -30,6 +30,20 @@
   const IND = L.indicators; // [{id,label,description}]
   const reg = id => REGIME[id] || REGIME["1"];
   const entry = id => L.byId[id];
+  const ALL_IDS = Object.keys(L.byId);
+  // Resilient role resolution: the canonical corpus pipeline renumbered specimen ids
+  // (e.g. FR-1792-01) but the panel role-map still references old ids (FR-003). Fall back
+  // to available corpus ids so a panel never resolves to an undefined specimen.
+  const roleOf = panelId => {
+    const r = L.roleMap && L.roleMap[panelId] || {};
+    const hero = L.byId[r.heroEntryId] ? r.heroEntryId : ALL_IDS[0];
+    const comps = (r.comparisonEntryIds || []).map((id, i) => L.byId[id] ? id : ALL_IDS[i + 1]).filter(Boolean);
+    return {
+      ...r,
+      heroEntryId: hero,
+      comparisonEntryIds: comps.length ? comps : [ALL_IDS[1] || ALL_IDS[0]]
+    };
+  };
   const NOTE_PREFIX = "atlaslab.note.";
   const loadNote = k => {
     try {
@@ -124,6 +138,7 @@
     onClick,
     selected
   }) {
+    if (!it) return null;
     const r = reg(it.regime);
     const [bad, setBad] = useState(false);
     return /*#__PURE__*/React.createElement("figure", {
@@ -231,6 +246,7 @@
     it,
     compact
   }) {
+    if (!it) return null;
     const r = reg(it.regime);
     return /*#__PURE__*/React.createElement("div", {
       style: {
@@ -427,7 +443,7 @@
   function LearningView({
     panel
   }) {
-    const role = L.roleMap[panel.id];
+    const role = roleOf(panel.id);
     const hero = entry(role.heroEntryId);
     const comp = entry(role.comparisonEntryIds[0]);
     const [step, setStep] = useState(0);
@@ -668,14 +684,14 @@
   function ResearchView({
     panel
   }) {
-    const role = L.roleMap[panel.id];
+    const role = roleOf(panel.id);
     const ids = [role.heroEntryId, ...role.comparisonEntryIds].filter((v, i, a) => a.indexOf(v) === i);
     const [sel, setSel] = useState([ids[0], ids[1] || ids[0]]);
     const [rnote, setRnote] = useState("");
     const vw = useViewport();
     const stack = vw < 900;
     useEffect(() => {
-      const r = L.roleMap[panel.id];
+      const r = roleOf(panel.id);
       const i2 = [r.heroEntryId, ...r.comparisonEntryIds];
       setSel([i2[0], i2[1] || i2[0]]);
       setRnote(loadNote(panel.id + ".research"));
