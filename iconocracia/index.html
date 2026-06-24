@@ -1,151 +1,167 @@
-<!doctype html>
-<html lang="pt">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ICONOCRACIA · ana vanzin</title>
-<link rel="icon" href="../assets/sun-seal.svg">
-<meta name="description" content="ICONOCRACIA — pesquisa de doutoramento sobre as alegorias femininas do direito, a autoridade visual, os corpos e a forma política.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ana vanzin">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="ICONOCRACIA · ana vanzin">
-<meta property="og:description" content="A pesquisa de doutoramento sobre as alegorias femininas do direito.">
-<meta property="og:image" content="https://anavanzin.com/assets/og-image.png">
-<meta name="theme-color" content="#F2EAD9">
-<link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="../editorial.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ICONOCRACIA · Iuris Memoria</title>
+<meta name="description" content="A alegoria feminina como tecnologia visual do Estado — Atlas e laboratório de inquérito iconocrático. Ana Vanzin · PPGD/UFSC." />
+<meta name="author" content="Ana Vanzin" />
+<meta name="theme-color" content="#1A2342" />
+<link rel="canonical" href="https://anavanzin.com/iconocracia/" />
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="./assets/favicon-64.png" />
+<link rel="apple-touch-icon" href="./assets/favicon-180.png" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ICONOCRACIA · Iuris Memoria" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:url" content="https://anavanzin.com/iconocracia/" />
+<meta property="og:title" content="ICONOCRACIA · Iuris Memoria" />
+<meta property="og:description" content="A alegoria feminina como tecnologia visual do Estado. Uma cartografia comparada do corpo feminino alegórico na cultura jurídica de seis nações, 1789–2000." />
+<meta property="og:image" content="https://anavanzin.com/iconocracia/assets/og-cover.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ICONOCRACIA — a alegoria feminina como tecnologia visual do Estado." />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ICONOCRACIA · Iuris Memoria" />
+<meta name="twitter:description" content="A alegoria feminina como tecnologia visual do Estado — Atlas e laboratório de inquérito iconocrático." />
+<meta name="twitter:image" content="https://anavanzin.com/iconocracia/assets/og-cover.png" />
+<link rel="stylesheet" href="./styles.css" />
 <style>
-  .opening { margin: clamp(40px,6vh,72px) 0 0; }
-  .opening .ed-fig { max-width: 760px; }
-  .prop { max-width: 60ch; margin: clamp(46px,7vh,84px) auto 0; }
-  .prop p { font-size: var(--text-base); line-height: var(--leading-body); margin: 0 0 1.15em; }
-  .prop p.lede { font-size: var(--text-lead); color: var(--ink); }
-  .block { margin: clamp(50px,8vh,92px) 0 0; }
-  .block-h {
-    font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
-    letter-spacing: .18em; font-size: 12px; color: var(--text-faint);
-    margin: 0 0 22px; padding-bottom: 9px; border-bottom: 1.5px solid var(--ink);
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; min-height: 100vh;
+    background-color: var(--surface-page, #EFE5CF);
+    background-image: var(--grain);
+    background-size: 200px;
+    color: var(--ink);
+    display: flex; flex-direction: column;
   }
-  .block-h .n { color: var(--rubric); margin-right: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-  .closing { max-width: 56ch; margin: clamp(50px,8vh,92px) auto 0; font-family: var(--font-display); font-style: italic; font-size: 1.25rem; line-height: 1.4; color: var(--text-muted); }
+  .wrap { flex: 1; max-width: 1080px; width: 100%; margin: 0 auto; padding: 64px 40px 48px; box-sizing: border-box; }
+
+  /* masthead */
+  .rule { width: 220px; height: 1px; background: var(--gold); position: relative; }
+  .rule::after { content: ""; position: absolute; left: 0; top: -3px; width: 70px; height: 1px; background: var(--brand-amethyst); }
+  .kick { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-amethyst); margin: 20px 0 0; }
+  h1 { font-family: var(--font-display); font-style: italic; font-size: clamp(48px, 9vw, 96px); line-height: .98; letter-spacing: -.01em; color: var(--ink); margin: 12px 0 0; }
+  .lede { font-family: var(--font-body); font-size: clamp(16px, 2.2vw, 20px); line-height: 1.6; color: #4a443c; max-width: 60ch; margin: 22px 0 0; text-wrap: pretty; }
+  .lede em { font-style: italic; color: var(--terracotta); }
+
+  /* entry cards */
+  .entries { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 54px; }
+  a.card {
+    display: flex; flex-direction: column; text-decoration: none;
+    border: 1px solid var(--light-border); border-radius: var(--radius);
+    background: var(--surface-card, #FBF7EE); overflow: hidden;
+    box-shadow: var(--shadow-card); transition: transform .18s var(--ease-out), box-shadow .18s var(--ease-out), border-color .18s;
+  }
+  a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+  .thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--navy-mid, #1D2548); border-bottom: 1px solid var(--gold); }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  a.card:hover .thumb img { transform: scale(1.03); }
+  .thumb img { transition: transform .4s var(--ease-out); }
+  .num { position: absolute; top: 12px; left: 12px; white-space: nowrap; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--ivory-light, #F4ECD8); background: rgba(13,16,30,.6); border: 1px solid var(--gold); border-radius: 3px; padding: 3px 8px; }
+  .body { padding: 20px 22px 22px; }
+  .body h2 { font-family: var(--font-display); font-style: italic; font-size: 27px; color: var(--ink); margin: 0; line-height: 1.05; }
+  .body p { font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: #4a443c; margin: 9px 0 0; }
+  .go { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--terracotta); margin-top: 16px; }
+  .go svg { transition: transform .18s var(--ease-out); }
+  a.card:hover .go svg { transform: translateX(3px); }
+
+  footer { border-top: 3px double var(--gold); }
+  .foot-in { max-width: 1080px; margin: 0 auto; padding: 22px 40px 30px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .foot-in img { width: 40px; height: 40px; object-fit: cover; border: 1px solid var(--gold); border-radius: 4px; }
+  .foot-in .col { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #6a6258; line-height: 1.8; }
+  .foot-in .col b { font-family: var(--font-display); font-style: italic; font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--ink); display: block; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 44px 22px 36px; }
+    .entries { grid-template-columns: 1fr; gap: 18px; margin-top: 38px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.card, .thumb img, .go svg { transition: none !important; }
+    a.card:hover { transform: none; }
+    a.card:hover .thumb img { transform: none; }
+    a.card:hover .go svg { transform: none; }
+  }
+  .backbar { width: 100%; box-sizing: border-box; max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  a.backlink { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #6a6258; text-decoration: none; transition: color .18s var(--ease-out); }
+  a.backlink:hover { color: var(--terracotta); }
+  a.backlink svg { transition: transform .18s var(--ease-out); }
+  a.backlink:hover svg { transform: translateX(-3px); }
+  @media (max-width: 720px) { .backbar { padding: 0 22px; } }
 </style>
 </head>
-<body class="ed" data-route="iconocracia">
-  <header class="ed-bar">
-    <a class="brand" href="../index.html" data-pt-title="← voltar à mesa" title="← voltar à mesa">
-      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
-      <span class="lbl" data-pt="iconocracia" data-en="iconocracy">iconocracia</span>
+<body>
+  <div class="backbar" style="padding-top:24px;">
+    <a class="backlink" href="https://anavanzin.com/">
+      <svg width="15" height="11" viewBox="0 0 15 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5.5H1M6 1 1 5.5 6 10"/></svg>
+      anavanzin.com
     </a>
-    <span class="sp"></span>
-    <nav class="avnav" aria-label="Navegação da pesquisa">
-      <a href="index.html" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
-      <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
-      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
-      <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
-      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
-      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+  </div>
+  <div class="wrap">
+    <header>
+      <div class="rule"></div>
+      <p class="kick">Iuris Memoria · Tese de Doutorado · PPGD/UFSC · MMXXVI</p>
+      <h1>ICONOCRACIA</h1>
+      <p class="lede">A alegoria feminina como <em>tecnologia visual do Estado</em>. Uma cartografia comparada do corpo feminino alegórico na cultura jurídica de seis nações — entre 1789 e 2000. Onde o Estado precisou ser visto, vestiu uma mulher.</p>
+    </header>
+
+    <nav class="entries">
+      <a class="card" href="./atlas/index.html">
+        <div class="thumb">
+          <img src="./assets/corpus/br-villares-republica.jpg" alt="O Retrato da República, Décio Villares (1896)" />
+          <span class="num">I · ATLAS</span>
+        </div>
+        <div class="body">
+          <h2>Atlas da Pesquisa</h2>
+          <p>A tese em página única: argumento, anatomia da alegoria, a parede de 30 espécimes, os oito painéis warburguianos, a radiografia do endurecimento e o léxico iconocrático.</p>
+          <span class="go">Entrar no Atlas
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13M9 1l5 5-5 5"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card" href="./atlas-lab/index.html">
+        <div class="thumb">
+          <img src="./assets/corpus/br-stf-justica-1961.jpg" alt="A Justiça, Alfredo Ceschiatti (STF, 1961)" />
+          <span class="num">II · LAB</span>
+        </div>
+        <div class="body">
+          <h2>Atlas Lab</h2>
+          <p>O laboratório de inquérito visual: modos Aprendizagem e Pesquisa, painéis do módulo ICONOCRACY, radar iconométrico dos dez indicadores e comparação de espécimes lado a lado.</p>
+          <span class="go">Abrir o laboratório
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13M9 1l5 5-5 5"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card" href="./radiografia/index.html">
+        <div class="thumb">
+          <img src="./assets/corpus/fr-moitte-liberte-1792.jpg" alt="La Liberté, Jean-Guillaume Moitte (1792)" />
+          <span class="num">III · RADIOGRAFIA</span>
+        </div>
+        <div class="body">
+          <h2>Radiografia</h2>
+          <p>A radiografia iconométrica: confronta dois espécimes alegóricos sob a mesma régua — a venda, o equilíbrio, o endurecimento. Três disposições — Confronto, Sobreposição e Prancha — para ler onde o corpo da lei se enrijece.</p>
+          <span class="go">Abrir a radiografia
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13M9 1l5 5-5 5"/></svg>
+          </span>
+        </div>
+      </a>
     </nav>
-    <span class="langtog" role="group" aria-label="Idioma / Language">
-      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    </span>
-  </header>
+  </div>
 
-  <main class="ed-page">
-    <a class="ed-back" href="../index.html"><span class="ar">←</span><span data-pt="voltar à mesa" data-en="back to the desktop">voltar à mesa</span></a>
-
-    <div class="ed-head">
-      <p class="kicker rise" data-pt="Pesquisa de doutoramento · PPGD/UFSC" data-en="Doctoral research · PPGD/UFSC">Pesquisa de doutoramento · PPGD/UFSC</p>
-      <h1 class="ed-title caps rise" style="--d:.06s"><span class="band">ICONOCRACIA</span></h1>
-      <p class="dek rise" style="--d:.12s" data-pt="Um estudo de como o direito imagina a si mesmo — por alegorias femininas, autoridade visual, corpos e forma política. Como uma imagem governa, e como o direito governa a imagem." data-en="A study of how law imagines itself — through feminine allegories, visual authority, bodies and political form. How an image governs, and how law governs the image.">Um estudo de como o direito imagina a si mesmo — por alegorias femininas, autoridade visual, corpos e forma política. Como uma imagem governa, e como o direito governa a imagem.</p>
-      <div class="folio-meta rise" style="--d:.18s">
-        <div class="fm"><span class="k" data-pt="Programa" data-en="Programme">Programa</span><span class="v">Doutoramento · PPGD/UFSC</span></div>
-        <div class="fm"><span class="k" data-pt="Grupos" data-en="Groups">Grupos</span><span class="v">Ius Gentium · Ius Commune</span></div>
-        <div class="fm"><span class="k" data-pt="Estado" data-en="Status">Estado</span><span class="v" data-pt="Em curso" data-en="In progress">Em curso</span></div>
+  <footer>
+    <div class="foot-in">
+      <img src="./assets/logo-symbol.png" alt="" />
+      <div class="col">
+        <b>Iuris Memoria</b>
+        Ana Vanzin · Ius Gentium · UFSC · Florianópolis · MMXXVI<br/>
+        anavvanzin / iconocracy-corpus · PPGD
       </div>
-    </div>
-
-    <!-- opening visual fragment -->
-    <section class="opening">
-      <figure class="ed-fig">
-        <div class="frame"><div class="ph tall"><span class="ph-lbl" data-pt="detalhe de arquivo — a venda de Justitia, gravura do Narrenschiff (1494), fólio 22v · imagem a confirmar / digitalizar" data-en="archive detail — Justitia's blindfold, Narrenschiff woodcut (1494), folio 22v · image to be sourced / digitised">detalhe de arquivo — a venda de Justitia, gravura do Narrenschiff (1494), fólio 22v · imagem a confirmar / digitalizar</span></div></div>
-        <figcaption>
-          <span class="cap" data-pt-html="Detalhe: o tolo venda os olhos de Justitia. A primeira Justitia vendada não é virtude — é escárnio." data-en-html="Detail: the fool blindfolds Justitia. The first blindfolded Justitia is not virtue — it is mockery.">Detalhe: o tolo venda os olhos de Justitia. A primeira Justitia vendada não é virtude — é escárnio.</span>
-          <span class="src">Brant, 1494, fol. 22v · direitos a verificar</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- proposition -->
-    <section class="prop">
-      <p class="lede" data-pt-html="A ICONOCRACIA estuda as imagens pelas quais o direito se torna visível — e, ao se tornar visível, governa. A figura central é a alegoria feminina: <em>Justitia</em>, a República-como-mulher, a nação figurada em corpo de mulher." data-en-html="ICONOCRACIA studies the images through which law becomes visible — and, in becoming visible, governs. Its central figure is the feminine allegory: <em>Justitia</em>, the Republic-as-woman, the nation figured in a woman's body.">A ICONOCRACIA estuda as imagens pelas quais o direito se torna visível — e, ao se tornar visível, governa. A figura central é a alegoria feminina: <em>Justitia</em>, a República-como-mulher, a nação figurada em corpo de mulher.</p>
-      <p data-pt="As alegorias femininas importam porque carregam a autoridade do direito sem lhe carregar o rosto: emprestam-lhe um corpo, uma virtude, uma promessa. Ler essa escolha — por que a lei toma forma de mulher — é ler a própria construção histórica do poder jurídico." data-en="Feminine allegories matter because they carry the authority of law without bearing its face: they lend it a body, a virtue, a promise. To read that choice — why law takes the form of a woman — is to read the historical construction of legal power itself.">As alegorias femininas importam porque carregam a autoridade do direito sem lhe carregar o rosto: emprestam-lhe um corpo, uma virtude, uma promessa. Ler essa escolha — por que a lei toma forma de mulher — é ler a própria construção histórica do poder jurídico.</p>
-      <p data-pt="A imagem jurídica nunca é mero ornamento. A venda, a balança, o gume, a coroa, o trono organizam o que se pode ver e o que se deve obedecer. Esta pesquisa trata essas figuras como dispositivos políticos, não como decoração herdada." data-en="Legal imagery is never mere ornament. The blindfold, the scales, the blade, the crown, the throne organise what may be seen and what must be obeyed. This research treats those figures as political devices, not inherited decoration.">A imagem jurídica nunca é mero ornamento. A venda, a balança, o gume, a coroa, o trono organizam o que se pode ver e o que se deve obedecer. Esta pesquisa trata essas figuras como dispositivos políticos, não como decoração herdada.</p>
-    </section>
-
-    <!-- decorative ornament — AI-generated, kept off the doctoral thesis -->
-    <section class="opening" aria-label="Ornamento decorativo">
-      <figure class="ed-fig">
-        <div class="frame"><img src="../assets/ornaments/moodboard-blindfold.jpg" alt="Justiça vendada sobre um manuscrito iluminado — composição decorativa" loading="lazy"></div>
-        <figcaption>
-          <span class="cap" data-pt="Composição visual do tema: a Justiça vendada sobre um manuscrito iluminado." data-en="Visual composition of the theme: blindfolded Justice over an illuminated manuscript.">Composição visual do tema: a Justiça vendada sobre um manuscrito iluminado.</span>
-          <span class="src" data-pt="composição decorativa · imagem gerada por IA" data-en="decorative composition · AI-generated image">composição decorativa · imagem gerada por IA</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- four research questions -->
-    <section class="block">
-      <p class="block-h"><span class="n">i–iv</span><span data-pt="Quatro perguntas" data-en="Four questions">Quatro perguntas</span></p>
-      <ol class="seq">
-        <li><span class="q" data-pt="Como o direito se torna visível?" data-en="How does law become visible?">Como o direito se torna visível?</span></li>
-        <li><span class="q" data-pt="Por que a autoridade jurídica toma, tantas vezes, forma feminina?" data-en="Why does legal authority so often take feminine form?">Por que a autoridade jurídica toma, tantas vezes, forma feminina?</span></li>
-        <li><span class="q" data-pt="O que fazem, politicamente, símbolos como a venda, a balança, o gume, a coroa e o trono?" data-en="What do symbols such as the blindfold, scale, sword, crown and throne do politically?">O que fazem, politicamente, símbolos como a venda, a balança, o gume, a coroa e o trono?</span></li>
-        <li><span class="q" data-pt="Como raça, nação, colonialidade e gênero moldam a alegoria jurídica?" data-en="How do race, nation, coloniality and gender shape legal allegory?">Como raça, nação, colonialidade e gênero moldam a alegoria jurídica?</span></li>
-      </ol>
-    </section>
-
-    <!-- theme index -->
-    <section class="block">
-      <p class="block-h"><span class="n">temas</span><span data-pt="Índice de temas" data-en="Theme index">Índice de temas</span></p>
-      <ul class="theme-index">
-        <li><a href="../sala-de-leitura/#justica-cegueira"><span class="rn">01</span><span class="nm" data-pt="justiça e cegueira" data-en="justice and blindness">justiça e cegueira</span><span class="gl" data-pt="a venda, do escárnio à virtude" data-en="the blindfold, from satire to virtue">a venda, do escárnio à virtude</span></a></li>
-        <li><a href="../sala-de-leitura/#nacao-republica"><span class="rn">02</span><span class="nm" data-pt="nação e república" data-en="nation and republic">nação e república</span><span class="gl" data-pt="Marianne, Britannia, a República" data-en="Marianne, Britannia, the Republic">Marianne, Britannia, a República</span></a></li>
-        <li><a href="../sala-de-leitura/#direito-violencia"><span class="rn">03</span><span class="nm" data-pt="direito e violência" data-en="law and violence">direito e violência</span><span class="gl" data-pt="o gume por trás da virtude" data-en="the blade behind the virtue">o gume por trás da virtude</span></a></li>
-        <li><a href="../sala-de-leitura/#alegoria-feminina"><span class="rn">04</span><span class="nm" data-pt="alegoria feminina" data-en="feminine allegory">alegoria feminina</span><span class="gl" data-pt="o corpo emprestado à lei" data-en="the body lent to law">o corpo emprestado à lei</span></a></li>
-        <li><a href="../sala-de-leitura/#soberania-visual"><span class="rn">05</span><span class="nm" data-pt="soberania visual" data-en="visual sovereignty">soberania visual</span><span class="gl" data-pt="quem governa o que se vê" data-en="who governs what is seen">quem governa o que se vê</span></a></li>
-        <li><a href="../sala-de-leitura/#colonialidade-ver"><span class="rn">06</span><span class="nm" data-pt="colonialidade do ver" data-en="coloniality of seeing">colonialidade do ver</span><span class="gl" data-pt="raça, nação e o olhar jurídico" data-en="race, nation and the legal gaze">raça, nação e o olhar jurídico</span></a></li>
-      </ul>
-    </section>
-
-    <!-- research materials preview -->
-    <section class="block">
-      <p class="block-h"><span class="n">arquivo</span><span data-pt="Materiais de pesquisa" data-en="Research materials">Materiais de pesquisa</span></p>
-      <div class="related" style="margin-top:0;border-top:0">
-        <ul>
-          <li><a href="../marginalia/"><span class="ri-k" data-pt="ensaios" data-en="essays">ensaios</span><span class="ri-t" data-pt="Marginália" data-en="Marginalia">Marginália</span><span class="ar">→</span><span class="ri-d" data-pt="notas e ensaios visuais sobre as imagens do direito" data-en="notes and visual essays on the images of law">notas e ensaios visuais sobre as imagens do direito</span></a></li>
-          <li><a href="../publicacoes/"><span class="ri-k" data-pt="escrita" data-en="writing">escrita</span><span class="ri-t" data-pt="Publicações" data-en="Publications">Publicações</span><span class="ar">→</span><span class="ri-d" data-pt="artigos, capítulos e trabalhos colaborativos" data-en="articles, chapters and collaborative work">artigos, capítulos e trabalhos colaborativos</span></a></li>
-          <li><a href="../sala-de-leitura/"><span class="ri-k" data-pt="leitura" data-en="reading">leitura</span><span class="ri-t" data-pt="Sala de leitura" data-en="Reading room">Sala de leitura</span><span class="ar">→</span><span class="ri-d" data-pt="caminhos pelo campo: lei, imagem e método" data-en="paths through the field: law, image and method">caminhos pelo campo: lei, imagem e método</span></a></li>
-          <li><a href="../atlas/"><span class="ri-k" data-pt="objetos" data-en="objects">objetos</span><span class="ri-t" data-pt="Atlas" data-en="Atlas">Atlas</span><span class="status" data-pt="em formação" data-en="in formation">em formação</span><span class="ar">→</span><span class="ri-d" data-pt="dossiês de objetos visuais, sob curadoria" data-en="dossiers of visual objects, under curation">dossiês de objetos visuais, sob curadoria</span></a></li>
-          <li><a href="atlas-lab/"><span class="ri-k" data-pt="ferramenta" data-en="tool">ferramenta</span><span class="ri-t" data-pt="Atlas Lab — Iuris Memoria" data-en="Atlas Lab — Iuris Memoria">Atlas Lab — Iuris Memoria</span><span class="ar">→</span><span class="ri-d" data-pt="explore e pontue o corpus visual: filtros, comparação e citações ABNT" data-en="explore and score the visual corpus: filters, comparison and ABNT citations">explore e pontue o corpus visual: filtros, comparação e citações ABNT</span></a></li>
-          <li><a href="desenhe-um-simbolo.html"><span class="ri-k" data-pt="oficina" data-en="workshop">oficina</span><span class="ri-t" data-pt="Desenhe um símbolo" data-en="Draw a symbol">Desenhe um símbolo</span><span class="ar">→</span><span class="ri-d" data-pt="trace a venda, a balança, o gume — pensar com a mão" data-en="trace the blindfold, the scale, the blade — thinking by hand">trace a venda, a balança, o gume — pensar com a mão</span></a></li>
-        </ul>
-      </div>
-    </section>
-
-    <p class="closing" data-pt="Este arquivo público é curado e está em formação. Não reproduz o corpus integral da pesquisa: reúne o que já pode ser lido, visto e citado com cuidado." data-en="This public archive is curated and in formation. It does not reproduce the full research corpus: it gathers what can already be read, seen and cited with care.">Este arquivo público é curado e está em formação. Não reproduz o corpus integral da pesquisa: reúne o que já pode ser lido, visto e citado com cuidado.</p>
-  </main>
-
-  <footer class="ed-foot">
-    <div class="in">
-      <img src="../assets/monogram-av-inverse.svg" alt="">
-      <span><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></span>
-      <span class="sep">PPGD/UFSC · Ius Gentium · anavanzin.com</span>
-      <span class="flr">❧</span>
     </div>
   </footer>
-
-  <script src="../editorial.js"></script>
 </body>
 </html>
