@@ -19,7 +19,7 @@ const ATLAS_LAB_PLATFORM = {
   mission:
     'Atlas Lab is the umbrella research platform for guided visual inquiry. In v1, it frames ICONOCRACY as a demonstrative module for observing, comparing, and interpreting legal-political allegories without treating UI seed data as canonical corpus truth.',
   uiNote:
-    'Observe first. Compare before concluding. AI responds after user input and supports reflection rather than authority.',
+    'Observe first. Compare before concluding. Notes support reflection and are saved locally.',
   canonicalDataNotice:
     'Canonical repository data remains in data/processed/records.jsonl and corpus/corpus-data.json. The constants here exist only to support the first front-end proof of concept.',
   featuredModuleId: 'iconocracy',

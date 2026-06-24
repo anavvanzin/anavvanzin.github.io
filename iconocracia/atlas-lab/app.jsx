@@ -1,8 +1,8 @@
 // Atlas Lab — interactive inquiry surface for the ICONOCRACY module.
 // Refactored for TL-06 to load generated corpus data via src/lib/corpus.js,
 // with static seed fallback and preserved Atlas Lab functionality.
-// No Firebase / no lucide / no AI authority — notes persist in localStorage,
-// icons are inline SVG, and the "IA" step is a reflective placeholder (per README).
+// No Firebase / no lucide — notes persist in localStorage,
+// icons are inline SVG, and the stepper is purely reflective (no AI backend).
 (function () {
 const { useState, useEffect } = React;
 const { loadCorpus } = window.CorpusLoader;
@@ -28,7 +28,7 @@ const ATLAS_LAB_PLATFORM = {
   version: 'v1',
   status: 'generated-corpus',
   mission: 'Atlas Lab is the umbrella research platform for guided visual inquiry.',
-  uiNote: 'Observe first. Compare before concluding. AI responds after user input and supports reflection rather than authority.',
+  uiNote: 'Observe first. Compare before concluding. Notes support reflection and are saved locally.',
   canonicalDataNotice: 'Canonical repository data remains in data/processed/records.jsonl and corpus/corpus-data.json.',
   featuredModuleId: 'iconocracy',
 };
@@ -304,12 +304,6 @@ function LearningView({ panel, entriesById }) {
             </button>
           );
         })}
-        {/* AI placeholder step */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 14px", border: "1px dashed var(--light-border)", borderRadius: "var(--radius-sm)", opacity: .6 }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "1px", color: "var(--ink-3,#8D8377)" }}>04</span>
-          <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 16, color: "var(--ink-2,#6F665C)" }}>IA</span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 7.5, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--terracotta)" }}>em breve</span>
-        </div>
       </div>
 
       {/* current step body */}
