@@ -22,11 +22,12 @@
 <meta name="twitter:image" content="https://anavanzin.com/assets/og-image.png">
 <meta name="theme-color" content="#F2EAD9">
 <link rel="stylesheet" href="styles.css">
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="vendor/react/react-18.3.1.production.min.js"></script>
+<script src="vendor/react/react-dom-18.3.1.production.min.js"></script>
 <script src="_ds_bundle.js"></script>
 <style>
-  html, body { margin: 0; height: 100%; background: var(--paper); overflow: hidden; }
+  html, body { margin: 0; min-height: 100%; background: var(--paper); }
+  html.desktop-enhanced, html.desktop-enhanced body { height: 100%; overflow: hidden; }
   ::selection { background: var(--rubric); color: var(--paper); }
 </style>
 <script type="application/ld+json">
@@ -49,11 +50,26 @@
 </script>
 </head>
 <body style="font-family: sans-serif">
-<div id="root"></div>
+<div id="root">
+  <main class="semantic-home" aria-labelledby="home-title" style="max-width: 760px; margin: 0 auto; padding: clamp(2rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
+    <p style="letter-spacing: .18em; text-transform: uppercase; color: var(--rubric); font-size: .85rem; margin-bottom: 1rem;">direito · iconografia jurídica · pesquisa</p>
+    <h1 id="home-title" style="font-family: var(--font-display); font-size: clamp(3rem, 10vw, 6rem); line-height: 1; margin-bottom: 1rem;">ana vanzin</h1>
+    <p style="font-size: 1.2rem; line-height: 1.6; max-width: 62ch; margin-bottom: 1.5rem;">Advogada e historiadora do direito dedicada às alegorias femininas do direito, à iconografia jurídica e às relações entre imagem, poder e condição da mulher.</p>
+    <p style="line-height: 1.7; max-width: 62ch; margin-bottom: 1.5rem;">Este site reúne perfil, publicações, atlas visual e projetos de pesquisa sobre justiça, república, soberania e outras personificações jurídicas. A mesa de trabalho retrô funciona como camada interativa progressiva; os principais caminhos também estão disponíveis aqui no HTML inicial, antes de qualquer hidratação JavaScript.</p>
+    <nav aria-label="Navegação principal" style="display: flex; flex-wrap: wrap; gap: .75rem 1rem;">
+      <a href="sobre.html">Perfil</a>
+      <a href="publicacoes/">Publicações</a>
+      <a href="atlas/">Atlas</a>
+      <a href="iconocracia/">Iconocracia</a>
+      <a href="mailto:anavvanzin@outlook.com">Contato</a>
+    </nav>
+  </main>
+</div>
 <script src="icons.js"></script>
 <script src="window-contents.js"></script>
 <script src="desktop-app.js"></script>
 <script>
+  document.documentElement.classList.add('desktop-enhanced');
   var Desktop = window.avapp.Desktop;
   ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(Desktop));
 </script>
