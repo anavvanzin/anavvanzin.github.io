@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" role="img" aria-label="Ana Vanzin seal">
+  
+  <circle cx="140" cy="140" r="132" fill="#F2EAD9"></circle>
+  <circle cx="140" cy="140" r="132" fill="none" stroke="#211B16" stroke-width="6"></circle>
+  <circle cx="140" cy="140" r="116" fill="none" stroke="#211B16" stroke-width="2.5"></circle>
+  <g stroke="#211B16" stroke-width="2">
+    <g id="t"><line x1="140" y1="12" x2="140" y2="22"></line></g>
+    <use href="#t" transform="rotate(15 140 140)"></use><use href="#t" transform="rotate(30 140 140)"></use>
+    <use href="#t" transform="rotate(45 140 140)"></use><use href="#t" transform="rotate(60 140 140)"></use>
+    <use href="#t" transform="rotate(75 140 140)"></use><use href="#t" transform="rotate(90 140 140)"></use>
+    <use href="#t" transform="rotate(105 140 140)"></use><use href="#t" transform="rotate(120 140 140)"></use>
+    <use href="#t" transform="rotate(135 140 140)"></use><use href="#t" transform="rotate(150 140 140)"></use>
+    <use href="#t" transform="rotate(165 140 140)"></use><use href="#t" transform="rotate(180 140 140)"></use>
+    <use href="#t" transform="rotate(195 140 140)"></use><use href="#t" transform="rotate(210 140 140)"></use>
+    <use href="#t" transform="rotate(225 140 140)"></use><use href="#t" transform="rotate(240 140 140)"></use>
+    <use href="#t" transform="rotate(255 140 140)"></use><use href="#t" transform="rotate(270 140 140)"></use>
+    <use href="#t" transform="rotate(285 140 140)"></use><use href="#t" transform="rotate(300 140 140)"></use>
+    <use href="#t" transform="rotate(315 140 140)"></use><use href="#t" transform="rotate(330 140 140)"></use>
+    <use href="#t" transform="rotate(345 140 140)"></use>
+  </g>
+  <g transform="translate(140 142) scale(0.56) translate(-120 -150)">
+    <g fill="none" stroke="#211B16" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 47 196 L 95 52"></path><path d="M 95 52 L 143 196"></path><path d="M 143 196 L 191 52"></path>
+      <path d="M 69 132 L 121 132"></path>
+    </g>
+    <g stroke="#9B2C1C" fill="none" stroke-linecap="round">
+      <path d="M 28 210 L 212 210" stroke-width="9"></path>
+      <path d="M 28 210 L 28 226" stroke-width="3.5"></path><path d="M 212 210 L 212 226" stroke-width="3.5"></path>
+    </g>
+    <g fill="#9B2C1C" stroke="none">
+      <path d="M 8 227 Q 28 249 48 227 Z"></path><path d="M 192 227 Q 212 249 232 227 Z"></path>
+    </g>
+    <circle cx="28" cy="210" r="6.5" fill="#9B2C1C"></circle><circle cx="212" cy="210" r="6.5" fill="#9B2C1C"></circle>
+  </g>
+</svg>
