@@ -7,7 +7,7 @@ window.AtlasData = {
     title: "A alegoria feminina como tecnologia visual do Estado",
     lede: "Uma cartografia comparada do corpo feminino alegórico na cultura jurídica de seis nações — França, Reino Unido, Alemanha, Estados Unidos, Bélgica e Brasil — entre 1789 e 2000. Onde o Estado precisou ser visto, vestiu uma mulher.",
     author: "Ana Vanzin", group: "Ius Gentium · UFSC · Florianópolis", year: "MMXXVI",
-    heroImg: A+"corpus/br-stf-justica-1961.jpg",
+    heroImg: "/assets/corpus/br-stf-justica-1961.jpg",
     heroCap: "BR · 1961 · Alfredo Ceschiatti · A Justiça, granito · Supremo Tribunal Federal, Brasília",
   },
 
@@ -29,7 +29,7 @@ window.AtlasData = {
     cap: "Anatomia da alegoria · ler o corpo como documento",
     title: "O corpo feminino é o aparato",
     lede: "Décio Villares, «O Retrato da República» (1896), pintado para selar a jovem República brasileira. Tratada como peça do corpus — não como ilustração — a figura deixa de representar o Estado e passa a operá-lo. Cada elemento sobreposto ao corpo feminino executa uma função soberana; é essa transferência que a tese nomeia tecnologia visual.",
-    fig: A+"corpus/br-villares-republica.jpg",
+    fig: "/assets/corpus/br-villares-republica.jpg",
     figCap: "BR · 1896 · Décio Villares — O Retrato da República (óleo s/ tela)",
     parts: [
       { n:"1", x:"52%", y:"15%", el:"O barrete frígio e o louro", fn:"A liberdade revolucionária importada — a Marianne francesa — naturalizada como insígnia do Brasil." },
@@ -43,39 +43,39 @@ window.AtlasData = {
   // Curated vitrine — real corpus plates, six nations, true provenance.
   corpus: [
     // ── Fundacional: o Estado veste pela primeira vez um corpo feminino ──
-    { id:"FR-1792-01", title:"Liberté", country:"FR", year:1792, regime:"FUNDACIONAL", support:"gravura", img:A+"corpus/fr-moitte-liberte-1792.jpg" },
-    { id:"FR-1793-02", title:"A Liberdade coroando a Virtude", country:"FR", year:1793, regime:"FUNDACIONAL", support:"gravura", img:A+"corpus/fr-boizot-liberte-1793.jpg" },
-    { id:"FR-1793-03", title:"A Liberdade armada do Cetro da Razão", country:"FR", year:1793, regime:"FUNDACIONAL", support:"gravura", img:A+"corpus/fr-boizot-liberte-armada-1793.jpg" },
-    { id:"BR-1896-01", title:"O Retrato da República", country:"BR", year:1896, regime:"FUNDACIONAL", support:"pintura", img:A+"corpus/br-villares-republica.jpg" },
-    { id:"BR-1896-02", title:"Alegoria da República", country:"BR", year:1896, regime:"FUNDACIONAL", support:"pintura", img:A+"corpus/br-lopes-republica-1896.jpg" },
-    { id:"US-1896-01", title:"History Instructing Youth", country:"US", year:1896, regime:"FUNDACIONAL", support:"cédula", img:A+"corpus/us-educational-1896-c.png" },
+    { id:"FR-1792-01", title:"Liberté", country:"FR", year:1792, regime:"FUNDACIONAL", support:"gravura", img:"/assets/corpus/fr-moitte-liberte-1792.jpg" },
+    { id:"FR-1793-02", title:"A Liberdade coroando a Virtude", country:"FR", year:1793, regime:"FUNDACIONAL", support:"gravura", img:"/assets/corpus/fr-boizot-liberte-1793.jpg" },
+    { id:"FR-1793-03", title:"A Liberdade armada do Cetro da Razão", country:"FR", year:1793, regime:"FUNDACIONAL", support:"gravura", img:"/assets/corpus/fr-boizot-liberte-armada-1793.jpg" },
+    { id:"BR-1896-01", title:"O Retrato da República", country:"BR", year:1896, regime:"FUNDACIONAL", support:"pintura", img:"/assets/corpus/br-villares-republica.jpg" },
+    { id:"BR-1896-02", title:"Alegoria da República", country:"BR", year:1896, regime:"FUNDACIONAL", support:"pintura", img:"/assets/corpus/br-lopes-republica-1896.jpg" },
+    { id:"US-1896-01", title:"History Instructing Youth", country:"US", year:1896, regime:"FUNDACIONAL", support:"cédula", img:"/assets/corpus/us-educational-1896-c.png" },
     // ── Normativo: a fórmula que sobrevive + a circulação como moeda ──
-    { id:"BE-1559-01", title:"Iustitia", country:"BE", year:1559, regime:"NORMATIVO", support:"gravura", img:A+"corpus/fr-bruegel-justicia-1559.jpg" },
-    { id:"DE-1589-01", title:"Justitia da torre do relógio", country:"DE", year:1589, regime:"NORMATIVO", support:"escultura", img:A+"corpus/de-justitia-esslingen-1589-c.png" },
-    { id:"DE-1752-01", title:"Allegorie der Jus Civile", country:"DE", year:1752, regime:"NORMATIVO", support:"escultura", img:A+"corpus/de-jus-civile-wenzinger-1752-c.png" },
-    { id:"UK-1600-01", title:"Iustitia e Prudentia", country:"UK", year:"s/d", regime:"NORMATIVO", support:"gravura", img:A+"corpus/uk-justitia-prudentia-c.png" },
-    { id:"FR-1865-01", title:"A Justiça, a Vingança e a Verdade", country:"FR", year:1865, regime:"NORMATIVO", support:"gravura", img:A+"corpus/fr-chifflart-justice-1865.jpg" },
-    { id:"BR-1961-01", title:"A Justiça", country:"BR", year:1961, regime:"NORMATIVO", support:"escultura", img:A+"corpus/br-stf-justica-1961.jpg" },
-    { id:"FR-1900-01", title:"A República de Clésinger", country:"FR", year:1900, regime:"NORMATIVO", support:"escultura", img:A+"corpus/fr-clesinger-republique-1900.jpg" },
-    { id:"FR-1849-01", title:"Cérès — 5 francs", country:"FR", year:1849, regime:"NORMATIVO", support:"moeda", img:A+"corpus/fr-ceres-5f-1849-c.png" },
-    { id:"UK-1898-01", title:"Britannia — 1 penny", country:"UK", year:1898, regime:"NORMATIVO", support:"moeda", img:A+"corpus/uk-penny-1895-c.png" },
-    { id:"UK-1695-01", title:"Britannia — meio penny", country:"UK", year:1695, regime:"NORMATIVO", support:"moeda", img:A+"corpus/uk-halfpenny-1695-c.png" },
-    { id:"DE-1900-01", title:"Germania — Reichspost", country:"DE", year:1900, regime:"NORMATIVO", support:"selo", img:A+"corpus/de-germania-1900.jpg" },
-    { id:"DE-1919-01", title:"Germania — 50 Mark", country:"DE", year:1919, regime:"NORMATIVO", support:"cédula", img:A+"corpus/de-50mark-1919-c.png" },
-    { id:"DE-1910-01", title:"1000 Mark — duas alegorias", country:"DE", year:1910, regime:"NORMATIVO", support:"cédula", img:A+"corpus/de-1000mark-1910-c.png" },
-    { id:"DE-1908-01", title:"100 Mark — duas alegorias", country:"DE", year:1908, regime:"NORMATIVO", support:"cédula", img:A+"corpus/de-100mark-1908-c.png" },
-    { id:"US-1864-01", title:"Seated Liberty — 1 dólar", country:"US", year:1864, regime:"NORMATIVO", support:"moeda", img:A+"corpus/us-seated-liberty-1840-c.png" },
-    { id:"BR-1906-01", title:"República — 1000 réis", country:"BR", year:1906, regime:"NORMATIVO", support:"moeda", img:A+"corpus/br-1000reis-1906-c.png" },
-    { id:"BR-1970-01", title:"República — 1 cruzeiro", country:"BR", year:1970, regime:"NORMATIVO", support:"cédula", img:A+"corpus/br-1cruzeiro-1970-c.png" },
-    { id:"BR-1965-01", title:"República — 50 cruzeiros", country:"BR", year:1965, regime:"NORMATIVO", support:"moeda", img:A+"corpus/br-50cruzeiros-1965-c.png" },
+    { id:"BE-1559-01", title:"Iustitia", country:"BE", year:1559, regime:"NORMATIVO", support:"gravura", img:"/assets/corpus/fr-bruegel-justicia-1559.jpg" },
+    { id:"DE-1589-01", title:"Justitia da torre do relógio", country:"DE", year:1589, regime:"NORMATIVO", support:"escultura", img:"/assets/corpus/de-justitia-esslingen-1589-c.png" },
+    { id:"DE-1752-01", title:"Allegorie der Jus Civile", country:"DE", year:1752, regime:"NORMATIVO", support:"escultura", img:"/assets/corpus/de-jus-civile-wenzinger-1752-c.png" },
+    { id:"UK-1600-01", title:"Iustitia e Prudentia", country:"UK", year:"s/d", regime:"NORMATIVO", support:"gravura", img:"/assets/corpus/uk-justitia-prudentia-c.png" },
+    { id:"FR-1865-01", title:"A Justiça, a Vingança e a Verdade", country:"FR", year:1865, regime:"NORMATIVO", support:"gravura", img:"/assets/corpus/fr-chifflart-justice-1865.jpg" },
+    { id:"BR-1961-01", title:"A Justiça", country:"BR", year:1961, regime:"NORMATIVO", support:"escultura", img:"/assets/corpus/br-stf-justica-1961.jpg" },
+    { id:"FR-1900-01", title:"A República de Clésinger", country:"FR", year:1900, regime:"NORMATIVO", support:"escultura", img:"/assets/corpus/fr-clesinger-republique-1900.jpg" },
+    { id:"FR-1849-01", title:"Cérès — 5 francs", country:"FR", year:1849, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/fr-ceres-5f-1849-c.png" },
+    { id:"UK-1898-01", title:"Britannia — 1 penny", country:"UK", year:1898, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/uk-penny-1895-c.png" },
+    { id:"UK-1695-01", title:"Britannia — meio penny", country:"UK", year:1695, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/uk-halfpenny-1695-c.png" },
+    { id:"DE-1900-01", title:"Germania — Reichspost", country:"DE", year:1900, regime:"NORMATIVO", support:"selo", img:"/assets/corpus/de-germania-1900.jpg" },
+    { id:"DE-1919-01", title:"Germania — 50 Mark", country:"DE", year:1919, regime:"NORMATIVO", support:"cédula", img:"/assets/corpus/de-50mark-1919-c.png" },
+    { id:"DE-1910-01", title:"1000 Mark — duas alegorias", country:"DE", year:1910, regime:"NORMATIVO", support:"cédula", img:"/assets/corpus/de-1000mark-1910-c.png" },
+    { id:"DE-1908-01", title:"100 Mark — duas alegorias", country:"DE", year:1908, regime:"NORMATIVO", support:"cédula", img:"/assets/corpus/de-100mark-1908-c.png" },
+    { id:"US-1864-01", title:"Seated Liberty — 1 dólar", country:"US", year:1864, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/us-seated-liberty-1840-c.png" },
+    { id:"BR-1906-01", title:"República — 1000 réis", country:"BR", year:1906, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/br-1000reis-1906-c.png" },
+    { id:"BR-1970-01", title:"República — 1 cruzeiro", country:"BR", year:1970, regime:"NORMATIVO", support:"cédula", img:"/assets/corpus/br-1cruzeiro-1970-c.png" },
+    { id:"BR-1965-01", title:"República — 50 cruzeiros", country:"BR", year:1965, regime:"NORMATIVO", support:"moeda", img:"/assets/corpus/br-50cruzeiros-1965-c.png" },
     // ── Militar / endurecimento: a guerra e a colônia enrijecem a figura ──
-    { id:"FR-1915-01", title:"A República nos chama", country:"FR", year:1915, regime:"MILITAR", support:"litografia", img:A+"corpus/fr-steinlen-republique-1915.jpg" },
-    { id:"UK-1912-01", title:"Britannia armada — 1 penny", country:"UK", year:1912, regime:"MILITAR", support:"moeda", img:A+"corpus/uk-britannia-penny-1912.jpg" },
-    { id:"BE-1912-01", title:"Banque du Congo Belge — 100 francs", country:"BE", year:1912, regime:"MILITAR", support:"cédula", img:A+"corpus/be-congo-100f-1912-c.png" },
-    { id:"BE-1921-01", title:"Monumento ao Congo Belga", country:"BE", year:1921, regime:"MILITAR", support:"monumento", img:A+"corpus/be-congo-monumento-1921.jpg" },
+    { id:"FR-1915-01", title:"A República nos chama", country:"FR", year:1915, regime:"MILITAR", support:"litografia", img:"/assets/corpus/fr-steinlen-republique-1915.jpg" },
+    { id:"UK-1912-01", title:"Britannia armada — 1 penny", country:"UK", year:1912, regime:"MILITAR", support:"moeda", img:"/assets/corpus/uk-britannia-penny-1912.jpg" },
+    { id:"BE-1912-01", title:"Banque du Congo Belge — 100 francs", country:"BE", year:1912, regime:"MILITAR", support:"cédula", img:"/assets/corpus/be-congo-100f-1912-c.png" },
+    { id:"BE-1921-01", title:"Monumento ao Congo Belga", country:"BE", year:1921, regime:"MILITAR", support:"monumento", img:"/assets/corpus/be-congo-monumento-1921.jpg" },
     // ── Contra-alegoria: sátira e fissura ──
-    { id:"FR-1871-01", title:"A República amável", country:"FR", year:1871, regime:"CONTRA_ALEGORIA", support:"gravura", img:A+"corpus/fr-rops-republique-1871.jpg" },
-    { id:"FR-1904-01", title:"O chocalho da República", country:"FR", year:1904, regime:"CONTRA_ALEGORIA", support:"litografia", img:A+"corpus/fr-veber-hochet-1904.jpg" },
+    { id:"FR-1871-01", title:"A República amável", country:"FR", year:1871, regime:"CONTRA_ALEGORIA", support:"gravura", img:"/assets/corpus/fr-rops-republique-1871.jpg" },
+    { id:"FR-1904-01", title:"O chocalho da República", country:"FR", year:1904, regime:"CONTRA_ALEGORIA", support:"litografia", img:"/assets/corpus/fr-veber-hochet-1904.jpg" },
   ],
 
   panels: [
@@ -89,14 +89,14 @@ window.AtlasData = {
     { n:"VIII", name:"Fissuras",        desc:"Contra-alegorias e rupturas.",                          period:"1960–2000" },
   ],
   panelImg: [
-    A+"corpus/fr-moitte-liberte-1792.jpg",   // I · Gênese
-    A+"corpus/fr-bruegel-justicia-1559.jpg", // II · Justitia
-    A+"corpus/fr-ceres-5f-1849-c.png",       // III · Domesticação
-    A+"corpus/fr-steinlen-republique-1915.jpg", // IV · ENDURECIMENTO
-    A+"corpus/br-stf-justica-1961.jpg",      // V · Pedra e Bronze
-    A+"corpus/be-congo-100f-1912-c.png",     // VI · Balança e Império
-    A+"corpus/us-educational-1896-c.png",    // VII · Branquitude
-    A+"corpus/fr-veber-hochet-1904.jpg",     // VIII · Fissuras
+    "/assets/corpus/fr-moitte-liberte-1792.jpg",   // I · Gênese
+    "/assets/corpus/fr-bruegel-justicia-1559.jpg", // II · Justitia
+    "/assets/corpus/fr-ceres-5f-1849-c.png",       // III · Domesticação
+    "/assets/corpus/fr-steinlen-republique-1915.jpg", // IV · ENDURECIMENTO
+    "/assets/corpus/br-stf-justica-1961.jpg",      // V · Pedra e Bronze
+    "/assets/corpus/be-congo-100f-1912-c.png",     // VI · Balança e Império
+    "/assets/corpus/us-educational-1896-c.png",    // VII · Branquitude
+    "/assets/corpus/fr-veber-hochet-1904.jpg",     // VIII · Fissuras
   ],
 
   radiografia: {
@@ -104,8 +104,8 @@ window.AtlasData = {
     title: "Da serenidade ao endurecimento",
     desc: "O mesmo dispositivo — a mulher-Estado — em duas têmperas. O rosto sereno e laureado da moeda republicana francesa, e o corpo armado, de elmo, escudo e tridente, da potência imperial britânica. A iconometria mede, em dez indicadores ordinais, a distância entre a serenidade e o endurecimento: a guerra não inventa a figura, ela a enrijece.",
     indicators: ["desincorporação","rigidez postural","dessexualização","uniformização facial","heraldicização","enquadramento arq.","apagamento narrativo","monocromatização","serialidade","inscrição estatal"],
-    a: { cap:"FR · 1849 · moeda", title:"Cérès, 5 francs", regime:"NORMATIVO", img:A+"corpus/fr-ceres-5f-1849-c.png", scores:[3,3,2,3,3,2,2,3,3,4] },
-    b: { cap:"UK · 1912 · moeda", title:"Britannia armada", regime:"MILITAR", img:A+"corpus/uk-britannia-penny-1912.jpg", scores:[7,8,7,7,9,6,8,6,8,9] },
+    a: { cap:"FR · 1849 · moeda", title:"Cérès, 5 francs", regime:"NORMATIVO", img:"/assets/corpus/fr-ceres-5f-1849-c.png", scores:[3,3,2,3,3,2,2,3,3,4] },
+    b: { cap:"UK · 1912 · moeda", title:"Britannia armada", regime:"MILITAR", img:"/assets/corpus/uk-britannia-penny-1912.jpg", scores:[7,8,7,7,9,6,8,6,8,9] },
   },
 
   verbetes: [
