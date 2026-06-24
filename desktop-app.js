@@ -132,6 +132,20 @@ const DESK_ICONS = [{
   },
   Icon: DocIcon
 }, {
+  id: 'atlas',
+  label: {
+    pt: 'atlas',
+    en: 'atlas'
+  },
+  Icon: AtlasIcon
+}, {
+  id: 'sala-de-leitura',
+  label: {
+    pt: 'sala de leitura',
+    en: 'reading room'
+  },
+  Icon: FolderIcon
+}, {
   id: 'advocacia',
   label: {
     pt: 'advocacia',
@@ -618,7 +632,7 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'sobre') {
-      window.location.href = 'readme.html';
+      window.location.href = 'sobre.html';
       return;
     }
     if (id === 'conceitos') {
@@ -647,6 +661,18 @@ function Desktop() {
     }
     if (id === 'trabalhos') {
       window.location.href = 'trabalhos.html';
+      return;
+    }
+    if (id === 'publicacoes') {
+      window.location.href = 'publicacoes/';
+      return;
+    }
+    if (id === 'atlas') {
+      window.location.href = 'atlas/';
+      return;
+    }
+    if (id === 'sala-de-leitura') {
+      window.location.href = 'sala-de-leitura/';
       return;
     }
     setSel(id);
