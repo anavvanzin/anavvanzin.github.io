@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desenhe um símbolo jurídico · ana vanzin</title>
+<link rel="icon" href="../assets/sun-seal.svg">
+<meta name="description" content="Desenhe um símbolo jurídico — trace a venda, a balança, o gume, a coroa: uma forma de pensar com a mão o que a imagem do direito faz.">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../editorial.css">
+</head>
+<body class="ed" data-route="iconocracia">
+  <header class="ed-bar">
+    <a class="brand" href="../index.html" title="← voltar à mesa">
+      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="iconocracia" data-en="iconocracy">iconocracia</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="index.html" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
+      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
+
+  <main class="ed-page">
+    <a class="ed-back" href="index.html"><span class="ar">←</span><span data-pt="ICONOCRACIA" data-en="ICONOCRACIA">ICONOCRACIA</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="Oficina · pensar com a mão" data-en="Workshop · thinking by hand">Oficina · pensar com a mão</p>
+      <h1 class="ed-title rise" style="--d:.06s" data-pt="desenhe um símbolo jurídico" data-en="draw a legal symbol">desenhe um símbolo jurídico</h1>
+      <p class="dek rise" style="--d:.12s" data-pt="Escolha um símbolo e trace-o por cima do guia. Repetir o gesto à mão é uma forma de perguntar o que ele faz — quem o segura, o que esconde, o que promete." data-en="Pick a symbol and trace it over the guide. Repeating the gesture by hand is a way of asking what it does — who holds it, what it hides, what it promises.">Escolha um símbolo e trace-o por cima do guia. Repetir o gesto à mão é uma forma de perguntar o que ele faz — quem o segura, o que esconde, o que promete.</p>
+    </div>
+
+    <div class="sym-stage rise" style="--d:.18s">
+      <div class="sym-canvas-wrap">
+        <span class="grid-note" data-pt="guia · 100 × 100" data-en="guide · 100 × 100">guia · 100 × 100</span>
+        <canvas class="sym-canvas" id="cv" width="900" height="900"></canvas>
+      </div>
+      <div class="sym-side">
+        <p class="pick-h" data-pt="Repertório" data-en="Repertoire">Repertório</p>
+        <div class="sym-picker" id="picker" role="group" aria-label="Escolher símbolo"></div>
+        <div class="sym-meta" id="meta"></div>
+        <div class="sym-controls">
+          <button class="sym-btn" id="clear" data-pt="Limpar" data-en="Clear">Limpar</button>
+          <button class="sym-btn" id="toggle" data-pt="Ocultar guia" data-en="Hide guide">Ocultar guia</button>
+          <button class="sym-btn primary" id="save" data-pt="Salvar PNG" data-en="Save PNG">Salvar PNG</button>
+        </div>
+        <p class="sym-hint" data-pt="Use o mouse ou o dedo. O guia não é impresso na imagem salva." data-en="Use mouse or finger. The guide is not printed in the saved image.">Use o mouse ou o dedo. O guia não é impresso na imagem salva.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <img src="../assets/monogram-av-inverse.svg" alt="">
+      <span><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></span>
+      <span class="sep">PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+    </div>
+  </footer>
+
+  <script src="../content.js"></script>
+  <script src="../editorial.js"></script>
+  <script>
+  (function () {
+    var L = function (o) { return window.AVContent.L(o); };
+    var cv = document.getElementById('cv');
+    var ctx = cv.getContext('2d');
+    var SYMBOLS = window.AVContent.SYMBOLS;
+    var current = SYMBOLS[0];
+    var showGuide = true;
+    var strokes = [];        // committed strokes
+    var cur = null;          // current stroke
+    var cssVar = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+
+    // choose initial from hash
+    if (location.hash) {
+      var h = location.hash.slice(1);
+      var f = SYMBOLS.filter(function (s) { return s.slug === h; })[0];
+      if (f) current = f;
+    }
+
+    function scale() { return cv.width / 100; }
+
+    function drawGuide() {
+      if (!showGuide) return;
+      var k = scale();
+      ctx.save();
+      ctx.scale(k, k);
+      ctx.strokeStyle = cssVar('--ink-30') || 'rgba(0,0,0,.25)';
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.setLineDash([3, 4]);
+      var p = new Path2D(current.path);
+      ctx.stroke(p);
+      ctx.restore();
+    }
+
+    function drawStroke(s) {
+      if (s.length < 1) return;
+      ctx.strokeStyle = cssVar('--ink') || '#211B16';
+      ctx.lineWidth = cv.width / 90;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(s[0].x, s[0].y);
+      for (var i = 1; i < s.length; i++) ctx.lineTo(s[i].x, s[i].y);
+      ctx.stroke();
+    }
+
+    function paint() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      drawGuide();
+      strokes.forEach(drawStroke);
+      if (cur) drawStroke(cur);
+    }
+
+    function pos(e) {
+      var r = cv.getBoundingClientRect();
+      return { x: (e.clientX - r.left) * (cv.width / r.width), y: (e.clientY - r.top) * (cv.height / r.height) };
+    }
+    cv.addEventListener('pointerdown', function (e) {
+      cv.setPointerCapture(e.pointerId);
+      cur = [pos(e)]; paint();
+    });
+    cv.addEventListener('pointermove', function (e) {
+      if (!cur) return;
+      cur.push(pos(e)); paint();
+    });
+    function end() { if (cur) { strokes.push(cur); cur = null; paint(); } }
+    cv.addEventListener('pointerup', end);
+    cv.addEventListener('pointercancel', end);
+    cv.addEventListener('pointerleave', end);
+
+    function renderPicker() {
+      var picker = document.getElementById('picker');
+      picker.innerHTML = SYMBOLS.map(function (s) {
+        return '<button type="button" class="sym-pick" data-slug="' + s.slug + '" aria-pressed="' + (s.slug === current.slug) + '">' +
+          '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="' + s.path + '"/></svg>' +
+          '<span class="nm">' + L(s.name) + '</span></button>';
+      }).join('');
+      picker.querySelectorAll('.sym-pick').forEach(function (b) {
+        b.addEventListener('click', function () {
+          current = SYMBOLS.filter(function (s) { return s.slug === b.dataset.slug; })[0];
+          strokes = []; cur = null;
+          renderPicker(); renderMeta(); paint();
+          history.replaceState(null, '', '#' + current.slug);
+        });
+      });
+    }
+    function renderMeta() {
+      var en = window.AV && window.AV.lang === 'en';
+      var t = window.AVContent.theme(current.theme);
+      document.getElementById('meta').innerHTML =
+        '<div class="nm">' + L(current.name) + '</div>' +
+        '<div class="gl">' + L(current.gloss) + '</div>' +
+        (t ? '<div class="th"><a href="../sala-de-leitura/#' + t.slug + '" style="color:inherit;text-decoration:none">' + L(t.name) + ' →</a></div>' : '');
+    }
+
+    document.getElementById('clear').addEventListener('click', function () { strokes = []; cur = null; paint(); });
+    document.getElementById('toggle').addEventListener('click', function (e) {
+      showGuide = !showGuide;
+      var en = window.AV && window.AV.lang === 'en';
+      e.currentTarget.textContent = showGuide ? (en ? 'Hide guide' : 'Ocultar guia') : (en ? 'Show guide' : 'Mostrar guia');
+      paint();
+    });
+    document.getElementById('save').addEventListener('click', function () {
+      // composite on paper background without the guide
+      var g = showGuide; showGuide = false; paint();
+      var out = document.createElement('canvas');
+      out.width = cv.width; out.height = cv.height;
+      var o = out.getContext('2d');
+      o.fillStyle = cssVar('--paper') || '#F2EAD9';
+      o.fillRect(0, 0, out.width, out.height);
+      o.drawImage(cv, 0, 0);
+      showGuide = g; paint();
+      var a = document.createElement('a');
+      a.download = 'simbolo-' + current.slug + '.png';
+      a.href = out.toDataURL('image/png');
+      a.click();
+    });
+
+    window.addEventListener('av:lang', function () { renderPicker(); renderMeta();
+      var en = window.AV && window.AV.lang === 'en';
+      document.getElementById('toggle').textContent = showGuide ? (en ? 'Hide guide' : 'Ocultar guia') : (en ? 'Show guide' : 'Mostrar guia');
+    });
+
+    renderPicker(); renderMeta(); paint();
+  })();
+  </script>
+</body>
+</html>

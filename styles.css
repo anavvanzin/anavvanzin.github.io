@@ -1,366 +1,175 @@
-@import url('fonts/fonts.css'); /* self-hosted webfonts (Instrument Serif, Crimson Pro, JetBrains Mono + incunabulum) — MUST stay first: an @import after any rule is ignored per CSS spec */
+@import url('fonts/fonts.css'); /* self-hosted woff2 — MUST stay at line 1 (CSS drops @import placed after any rule) */
 
-/* Ana Vanzin — Vanguard Design System Manifest */
+/* Ana Vanzin — bundled tokens */
 
-/* --- colors.css --- */
-/* ICONOCRACIA — Color tokens
-   "Iuris Memoria": an archival, juridical palette sourced as if from
-   actual documents — iron-gall ink, faded vermilion, dust-yellow vellum,
-   aged gold leaf, malachite verdigris, with cool analytical intrusions. */
-
+/* ===== tokens/colors.css ===== */
+/* Ana Vanzin — color tokens
+   Three inks only, like an incunabulum page: black ink, laid paper, rubric red.
+   Never introduce new hues. Tints are derived with color-mix for rules/borders. */
 :root {
-  /* ── Base · grounds ─────────────────────────── */
-  --paper:        #EFE5CF; /* warm vellum — primary page ground          */
-  --cream:        #F8F5EE; /* card / panel surface                       */
-  --ghost:        #F8F5EE; /* document folio surface (codex pages)       */
-  --ivory:        #E8DCC4; /* warm ivory — text on dark grounds          */
-  --ivory-light:  #F4F0E8;
-  --muted:        #DDD0B8; /* image placeholder / inert fill             */
+  /* base */
+  --ink: #211B16;
+  --paper: #F2EAD9;
+  --rubric: #9B2C1C;
 
-  /* ── Base · inks ────────────────────────────── */
-  --ink:          #1A1612; /* near-black warm-brown iron-gall ink        */
-  --warm-gray:    #7D756D; /* secondary prose                            */
-  --marble:       #9A9690; /* tertiary / stone captions                  */
-  --faded:        #8D8377; /* labels, meta, disabled                     */
-  --faded-on-dark:#D8CDBA; /* muted text over dark grounds               */
+  /* secondary accent — gold of the pixel-academic / desktop variant.
+     Ornament, frames, retro-OS chrome. Never replaces rubric for links. */
+  --gold: #9C7C3D;
+  --gold-2: #B7934C;
+  --gold-soft: color-mix(in srgb, var(--gold) 45%, var(--paper));
 
-  /* ── Brand mark · "Selo-Cartela · Lacre" ─────
-     The locked logo palette (mark 05 + palette 07). These are the
-     canonical brand-identity hexes; the document-sourced tokens above
-     remain the working surface palette. Keep them in lock-step:
-     reach for --brand-* only when rendering the mark / brand lockups. */
-  --brand-paper:    #EFE7D6; /* lockup ground                            */
-  --brand-indigo:   #1B2B4A; /* mark line / wordmark ink                 */
-  --brand-lacre:    #A8281F; /* wax-seal red — reverse chip, seal fill   */
-  --brand-ocre:     #D49A3C; /* brass — secondary mark accent            */
-  --brand-amethyst: #8A5FA8; /* feminine archival voice — inner ring     */
+  /* tertiary accent — lilac of the "notas" (personal/lifestyle) variant.
+     Soft surface + accent for the notes-app theme; never on the scholarly core. */
+  --lilac: #B49AD4;
+  --lilac-2: #9579C0;
+  --lilac-bg: #ECE6F4;
 
-  /* ── Base · juridical accents ───────────────── */
-  --terracotta:   #A04030; /* iron-oxide / faded vermilion — primary act */
-  --terracotta-deep:#7C2D12;
-  --deep-blue:    #1D2548; /* navy-deep — institutional reason           */
-  --navy-mid:     #2B3556; /* cabinet panels                             */
-  --gold:         #B8924A; /* aged gold leaf — rules, marks, frames      */
-  --gold-bright:  #D4A85E; /* lit gold — active / on-dark emphasis       */
+  /* derived tints (ink on paper at reduced strength) */
+  --ink-70: color-mix(in srgb, var(--ink) 70%, var(--paper));
+  --ink-50: color-mix(in srgb, var(--ink) 50%, var(--paper));
+  --ink-30: color-mix(in srgb, var(--ink) 30%, var(--paper));
+  --ink-15: color-mix(in srgb, var(--ink) 15%, var(--paper));
+  --paper-deep: color-mix(in srgb, var(--paper) 96%, var(--ink));
 
-  /* ── Base · borders ─────────────────────────── */
-  --light-border: #D4C19A; /* hairline on light grounds                  */
-  --hairline-dark: rgba(184,146,74,.32); /* gold hairline on dark        */
-
-  /* ── Cabinet / "Prumo" chrome ────────────────
-     The dark indigo tier that frames the light vellum reading surface:
-     header, sidebar, plate captions. The plumb line (fio de prumo) and
-     amethyst node are the signature of the navigation spine. */
-  --cabinet-top:    #1B2B4A; /* chrome gradient — top (= brand indigo)    */
-  --cabinet-bottom: #131F36; /* chrome gradient — bottom                  */
-  --cabinet-grad:   linear-gradient(180deg, var(--cabinet-top), var(--cabinet-bottom));
-  --plumb-line:     linear-gradient(180deg, var(--gold-bright), rgba(212,154,60,.16)); /* fio de prumo */
-  --plumb-node:     var(--brand-amethyst);     /* amethyst bob — active spine node */
-  --plumb-halo:     rgba(138,95,168,.22);      /* glow ring around an active node  */
-  --plumb-bob:      var(--brand-lacre);        /* the weight at the line's end     */
-
-  /* ── Regimes (iconocratic classification) ───── */
-  --fundacional:  #5B3FA0; /* foundational — revolutionary corpus        */
-  --normativo:    #2A7A5A; /* normative — bureaucratic stabilization     */
-  --militar:      #A02828; /* military — ENDURECIMENTO                    */
-  --contra-alegoria:#A04030; /* counter-allegory / fissures              */
-
-  /* ── Semantic aliases ───────────────────────── */
-  --surface-page:    var(--paper);
-  --surface-card:    var(--cream);
-  --surface-folio:   var(--ghost);
-  --surface-cabinet: var(--deep-blue); /* dark "cabinet" tier (Atlas)    */
-  --surface-cabinet-2: var(--navy-mid);
-
-  --text-primary:  var(--ink);
-  --text-secondary:var(--warm-gray);
-  --text-tertiary: var(--faded);
-  --text-on-dark:  var(--ivory);
-  --text-on-dark-muted: var(--faded-on-dark);
-
-  /* ── Semantic accents (the system's two-voice rule) ──
-     terracotta = the LIVE MARGIN: primary action, the iron-oxide rule
-                  down the side of a record, alerts/contra-allegory.
-     amethyst   = SELECTION / ACTIVE STATE: the chosen nav node, the
-                  selected row, the feminine archival voice. */
-  --accent:         var(--terracotta); /* primary action / live margin    */
-  --accent-gold:   var(--gold);       /* archival mark / frame           */
-  --accent-navy:   var(--deep-blue);
-  --state-active:  var(--brand-amethyst); /* selected / active node       */
-  --state-active-halo: var(--plumb-halo);
-  --alert:         var(--terracotta);  /* warnings / fissures             */
-
-  --border:        var(--light-border);
-  --border-on-dark:var(--hairline-dark);
-
-  --selection:     rgba(139,58,26,.18);
-
-  /* ── Country accents (corpus geography) ─────── */
-  --country-fr:#1D3A6E; --country-uk:#7C2D12; --country-de:#3A3A3A;
-  --country-us:#2A4D7A; --country-be:#8A6D1F; --country-br:#2A7A5A;
+  /* semantic aliases */
+  --bg-page: var(--paper);
+  --bg-inverse: var(--ink);
+  --text-body: var(--ink);
+  --text-muted: var(--ink-70);
+  --text-faint: var(--ink-50);
+  --text-inverse: var(--paper);
+  --accent: var(--rubric);            /* links, blindfold elements, small-caps labels */
+  --accent-2: var(--gold);            /* secondary: ornament, frames, desktop chrome */
+  --accent-hover: color-mix(in srgb, var(--rubric) 85%, var(--ink));
+  --rule-strong: var(--ink);          /* structural rules: 1px solid ink */
+  --rule-hairline: var(--ink-30);     /* column rules, table rows */
+  --rule-rubric: var(--rubric);       /* the blindfold line, active markers */
+  --focus-ring: var(--rubric);
 }
 
 
-/* --- spacing.css --- */
-/* ICONOCRACIA — Spacing, radii, shadows, rules, texture
-   Geometry of institutional reason: grids, columns, borders that
-   pretend to contain — and the gold rule that frames the document. */
+/* ===== tokens/typography.css ===== */
+/* Ana Vanzin — type tokens
+   Two families only:
+   - Cormorant Garamond 500/600 — display, headings, tracked-out small caps
+   - Hanken Grotesk 400/600 — body and UI
+   No italics for emphasis in UI; use rubric small caps instead.
+   (Fonts loaded via self-hosted fonts/fonts.css imported at the top of this file.) */
 
 :root {
-  /* ── Spacing scale (4px base) ───────────────── */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-6:  24px;
-  --space-8:  32px;
-  --space-12: 48px;
-  --space-16: 64px;
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
 
-  /* ── Radii ──────────────────────────────────── */
-  --radius-sm: 4px;   /* plates, corpus cards — nearly square      */
-  --radius:    10px;  /* default card / panel                      */
-  --radius-pill: 999px;
+  /* scale (rem) — generous display, restrained body */
+  --text-hero: clamp(4rem, 11vw, 9rem);     /* the name */
+  --text-h1: 3rem;        /* page titles */
+  --text-h2: 2rem;        /* section titles */
+  --text-h3: 1.375rem;    /* sub-heads, entry titles */
+  --text-lead: 1.1875rem; /* lead paragraphs (body family) */
+  --text-base: 1rem;      /* body */
+  --text-small: 0.875rem; /* metadata, footnotes */
+  --text-eyebrow: 0.8125rem; /* small-caps labels */
+  --text-footnote: 0.8125rem;
 
-  /* ── Borders & rules ────────────────────────── */
-  --rule-gold:        1px solid var(--gold);
-  --rule-gold-double: 3px double var(--gold);
-  --border-card:      1px solid var(--light-border);
-  --margin-bar:       3px solid var(--terracotta); /* live margin   */
+  --leading-display: 1.04;
+  --leading-heading: 1.15;
+  --leading-body: 1.62;
+  --leading-tight: 1.3;
 
-  /* ── Shadows — soft, document-on-table ──────── */
-  --shadow-sm:   0 2px 6px rgba(26,22,18,.06), 0 1px 2px rgba(26,22,18,.05);
-  --shadow-md:   0 10px 26px rgba(26,22,18,.10), 0 2px 8px rgba(26,22,18,.05);
-  --shadow-lg:   0 24px 72px rgba(26,22,18,.14), 0 8px 24px rgba(26,22,18,.08);
-  --shadow-card: 0 8px 20px rgba(26,22,18,.06), 0 0 0 1px rgba(26,22,18,.03);
-  --shadow-plate:0 6px 20px rgba(0,0,0,.18); /* plates on dark      */
+  /* tracked-out uppercase Garamond for eyebrows/labels */
+  --tracking-eyebrow: 0.22em;
+  --tracking-caps: 0.14em;
 
-  /* ── Layout ─────────────────────────────────── */
-  --sidebar-w: 232px;
-  --header-h:  88px;
-  --content-max: 1160px;
-
-  /* ── Motion ─────────────────────────────────── */
-  --ease-out: cubic-bezier(.22,1,.36,1); /* @kind other */
-  --dur-fast: .15s; /* @kind other */
-  --dur:      .25s; /* @kind other */
-  --dur-slow: .5s; /* @kind other */
-
-  /* ── Texture · fine paper grain (overlay) ───── */
-  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E"); /* @kind other */
-
-  /* ── Texture · faint grid (institutional reason) ─ */
-  --grid-gold: linear-gradient(rgba(184,146,74,.04) 1px, transparent 1px),
-               linear-gradient(90deg, rgba(184,146,74,.04) 1px, transparent 1px); /* @kind other */
-  --grid-size: 20px 20px;
+  --weight-display: 500;
+  --weight-display-strong: 600;
+  --weight-body: 400;
+  --weight-body-strong: 600;
 }
 
 
-/* --- typography.css --- */
-/* ICONOCRACIA — Typography tokens
-   Three voices, each a register of legal writing:
-   · Instrument Serif  — display / rubrics / cartouche inscription (often italic)
-   · Crimson Pro       — body prose, the reading voice of the thesis
-   · JetBrains Mono    — classification labels, small-caps designation, meta */
-
+/* ===== tokens/spacing.css ===== */
+/* Ana Vanzin — spacing, layout, borders, motion
+   The page is a single strong text column with generous margins.
+   No cards, no shadows, no gradients, no rounded corners — ever. */
 :root {
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-body:    "Crimson Pro", Georgia, serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  /* spacing scale (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
 
-  /* ── Type scale ─────────────────────────────── */
-  --text-micro:    9px;   /* corner folios, tiniest meta            */
-  --text-mono-sm:  10px;  /* mono labels                           */
-  --text-caption:  11px;  /* plate captions                        */
-  --text-body-sm:  13px;
-  --text-body:     14px;  /* UI body                               */
-  --text-body-lg:  16px;  /* reading prose                         */
-  --text-h3:       20px;  /* card / verbete titles                 */
-  --text-h2:       28px;  /* page titles                           */
-  --text-h1:       46px;  /* section display                       */
-  --text-display:  64px;  /* atlas / hero display                  */
+  /* layout */
+  --measure: 62ch;            /* max width of running text */
+  --column-max: 720px;        /* the single text column */
+  --page-max: 1080px;         /* outer page incl. marginalia */
+  --page-pad: clamp(24px, 6vw, 72px);
 
-  /* ── Reading prose (thesis reader) ──────────── */
-  --reader-body:   18px;
-  --leading-tight: 1.1;
-  --leading-snug:  1.4;
-  --leading-body:  1.65;
-  --leading-prose: 1.9;
+  /* rules & borders — square corners only */
+  --rule-w-hairline: 1px;
+  --rule-w-strong: 2px;
+  --radius: 0;                /* fixed: no rounded corners */
+  --shadow: none;             /* fixed: no shadows */
 
-  /* ── Weights ────────────────────────────────── */
-  --weight-light:  300;
-  --weight-normal: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold:   700;
-
-  /* ── Tracking ───────────────────────────────── */
-  --tracking-display:   -.01em; /* tight display serif             */
-  --tracking-body:      0;
-  --tracking-label:     2px;    /* mono small-caps designation     */
-  --tracking-small-caps:3px;    /* sidebar / section labels        */
-  --tracking-wide:      4px;    /* logo lockup                     */
+  /* motion — one restrained reveal, nothing else */
+  --ease-page: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --duration-reveal: 900ms; /* @kind other */
+  --duration-ui: 150ms; /* @kind other */
 }
 
 
-/* --- base.css --- */
-/* ICONOCRACIA — Base layer
-   Element defaults, helpers and the motion vocabulary. Quiet,
-   archival, document-first. Imported after tokens + fonts. */
-
-*, *::before, *::after { box-sizing: border-box; }
+/* ===== tokens/base.css ===== */
+/* Ana Vanzin — base element styles (incunabulum page defaults) */
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
+  background: var(--bg-page);
+  color: var(--text-body);
   font-family: var(--font-body);
-  font-size: var(--text-body-lg);
+  font-size: var(--text-base);
   line-height: var(--leading-body);
-  font-weight: var(--weight-normal);
-  color: var(--text-primary);
-  background-color: var(--surface-page);
-  background-image: var(--grain);
-  background-repeat: repeat;
-  background-size: 200px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: var(--weight-normal);
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-tight);
+  font-weight: var(--weight-display-strong);
+  line-height: var(--leading-heading);
   margin: 0;
+  text-wrap: balance;
 }
 
-/* The mono voice — small-caps designation, classification, meta. */
-.mono {
-  font-family: var(--font-mono);
-  font-feature-settings: 'liga' 1, 'calt' 1;
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--duration-ui) ease;
+}
+a:hover { color: var(--accent-hover); }
+a:focus-visible { outline: 1px solid var(--focus-ring); outline-offset: 3px; }
+
+hr {
+  border: 0;
+  border-top: var(--rule-w-hairline) solid var(--rule-hairline);
+  margin: var(--space-7) 0;
 }
 
-/* The display voice, almost always set in italic for inscription. */
-.rubric {
-  font-family: var(--font-display);
-  font-style: italic;
-}
-
-/* A label: mono, letterspaced, gold, uppercase — the corpus' caption voice. */
-.label {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono-sm);
-  letter-spacing: var(--tracking-small-caps);
-  text-transform: uppercase;
-  color: var(--accent-gold);
-}
-
-a { color: var(--accent); text-decoration: none; }
-button { cursor: pointer; font-family: inherit; }
-input, textarea, select { font-family: var(--font-body); font-size: 15px; }
-
-::selection { background: var(--selection); color: var(--ink); }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--warm-gray); }
-
-:focus-visible { outline: 2px solid var(--state-active); outline-offset: 2px; }
-button:focus:not(:focus-visible), a:focus:not(:focus-visible) { outline: none; }
-
-/* ── Motion vocabulary ──────────────────────────
-   Soft, settling fades on a single decelerating curve.
-   No bounces. The archive does not bounce. */
-@keyframes fadeSlideUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-@keyframes fadeIn      { from { opacity:0; } to { opacity:1; } }
-@keyframes cardReveal  { from { opacity:0; transform:translateY(24px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-@keyframes goldPulse   { 0%,100% { opacity:.5; } 50% { opacity:.9; } }
-@keyframes shimmer     { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
-@keyframes plateIn     { 0% { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-
-.anim-item { animation: fadeSlideUp var(--dur-slow) var(--ease-out) both; }
-.anim-card { animation: cardReveal var(--dur-slow) var(--ease-out) both; }
+::selection { background: var(--rubric); color: var(--paper); }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-
-
-/* 
-  Vanguard Haptic Layer 
-  Implementing the Double-Bezel Architecture and Motion Choreography
-*/
-
-:root {
-  --bezier-vanguard: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* The Double-Bezel (Doppelrand) Architecture */
-.double-bezel-shell {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  padding: 2px; /* The bezel width */
-  border-radius: 2rem;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--dur) var(--bezier-vanguard), box-shadow var(--dur) var(--bezier-vanguard);
-}
-
-.double-bezel-core {
-  background: var(--paper);
-  border-radius: calc(2rem - 2px);
-  height: 100%;
-  width: 100%;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);
-  overflow: hidden;
-}
-
-/* Fluid Island Navigation */
-.fluid-island-nav {
-  position: fixed;
-  top: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9000;
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  background: rgba(239, 229, 207, 0.7); /* var(--paper) with alpha */
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  box-shadow: var(--shadow-lg);
-}
-
-/* Motion Choreography */
-.anim-reveal {
-  animation: fadeSlideUp var(--dur-slow) var(--bezier-vanguard) both;
-}
-
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(24px); filter: blur(8px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-/* Body Texture Overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  pointer-events: none;
-  background-image: var(--grain);
-  opacity: 0.035;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  background-image: var(--grid-gold);
-  background-size: var(--grid-size);
-  opacity: 0.04;
-}

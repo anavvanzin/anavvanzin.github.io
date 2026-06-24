@@ -1,0 +1,16 @@
+/* ════════════════════════════════════════════════════════════
+   ICONOCRACIA · Design System — global entry point
+   "Iuris Memoria": archival, juridical, feminist iconology.
+   anavvanzin / iconocracia-companion · PPGD/UFSC · 2026
+
+   Consumers link THIS file. It is a manifest of @imports only.
+   ════════════════════════════════════════════════════════════ */
+
+@import url("./fonts/fonts.css");      /* Instrument Serif · Crimson Pro · JetBrains Mono */
+
+@import url("./tokens/colors.css");     /* grounds, inks, juridical accents, regimes */
+@import url("./tokens/typography.css");  /* three voices + scale + tracking */
+@import url("./tokens/spacing.css");     /* spacing, radii, shadows, rules, texture */
+@import url("./tokens/base.css");        /* element defaults, helpers, motion */
+@import url("./tokens/dark.css");         /* tone-mode + palette overrides */
+@import url("./tokens/motion.css");      /* safe animation vocabulary */

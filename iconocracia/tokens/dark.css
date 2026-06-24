@@ -1,0 +1,172 @@
+/* ICONOCRACIA — Tone-mode overrides: claro / cabinet / escuro
+   These layers re-map the semantic token aliases so every component
+   switches instantly when data-tone/data-palette changes. */
+
+/* ── LIGHT (claro) — already the default in colors.css ───────────────── */
+:root, [data-tone="light"], [data-tone="claro"] {
+  --surface-page:    var(--paper);
+  --surface-card:    var(--cream);
+  --surface-folio:   var(--ghost);
+  --surface-cabinet: var(--deep-blue);
+  --surface-cabinet-2: var(--navy-mid);
+
+  --text-primary:    var(--ink);
+  --text-secondary:  var(--warm-gray);
+  --text-tertiary:   var(--faded);
+  --text-on-dark:    var(--ivory);
+  --text-on-dark-muted: var(--faded-on-dark);
+
+  --border:          var(--light-border);
+  --border-on-dark:  var(--hairline-dark);
+  --shadow-color:    26, 22, 18;
+
+  --c-ground:        #EFE5CF;
+  --c-panel:         #F8F5EE;
+  --c-panel-2:       rgba(255,255,255,.42);
+  --c-ink:           #1A1612;
+  --c-ink-2:         #6F665C;
+  --c-ink-3:         #8D8377;
+  --c-border:        #D4C19A;
+  --c-hair:          rgba(184,146,74,.5);
+  --c-gold:          #B8924A;
+  --c-plate:         #1D2548;
+  --c-on-accent:     #F8F5EE;
+  --c-grain:         var(--grain);
+}
+
+/* ── CABINET — sepia, mid-contrast, dark chrome with warm page ───────── */
+[data-tone="cabinet"] {
+  --surface-page:    #E6DCC4;            /* aged cabinet card stock */
+  --surface-card:    #EFE8D8;
+  --surface-folio:   #F5EFDF;
+  --surface-cabinet: #181F33;
+  --surface-cabinet-2: #202A42;
+
+  --text-primary:    #241E18;
+  --text-secondary:  #5E564E;
+  --text-tertiary:   #7A7066;
+  --text-on-dark:    #E8DCC4;
+  --text-on-dark-muted: #B8A98C;
+
+  --border:          #C4B28C;
+  --border-on-dark:  rgba(184,146,74,.36);
+  --shadow-color:    36, 30, 24;
+
+  --c-ground:        #E6DCC4;
+  --c-panel:         #EFE8D8;
+  --c-panel-2:       rgba(255,255,255,.35);
+  --c-ink:           #241E18;
+  --c-ink-2:         #5E564E;
+  --c-ink-3:         #7A7066;
+  --c-border:        #C4B28C;
+  --c-hair:          rgba(184,146,74,.55);
+  --c-gold:          #A88340;
+  --c-plate:         #1B2238;
+  --c-on-accent:     #EFE8D8;
+  --c-grain:         var(--grain);
+
+  --selection:       rgba(139,58,26,.14);
+}
+
+/* ── DARK (escuro) — deep indigo page, warm ivory text, gold accents ────
+   Contrast targets:
+   · body text on page:  #E8DEC8 on #14192E  → 12.6:1 (AAA)
+   · secondary text:   #C7BCA6 on #14192E  →  9.0:1 (AAA)
+   · muted text:        #9A9276 on #14192E  →  5.4:1 (passes 4.5:1) */
+[data-tone="dark"], [data-tone="escuro"] {
+  --surface-page:    #14192E;
+  --surface-card:    #1A1F38;
+  --surface-folio:   #1E233E;
+  --surface-cabinet: #0F1324;
+  --surface-cabinet-2: #171C33;
+
+  --text-primary:    #E8DEC8;   /* warm ivory — AAA body contrast */
+  --text-secondary:  #C7BCA6;   /* dim parchment — AAA */
+  --text-tertiary:   #9A9276;   /* aged gold-grey — passes 4.5:1 */
+  --text-on-dark:    #E8DEC8;
+  --text-on-dark-muted: #B8A98C;
+
+  --paper:           #14192E;
+  --cream:           #1A1F38;
+  --ghost:           #1E233E;
+  --ink:             #E8DEC8;
+  --warm-gray:       #B8A98C;
+  --faded:           #9A9276;
+  --muted:           #2A3152;
+
+  --border:          rgba(184,146,74,.34);
+  --border-on-dark:  rgba(184,146,74,.34);
+  --shadow-color:    8, 10, 20;
+
+  --c-ground:        #14192E;
+  --c-panel:         #1A1F38;
+  --c-panel-2:       rgba(255,255,255,.06);
+  --c-ink:           #E8DEC8;
+  --c-ink-2:         #C7BCA6;
+  --c-ink-3:         #9A9276;
+  --c-border:        rgba(184,146,74,.34);
+  --c-hair:          rgba(184,146,74,.40);
+  --c-gold:          #D4A85E;
+  --c-plate:         #0E142C;
+  --c-on-accent:     #0E142C;
+  --c-grain:         none;
+
+  --selection:       rgba(212,168,94,.18);
+}
+
+/* ── Palette accents — applied via data-palette attribute ──────────────── */
+[data-palette="amethyst"], [data-palette="ametista"] {
+  --accent:        var(--brand-amethyst);
+  --accent-rgb:    138, 95, 168;
+  --accent-contrast: var(--c-on-accent, #F8F5EE);
+  --state-active:  var(--brand-amethyst);
+}
+
+[data-palette="terracotta"], [data-palette="terracota"] {
+  --accent:        var(--terracotta);
+  --accent-rgb:    160, 64, 48;
+  --accent-contrast: var(--c-on-accent, #F8F5EE);
+  --state-active:  var(--terracotta);
+}
+
+[data-palette="gold"], [data-palette="ouro"] {
+  --accent:        var(--gold);
+  --accent-rgb:    184, 146, 74;
+  --accent-contrast: var(--ink);
+  --state-active:  var(--gold-bright);
+}
+
+[data-palette="emerald"], [data-palette="esmeralda"] {
+  --accent:        #2A9D6F;
+  --accent-rgb:    42, 157, 111;
+  --accent-contrast: var(--c-on-accent, #F8F5EE);
+  --state-active:  #2A9D6F;
+}
+
+[data-palette="navy"], [data-palette="marinho"] {
+  --accent:        #3A5A8C;
+  --accent-rgb:    58, 90, 140;
+  --accent-contrast: var(--c-on-accent, #F8F5EE);
+  --state-active:  #4A6A9E;
+}
+
+/* When no palette is set, default to amethyst on light/cabinet and gold on dark */
+:root:not([data-palette]) [data-tone="dark"],
+[data-tone="dark"]:not([data-palette]),
+[data-tone="escuro"]:not([data-palette]) {
+  --accent:        var(--gold);
+  --accent-rgb:    184, 146, 74;
+  --accent-contrast: var(--ink);
+  --state-active:  var(--gold-bright);
+}
+
+/* ── Motion-safe transition for theme variables ────────────────────────
+   Only transition color/background/border/box-shadow; do NOT animate
+   transform/opacity globally because those are component-owned. */
+@media (prefers-reduced-motion: no-preference) {
+  *, *::before, *::after {
+    transition-property: color, background-color, border-color, box-shadow, outline-color;
+    transition-duration: var(--dur-fast);
+    transition-timing-function: var(--ease-out);
+  }
+}
