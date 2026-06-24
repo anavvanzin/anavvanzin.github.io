@@ -5,8 +5,7 @@
  *
  * Demonstrative UI seed/config only.
  * This file does not replace canonical corpus sources:
- * - data/processed/records.jsonl
- * - corpus/corpus-data.json
+ * - data/corpus.json
  *
  * Intended use: Atlas Lab v1 shell and upcoming front-end extraction work.
  */
@@ -21,7 +20,7 @@ const ATLAS_LAB_PLATFORM = {
   uiNote:
     'Observe first. Compare before concluding. AI responds after user input and supports reflection rather than authority.',
   canonicalDataNotice:
-    'Canonical repository data remains in data/processed/records.jsonl and corpus/corpus-data.json. The constants here exist only to support the first front-end proof of concept.',
+    'Canonical repository data remains in data/corpus.json. The constants here exist only to support the first front-end proof of concept.',
   featuredModuleId: 'iconocracy',
 };
 
@@ -220,7 +219,7 @@ const ATLAS_LAB_V1_CONFIG = {
   modes: ATLAS_LAB_MODES,
   contracts: {
     demoDataStatus: 'demonstrative-ui-seed',
-    canonicalDataSources: ['data/processed/records.jsonl', 'corpus/corpus-data.json'],
+    canonicalDataSources: ['data/corpus.json'],
     entryProvenanceField: 'canonicalSource',
     note:
       'Use these exports for the first Atlas Lab shell only. Any future hydration against canonical corpus data should resolve via canonicalSource.',
@@ -241,8 +240,7 @@ var ATLAS_LAB_DEFAULT_CFG = ATLAS_LAB_V1_CONFIG;
  * This file is intentionally small and front-end oriented.
  * It is not canonical corpus storage and must not be treated as a repository source of truth.
  * Canonical data remains in:
- * - data/processed/records.jsonl
- * - corpus/corpus-data.json
+ * - data/corpus.json
  *
  * Contract for Task 3 shell work:
  * - each entry may expose canonicalSource to indicate how it should later hydrate
@@ -250,128 +248,20 @@ var ATLAS_LAB_DEFAULT_CFG = ATLAS_LAB_V1_CONFIG;
  * - comparison pairs and panel role maps are demonstrative front-end helpers only
  */
 
-const ICONOCRACY_DEMO_ENTRIES = [
-  {
-    id: 'BR-001',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'BR-001' },
-    title: 'Alegoria da Agricultura (RS)',
-    date: '1908',
-    country: 'BR',
-    medium: 'Fotografia P&B',
-    archive: 'Brasiliana Fotográfica',
-    regime: '1',
-    img: 'https://brasilianafotografica.bn.gov.br/brasiliana/bitstream/handle/20.500.12156.1/11778/0000001.JPG.jpg',
-    panelIds: ['P1', 'P5'],
-    note:
-      'Useful learning-oriented seed for discussing domesticity, agrarian allegory, and diffuse iconocratic recurrence.',
-    indicators: { FEI: 1, CII: 2, PRI: 2, SMI: 0, SMS: 1, AMCP: 0, MVI: 2, WI: 0, RI: 1, AI: 2 },
-  },
-  {
-    id: 'BR-002',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'BR-002' },
-    title: 'Monumento à República (Belém)',
-    date: '1940',
-    country: 'BR',
-    medium: 'Monumento',
-    archive: 'Brasiliana Fotográfica',
-    regime: '1',
-    img: 'https://brasilianafotografica.bn.gov.br/brasiliana/bitstream/handle/20.500.12156.1/13609/GV%20dvft%20004.JPG.jpg',
-    panelIds: ['P1', 'P4'],
-    note:
-      'Useful for monumentality, republican myth, and the transition from founding allegory toward public stone authority.',
-    indicators: { FEI: 0, CII: 3, PRI: 3, SMI: 3, SMS: 2, AMCP: 1, MVI: 1, WI: 1, RI: 1, AI: 3 },
-  },
-  {
-    id: 'BR-005',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'BR-005' },
-    title: 'A República (Matriz Positivista)',
-    date: '1889',
-    country: 'BR',
-    medium: 'Pintura',
-    archive: 'Museu Histórico Nacional',
-    regime: '2',
-    img: '/assets/corpus/br-villares-republica.jpg',
-    panelIds: ['P2', 'P5'],
-    note:
-      'Useful for comparing state pedagogy, juridical idealisation, and a domesticated republican female figure.',
-    indicators: { FEI: 2, CII: 3, PRI: 2, SMI: 1, SMS: 2, AMCP: 0, MVI: 2, WI: 1, RI: 1, AI: 3 },
-  },
-  {
-    id: 'BR-006',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'BR-006' },
-    title: 'A Justiça (Ceschiatti — STF)',
-    date: '1961',
-    country: 'BR',
-    medium: 'Escultura',
-    archive: 'Arquivo STF',
-    regime: '2',
-    img: '/assets/corpus/br-stf-justica-1961.jpg',
-    panelIds: ['P2', 'P4'],
-    note:
-      'Core demonstrative case for juridical rigidity, statuary authority, and normative public femininity.',
-    indicators: { FEI: 1, CII: 3, PRI: 3, SMI: 3, SMS: 1, AMCP: 0, MVI: 0, WI: 0, RI: 1, AI: 3 },
-  },
-  {
-    id: 'FR-001',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'FR-001' },
-    title: 'Marianne (Emprunt 1917)',
-    date: '1917',
-    country: 'FR',
-    medium: 'Cartaz',
-    archive: 'Gallica / Europeana',
-    regime: '3',
-    img: 'https://gallica.bnf.fr/iiif/ark:/12148/btv1b10051217v/f1/full/full/0/native.jpg',
-    panelIds: ['P3'],
-    note:
-      'Useful research seed for militant mobilisation, wartime iconography, and the politicised female body.',
-    indicators: { FEI: 1, CII: 2, PRI: 2, SMI: 0, SMS: 3, AMCP: 2, MVI: 0, WI: 2, RI: 1, AI: 2 },
-  },
-  {
-    id: 'FR-003',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'FR-003' },
-    title: 'La Liberté guidant le peuple',
-    date: '1830',
-    country: 'FR',
-    medium: 'Pintura',
-    archive: 'Louvre',
-    regime: '1',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Eug%C3%A8ne_Delacroix_-_Le_28_Juillet._La_Libert%C3%A9_guidant_le_peuple.jpg',
-    panelIds: ['P1'],
-    note:
-      'Useful demonstrative anchor for sacrificial founding rhetoric and insurgent allegorical leadership.',
-    indicators: { FEI: 3, CII: 1, PRI: 2, SMI: 0, SMS: 3, AMCP: 2, MVI: 1, WI: 3, RI: 2, AI: 2 },
-  },
-  {
-    id: 'UK-003',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'UK-003' },
-    title: 'Lady Justice (Old Bailey)',
-    date: '1907',
-    country: 'UK',
-    medium: 'Escultura',
-    archive: 'Central Criminal Court',
-    regime: '2',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Old_Bailey_Lady_Justice.jpg',
-    panelIds: ['P2'],
-    note:
-      'Useful comparison point for the calcified transnational language of juridical femininity.',
-    indicators: { FEI: 0, CII: 3, PRI: 3, SMI: 3, SMS: 1, AMCP: 0, MVI: 0, WI: 2, RI: 1, AI: 3 },
-  },
-  {
-    id: 'US-001',
-    canonicalSource: { type: 'demo-seed-from-public-atlas', key: 'US-001' },
-    title: 'Statue of Liberty',
-    date: '1886',
-    country: 'US',
-    medium: 'Monumento',
-    archive: 'NPS',
-    regime: '1',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Statue_of_Liberty_7.jpg/800px-Statue_of_Liberty_7.jpg',
-    panelIds: ['P1', 'P3'],
-    note:
-      'Useful for comparing liberatory rhetoric, monumentality, and latent militarisation in republican form.',
-    indicators: { FEI: 0, CII: 3, PRI: 3, SMI: 3, SMS: 2, AMCP: 2, MVI: 0, WI: 2, RI: 1, AI: 3 },
-  },
-];
+const ICONOCRACY_DEMO_ENTRIES = (window.IconocracyCorpus || []).map((record, index) => ({
+  id: record.id,
+  canonicalSource: { type: 'generated-corpus', path: 'data/corpus.json', key: record.id },
+  title: record.title,
+  date: String(record.year ?? ''),
+  country: record.country,
+  medium: record.support,
+  archive: record.credit,
+  regime: record.regime,
+  img: record.img,
+  panelIds: index < 6 ? ['P1'] : index < 24 ? ['P2'] : ['P3'],
+  note: record.shortDescription,
+  indicators: { FEI: 1, CII: 2, PRI: 2, SMI: 1, SMS: 1, AMCP: 1, MVI: 1, WI: 1, RI: 1, AI: 2 },
+}));
 
 const ICONOCRACY_DEMO_COMPARISON_PAIRS = [
   {
