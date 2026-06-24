@@ -118,6 +118,27 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }, {
+  id: 'radiografia',
+  label: {
+    pt: 'radiografia',
+    en: 'radiografia'
+  },
+  Icon: SealIcon
+}, {
+  id: 'marginalia',
+  label: {
+    pt: 'marginália',
+    en: 'marginalia'
+  },
+  Icon: DocIcon
+}, {
+  id: 'advocacia',
+  label: {
+    pt: 'advocacia',
+    en: 'practice'
+  },
+  Icon: WorksIcon
+}, {
   id: 'quotes',
   label: {
     pt: 'citações',
@@ -164,6 +185,13 @@ const DESK_ICONS = [{
   label: {
     pt: 'vó.jpg',
     en: 'grandma.jpg'
+  },
+  Icon: ImageIcon
+}, {
+  id: 'galeria',
+  label: {
+    pt: 'galeria',
+    en: 'gallery'
   },
   Icon: ImageIcon
 }, {
@@ -603,6 +631,22 @@ function Desktop() {
     }
     if (id === 'iconocracia') {
       window.location.href = 'iconocracia/';
+      return;
+    }
+    if (id === 'radiografia') {
+      window.location.href = 'iconocracia/radiografia/';
+      return;
+    }
+    if (id === 'marginalia') {
+      window.location.href = 'marginalia/';
+      return;
+    }
+    if (id === 'advocacia') {
+      window.location.href = 'advocacia.html';
+      return;
+    }
+    if (id === 'galeria') {
+      window.location.href = 'galeria.html';
       return;
     }
     if (id === 'quotes') {
