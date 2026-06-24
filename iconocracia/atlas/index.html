@@ -1,0 +1,52 @@
+<!-- @dsCard group="Companion" viewport="1280x900" name="Atlas — página da pesquisa" subtitle="Página única rolável: tese, corpus, atlas, radiografia, léxico, método — com Tweaks -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICONOCRACIA — Atlas da Pesquisa</title>
+<link rel="stylesheet" href="../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- Runtime theme system (applies before React mounts) -->
+<script src="../src/hooks/useTheme.js"></script>
+<!-- Runtime corpus loader (uses generated src/data/corpus.json, falls back to seed) -->
+<script src="../src/lib/corpus.js"></script>
+<!-- Theme toggle component -->
+<script type="text/babel" src="../src/components/ThemeToggle.jsx"></script>
+<!-- Faceted filters -->
+<script src="../src/lib/filters.js"></script>
+<script type="text/babel" src="../src/components/FilterPanel.jsx"></script>
+<script src="../src/hooks/useFilters.js"></script>
+<!-- ABNT citation export -->
+<script src="../src/lib/abnt.js"></script>
+<script type="text/babel" src="../src/components/CitationButton.jsx"></script>
+<!-- Presentation mode overlay -->
+<script type="text/babel" src="../src/components/PresentMode.jsx"></script>
+<!-- Keep inline legacy data.js for non-corpus sections (thesis, panels, lexicon, etc.) -->
+<script src="data.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="parts.jsx"></script>
+<script type="text/babel" src="App.jsx"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    body { transition: none; }
+  }
+  body { margin: 0; transition: background .35s var(--ease-out); }
+  .atlas-root { position: relative; min-height: 100vh; }
+  .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 1; background-image: var(--c-grain); background-size: 200px; opacity: .8; mix-blend-mode: multiply; }
+  .reveal > * { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal > * { animation: fadeSlideUp .7s var(--ease-out) both; }
+    .reveal > *:nth-child(1){animation-delay:.02s} .reveal > *:nth-child(2){animation-delay:.10s}
+    .reveal > *:nth-child(3){animation-delay:.16s} .reveal > *:nth-child(4){animation-delay:.22s}
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>
