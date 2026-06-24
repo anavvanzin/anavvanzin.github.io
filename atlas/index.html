@@ -1,102 +1,92 @@
-<!-- @dsCard group="Companion" viewport="1280x900" name="Atlas — página da pesquisa" subtitle="Página única rolável: tese, corpus, atlas, radiografia, léxico, método — com Tweaks" -->
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ICONOCRACIA — Atlas da Pesquisa</title>
-<link rel="stylesheet" href="../styles.css" />
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script src="data.js"></script>
-<script type="text/babel" src="parts.jsx"></script>
-<style>
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    body { transition: none; }
-  }
-  body { margin: 0; transition: background .35s var(--ease-out); }
-  .atlas-root { position: relative; min-height: 100vh; }
-  .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 1; background-image: var(--c-grain); background-size: 200px; opacity: .8; mix-blend-mode: multiply; }
-  .reveal > * { opacity: 1; }
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal > * { animation: fadeSlideUp .7s var(--ease-out) both; }
-    .reveal > *:nth-child(1){animation-delay:.02s} .reveal > *:nth-child(2){animation-delay:.10s}
-    .reveal > *:nth-child(3){animation-delay:.16s} .reveal > *:nth-child(4){animation-delay:.22s}
-  }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas · ana vanzin</title>
+<link rel="icon" href="../assets/sun-seal.svg">
+<meta name="description" content="Atlas — dossiês de objetos visuais do direito, sob curadoria. A imagem jurídica como dispositivo político, não como ornamento herdado.">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../editorial.css">
 </head>
-<body>
-<div id="root"></div>
-<script type="text/babel">
-  const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSelect, TweakColor, TweakSlider, TweakText } = window;
-  const P = window.AtlasParts;
+<body class="ed" data-route="atlas">
+  <header class="ed-bar">
+    <a class="brand" href="../index.html" title="← voltar à mesa">
+      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="atlas" data-en="atlas">atlas</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="../iconocracia/" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
+      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
 
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "tone": "claro",
-    "accent": "#8A5FA8",
-    "scale": 1.1,
-    "density": "regular",
-    "heroSplit": "texto dominante",
-    "title": "A alegoria feminina ",
-    "kicker": "ICONOCRACIA · Tese de Doutorado · PPGD\/UFSC"
-  }/*EDITMODE-END*/;
+  <main class="ed-page">
+    <a class="ed-back" href="../iconocracia/"><span class="ar">←</span><span data-pt="ICONOCRACIA" data-en="ICONOCRACIA">ICONOCRACIA</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="Objetos · arquivo visual" data-en="Objects · visual archive">Objetos · arquivo visual</p>
+      <h1 class="ed-title rise" style="--d:.06s">atlas</h1>
+      <p class="dek rise" style="--d:.12s" data-pt="Dossiês de objetos visuais do direito, sob curadoria. Cada objeto é tratado como dispositivo político — não como ornamento herdado." data-en="Dossiers of the visual objects of law, under curation. Each object is treated as a political device — not inherited ornament.">Dossiês de objetos visuais do direito, sob curadoria. Cada objeto é tratado como dispositivo político — não como ornamento herdado.</p>
+    </div>
 
-  function App() {
-    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
-    const theme = P.atlasTheme(t);
+    <div id="tfilter" class="tfilter" role="group" aria-label="Filtrar por tema"></div>
+    <ul class="atlas-grid" id="grid"></ul>
 
-    React.useEffect(() => {
-      document.body.style.background = theme["--c-ground"];
-    }, [theme["--c-ground"]]);
+    <p class="dek" style="margin-top:clamp(40px,6vh,68px);max-width:60ch" data-pt="O Atlas está em formação. Imagens e direitos são verificados objeto a objeto antes da publicação." data-en="The Atlas is in formation. Images and rights are verified object by object before publication.">O Atlas está em formação. Imagens e direitos são verificados objeto a objeto antes da publicação.</p>
+  </main>
 
-    return (
-      <div className="atlas-root" style={{ ...theme, background:"var(--c-ground)", color:"var(--c-ink)", fontFamily:"var(--font-body)" }}>
-        <div className="grain-overlay" />
-        <div style={{ position:"relative", zIndex:2 }}>
-          <P.Nav tone={t.tone} />
-          <div className="reveal">
-            <P.Hero t={t} />
-            <P.Stats />
-          </div>
-          <P.Argument />
-          <P.Anatomia />
-          <P.CorpusWall t={t} />
-          <P.AtlasBand />
-          <P.Radiografia />
-          <P.Lexico />
-          <P.Method />
-          <P.Colophon />
-        </div>
+  <footer class="ed-foot">
+    <div class="in">
+      <img src="../assets/monogram-av-inverse.svg" alt="">
+      <span><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></span>
+      <span class="sep">PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+    </div>
+  </footer>
 
-        <TweaksPanel>
-          <TweakSection label="Tom & paleta" />
-          <TweakRadio label="Tom" value={t.tone} options={["claro","cabinet"]}
-            onChange={(v)=>setTweak('tone', v)} />
-          <TweakColor label="Acento" value={t.accent}
-            options={["#8A5FA8","#A04030","#B8924A","#2A7A5A","#1D2548"]}
-            onChange={(v)=>setTweak('accent', v)} />
-          <TweakSection label="Tipografia" />
-          <TweakSlider label="Escala" value={t.scale} min={0.85} max={1.25} step={0.05}
-            onChange={(v)=>setTweak('scale', v)} />
-          <TweakSection label="Layout" />
-          <TweakRadio label="Densidade" value={t.density} options={["compacto","regular","amplo"]}
-            onChange={(v)=>setTweak('density', v)} />
-          <TweakSelect label="Proporção do herói" value={t.heroSplit}
-            options={["equilíbrio","imagem dominante","texto dominante"]}
-            onChange={(v)=>setTweak('heroSplit', v)} />
-          <TweakSection label="Texto" />
-          <TweakText label="Título" value={t.title} onChange={(v)=>setTweak('title', v)} />
-          <TweakText label="Kicker" value={t.kicker} onChange={(v)=>setTweak('kicker', v)} />
-        </TweaksPanel>
-      </div>
-    );
-  }
+  <script src="../content.js"></script>
+  <script src="../editorial.js"></script>
+  <script src="../theme-filter.js"></script>
+  <script>
+  (function () {
+    var L = function (o) { return window.AVContent.L(o); };
+    var active = 'all';
 
-  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-</script>
+    function card(o) {
+      var en = window.AV && window.AV.lang === 'en';
+      var th = o.img
+        ? '<span class="th"><img src="../' + o.img + '" alt="' + L(o.caption) + '" loading="lazy"></span>'
+        : '<span class="th"><span class="ph"><span class="ph-lbl">' + L(o.caption) + '</span></span></span>';
+      return '<li data-themes="' + o.themes.join(' ') + '"><a href="' + o.slug + '.html">' +
+        th.replace('<span class="th">', '<span class="th"><span class="st">' + L(o.status) + '</span>') +
+        '<span class="cap"><span class="ti">' + L(o.title) + '</span>' +
+        '<span class="mt">' + L(o.object) + ' · ' + L(o.origin) + ' · ' + o.date + '</span>' +
+        '<span class="ds">' + L(o.summary) + '</span></span></a></li>';
+    }
+
+    function paint() {
+      var grid = document.getElementById('grid');
+      grid.innerHTML = window.AVContent.OBJECTS.map(card).join('');
+      window.AVThemeFilter.apply(grid, active);
+    }
+
+    window.AVThemeFilter.mount(document.getElementById('tfilter'), {
+      base: '../',
+      onChange: function (slug) { active = slug; window.AVThemeFilter.apply(document.getElementById('grid'), slug); }
+    });
+    window.addEventListener('av:lang', paint);
+    paint();
+  })();
+  </script>
 </body>
 </html>

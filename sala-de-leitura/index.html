@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sala de leitura · ana vanzin</title>
+<link rel="icon" href="../assets/sun-seal.svg">
+<meta name="description" content="Sala de leitura — prateleiras comentadas que atravessam a pesquisa: lei e imagem, alegoria e corpo, método, nação e gênero.">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../editorial.css">
+</head>
+<body class="ed" data-route="leitura">
+  <header class="ed-bar">
+    <a class="brand" href="../index.html" title="← voltar à mesa">
+      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="../iconocracia/" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
+      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="index.html" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
+
+  <main class="ed-page">
+    <a class="ed-back" href="../iconocracia/"><span class="ar">←</span><span data-pt="ICONOCRACIA" data-en="ICONOCRACIA">ICONOCRACIA</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="Leitura · método e fontes" data-en="Reading · method and sources">Leitura · método e fontes</p>
+      <h1 class="ed-title rise" style="--d:.06s">sala de leitura</h1>
+      <p class="dek rise" style="--d:.12s" data-pt="Prateleiras comentadas que atravessam a pesquisa. Não é uma bibliografia exaustiva — é um caminho pelo campo, organizado por tema." data-en="Annotated shelves that run through the research. Not an exhaustive bibliography — a path through the field, organised by theme.">Prateleiras comentadas que atravessam a pesquisa. Não é uma bibliografia exaustiva — é um caminho pelo campo, organizado por tema.</p>
+    </div>
+
+    <div id="tfilter" class="tfilter" role="group" aria-label="Filtrar prateleiras por tema"></div>
+    <div id="shelves"></div>
+
+    <p class="dek" style="margin-top:clamp(40px,6vh,68px);max-width:60ch" data-pt-html="Sugestões e referências cruzam-se com os <a class=\"tl\" href=\"../marginalia/\">ensaios</a> e os <a class=\"tl\" href=\"../atlas/\">objetos do Atlas</a>." data-en-html="Suggestions and references cross with the <a class=\"tl\" href=\"../marginalia/\">essays</a> and the <a class=\"tl\" href=\"../atlas/\">Atlas objects</a>.">Sugestões e referências cruzam-se com os <a class="tl" href="../marginalia/">ensaios</a> e os <a class="tl" href="../atlas/">objetos do Atlas</a>.</p>
+  </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <img src="../assets/monogram-av-inverse.svg" alt="">
+      <span><a href="mailto:anavvanzin@outlook.com">anavvanzin@outlook.com</a></span>
+      <span class="sep">PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+    </div>
+  </footer>
+
+  <script src="../content.js"></script>
+  <script src="../editorial.js"></script>
+  <script src="../theme-filter.js"></script>
+  <script>
+  (function () {
+    var L = function (o) { return window.AVContent.L(o); };
+    var active = 'all';
+
+    function themeTags(slugs) {
+      return '<span class="tag">' + slugs.map(function (s) {
+        var t = window.AVContent.theme(s); return t ? '<span>' + L(t.name) + '</span>' : '';
+      }).join('') + '</span>';
+    }
+    function item(it) {
+      return '<li class="rr-item">' +
+        '<span><span class="au">' + it.author + '</span>' +
+        '<span class="ti">' + L(it.title) + '</span></span>' +
+        '<span class="yr">' + it.year + '</span>' +
+        '<span class="ln">' + L(it.line) + '</span></li>';
+    }
+    function shelf(s) {
+      return '<section class="rr-shelf" id="' + s.anchor + '" data-themes="' + s.themes.join(' ') + '">' +
+        '<div class="sh-h"><h2>' + L(s.shelf) + '</h2>' + themeTags(s.themes) + '</div>' +
+        '<p class="sh-note">' + L(s.note) + '</p>' +
+        '<ul class="rr-list">' + s.items.map(item).join('') + '</ul></section>';
+    }
+    function paint() {
+      var wrap = document.getElementById('shelves');
+      wrap.innerHTML = window.AVContent.READINGS.map(shelf).join('');
+      window.AVThemeFilter.apply(wrap, active);
+      var anchor = location.hash.slice(1);
+      if (anchor && document.getElementById(anchor)) {
+        requestAnimationFrame(function () {
+          var t = document.getElementById(anchor);
+          window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'auto' });
+        });
+      }
+    }
+    var fctl = window.AVThemeFilter.mount(document.getElementById('tfilter'), {
+      onChange: function (slug) { active = slug; window.AVThemeFilter.apply(document.getElementById('shelves'), slug); }
+    });
+    // a theme-slug hash activates that filter; a shelf-anchor hash scrolls to it
+    (function () {
+      var h = location.hash.slice(1);
+      if (h && window.AVContent.theme(h)) {
+        active = h;
+        var b = document.querySelector('#tfilter button[data-slug="' + h + '"]');
+        if (b) b.click();
+      }
+    })();
+    window.addEventListener('av:lang', paint);
+    paint();
+  })();
+  </script>
+</body>
+</html>
