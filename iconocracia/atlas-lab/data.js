@@ -290,7 +290,7 @@ const ICONOCRACY_DEMO_ENTRIES = [
     medium: 'Pintura',
     archive: 'Museu Histórico Nacional',
     regime: '2',
-    img: '../assets/corpus/br-villares-republica.jpg',
+    img: '/assets/corpus/br-villares-republica.jpg',
     panelIds: ['P2', 'P5'],
     note:
       'Useful for comparing state pedagogy, juridical idealisation, and a domesticated republican female figure.',
@@ -305,7 +305,7 @@ const ICONOCRACY_DEMO_ENTRIES = [
     medium: 'Escultura',
     archive: 'Arquivo STF',
     regime: '2',
-    img: '../assets/corpus/br-stf-justica-1961.jpg',
+    img: '/assets/corpus/br-stf-justica-1961.jpg',
     panelIds: ['P2', 'P4'],
     note:
       'Core demonstrative case for juridical rigidity, statuary authority, and normative public femininity.',
