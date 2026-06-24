@@ -14,6 +14,18 @@ const REGIME = {
 const IND = L.indicators;               // [{id,label,description}]
 const reg = (id) => REGIME[id] || REGIME["1"];
 const entry = (id) => L.byId[id];
+const ALL_IDS = Object.keys(L.byId);
+// Resilient role resolution: the canonical corpus pipeline renumbered specimen ids
+// (e.g. FR-1792-01) but the panel role-map still references old ids (FR-003). Fall back
+// to available corpus ids so a panel never resolves to an undefined specimen.
+const roleOf = (panelId) => {
+  const r = (L.roleMap && L.roleMap[panelId]) || {};
+  const hero = L.byId[r.heroEntryId] ? r.heroEntryId : ALL_IDS[0];
+  const comps = (r.comparisonEntryIds || [])
+    .map((id, i) => (L.byId[id] ? id : ALL_IDS[i + 1]))
+    .filter(Boolean);
+  return { ...r, heroEntryId: hero, comparisonEntryIds: comps.length ? comps : [ALL_IDS[1] || ALL_IDS[0]] };
+};
 
 const NOTE_PREFIX = "atlaslab.note.";
 const loadNote = (k) => { try { return localStorage.getItem(NOTE_PREFIX + k) || ""; } catch (e) { return ""; } };
@@ -50,6 +62,7 @@ function RegimeBadge({ id, small }) {
 
 // ── image plate with graceful fallback ────────────────────────
 function Plate({ it, h = 220, onClick, selected }) {
+  if (!it) return null;
   const r = reg(it.regime);
   const [bad, setBad] = useState(false);
   return (
@@ -74,6 +87,7 @@ function Plate({ it, h = 220, onClick, selected }) {
 
 // ── iconometric bars for one entry ────────────────────────────
 function IndicatorBars({ it, compact }) {
+  if (!it) return null;
   const r = reg(it.regime);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: compact ? 3 : 5 }}>
@@ -166,7 +180,7 @@ function downloadNotes() {
 }
 
 function LearningView({ panel }) {
-  const role = L.roleMap[panel.id];
+  const role = roleOf(panel.id);
   const hero = entry(role.heroEntryId);
   const comp = entry(role.comparisonEntryIds[0]);
   const [step, setStep] = useState(0);
@@ -243,13 +257,13 @@ const navBtn = (disabled, primary) => ({ fontFamily: "var(--font-mono)", fontSiz
 
 // ── RESEARCH MODE ─────────────────────────────────────────────
 function ResearchView({ panel }) {
-  const role = L.roleMap[panel.id];
+  const role = roleOf(panel.id);
   const ids = [role.heroEntryId, ...role.comparisonEntryIds].filter((v, i, a) => a.indexOf(v) === i);
   const [sel, setSel] = useState([ids[0], ids[1] || ids[0]]);
   const [rnote, setRnote] = useState("");
   const vw = useViewport();
   const stack = vw < 900;
-  useEffect(() => { const r = L.roleMap[panel.id]; const i2 = [r.heroEntryId, ...r.comparisonEntryIds]; setSel([i2[0], i2[1] || i2[0]]); setRnote(loadNote(panel.id + ".research")); }, [panel.id]);
+  useEffect(() => { const r = roleOf(panel.id); const i2 = [r.heroEntryId, ...r.comparisonEntryIds]; setSel([i2[0], i2[1] || i2[0]]); setRnote(loadNote(panel.id + ".research")); }, [panel.id]);
 
   const toggle = (id) => setSel((s) => {
     if (s.includes(id)) { return s.length > 1 ? s.filter((x) => x !== id) : s; }
