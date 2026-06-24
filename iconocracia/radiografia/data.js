@@ -4,7 +4,7 @@
 // drive the diagrammatic overlay — they are an analytical apparatus laid over
 // the specimen, not a claim of pixel registration.
 (function () {
-  const A = "../assets/corpus/";
+  const A = "/assets/corpus/";
 
   // ── Iconometric indicators (the analytical payload of a radiografia) ──
   const INDICATORS = [
