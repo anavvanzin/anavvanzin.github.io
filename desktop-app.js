@@ -19,7 +19,6 @@ const {
   WIus,
   WContato,
   WJustitia,
-  WCv,
   WVo
 } = window.avapp;
 const REG = {
@@ -54,14 +53,6 @@ const REG = {
     },
     w: 440,
     Body: WIus
-  },
-  curriculo: {
-    title: {
-      pt: 'currículo',
-      en: 'curriculum'
-    },
-    w: 460,
-    Body: WCv
   },
   contato: {
     title: {
@@ -187,6 +178,13 @@ const DESK_ICONS = [{
     en: 'curriculum'
   },
   Icon: DocIcon
+}, {
+  id: 'perfil',
+  label: {
+    pt: 'perfil.card',
+    en: 'profile.card'
+  },
+  Icon: ImageIcon
 }, {
   id: 'justitia',
   label: {
@@ -673,6 +671,14 @@ function Desktop() {
     }
     if (id === 'sala-de-leitura') {
       window.location.href = 'sala-de-leitura/';
+      return;
+    }
+    if (id === 'curriculo') {
+      window.location.href = 'readme.html';
+      return;
+    }
+    if (id === 'perfil') {
+      window.location.href = 'perfil.html';
       return;
     }
     setSel(id);
