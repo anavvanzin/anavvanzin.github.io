@@ -166,7 +166,7 @@ function GroupIcon({
 }
 function ImageIcon({
   size = 46,
-  src = 'assets/pixel-justitia.png'
+  src = '/assets/pixel-justitia.png'
 }) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -193,7 +193,7 @@ function ImageIcon({
 }
 function SealIcon({
   size = 46,
-  src = 'assets/sun-seal.svg'
+  src = '/assets/sun-seal.svg'
 }) {
   return /*#__PURE__*/React.createElement("img", {
     src: src,
