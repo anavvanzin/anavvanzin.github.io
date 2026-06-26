@@ -1,102 +1,111 @@
-<!doctype html>
-<html lang="pt">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manifesto · ana vanzin</title>
-<meta name="description" content="Iconocracia — um manifesto sobre a organização visual do poder, a alegoria feminina e a continuidade entre a lei que subordina e a imagem que glorifica.">
-<link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
-<link rel="stylesheet" href="/fonts/fonts.css">
+<title>Manifesto · Iconocracia · ana vanzin</title>
+<meta name="description" content="Um manifesto sobre a organização visual do poder, a alegoria feminina e a continuidade entre a lei que subordina e a imagem que glorifica.">
+<link rel="icon" href="../assets/justitia-mark.svg">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <style>
-  :root{
-    --ink:#211B16; --paper:#F2EAD9; --rubric:#9B2C1C; --gold:#9C7C3D;
-    --font-display:'Cormorant Garamond',serif;
-    --font-body:'Hanken Grotesk',sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,monospace;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{background:var(--paper); color:var(--ink); font-family:var(--font-body)}
-  /* afordância clicável: losango rubricado (cursor iluminado), só em links — preserva o I-beam no texto */
-  a,button,[role=button]{
-    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 2 L20 11 L11 20 L2 11 Z' fill='%239B2C1C' stroke='%23F2EAD9' stroke-width='1.6'/%3E%3C/svg%3E") 11 11, pointer;
-  }
-
-  /* ---------- barra: ana vanzin ---------- */
-  .bar{display:flex; align-items:center; justify-content:space-between; gap:10px;
-    border-bottom:1.5px solid var(--ink); padding:8px clamp(14px,3vw,28px);
-    font-family:var(--mono); font-size:12px; position:sticky; top:0; z-index:20;
-    background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(6px)}
-  .bar a{color:var(--ink); text-decoration:none}
-  .bar a:hover{color:var(--rubric)}
-  .bar .langtog{display:inline-flex; border:1px solid var(--ink)}
-  .bar .langtog button{font-family:var(--mono); font-size:11px; border:0; background:var(--paper); color:var(--ink); padding:2px 9px; cursor:pointer}
-  .bar .langtog button[aria-pressed=true]{background:var(--ink); color:var(--paper)}
-
-  /* ---------- documento ---------- */
-  .doc{box-sizing:border-box; max-width:1080px; margin:0 auto; padding:48px 24px 96px}
-  main{display:grid; grid-template-columns:1fr 280px; gap:60px}
-  article{min-width:0}
-  aside{font-size:13px; line-height:1.6; color:color-mix(in oklab, var(--ink) 60%, transparent)}
-  h1{font-family:var(--font-display); font-size:clamp(2.5rem,6vw,3.5rem); line-height:1.1; margin:0 0 48px; font-weight:500}
-  h2{font-family:var(--font-display); font-size:28px; margin:48px 0 24px; font-weight:500; line-height:1.2}
-  h3{font-family:var(--font-body); font-size:18px; font-weight:600; margin:32px 0 12px; letter-spacing:.1em; text-transform:uppercase; color:var(--rubric)}
-  p{font-size:16px; line-height:1.65; margin:0 0 24px; text-wrap:pretty}
-  .intro{font-size:18px; line-height:1.7; font-weight:500; margin:0 0 42px; max-width:62ch}
-  .rubric-note{color:var(--rubric); font-weight:600}
-  figure{margin:40px 0}
-  figure.fig-wide{margin:48px 0}
-  .img-frame{border:1px solid color-mix(in oklab, var(--ink) 25%, transparent); padding:10px; background:#fff; display:block}
-  .img-frame img{display:block; width:100%; height:auto}
-  .fig-duo{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  .fig-trio{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px}
-  .fig-quad{display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:14px}
-  .fig-cell figcaption, figure>figcaption{font-family:var(--font-display); font-size:13px; font-style:italic; color:color-mix(in oklab, var(--ink) 55%, transparent); margin-top:8px; line-height:1.4}
-  .fig-cell .img-frame{padding:8px}
-  .fig-num{font-family:var(--font-body); font-weight:600; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--rubric); font-style:normal; display:block; margin-bottom:2px}
-  blockquote{border-left:1px solid var(--rubric); padding-left:24px; margin:32px 0; font-style:italic; color:color-mix(in oklab, var(--ink) 80%, transparent)}
-  .colophon{max-width:1080px; margin:0 auto; padding:24px clamp(14px,3vw,28px) 56px; border-top:1px solid color-mix(in oklab, var(--ink) 20%, transparent);
-    font-family:var(--mono); font-size:11px; color:color-mix(in oklab, var(--ink) 55%, transparent); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
-  .colophon a{color:inherit}
-  .colophon a:hover{color:var(--rubric)}
-
-  @media (max-width:1024px){
-    main{grid-template-columns:1fr; gap:40px}
-    aside{font-size:12px; color:color-mix(in oklab, var(--ink) 50%, transparent); margin:20px 0; padding:16px; border-left:1px solid var(--rubric)}
-  }
-  @media (max-width:600px){ .fig-quad, .fig-trio{grid-template-columns:1fr 1fr} }
-
-  @page{size:letter; margin:0}
-  @media print{
-    .bar, .colophon{display:none}
-    html{-webkit-print-color-adjust:exact; print-color-adjust:exact}
-    .doc{max-width:none; margin:0; padding:.75in}
-    main{display:block}
-    aside{float:left; width:200px; margin-right:40px; margin-bottom:20px}
-    h1,h2,h3{break-after:avoid}
-    p,li{orphans:3; widows:3}
-    figure{break-inside:avoid}
-  }
+.backnav{display:block;max-width:1080px;margin:0 auto;padding:24px 24px 0;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#9B2C1C;text-decoration:none}
+.backnav:hover{text-decoration:underline}
+@media print{.backnav{display:none}}
 </style>
 </head>
 <body>
-  <nav class="bar">
-    <a href="/">← <span data-pt="ana vanzin" data-en="ana vanzin">ana vanzin</span></a>
-    <span class="langtog" role="group" aria-label="Idioma / Language">
-      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    </span>
-  </nav>
+<a href="/" class="backnav">← ana vanzin</a>
+<helmet>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manifesto · Iconocracia · ana vanzin</title>
+<meta name="description" content="Um manifesto sobre a organização visual do poder, a alegoria feminina e a continuidade entre a lei que subordina e a imagem que glorifica.">
+<link rel="icon" href="../assets/justitia-mark.svg">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+@import url('../fonts/fonts.css');
+:root {
+  --ink: #211B16;
+  --paper: #F2EAD9;
+  --rubric: #9B2C1C;
+  --gold: #9C7C3D;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Hanken Grotesk', sans-serif;
+}
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.doc { box-sizing: border-box; max-width: 1080px; margin: 0 auto; background: inherit; padding: 48px 24px 96px; }
+.doc-frame { width: 100%; border-collapse: collapse; }
+.doc-frame td { padding: 0; }
+.hdr-space, .ftr-space { display: none; }
+main { display: grid; grid-template-columns: 1fr 280px; gap: 60px; }
+article { flex: 1; }
+aside { font-size: 13px; line-height: 1.6; color: color-mix(in oklab, var(--ink) 60%, transparent); }
+h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1.1; margin: 0 0 48px; font-weight: 500; }
+h2 { font-family: var(--font-display); font-size: 28px; margin: 48px 0 24px; font-weight: 500; line-height: 1.2; }
+h3 { font-family: var(--font-body); font-size: 18px; font-weight: 600; margin: 32px 0 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rubric); }
+p { font-size: 16px; line-height: 1.65; margin: 0 0 24px; text-wrap: pretty; }
+.intro { font-size: 18px; line-height: 1.7; font-weight: 500; margin: 0 0 42px; max-width: 62ch; }
+.eyebrow { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rubric); margin: 0 0 8px; }
+.rubric-note { color: var(--rubric); font-weight: 600; }
+figure { margin: 40px 0; }
+figure.fig-wide { margin: 48px 0; }
+.img-frame { border: 1px solid color-mix(in oklab, var(--ink) 25%, transparent); padding: 10px; background: #fff; display: block; }
+.img-frame img { display: block; width: 100%; height: auto; }
+.fig-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fig-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.fig-quad { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+.fig-cell figcaption, figure > figcaption { font-family: var(--font-display); font-size: 13px; font-style: italic; color: color-mix(in oklab, var(--ink) 55%, transparent); margin-top: 8px; line-height: 1.4; }
+.fig-cell .img-frame { padding: 8px; }
+.fig-num { font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rubric); font-style: normal; display: block; margin-bottom: 2px; }
+blockquote { border-left: 1px solid var(--rubric); padding-left: 24px; margin: 32px 0; font-style: italic; color: color-mix(in oklab, var(--ink) 80%, transparent); }
+@page { size: letter; margin: 0; }
+@media print {
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  .doc { max-width: none; margin: 0; padding: 0.75in; box-shadow: none; }
+  .hdr-space, .ftr-space { display: table-cell; height: 0.75in; }
+  main { display: block; }
+  aside { float: left; width: 200px; margin-right: 40px; margin-bottom: 20px; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  figure { break-inside: avoid; }
+}
+@media (max-width: 1024px) {
+  main { grid-template-columns: 1fr; gap: 40px; }
+  aside { font-size: 12px; color: color-mix(in oklab, var(--ink) 50%, transparent); margin: 20px 0; padding: 16px; border-left: 1px solid var(--rubric); }
+}
+@media (max-width: 600px) {
+  .fig-quad, .fig-trio { grid-template-columns: 1fr 1fr; }
+}
+.doc-manifesto h1 { text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.doc-manifesto h2 { text-transform: uppercase; letter-spacing: 0.04em; }
+.doc-manifesto .rubric-note { text-transform: uppercase; letter-spacing: 0.1em; }
+.doc-manifesto p { font-size: 17px; font-weight: 500; }
+.doc-legivel p { font-size: 18px; line-height: 1.8; }
+.doc-legivel h2 { font-size: 32px; margin: 56px 0 28px; }
+.doc-legivel main { grid-template-columns: 1fr 320px; gap: 80px; }
+.doc-legivel .doc { padding: 60px 48px 120px; }
+.aside-minimal { display: none; }
+.main-fullwidth { grid-template-columns: 1fr; }
+.enfase-sutil .rubric-note { color: color-mix(in oklab, var(--ink) 70%, transparent); font-weight: 500; }
+.enfase-sutil h3 { color: color-mix(in oklab, var(--ink) 60%, transparent); }
+.enfase-polemica h3 { font-weight: 700; letter-spacing: 0.15em; }
+.enfase-polemica .rubric-note { font-weight: 700; background: color-mix(in oklab, var(--rubric) 8%, transparent); padding: 2px 6px; }
+.enfase-polemica article > p:last-child { font-weight: 600; border-left: 2px solid var(--rubric); padding-left: 24px; }
+</style>
+</helmet>
 
-  <div class="doc">
-    <main>
+<main class="doc doc-manifesto" >
+  <table class="doc-frame" role="presentation">
+    <thead><tr><td class="hdr-space"></td></tr></thead>
+    <tbody><tr><td>
       <article>
         <h1>Iconocracia</h1>
         <p class="intro">Um manifesto sobre a organização visual do poder, a alegoria feminina e a continuidade entre a lei que subordina e a imagem que glorifica. Da nacionalidade dependente na letra ao triunfo da mulher-símbolo na moeda e no brasão — dois registros de um mesmo contrato de poder.</p>
 
         <figure class="fig-wide">
-          <span class="img-frame"><img src="/assets/manifesto-frontispicio.png" alt="Frontispício da pesquisa — Female Allegory in the History of Legal Culture" decoding="async"></span>
-          <figcaption><span class="fig-num">Frontispício</span><em>Female Allegory in the History of Legal Culture · Ius · Imago · Memoria.</em> A lei como texto e como imagem no mesmo gesto. <span class="rubric-note">Cega não por imparcialidade, mas porque não se enxerga no espelho do poder.</span></figcaption>
+          <img src="/assets/manifesto-frontispicio.png" alt="Justitia entronizada, de olhos vendados com venda vermelha, segurando a balança, ao lado de um códice iluminado, uma moeda, a espada e a coluna" style="display:block; width:100%; height:auto;">
+          <figcaption><span class="fig-num">Frontispício</span>A Justiça entronizada — venda, balança e espada entre o códice iluminado e a moeda: a lei como texto e como imagem no mesmo gesto. <span class="rubric-note">Cega não por imparcialidade, mas porque não se enxerga no espelho do poder.</span></figcaption>
         </figure>
 
         <h2>I. Da lei à imagem: uma continuidade</h2>
@@ -140,21 +149,29 @@
 
         <figure>
           <div class="fig-quad">
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-rops-republique-1871.jpg" alt="Félicien Rops, A República amável, 1871" loading="lazy" decoding="async"></span><figcaption>Rops · 1871 — quente, encarnada</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-moitte-liberte-1792.jpg" alt="Moitte, Liberdade, 1792" loading="lazy" decoding="async"></span><figcaption>Moitte · 1792 — a Liberdade armada</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-clesinger-republique-1900.jpg" alt="Clésinger, A República, 1900" loading="lazy" decoding="async"></span><figcaption>Clésinger · 1900</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-ceres-5f-1849-c.png" alt="Ceres, moeda de 5 francos, 1849" loading="lazy" decoding="async"></span><figcaption>Ceres · 5 francos · 1849 — endurecida, serial</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-rops-republique-1871.jpg" alt="Félicien Rops, A República amável, 1871"></span><figcaption>Rops · 1871 — quente, encarnada</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-moitte-liberte-1792.jpg" alt="Moitte, Liberdade, 1792"></span><figcaption>Moitte · 1792 — a Liberdade armada</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-clesinger-republique-1900.jpg" alt="Clésinger, A República, 1900"></span><figcaption>Clésinger · 1900</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-ceres-5f-1849-c.png" alt="Ceres, moeda de 5 francos, 1849"></span><figcaption>Ceres · 5 francos · 1849 — endurecida, serial</figcaption></div>
           </div>
           <figcaption><span class="fig-num">França · regime normativo</span>O trajeto do endurecimento: da alegoria encarnada ao emblema anônimo da moeda.</figcaption>
         </figure>
 
         <p>Mas o caso de Marianne tem um segundo movimento, ainda mais revelador. A alegoria abstrata, com o tempo, exige um rosto concreto — e o Estado o encontra no rosto das suas <em>beldades</em>. Em 1969, o primeiro busto oficial de Marianne foi modelado nas feições de Brigitte Bardot; vieram depois Catherine Deneuve, Mireille Mathieu. A República viaja: a sua irmã tropical circula na cédula brasileira de um real e na estátua de Décio Villares. E o paradoxo se fecha em 2013, quando o novo selo francês de Marianne foi desenhado a partir de Inna Shevchenko, militante do FEMEN — <span class="rubric-note">o mesmo corpo que protestou seminu contra o Estado foi escolhido para ser o rosto oficial do Estado</span>. A alegoria não apenas precisa de um corpo de mulher: ela o consome, esvazia e devolve como emblema. Talvez a República nunca tenha sido esculpida em mármore — talvez sempre tenha sido escrita na pele.</p>
-        <!-- TODO: figura "Marianne feita carne" (trio Bardot 1969 · selo 2013 · Inna Shevchenko). Imagens reais ainda não adquiridas — não gerar por IA (integridade do corpus). Ao obter os arquivos, colocar em /assets/marianne/{m-bardot-bust.png,m-stamp.png,m-inna.png} e restaurar o <figure class="fig-trio"> aqui. -->
+
+        <figure>
+          <div class="fig-trio">
+            <div class="fig-cell"><span class="img-frame"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect fill='%23F2EAD9' width='400' height='500'/%3E%3Crect x='20' y='20' width='360' height='460' fill='none' stroke='%239B2C1C' stroke-width='2'/%3E%3Ctext x='200' y='240' font-family='Cormorant Garamond, serif' font-size='48' fill='%23211B16' text-anchor='middle'%3EM%3C/text%3E%3Ctext x='200' y='290' font-family='Hanken Grotesk, sans-serif' font-size='14' fill='%239B2C1C' text-anchor='middle'%3Eimagem em aquisição%3C/text%3E%3C/svg%3E" alt="Busto oficial de Marianne modelado em Brigitte Bardot, 1969"></span><figcaption>Bardot · busto oficial · 1969</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect fill='%23F2EAD9' width='400' height='320'/%3E%3Crect x='20' y='20' width='360' height='280' fill='none' stroke='%239B2C1C' stroke-width='2'/%3E%3Ctext x='200' y='160' font-family='Cormorant Garamond, serif' font-size='48' fill='%23211B16' text-anchor='middle'%3ES%3C/text%3E%3Ctext x='200' y='210' font-family='Hanken Grotesk, sans-serif' font-size='14' fill='%239B2C1C' text-anchor='middle'%3Eimagem em aquisição%3C/text%3E%3C/svg%3E" alt="Selo francês de Marianne, 2013, desenhado a partir de Inna Shevchenko"></span><figcaption>Selo da Marianne · 2013</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect fill='%23F2EAD9' width='400' height='500'/%3E%3Crect x='20' y='20' width='360' height='460' fill='none' stroke='%239B2C1C' stroke-width='2'/%3E%3Ctext x='200' y='240' font-family='Cormorant Garamond, serif' font-size='48' fill='%23211B16' text-anchor='middle'%3EI%3C/text%3E%3Ctext x='200' y='290' font-family='Hanken Grotesk, sans-serif' font-size='14' fill='%239B2C1C' text-anchor='middle'%3Eimagem em aquisição%3C/text%3E%3C/svg%3E" alt="Inna Shevchenko, militante do FEMEN, modelo do selo de 2013"></span><figcaption>Inna Shevchenko · FEMEN</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">França &amp; Brasil · a alegoria feita carne</span>A abstração ganha rosto de celebridade e, por fim, o rosto da militante que a contestava.</figcaption>
+        </figure>
 
         <p><span class="rubric-note">Britannia e Thatcher</span> é o caso da inversão paradoxal. Na moeda de um pêni de 1912, Britannia senta-se com elmo, tridente, escudo — a nação como guerreira serena. Mas em 1983, durante a Guerra das Malvinas, a capa do <em>The Sun</em> funde Margaret Thatcher com Britannia. Marina Warner disse que Thatcher trouxe Britannia à vida. Aqui a estrutura se inverte de modo fascinante: uma mulher real só é admitida no centro do poder quando se deixa ler como alegoria. A exceção confirma a regra — a mulher entra no poder como imagem, não como sujeito.</p>
 
         <figure>
-          <span class="img-frame"><img src="/assets/corpus/uk-britannia-penny-1912.jpg" alt="Britannia sentada, pêni britânico de 1912" loading="lazy" decoding="async"></span>
+          <span class="img-frame"><img src="/assets/corpus/uk-britannia-penny-1912.jpg" alt="Britannia sentada, pêni britânico de 1912"></span>
           <figcaption><span class="fig-num">Reino Unido · regime militar-imperial</span>Britannia · One Penny · 1912 — elmo, tridente e escudo: a nação como guerreira serena.</figcaption>
         </figure>
 
@@ -162,8 +179,8 @@
 
         <figure>
           <div class="fig-duo">
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/us-seated-liberty-1840-c.png" alt="Seated Liberty, moeda americana de 1840" loading="lazy" decoding="async"></span><figcaption>Seated Liberty · 1840</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/us-educational-1896-c.png" alt="Nota Educational Series, 1896" loading="lazy" decoding="async"></span><figcaption>Educational Series · 1896 — o corpo como pedagogia</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/us-seated-liberty-1840-c.png" alt="Seated Liberty, moeda americana de 1840"></span><figcaption>Seated Liberty · 1840</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/us-educational-1896-c.png" alt="Nota Educational Series, 1896"></span><figcaption>Educational Series · 1896 — o corpo como pedagogia</figcaption></div>
           </div>
           <figcaption><span class="fig-num">Estados Unidos · regime normativo</span>A Feminilidade de Estado em estado puro: a figura feminina instrui o cidadão em nome do Estado.</figcaption>
         </figure>
@@ -172,10 +189,10 @@
 
         <figure>
           <div class="fig-quad">
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-villares-republica.jpg" alt="Décio Villares, alegoria da República" loading="lazy" decoding="async"></span><figcaption>Villares · A República</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-1000reis-1906-c.png" alt="Moeda de 1000 réis, 1906" loading="lazy" decoding="async"></span><figcaption>1000 réis · 1906</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-stf-justica-1961.jpg" alt="Escultura da Justiça no STF, 1961" loading="lazy" decoding="async"></span><figcaption>Justiça · STF · 1961</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/be-congo-monumento-1921.jpg" alt="Monumento colonial belga no Congo, 1921" loading="lazy" decoding="async"></span><figcaption>Bélgica · Congo · 1921 — a outra face</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-villares-republica.jpg" alt="Décio Villares, alegoria da República"></span><figcaption>Villares · A República</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-1000reis-1906-c.png" alt="Moeda de 1000 réis, 1906"></span><figcaption>1000 réis · 1906</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/br-stf-justica-1961.jpg" alt="Escultura da Justiça no STF, 1961"></span><figcaption>Justiça · STF · 1961</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/be-congo-monumento-1921.jpg" alt="Monumento colonial belga no Congo, 1921"></span><figcaption>Bélgica · Congo · 1921 — a outra face</figcaption></div>
           </div>
           <figcaption><span class="fig-num">Brasil &amp; Bélgica · contrato racial visual</span>A alegoria branca da nação mestiça e o monumento colonial: duas faces da mesma gramática.</figcaption>
         </figure>
@@ -184,9 +201,9 @@
 
         <figure>
           <div class="fig-trio">
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-bruegel-justicia-1559.jpg" alt="Bruegel, Justitia, 1559" loading="lazy" decoding="async"></span><figcaption>Bruegel · 1559</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/de-justitia-esslingen-1589-c.png" alt="Justitia de Esslingen, 1589" loading="lazy" decoding="async"></span><figcaption>Esslingen · 1589</figcaption></div>
-            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/uk-justitia-prudentia-c.png" alt="Justitia e Prudentia, Reino Unido" loading="lazy" decoding="async"></span><figcaption>Justitia &amp; Prudentia</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/fr-bruegel-justicia-1559.jpg" alt="Bruegel, Justitia, 1559"></span><figcaption>Bruegel · 1559</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/de-justitia-esslingen-1589-c.png" alt="Justitia de Esslingen, 1589"></span><figcaption>Esslingen · 1589</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="/assets/corpus/uk-justitia-prudentia-c.png" alt="Justitia e Prudentia, Reino Unido"></span><figcaption>Justitia &amp; Prudentia</figcaption></div>
           </div>
           <figcaption><span class="fig-num">Transnacional · regime normativo</span>A mulher empunha o atributo da decisão — a balança — sem nunca decidir.</figcaption>
         </figure>
@@ -211,13 +228,13 @@
         <p>Se essa leitura fizer sentido para vocês, então talvez a história do direito possa se fazer diferentemente daqui para frente.</p>
       </article>
 
-      <aside>
-        <h3 style="margin-top:0">Dissertação · 2024</h3>
+      <aside >
+        <h3 style="margin-top: 0;">Dissertação · 2024</h3>
         <p><em>"United by marriage, chained by nationality"</em> · Mestrado em Direito Internacional · PPGD/UFSC</p>
         <p><strong>Tema:</strong> nacionalidade dependente da mulher casada, 1804–1957.</p>
         <p><strong>Fio:</strong> ius sanguinis a patre.</p>
 
-        <hr style="border:none; border-top:1px solid var(--rubric); margin:32px 0">
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
 
         <h3>Corpus da tese</h3>
         <p><strong>145 itens</strong> de iconografia estatal e jurídica.</p>
@@ -225,10 +242,10 @@
         <p><strong>8 suportes:</strong> moeda, selo, monumento, arquitetura, gravura, frontispício, papel-moeda, cartaz.</p>
         <p><strong>88%</strong> codificados.</p>
 
-        <hr style="border:none; border-top:1px solid var(--rubric); margin:32px 0">
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
 
         <h3>Os 10 indicadores de endurecimento</h3>
-        <ol style="font-size:12px; line-height:1.5; margin:0; padding-left:16px">
+        <ol style="font-size: 12px; line-height: 1.5; margin: 0; padding-left: 16px;">
           <li>Desincorporação</li>
           <li>Rigidez postural</li>
           <li>Dessexualização</li>
@@ -241,28 +258,23 @@
           <li>Inscrição estatal</li>
         </ol>
 
-        <hr style="border:none; border-top:1px solid var(--rubric); margin:32px 0">
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
 
         <h3>Os 3 regimes iconocráticos</h3>
         <p><strong>Fundacional-sacrificial</strong> · maternidade, dor e sangue</p>
         <p><strong>Normativo-jurídico</strong> · Justiça, Liberdade, República</p>
         <p><strong>Militar-imperial</strong> · vitória, guerra, heroísmo cívico</p>
 
-        <hr style="border:none; border-top:1px solid var(--rubric); margin:32px 0">
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
 
         <h3>Estatística preliminar</h3>
         <p><strong>9/10</strong> indicadores diferem entre regimes (Kruskal-Wallis, p &lt; 0,05)</p>
         <p><strong>R² = 0,49</strong> · regime e suporte predizem o endurecimento</p>
         <p><strong>MCA</strong> · famílias alegóricas transnacionais</p>
       </aside>
-    </main>
-  </div>
-
-  <footer class="colophon">
-    <span>Ana Vanzin · Iconocracia · PPGD/UFSC</span>
-    <span><a href="/iconocracia/" data-pt="explorar a tese →" data-en="explore the thesis →">explorar a tese →</a></span>
-  </footer>
-
-  <script src="/editorial.js"></script>
+    </td></tr></tbody>
+    <tfoot><tr><td class="ftr-space"></td></tr></tfoot>
+  </table>
+</main>
 </body>
 </html>

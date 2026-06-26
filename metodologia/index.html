@@ -4,36 +4,314 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Metodologia · ana vanzin</title>
-<meta name="description" content="Métodos, ferramentas e materiais de pesquisa para ajudar estudantes — em construção.">
-<link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
-<link rel="stylesheet" href="/fonts/fonts.css">
+<meta name="description" content="Métodos, ferramentas e materiais de pesquisa em história do direito e iconografia jurídica — para ajudar estudantes.">
+<link rel="icon" href="/assets/avatar-pixel.png">
+<meta name="theme-color" content="#F2EAD9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12100D" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/editorial.css">
 <style>
-  :root{--paper:#EFE5CF;--ink:#211B16;--rubric:#9B2C1C;--gold:#B08D3C;
-    --disp:'Cormorant Garamond',serif;--body:'Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',monospace}
-  html,body{margin:0}
-  body{background:var(--paper);color:var(--ink);font-family:var(--body);min-height:100vh;
-    background-image:radial-gradient(rgba(33,27,22,.04) .5px,transparent .5px);background-size:4px 4px;
-    display:flex;flex-direction:column}
-  .bar{display:flex;align-items:center;gap:10px;border-bottom:1.5px solid var(--ink);
-    padding:8px clamp(14px,3vw,28px);font-family:var(--mono);font-size:12px}
-  .bar a{color:var(--ink);text-decoration:none}
-  .bar a:hover{color:var(--rubric)}
-  .wrap{flex:1;max-width:760px;margin:0 auto;padding:clamp(48px,10vh,110px) 24px;text-align:center}
-  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rubric);margin:0}
-  h1{font-family:var(--disp);font-weight:600;font-size:clamp(40px,8vw,72px);margin:8px 0 0;line-height:1}
-  p{font-size:17px;line-height:1.6;color:color-mix(in srgb,var(--ink) 80%,var(--paper));max-width:52ch;margin:22px auto 0}
-  .flr{color:var(--gold);font-family:var(--disp);font-size:26px;margin-top:28px}
+  .method-card { border-bottom: 1px solid var(--rule-hairline); padding: 18px 0; }
+  .method-card:first-of-type { border-top: 1px solid var(--ink); }
+  .method-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; margin: 0 0 4px; }
+  .method-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 4px 0 0; }
+  .method-card .tag { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--rubric); text-transform: uppercase; }
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 1.5em 0; }
+  .tool-card { border: 1px solid var(--rule-hairline); padding: 18px; }
+  .tool-card h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; margin: 0 0 4px; }
+  .tool-card p { font-size: 13px; line-height: 1.5; color: var(--text-muted); margin: 0; }
+  .archive-list { list-style: none; margin: 0; padding: 0; }
+  .archive-list li { border-bottom: 1px solid var(--rule-hairline); padding: 10px 0; font-size: 14px; line-height: 1.5; }
+  .archive-list li:first-child { border-top: 1px solid var(--ink); }
+  .archive-list .name { font-family: var(--font-display); font-weight: 600; }
+  .archive-list .url { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: var(--text-faint); display: block; margin-top: 2px; }
+  @media (max-width: 720px) { .tools-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body>
-  <nav class="bar"><a href="/">← <span data-pt="ana vanzin" data-en="ana vanzin">ana vanzin</span></a></nav>
-  <main class="wrap">
-    <p class="kick" data-pt="materiais para estudantes" data-en="materials for students">materiais para estudantes</p>
-    <h1>Metodologia</h1>
-    <p data-pt="Métodos, ferramentas e materiais de pesquisa em história e iconografia jurídica — para ajudar estudantes. Esta seção está em construção."
-       data-en="Methods, tools, and research materials in legal history and iconography — to help students. This section is under construction.">Métodos, ferramentas e materiais de pesquisa em história e iconografia jurídica — para ajudar estudantes. Esta seção está em construção.</p>
-    <div class="flr">❧</div>
+<body class="ed" data-route="metodologia">
+  <noscript><div style="background:var(--ink);color:var(--paper);text-align:center;padding:6px;font-family:var(--font-body);font-size:13px" data-pt="Este site funciona perfeitamente sem JavaScript. O seletor de idioma (PT/EN) requer JS; você está vendo o conteúdo em português." data-en="This site works perfectly without JavaScript. The language toggle (PT/EN) requires JS; you are seeing the content in Portuguese.">Este site funciona perfeitamente sem JavaScript. O seletor de idioma (PT/EN) requer JS; você está vendo o conteúdo em português.</div></noscript>
+  <header class="ed-bar">
+    <a class="brand" href="/" title="← ana vanzin">
+      <img src="/assets/monogram-av.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="/iconocracia/" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="/manifesto/" data-route="manifesto" data-pt="manifesto" data-en="manifesto">manifesto</a>
+      <a href="/metodologia/" data-route="metodologia" data-pt="metodologia" data-en="methodology">metodologia</a>
+      <a href="/publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="/sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="/sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
+
+  <main class="ed-page narrow">
+    <a class="ed-back" href="/"><span class="ar">←</span> <span data-pt="ana vanzin" data-en="ana vanzin">ana vanzin</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="materiais para estudantes" data-en="materials for students">materiais para estudantes</p>
+      <h1 class="ed-title caps rise" style="--d:.06s">Metodologia</h1>
+      <p class="dek rise" style="--d:.12s"
+         data-pt="Métodos, ferramentas e materiais de pesquisa em história do direito e iconografia jurídica. Um guia prático para quem está começando — da formulação da pergunta à gestão das fontes."
+         data-en="Methods, tools, and research materials in legal history and juridical iconography. A practical guide for those starting out — from formulating the question to managing sources.">Métodos, ferramentas e materiais de pesquisa em história do direito e iconografia jurídica. Um guia prático para quem está começando — da formulação da pergunta à gestão das fontes.</p>
+    </div>
+
+    <div class="ed-body">
+      <div class="prose">
+
+        <h2 data-pt="1. Por onde começar" data-en="1. Where to begin">1. Por onde começar</h2>
+        <p class="lede" data-pt="Toda pesquisa jurídica começa com uma pergunta. Mas onde você procura a resposta? Este guia cobre métodos que servem a qualquer pesquisa em direito — da análise normativa à revisão sistemática — e dedica atenção especial a duas frentes que a formação jurídica tradicional costuma negligenciar: a dimensão histórica do fenômeno jurídico e sua dimensão visual. A mesma lei que você lê no código também vive na imagem — na moeda, no frontispício, na arquitetura do tribunal."
+           data-en="Every legal research project begins with a question. But where do you look for the answer? This guide covers methods that serve any legal research — from normative analysis to systematic review — and pays special attention to two fronts that traditional legal education tends to neglect: the historical dimension of the legal phenomenon and its visual dimension. The same law you read in the code also lives in the image — on the coin, on the frontispiece, in the courthouse architecture.">Toda pesquisa jurídica começa com uma pergunta. Mas onde você procura a resposta? Este guia cobre métodos que servem a qualquer pesquisa em direito — da análise normativa à revisão sistemática — e dedica atenção especial a duas frentes que a formação jurídica tradicional costuma negligenciar: a dimensão histórica do fenômeno jurídico e sua dimensão visual. A mesma lei que você lê no código também vive na imagem — na moeda, no frontispício, na arquitetura do tribunal.</p>
+        <p data-pt="Antes de escolher o método, é útil delimitar o que se quer saber. Três perguntas ajudam: (1) qual o recorte temporal e geográfico? (2) que tipo de fonte vou examinar — textos legais, imagens, decisões judiciais, tratados? (3) qual a minha hipótese de partida, mesmo que provisória?"
+           data-en="Before choosing a method, it helps to delimit what you want to know. Three questions help: (1) what is the temporal and geographic scope? (2) what type of source will I examine — legal texts, images, judicial decisions, treatises? (3) what is my starting hypothesis, even if provisional?">Antes de escolher o método, é útil delimitar o que se quer saber. Três perguntas ajudam: (1) qual o recorte temporal e geográfico? (2) que tipo de fonte vou examinar — textos legais, imagens, decisões judiciais, tratados? (3) qual a minha hipótese de partida, mesmo que provisória?</p>
+
+        <h2 data-pt="2. Métodos de pesquisa em história do direito" data-en="2. Research methods in legal history">2. Métodos de pesquisa em história do direito</h2>
+        <p data-pt="A história do direito mobiliza diferentes métodos, dependendo da fonte e da pergunta. Abaixo, uma visão geral dos principais."
+           data-en="Legal history mobilizes different methods, depending on the source and the question. Below, an overview of the main ones.">A história do direito mobiliza diferentes métodos, dependendo da fonte e da pergunta. Abaixo, uma visão geral dos principais.</p>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Método 1" data-en="Method 1">Método 1</p>
+          <h3 data-pt="Análise normativa e dogmática" data-en="Normative and doctrinal analysis">Análise normativa e dogmática</h3>
+          <p data-pt="Estudo da letra da lei, sua estrutura interna e seus conceitos. Em perspectiva histórica, interessa não apenas o que a lei diz, mas como suas categorias se transformam ao longo do tempo — por exemplo, como o conceito de 'nacionalidade' ou 'capacidade civil' da mulher mudou entre os séculos XIX e XX."
+             data-en="Study of the letter of the law, its internal structure, and its concepts. From a historical perspective, what matters is not only what the law says but how its categories transform over time — for example, how the concept of 'nationality' or 'civil capacity' of women changed between the 19th and 20th centuries.">Estudo da letra da lei, sua estrutura interna e seus conceitos. Em perspectiva histórica, interessa não apenas o que a lei diz, mas como suas categorias se transformam ao longo do tempo.</p>
+        </div>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Método 2" data-en="Method 2">Método 2</p>
+          <h3 data-pt="Método histórico-jurídico comparado" data-en="Comparative legal-historical method">Método histórico-jurídico comparado</h3>
+          <p data-pt="Comparação sistemática entre ordenamentos jurídicos de diferentes países ou tradições, num mesmo recorte temporal. Essencial para identificar padrões transnacionais — como a dependência jurídica da mulher casada, que atravessou códigos civis da França ao Brasil — e também as variações locais."
+             data-en="Systematic comparison between legal systems of different countries or traditions, within the same time frame. Essential for identifying transnational patterns — such as the legal dependency of married women, which spanned civil codes from France to Brazil — and also local variations.">Comparação sistemática entre ordenamentos jurídicos de diferentes países ou tradições, num mesmo recorte temporal. Essencial para identificar padrões transnacionais e variações locais.</p>
+        </div>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Método 3" data-en="Method 3">Método 3</p>
+          <h3 data-pt="Método indiciário e micro-história" data-en="Evidential paradigm and microhistory">Método indiciário e micro-história</h3>
+          <p data-pt="Inspirado em Carlo Ginzburg, consiste em seguir pistas marginais — um detalhe numa gravura, uma palavra repetida num processo, um gesto registrado num depoimento — para revelar estruturas profundas que o discurso oficial esconde. Particularmente útil quando se trabalha com fontes fragmentárias ou silenciadas."
+             data-en="Inspired by Carlo Ginzburg, this method consists of following marginal clues — a detail in an engraving, a repeated word in a trial record, a gesture recorded in testimony — to reveal deep structures that official discourse conceals. Particularly useful when working with fragmentary or silenced sources.">Inspirado em Carlo Ginzburg, consiste em seguir pistas marginais — um detalhe numa gravura, uma palavra repetida num processo — para revelar estruturas profundas que o discurso oficial esconde.</p>
+        </div>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Método 4" data-en="Method 4">Método 4</p>
+          <h3 data-pt="Métodos mistos e análise quanti-qualitativa" data-en="Mixed methods and quanti-qualitative analysis">Métodos mistos e análise quanti-qualitativa</h3>
+          <p data-pt="Combinação de codificação sistemática de fontes (com indicadores, escalas ordinais, análise estatística) com interpretação qualitativa aprofundada. Útil quando o corpus é extenso demais para análise puramente artesanal. Exemplo: classificar dezenas de imagens por grau de abstração, rigidez ou presença de inscrições estatais, e depois aprofundar os casos mais reveladores."
+             data-en="Combination of systematic source coding (with indicators, ordinal scales, statistical analysis) and in-depth qualitative interpretation. Useful when the corpus is too large for purely artisanal analysis. Example: classifying dozens of images by degree of abstraction, rigidity, or presence of state inscriptions, and then deepening the most revealing cases.">Combinação de codificação sistemática de fontes (com indicadores, escalas ordinais, análise estatística) com interpretação qualitativa aprofundada. Útil quando o corpus é extenso demais para análise puramente artesanal.</p>
+        </div>
+
+        <h2 data-pt="3. Análise iconográfica e iconológica" data-en="3. Iconographic and iconological analysis">3. Análise iconográfica e iconológica</h2>
+        <p data-pt="Para quem trabalha com imagens jurídicas — alegorias da justiça, representações do Estado, frontispícios de códigos, monumentos forenses — o método de referência é o de Erwin Panofsky, que distingue três níveis de leitura."
+           data-en="For those working with legal images — allegories of justice, representations of the State, codex frontispieces, forensic monuments — the reference method is Erwin Panofsky's, which distinguishes three levels of reading.">Para quem trabalha com imagens jurídicas — alegorias da justiça, representações do Estado, frontispícios de códigos, monumentos forenses — o método de referência é o de Erwin Panofsky, que distingue três níveis de leitura.</p>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Nível 1" data-en="Level 1">Nível 1</p>
+          <h3 data-pt="Pré-iconográfico: descrição primária" data-en="Pre-iconographic: primary description">Pré-iconográfico: descrição primária</h3>
+          <p data-pt="O que se vê, sem interpretação: figuras, posturas, objetos, cores, texto inscrito, suporte material. É o inventário factual da imagem — quantas figuras, que atributos portam, como se posicionam no espaço."
+             data-en="What is seen, without interpretation: figures, postures, objects, colors, inscribed text, material support. The factual inventory of the image — how many figures, what attributes they carry, how they are positioned in space.">O que se vê, sem interpretação: figuras, posturas, objetos, cores, texto inscrito, suporte material. É o inventário factual da imagem.</p>
+        </div>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Nível 2" data-en="Level 2">Nível 2</p>
+          <h3 data-pt="Iconográfico: identificação convencional" data-en="Iconographic: conventional identification">Iconográfico: identificação convencional</h3>
+          <p data-pt="O que a imagem significa dentro de uma tradição: esta figura com balança e venda é a Justiça; esta mulher com barrete frígio é a República. Mobiliza repertórios culturais compartilhados — a mitologia clássica, a emblemática renascentista, a iconografia revolucionária."
+             data-en="What the image means within a tradition: this figure with scales and blindfold is Justice; this woman with a Phrygian cap is the Republic. Mobilizes shared cultural repertoires — classical mythology, Renaissance emblematics, revolutionary iconography.">O que a imagem significa dentro de uma tradição: esta figura com balança e venda é a Justiça; esta mulher com barrete frígio é a República. Mobiliza repertórios culturais compartilhados.</p>
+        </div>
+
+        <div class="method-card">
+          <p class="tag" data-pt="Nível 3" data-en="Level 3">Nível 3</p>
+          <h3 data-pt="Iconológico: significado profundo" data-en="Iconological: deep meaning">Iconológico: significado profundo</h3>
+          <p data-pt="O que a imagem revela sobre a mentalidade de uma época, as relações de poder, as estruturas sociais que a produziram. Por que a Justiça é representada como mulher numa cultura que excluía as mulheres da magistratura? O que significa a branquitude sistemática das alegorias nacionais em países multirraciais?"
+             data-en="What the image reveals about the mentality of an era, power relations, the social structures that produced it. Why is Justice represented as a woman in a culture that excluded women from the judiciary? What does the systematic whiteness of national allegories mean in multiracial countries?">O que a imagem revela sobre a mentalidade de uma época, as relações de poder, as estruturas sociais que a produziram. Por que a Justiça é representada como mulher?</p>
+        </div>
+
+        <div class="pull" data-pt="«O espaço entre as imagens é onde se deve pensar.» — Aby Warburg, sobre o Atlas Mnemosyne"
+             data-en="«The space between images is where one must think.» — Aby Warburg, on the Mnemosyne Atlas">«O espaço entre as imagens é onde se deve pensar.» — Aby Warburg, sobre o Atlas Mnemosyne</div>
+
+        <p data-pt="Além de Panofsky, a tradição warburguiana oferece ferramentas poderosas: o conceito de Pathosformel (fórmula de pathos — gestos que migram entre épocas e culturas), a ideia de Nachleben (sobrevivência da imagem antiga em contextos novos) e a montagem como método (dispor imagens lado a lado para que o sentido emerja do intervalo, não de cada uma isoladamente)."
+           data-en="Beyond Panofsky, the Warburgian tradition offers powerful tools: the concept of Pathosformel (pathos formula — gestures that migrate between eras and cultures), the idea of Nachleben (survival of the ancient image in new contexts), and montage as method (arranging images side by side so that meaning emerges from the interval, not from each one in isolation).">Além de Panofsky, a tradição warburguiana oferece ferramentas poderosas: o conceito de Pathosformel (fórmula de pathos — gestos que migram entre épocas e culturas), a ideia de Nachleben (sobrevivência da imagem antiga em contextos novos) e a montagem como método (dispor imagens lado a lado para que o sentido emerja do intervalo).</p>
+
+        <p data-pt="Para classificação iconográfica sistemática, o sistema ICONCLASS (Henri van de Waal, 1973–1985) oferece uma taxonomia hierárquica de temas e motivos visuais, com códigos específicos para iconografia jurídica e política."
+           data-en="For systematic iconographic classification, the ICONCLASS system (Henri van de Waal, 1973–1985) offers a hierarchical taxonomy of visual themes and motifs, with specific codes for legal and political iconography.">Para classificação iconográfica sistemática, o sistema ICONCLASS (Henri van de Waal, 1973–1985) oferece uma taxonomia hierárquica de temas e motivos visuais, com códigos específicos para iconografia jurídica e política.</p>
+
+        <h3 data-pt="O dicionário alegórico de Ripa" data-en="Ripa's allegorical dictionary">O dicionário alegórico de Ripa</h3>
+        <p data-pt="A referência canônica para a tradição alegórica ocidental é a Iconologia de Cesare Ripa (1593, com edições ilustradas a partir de 1603). Ripa organiza um verdadeiro 'dicionário alegórico' com índices de elementos — animais, objetos, plantas, cores, motti — que permitem identificar virtudes, vícios, paixões humanas e conceitos abstratos. Para o pesquisador de iconografia jurídica, Ripa oferece uma gramática prescritiva de como representar a Justiça, a Paz, a Verdade e outras figuras que povoam tribunais e frontispícios. Atenção metodológica: Ripa não descreve imagens existentes — ele prescreve como representar conceitos. O codebook que usamos deve registrar qual edição/suporte mediou a interpretação."
+           data-en="The canonical reference for the Western allegorical tradition is Cesare Ripa's Iconologia (1593, with illustrated editions from 1603). Ripa organizes a veritable 'allegorical dictionary' with indexes of elements — animals, objects, plants, colors, motti — that allow identification of virtues, vices, human passions, and abstract concepts. For the legal iconography researcher, Ripa offers a prescriptive grammar of how to represent Justice, Peace, Truth, and other figures that populate courthouses and frontispieces. Methodological note: Ripa does not describe existing images — he prescribes how to represent concepts. The codebook we use must record which edition/support mediated the interpretation.">A referência canônica para a tradição alegórica ocidental é a Iconologia de Cesare Ripa (1593, com edições ilustradas a partir de 1603). Ripa organiza um verdadeiro 'dicionário alegórico' com índices de elementos — animais, objetos, plantas, cores — que permitem identificar virtudes, vícios e conceitos abstratos. Para o pesquisador de iconografia jurídica, Ripa oferece uma gramática prescritiva de como representar a Justiça, a Paz e outras figuras. Atenção: Ripa não descreve imagens existentes — ele prescreve como representar conceitos.</p>
+
+        <h3 data-pt="Dados como capta: a não-neutralidade do registro" data-en="Data as capta: the non-neutrality of the record">Dados como capta: a não-neutralidade do registro</h3>
+        <p data-pt="Uma contribuição importante das humanidades digitais críticas (Drucker; D'Ignazio &amp; Klein) é a ideia de que dados não são 'coletados' passivamente — são capta, isto é, 'tomados e construídos' a partir de decisões interpretativas situadas. Toda codificação de uma imagem — atribuir um gênero, classificar uma postura, pontuar um atributo — é uma intervenção, não uma extração neutra. A implicação prática: um bom protocolo de pesquisa iconográfica separa descrição (o que se vê) de interpretação (o que se infere), registra quem codifica e em que condições, e mantém campos para documentar incerteza e desacordo entre codificadores."
+           data-en="An important contribution from critical digital humanities (Drucker; D'Ignazio &amp; Klein) is the idea that data are not passively 'collected' — they are capta, that is, 'taken and constructed' from situated interpretive decisions. Every coding of an image — attributing a gender, classifying a posture, scoring an attribute — is an intervention, not a neutral extraction. The practical implication: a good iconographic research protocol separates description (what is seen) from interpretation (what is inferred), records who codes and under what conditions, and maintains fields to document uncertainty and disagreement between coders.">Uma contribuição importante das humanidades digitais críticas (Drucker; D'Ignazio &amp; Klein) é a ideia de que dados não são 'coletados' passivamente — são capta, isto é, 'tomados e construídos' a partir de decisões interpretativas situadas. Toda codificação de uma imagem — atribuir gênero, classificar postura, pontuar atributo — é uma intervenção, não uma extração neutra. A implicação prática: separe descrição de interpretação, registre quem codifica e em que condições, documente incerteza e desacordo.</p>
+
+        <h2 data-pt="4. Ferramentas digitais" data-en="4. Digital tools">4. Ferramentas digitais</h2>
+        <p data-pt="A pesquisa em humanidades se beneficia enormemente de ferramentas digitais bem escolhidas. Abaixo, as que utilizo e recomendo."
+           data-en="Humanities research benefits enormously from well-chosen digital tools. Below, those I use and recommend.">A pesquisa em humanidades se beneficia enormemente de ferramentas digitais bem escolhidas. Abaixo, as que utilizo e recomendo.</p>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <h4>Zotero</h4>
+            <p data-pt="Gerenciador de referências gratuito e de código aberto. Captura metadados de catálogos online, organiza coleções com tags, gera citações em ABNT e outros formatos. Essencial para manter integridade bibliográfica."
+               data-en="Free and open-source reference manager. Captures metadata from online catalogs, organizes collections with tags, generates citations in ABNT and other formats. Essential for maintaining bibliographic integrity.">Gerenciador de referências gratuito. Captura metadados, organiza coleções, gera citações em ABNT. Essencial para integridade bibliográfica.</p>
+          </div>
+          <div class="tool-card">
+            <h4>Obsidian</h4>
+            <p data-pt="Notas interligadas em Markdown, com grafo de conexões. Ideal para fichamentos, diários de pesquisa e desenvolvimento de argumentos. Plugins: Zotero Integration, Excalidraw, Kanban."
+               data-en="Interlinked notes in Markdown, with a connection graph. Ideal for research notes, research diaries, and argument development. Plugins: Zotero Integration, Excalidraw, Kanban.">Notas interligadas em Markdown, com grafo de conexões. Ideal para fichamentos e desenvolvimento de argumentos.</p>
+          </div>
+          <div class="tool-card">
+            <h4>Git &amp; GitHub</h4>
+            <p data-pt="Versionamento de texto, dados e código. Permite rastrear cada alteração, colaborar e publicar dados de pesquisa em regime de ciência aberta. Ideal para corpus, datasets e manuscritos."
+               data-en="Versioning of text, data, and code. Allows tracking every change, collaborating, and publishing research data under an open science regime. Ideal for corpus, datasets, and manuscripts.">Versionamento de texto, dados e código. Permite rastrear alterações e publicar dados em ciência aberta.</p>
+          </div>
+          <div class="tool-card">
+            <h4>Python (pandas, scipy)</h4>
+            <p data-pt="Análise de dados, estatística, visualização. Útil para codificar corpus, gerar gráficos, testar hipóteses com testes não-paramétricos (Kruskal-Wallis, Mann-Whitney) e análise multivariada."
+               data-en="Data analysis, statistics, visualization. Useful for coding corpora, generating charts, testing hypotheses with non-parametric tests (Kruskal-Wallis, Mann-Whitney), and multivariate analysis.">Análise de dados, estatística, visualização. Útil para codificar corpus e testar hipóteses.</p>
+          </div>
+        </div>
+
+        <h2 data-pt="5. Acervos digitais para iconografia jurídica" data-en="5. Digital collections for legal iconography">5. Acervos digitais para iconografia jurídica</h2>
+        <p data-pt="Estes acervos oferecem acesso gratuito a imagens de alta resolução, muitas em domínio público, com metadados ricos e, em vários casos, APIs e protocolos IIIF para pesquisa programática."
+           data-en="These collections offer free access to high-resolution images, many in the public domain, with rich metadata and, in several cases, APIs and IIIF protocols for programmatic research.">Estes acervos oferecem acesso gratuito a imagens de alta resolução, muitas em domínio público, com metadados ricos e, em vários casos, APIs e protocolos IIIF para pesquisa programática.</p>
+
+        <ul class="archive-list">
+          <li><span class="name">Gallica</span> <span class="url">gallica.bnf.fr</span> <span data-pt="Biblioteca Nacional da França. Milhões de documentos digitalizados: gravuras, moedas, cartazes, manuscritos. Suporte IIIF." data-en="National Library of France. Millions of digitized documents: engravings, coins, posters, manuscripts. IIIF support.">Biblioteca Nacional da França. Milhões de documentos digitalizados, com suporte IIIF.</span></li>
+          <li><span class="name">Europeana</span> <span class="url">europeana.eu</span> <span data-pt="Portal agregador de acervos digitais europeus. Pesquisa cruzada entre museus, bibliotecas e arquivos de todo o continente." data-en="Aggregator portal of European digital collections. Cross-search between museums, libraries, and archives across the continent.">Portal agregador de acervos digitais europeus. Pesquisa cruzada entre museus, bibliotecas e arquivos.</span></li>
+          <li><span class="name">Library of Congress</span> <span class="url">loc.gov</span> <span data-pt="Acervo digital americano: fotografias, gravuras, mapas, cartazes. Excelente para iconografia política e jurídica dos EUA." data-en="American digital collection: photographs, engravings, maps, posters. Excellent for U.S. political and legal iconography.">Acervo digital americano: fotografias, gravuras, mapas, cartazes. Excelente para iconografia política e jurídica dos EUA.</span></li>
+          <li><span class="name">Brasiliana Fotográfica</span> <span class="url">brasilianafotografica.bn.gov.br</span> <span data-pt="Portal da Fundação Biblioteca Nacional com fotografias e iconografia brasileira dos séculos XIX e XX." data-en="Portal of the National Library Foundation with 19th and 20th century Brazilian photographs and iconography.">Portal da Biblioteca Nacional com iconografia brasileira dos séculos XIX e XX.</span></li>
+          <li><span class="name">Numista</span> <span class="url">en.numista.com</span> <span data-pt="Catálogo colaborativo de moedas e cédulas do mundo todo, com imagens, metadados e referências cruzadas." data-en="Collaborative catalog of coins and banknotes from around the world, with images, metadata, and cross-references.">Catálogo colaborativo de moedas e cédulas do mundo todo, com imagens e metadados.</span></li>
+          <li><span class="name">British Museum</span> <span class="url">britishmuseum.org/collection</span> <span data-pt="Acervo online com milhões de objetos. Pesquisa por período, cultura, material e tema. Forte em numismática e gravura." data-en="Online collection with millions of objects. Search by period, culture, material, and theme. Strong in numismatics and engraving.">Acervo online com milhões de objetos. Forte em numismática e gravura.</span></li>
+          <li><span class="name">Deutsche Digitale Bibliothek</span> <span class="url">deutsche-digitale-bibliothek.de</span> <span data-pt="Portal alemão de acervos digitalizados. Relevante para iconografia jurídica e política germânica." data-en="German portal of digitized collections. Relevant for Germanic legal and political iconography.">Portal alemão de acervos digitalizados. Relevante para iconografia jurídica e política germânica.</span></li>
+          <li><span class="name">Smithsonian</span> <span class="url">si.edu</span> <span data-pt="Acervo diversificado: numismática, arte, história. A coleção do National Museum of American History é particularmente útil." data-en="Diverse collection: numismatics, art, history. The National Museum of American History collection is particularly useful.">Acervo diversificado: numismática, arte, história americana.</span></li>
+        </ul>
+
+        <h2 data-pt="6. Estratégias de busca em bases de dados" data-en="6. Database search strategies">6. Estratégias de busca em bases de dados</h2>
+        <p data-pt="A escolha dos termos de busca é tão importante quanto a escolha da base. Abaixo, uma tabela de termos produtivos em português e inglês, testados no Catálogo de Teses da CAPES e no sistema HOLLIS de Harvard."
+           data-en="The choice of search terms is as important as the choice of database. Below, a table of productive terms in Portuguese and English, tested in the CAPES Thesis Catalog and Harvard's HOLLIS system.">A escolha dos termos de busca é tão importante quanto a escolha da base. Abaixo, uma tabela de termos produtivos em português e inglês, testados no Catálogo de Teses da CAPES e no sistema HOLLIS de Harvard.</p>
+
+        <table class="data-tbl">
+          <thead><tr><th>CAPES (português)</th><th>HOLLIS (inglês)</th></tr></thead>
+          <tbody>
+            <tr><td>"alegoria feminina"</td><td>"Justitia allegory blindfolded iconography"</td></tr>
+            <tr><td>"alegoria república feminina"</td><td>"Marianne Britannia national allegory female republic"</td></tr>
+            <tr><td>"representação da justiça"</td><td>"female allegory law justice iconography"</td></tr>
+            <tr><td>"iconografia jurídica"</td><td>"numismatics allegory female coins nation"</td></tr>
+            <tr><td>"cultura visual direito"</td><td>"law and visual culture iconography"</td></tr>
+          </tbody>
+        </table>
+
+        <p data-pt="Dica prática: o tema da iconografia jurídica é inerentemente interdisciplinar. As teses mais próximas costumam estar em programas de História, Letras e Filosofia — não necessariamente em Direito. Busque cruzando disciplinas. E na academia anglófona, o campo 'law and visual culture' é muito mais desenvolvido; consulte periódicos como Law and Critique, Polemos e Yale Journal of Law and the Humanities."
+           data-en="Practical tip: the topic of legal iconography is inherently interdisciplinary. The closest theses are often in History, Literature, and Philosophy programs — not necessarily in Law. Search across disciplines. And in the Anglophone academy, the 'law and visual culture' field is much more developed; consult journals such as Law and Critique, Polemos, and Yale Journal of Law and the Humanities.">Dica prática: o tema da iconografia jurídica é inerentemente interdisciplinar. As teses mais próximas costumam estar em programas de História, Letras e Filosofia — não necessariamente em Direito. Busque cruzando disciplinas. E na academia anglófona, o campo 'law and visual culture' é muito mais desenvolvido; consulte periódicos como <em>Law and Critique</em>, <em>Polemos</em> e <em>Yale Journal of Law and the Humanities</em>.</p>
+
+        <h3 data-pt="Booleanos e sintaxe por base" data-en="Boolean operators and database syntax">Booleanos e sintaxe por base</h3>
+        <p data-pt="Operadores booleanos são a gramática da busca acadêmica: AND restringe (todos os termos devem aparecer), OR amplia (qualquer termo serve), NOT exclui. Use aspas para frases exatas (\"female allegory\"), asterisco para truncar radicais (allegor* encontra allegory, allegorical, allegories) e parênteses para agrupar: (Justitia OR Justice) AND (blindfold* OR scale*). Cada base tem sua sintaxe:"
+           data-en="Boolean operators are the grammar of academic search: AND narrows (all terms must appear), OR broadens (any term works), NOT excludes. Use quotes for exact phrases (\"female allegory\"), asterisk for root truncation (allegor* finds allegory, allegorical, allegories), and parentheses for grouping: (Justitia OR Justice) AND (blindfold* OR scale*). Each database has its own syntax:">Operadores booleanos são a gramática da busca acadêmica: AND restringe (todos os termos devem aparecer), OR amplia (qualquer termo serve), NOT exclui. Use aspas para frases exatas ("female allegory"), asterisco para truncar radicais (allegor* encontra allegory, allegorical, allegories) e parênteses para agrupar: (Justitia OR Justice) AND (blindfold* OR scale*).</p>
+
+        <table class="data-tbl">
+          <thead><tr><th>Base</th><th>Tags de campo</th></tr></thead>
+          <tbody>
+            <tr><td>PubMed</td><td>[Title], [Title/Abstract], [MeSH], [Author], [Publication Date]</td></tr>
+            <tr><td>arXiv</td><td>ti:, au:, cat: (ex: cat:q-bio)</td></tr>
+            <tr><td>Semantic Scholar</td><td>title:, author:, year:, journal:</td></tr>
+            <tr><td>Google Scholar</td><td>source:, author:, intitle: (sem API oficial; usar com cautela)</td></tr>
+            <tr><td>CAPES</td><td>Busca simples (campo único); múltiplas buscas com termos variados</td></tr>
+          </tbody>
+        </table>
+
+        <h3 data-pt="Citation chaining e snowball sampling" data-en="Citation chaining and snowball sampling">Citation chaining e snowball sampling</h3>
+        <p data-pt="Duas técnicas complementares para expandir sua bibliografia a partir de poucos artigos-chave: (1) forward citation — identifique artigos que citam um trabalho seminal (use 'Cited by' no Google Scholar ou Semantic Scholar); (2) backward citation — extraia as referências dos artigos incluídos e identifique quais são citadas por múltiplos estudos (alta sobreposição = provável obra fundamental). O snowball sampling automatiza isso: parta de 3–5 artigos altamente relevantes, extraia todas as referências, verifique quais aparecem em múltiplas bibliografias, leia esses artigos e repita."
+           data-en="Two complementary techniques to expand your bibliography from a few key articles: (1) forward citation — identify articles that cite a seminal work (use 'Cited by' in Google Scholar or Semantic Scholar); (2) backward citation — extract references from included articles and identify which are cited by multiple studies (high overlap = likely foundational work). Snowball sampling automates this: start with 3–5 highly relevant articles, extract all references, check which appear in multiple bibliographies, read those articles, and repeat.">Duas técnicas para expandir sua bibliografia: (1) forward citation — identifique artigos que citam um trabalho seminal ('Cited by' no Google Scholar); (2) backward citation — extraia as referências e identifique as citadas por múltiplos estudos. Snowball sampling: parta de 3–5 artigos-chave, extraia referências, leia as de alta sobreposição, repita.</p>
+
+        <h2 data-pt="7. Normas e boas práticas" data-en="7. Standards and good practices">7. Normas e boas práticas</h2>
+
+        <h3 data-pt="Citações e referências" data-en="Citations and references">Citações e referências</h3>
+        <p data-pt="No Brasil, a norma vigente é a ABNT NBR 6023:2025. Algumas regras essenciais: autoria em caixa alta (SOBRENOME, Nome), título em itálico para livros e periódicos, edição indicada a partir da segunda, local e editora obrigatórios, DOI ou URL quando disponível. Para artigos: título do periódico em negrito, volume, número, páginas e DOI."
+           data-en="In Brazil, the current standard is ABNT NBR 6023:2025. Some essential rules: authorship in caps (SURNAME, Name), title in italics for books and journals, edition indicated from the second onward, place and publisher mandatory, DOI or URL when available. For articles: journal title in bold, volume, number, pages, and DOI.">No Brasil, a norma vigente é a ABNT NBR 6023:2025. Autoria em caixa alta, título em itálico, edição a partir da segunda, local e editora, DOI quando disponível.</p>
+
+        <h3 data-pt="Integridade de citações" data-en="Citation integrity">Integridade de citações</h3>
+        <p data-pt="Verifique toda referência antes de citar. Localize a passagem exata na fonte original. Não cite por ouvir dizer. Se usar IA generativa como apoio, declare — e nunca peça que ela invente referências. Uma citação fabricada é uma falha acadêmica grave. Prefira o Zotero para gerar referências automaticamente a partir de metadados reais de catálogos."
+           data-en="Verify every reference before citing. Locate the exact passage in the original source. Do not cite by hearsay. If using generative AI as support, declare it — and never ask it to invent references. A fabricated citation is a serious academic failure. Prefer Zotero to generate references automatically from real catalog metadata.">Verifique toda referência antes de citar. Localize a passagem exata na fonte. Se usar IA generativa, declare — e nunca peça que invente referências. Prefira o Zotero.</p>
+
+        <h3 data-pt="Ciência aberta e reprodutibilidade" data-en="Open science and reproducibility">Ciência aberta e reprodutibilidade</h3>
+        <p data-pt="Sempre que possível, publique seus dados de pesquisa, esquemas de codificação e scripts de análise em repositórios abertos (GitHub, Zenodo, Figshare). Isso permite que outros pesquisadores verifiquem, reproduzam e estendam seu trabalho. A pesquisa em humanidades digitais ganha credibilidade quando é auditável."
+           data-en="Whenever possible, publish your research data, coding schemes, and analysis scripts in open repositories (GitHub, Zenodo, Figshare). This allows other researchers to verify, reproduce, and extend your work. Digital humanities research gains credibility when it is auditable.">Sempre que possível, publique dados de pesquisa, esquemas de codificação e scripts em repositórios abertos. A pesquisa ganha credibilidade quando é auditável.</p>
+
+        <h3 data-pt="Codebooks e confiabilidade entre codificadores" data-en="Codebooks and inter-coder reliability">Codebooks e confiabilidade entre codificadores</h3>
+        <p data-pt="Se seu projeto envolve codificar dezenas ou centenas de imagens com atributos controlados, algumas práticas são essenciais: (1) separe campos de descrição (o que se vê) de campos de interpretação (o que se infere) — a ambiguidade do ícone não se resolve com consenso forçado; (2) estabeleça um protocolo de confiabilidade entre codificadores: quando dois pesquisadores divergem sobre um atributo, a divergência é um dado, não um erro; (3) documente a fonte da imagem (edição, suporte, repositório) — porque a mesma alegoria pode variar radicalmente entre uma gravura e uma moeda; (4) trate o 'dado negativo' (ausência de figura, ausência de atributo) como informação substantiva — em iconografia estatal, o que não aparece também significa."
+           data-en="If your project involves coding dozens or hundreds of images with controlled attributes, some practices are essential: (1) separate description fields (what is seen) from interpretation fields (what is inferred) — the icon's ambiguity is not resolved by forced consensus; (2) establish an inter-coder reliability protocol: when two researchers diverge on an attribute, the divergence is data, not an error; (3) document the image source (edition, support, repository) — because the same allegory can vary radically between an engraving and a coin; (4) treat 'negative data' (absence of figure, absence of attribute) as substantive information — in state iconography, what does not appear also signifies.">Se seu projeto envolve codificar dezenas ou centenas de imagens com atributos controlados: (1) separe descrição de interpretação — a ambiguidade do ícone não se resolve com consenso forçado; (2) estabeleça protocolo de confiabilidade entre codificadores — a divergência é um dado, não um erro; (3) documente a fonte da imagem (edição, suporte, repositório); (4) trate o 'dado negativo' (ausência) como informação substantiva — em iconografia estatal, o que não aparece também significa.</p>
+
+        <h2 data-pt="8. Revisão sistemática de literatura" data-en="8. Systematic literature review">8. Revisão sistemática de literatura</h2>
+        <p data-pt="Uma revisão de literatura não é um fichamento encadeado — é uma síntese crítica organizada tematicamente. O padrão-ouro para revisões sistemáticas é o protocolo PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses), que estrutura o processo em fases documentadas e reprodutíveis."
+           data-en="A literature review is not a chain of summaries — it is a critical synthesis organized thematically. The gold standard for systematic reviews is the PRISMA protocol (Preferred Reporting Items for Systematic Reviews and Meta-Analyses), which structures the process into documented, reproducible phases.">Uma revisão de literatura não é um fichamento encadeado — é uma síntese crítica organizada tematicamente. O padrão-ouro é o protocolo PRISMA, que estrutura o processo em fases documentadas e reprodutíveis.</p>
+
+        <h3 data-pt="PICO: definir a pergunta" data-en="PICO: defining the question">PICO: definir a pergunta</h3>
+        <p data-pt="Para revisões em ciências sociais e humanidades, adapte o framework PICO: População (qual corpus, período, tradição?), Intervenção (que método, abordagem, lente teórica?), Comparação (contra qual contraste — outro período, outra tradição, ausência?), Outcome (o que se espera encontrar — padrões, lacunas, divergências?). Exemplo: 'Como a iconografia da Justiça (P) representada em frontispícios de códigos civis (I) varia entre a tradição francesa e a brasileira (C) no período 1804–1916 (O)?'"
+           data-en="For reviews in social sciences and humanities, adapt the PICO framework: Population (which corpus, period, tradition?), Intervention (which method, approach, theoretical lens?), Comparison (against which contrast — another period, another tradition, absence?), Outcome (what is expected — patterns, gaps, divergences?). Example: 'How does the iconography of Justice (P) represented in civil code frontispieces (I) vary between the French and Brazilian traditions (C) in the period 1804–1916 (O)?'">Para humanidades, adapte o PICO: População (corpus, período, tradição), Intervenção (método, lente teórica), Comparação (contra qual contraste?), Outcome (padrões, lacunas, divergências).</p>
+
+        <h3 data-pt="Triagem em três fases" data-en="Three-phase screening">Triagem em três fases</h3>
+        <p data-pt="O protocolo PRISMA estrutura a seleção em três camadas: (1) triagem por título — leia apenas os títulos e exclua o obviamente irrelevante; (2) triagem por resumo — leia os abstracts e aplique os critérios de inclusão/exclusão com rigor; (3) triagem por texto completo — obtenha e leia os textos integrais. Documente os motivos de exclusão em cada fase. O fluxograma PRISMA registra os números: resultados iniciais → após deduplicação → após triagem por título → após triagem por resumo → incluídos na revisão."
+           data-en="The PRISMA protocol structures selection in three layers: (1) title screening — read only titles and exclude the obviously irrelevant; (2) abstract screening — read abstracts and apply inclusion/exclusion criteria rigorously; (3) full-text screening — obtain and read full texts. Document reasons for exclusion at each phase. The PRISMA flow diagram records the numbers: initial results → after deduplication → after title screening → after abstract screening → included in the review.">O PRISMA estrutura a seleção em três camadas: (1) título — exclua o obviamente irrelevante; (2) resumo — aplique os critérios com rigor; (3) texto completo — obtenha e leia os textos. Documente os motivos de exclusão em cada fase.</p>
+
+        <h3 data-pt="Avaliação de qualidade dos estudos" data-en="Study quality assessment">Avaliação de qualidade dos estudos</h3>
+        <p data-pt="Nem toda fonte tem o mesmo peso. Ferramentas padronizadas ajudam: Cochrane Risk of Bias (para ensaios clínicos), Newcastle-Ottawa Scale (para estudos observacionais), AMSTAR 2 (para revisões sistemáticas). Para pesquisas em humanidades, adapte: avalie a reputação da fonte (periódico peer-reviewed, editora universitária), a densidade do aparato crítico (notas, referências, fontes primárias), e a transparência metodológica (a autora explicita seus critérios?). Classifique cada estudo como alta, moderada, baixa ou muito baixa qualidade."
+           data-en="Not every source carries the same weight. Standardized tools help: Cochrane Risk of Bias (for clinical trials), Newcastle-Ottawa Scale (for observational studies), AMSTAR 2 (for systematic reviews). For humanities research, adapt: evaluate source reputation (peer-reviewed journal, university press), density of critical apparatus (notes, references, primary sources), and methodological transparency (does the author make their criteria explicit?). Classify each study as high, moderate, low, or very low quality.">Nem toda fonte tem o mesmo peso. Ferramentas padronizadas: Cochrane Risk of Bias, Newcastle-Ottawa Scale, AMSTAR 2. Para humanidades, adapte: avalie a reputação da fonte (peer-reviewed, editora universitária), a densidade do aparato crítico e a transparência metodológica. Classifique cada estudo como alta, moderada, baixa ou muito baixa qualidade.</p>
+
+        <h3 data-pt="Síntese temática, não sumária" data-en="Thematic synthesis, not serial summary">Síntese temática, não sumária</h3>
+        <p data-pt="O erro mais comum em revisões de literatura é organizar por estudo ('Fulano (2020) diz X. Beltrano (2022) diz Y'). O correto é organizar por tema: agrupe 3–5 grandes temas que emergem da literatura, e dentro de cada tema sintetize o que múltiplos estudos mostram, comparando convergências e divergências. Exemplo: em vez de 'Smith (2018) estudou a venda da Justiça... Jones (2021) também estudou...', escreva 'A venda da Justiça é interpretada de três maneiras na literatura: como imparcialidade (Smith, 2018; Jones, 2021), como cegueira estrutural (Warner, 1996; Hayaert, 2018) e como dispositivo de gênero (Resnik &amp; Curtis, 2011).'"
+           data-en="The most common error in literature reviews is organizing by study ('Author A (2020) says X. Author B (2022) says Y'). The correct approach is to organize by theme: group 3–5 major themes emerging from the literature, and within each theme synthesize what multiple studies show, comparing convergences and divergences. Example: instead of 'Smith (2018) studied Justice's blindfold... Jones (2021) also studied...', write 'Justice's blindfold is interpreted in three ways in the literature: as impartiality (Smith, 2018; Jones, 2021), as structural blindness (Warner, 1996; Hayaert, 2018), and as a gender device (Resnik &amp; Curtis, 2011).'">O erro mais comum é organizar por estudo ('Fulano diz X. Beltrano diz Y'). O correto é organizar por tema: agrupe 3–5 grandes temas e dentro de cada um sintetize o que múltiplos estudos mostram, comparando convergências e divergências. Exemplo: 'A venda da Justiça é interpretada de três maneiras na literatura: como imparcialidade (Smith, 2018; Jones, 2021), como cegueira estrutural (Warner, 1996) e como dispositivo de gênero (Resnik &amp; Curtis, 2011).'</p>
+
+        <div class="source-note">
+          <p class="sn-h" data-pt="Leituras recomendadas" data-en="Recommended reading">Leituras recomendadas</p>
+          <p>GINZBURG, Carlo. Sinais: raízes de um paradigma indiciário. In: <em>Mitos, emblemas, sinais</em>. Trad. Federico Carotti. São Paulo: Companhia das Letras, 1989. p. 143–179.</p>
+          <p>PANOFSKY, Erwin. <em>Significado nas artes visuais</em>. Trad. Maria Clara F. Kneese e J. Guinsburg. São Paulo: Perspectiva, 1976.</p>
+          <p>WARBURG, Aby. <em>Histórias de fantasma para gente grande</em>. Trad. Lenin Bicudo Bárbara. São Paulo: Companhia das Letras, 2015.</p>
+          <p>DIDI-HUBERMAN, Georges. <em>Atlas, ou a gaia ciência inquieta</em>. Trad. Renata Correia Botelho e Rui Pires Cabral. Lisboa: KKYM, 2013.</p>
+          <p>HESPANHA, António Manuel. <em>Cultura jurídica europeia: síntese de um milênio</em>. Florianópolis: Fundação Boiteux, 2005.</p>
+          <p>CRESWELL, John W.; PLANO CLARK, Vicki L. <em>Designing and conducting mixed methods research</em>. 3. ed. Thousand Oaks: SAGE, 2018.</p>
+          <p>RIPA, Cesare. <em>Iconologia</em>. Ed. Sonia Maffei, testo stabilito da Paolo Procaccioli. Torino: Einaudi, 2012. [original de 1593, 1ª ed. ilustrada 1603]</p>
+          <p>RESNIK, Judith; CURTIS, Dennis. <em>Representing justice: invention, controversy, and rights in city-states and democratic courtrooms</em>. New Haven: Yale University Press, 2011.</p>
+          <p>D'IGNAZIO, Catherine; KLEIN, Lauren F. <em>Data feminism</em>. Cambridge: MIT Press, 2020.</p>
+          <p>WARNER, Marina. <em>Monuments and maidens: the allegory of the female form</em>. London: Vintage, 1996.</p>
+          <p>HAYAERT, Valérie. The paradoxes of Lady Justice's blindfold. In: <em>The art of law: artistic representations and iconography of law and justice in context, from the Middle Ages to the First World War</em>. Cham: Springer, 2018. p. 201–232. (Ius Gentium, v. 66)</p>
+          <p>STELLA, Marcello. Off her throne and unarmed: the humble, yet noble visage of Justice and her restless servants. <em>Polemos</em>, v. 13, n. 1, p. 109–125, 2019.</p>
+        </div>
+
+      </div>
+    </div>
   </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <div class="zone brand">
+        <a class="id" href="/"><img src="/assets/monogram-av-inverse.svg" alt=""> <b>ana vanzin</b></a>
+        <p class="desc" data-pt="advogada · historiadora do direito · doutoranda PPGD/UFSC" data-en="lawyer · legal historian · PhD candidate, PPGD/UFSC">advogada · historiadora do direito · doutoranda PPGD/UFSC</p>
+      </div>
+      <nav class="zone nav" aria-label="Navegação do rodapé">
+        <span class="zt" data-pt="navegação" data-en="navigation">navegação</span>
+        <a href="/">mesa</a>
+        <a href="/iconocracia/">iconocracia</a>
+        <a href="/manifesto/" data-pt="manifesto" data-en="manifesto">manifesto</a>
+        <a href="/metodologia/" data-pt="metodologia" data-en="methodology">metodologia</a>
+        <a href="/publicacoes/" data-pt="publicações" data-en="publications">publicações</a>
+        <a href="/sala-de-leitura/" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+        <a href="/sobre.html" data-pt="sobre" data-en="about">sobre</a>
+      </nav>
+      <div class="zone links">
+        <span class="zt" data-pt="canais" data-en="channels">canais</span>
+        <a href="mailto:anavvanzin@outlook.com">e-mail</a>
+        <a href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener">Lattes ↗</a>
+        <a href="https://instagram.com/anavanzin" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://github.com/anavvanzin/iconocracy-corpus" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="base">
+      <span class="cl">© 2026 ana vanzin · PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+      <a class="top" href="#" data-pt="voltar ao topo ↑" data-en="back to top ↑">voltar ao topo ↑</a>
+    </div>
+  </footer>
+
   <script src="/editorial.js"></script>
 </body>
 </html>
