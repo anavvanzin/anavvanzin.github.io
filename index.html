@@ -165,6 +165,25 @@
     border:1px solid var(--ink); background:var(--paper-card); color:var(--ink); padding:8px 28px; box-shadow:var(--hard-sm); cursor:pointer; opacity:.35; pointer-events:none; transition:opacity .3s, background .15s}
   #boot .enter.ready{opacity:1; pointer-events:auto}
   #boot .enter:hover{background:var(--ink); color:var(--paper)}
+
+  /* ---------- janela de imagem arrastável (recria o feel do desktop /mesa) ---------- */
+  .dwin{position:fixed; z-index:150; background:var(--paper-card);
+    border:1.5px solid var(--ink); box-shadow:var(--hard); animation:dwinIn .16s ease-out}
+  @keyframes dwinIn{from{opacity:0} to{opacity:1}}
+  .dwin-bar{display:flex; align-items:center; justify-content:space-between; gap:12px;
+    height:32px; padding:0 6px 0 10px; background:var(--paper); border-bottom:1px solid var(--ink);
+    cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none}
+  .dwin.dragging .dwin-bar{cursor:grabbing}
+  .dwin-title{font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+    color:color-mix(in srgb,var(--ink) 82%,var(--paper)); white-space:nowrap}
+  .dwin-x{flex:none; width:20px; height:20px; display:grid; place-items:center; padding:0;
+    font-family:var(--mono); font-size:12px; line-height:1; cursor:pointer; color:var(--ink);
+    background:var(--paper-card); border:1px solid var(--ink); transition:background .12s, color .12s}
+  .dwin-x:hover{background:var(--rubric); color:var(--paper); border-color:var(--rubric)}
+  .dwin-x:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+  .dwin-body{padding:8px; line-height:0; background:var(--paper-card)}
+  .dwin-body img{display:block; max-width:min(82vw,540px); max-height:66vh; width:auto; height:auto}
+  @media(prefers-reduced-motion:reduce){ .dwin{animation:none} }
 </style>
 </head>
 <body>
@@ -244,8 +263,8 @@
         <a class="icon" href="/quotes/"><span class="cap"><img src="/assets/icons/citacoes.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
         <a class="icon" href="/advocacia.html"><span class="cap"><img src="/assets/icons/advocacia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">advocacia</span></a>
         <a class="icon nv" href="/mesa/"><span class="cap"><img src="/assets/icons/desktop.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">desktop<span class="ext">.app</span></span></a>
-        <a class="icon" href="/assets/pixel-justitia-sky.png"><span class="cap"><img src="/assets/icons/justitia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">justitia<span class="ext">.png</span></span></a>
-        <a class="icon" href="/assets/avo.png"><span class="cap"><img src="/assets/icons/vo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
+        <a class="icon" href="/assets/pixel-justitia-sky.png" data-win="justitia.png" data-win-alt="Justitia em pixel art sobre o céu — emblema do site"><span class="cap"><img src="/assets/icons/justitia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">justitia<span class="ext">.png</span></span></a>
+        <a class="icon" href="/assets/avo.png" data-win="vó.jpg" data-win-alt="Fotografia da avó de Ana Vanzin"><span class="cap"><img src="/assets/icons/vo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
       </div>
     </section>
 
@@ -282,6 +301,102 @@
       var go=function(){ boot.classList.add('gone'); try{ sessionStorage.setItem('av_entered','1'); }catch(e){} setTimeout(function(){ if(boot) boot.remove(); }, 700); };
       enter.addEventListener('click', go);
     }
+  })();
+</script>
+<script>
+  /* Janelas de imagem arrastáveis na home — restaura o feel do desktop /mesa
+     sem importar React/Desktop.js. Progressive enhancement: o href continua
+     válido (fallback sem-JS, ou Cmd/Ctrl-clique, abre o arquivo direto). */
+  (function(){
+    var icons = document.querySelectorAll('a.icon[data-win]');
+    if(!icons.length) return;
+    var zTop = 150, cascade = 0, open = [];
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(v, max)); }
+
+    function clampIntoView(win){                          // mantém a janela inteira na viewport
+      var r = win.getBoundingClientRect();
+      if(r.left>=4 && r.top>=4 && r.right<=window.innerWidth-4 && r.bottom<=window.innerHeight-4) return;
+      var maxLeft = Math.max(4, window.innerWidth  - r.width  - 4);
+      var maxTop  = Math.max(4, window.innerHeight - r.height - 4);
+      win.style.left = clamp(r.left, 4, maxLeft)+'px';
+      win.style.top  = clamp(r.top,  4, maxTop)+'px';
+      win.style.right='auto'; win.style.bottom='auto'; win.style.transform='none';
+    }
+
+    function startDrag(win, bar){
+      var pid=null, sx=0, sy=0, ox=0, oy=0, on=false;
+      bar.addEventListener('pointerdown', function(e){
+        if(e.target.closest('.dwin-x')) return;          // clicar no fechar não arrasta
+        var r = win.getBoundingClientRect();             // converte centragem→left/top
+        win.style.left = r.left+'px'; win.style.top = r.top+'px';
+        win.style.right='auto'; win.style.bottom='auto'; win.style.transform='none';
+        on=true; pid=e.pointerId; sx=e.clientX; sy=e.clientY; ox=r.left; oy=r.top;
+        win.classList.add('dragging');
+        try{ bar.setPointerCapture(pid); }catch(_){}
+        e.preventDefault();
+      });
+      bar.addEventListener('pointermove', function(e){
+        if(!on) return;
+        var nx = clamp(ox + (e.clientX-sx), 4, window.innerWidth  - 60);
+        var ny = clamp(oy + (e.clientY-sy), 4, window.innerHeight - 36);
+        win.style.left = nx+'px'; win.style.top = ny+'px';
+      });
+      function end(){ if(!on) return; on=false; win.classList.remove('dragging');
+        try{ bar.releasePointerCapture(pid); }catch(_){} }
+      bar.addEventListener('pointerup', end);
+      bar.addEventListener('pointercancel', end);
+    }
+
+    function close(win){
+      var i = open.indexOf(win); if(i>-1) open.splice(i,1);
+      var ret = win._ret; win.remove();
+      if(ret){ try{ ret.focus(); }catch(_){} }
+    }
+
+    function openWin(src, title, alt, ret){
+      var win = document.createElement('div');
+      win.className = 'dwin'; win.setAttribute('role','dialog'); win.setAttribute('aria-label', title);
+      win.style.zIndex = (++zTop);
+      win.style.left='50%'; win.style.top='50%';
+      var off = cascade; cascade = (cascade + 24) % 120;   // cascata leve p/ janelas múltiplas
+      win.style.transform = 'translate(calc(-50% + '+off+'px), calc(-50% + '+off+'px))';
+
+      var bar = document.createElement('div'); bar.className='dwin-bar';
+      var t = document.createElement('span'); t.className='dwin-title'; t.textContent = title;
+      var x = document.createElement('button'); x.className='dwin-x'; x.type='button';
+      x.setAttribute('aria-label','Fechar'); x.textContent='✕';
+      bar.appendChild(t); bar.appendChild(x);
+
+      var body = document.createElement('div'); body.className='dwin-body';
+      var img = document.createElement('img'); img.alt = alt || title;
+      img.setAttribute('draggable','false');
+      img.addEventListener('load', function(){ clampIntoView(win); });   // reposiciona após saber o tamanho
+      img.src = src;
+      body.appendChild(img);
+
+      win.appendChild(bar); win.appendChild(body);
+      win._ret = ret;
+      x.addEventListener('click', function(){ close(win); });
+      win.addEventListener('pointerdown', function(){ win.style.zIndex = (++zTop); }, true); // trazer p/ frente
+      startDrag(win, bar);
+
+      document.body.appendChild(win);
+      open.push(win);
+      x.focus();
+    }
+
+    icons.forEach(function(a){
+      a.addEventListener('click', function(e){
+        if(e.button!==0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // deixa abrir em nova aba
+        e.preventDefault();
+        openWin(a.getAttribute('href'), a.getAttribute('data-win'), a.getAttribute('data-win-alt'), a);
+      });
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && open.length){ e.preventDefault(); close(open[open.length-1]); }
+    });
   })();
 </script>
 </body>
