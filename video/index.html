@@ -3,32 +3,134 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vídeo · ana vanzin</title>
-<meta name="description" content="Vídeo explicador da Iconocracia — em integração.">
+<title>Vídeo · Iconocracia · ana vanzin</title>
+<meta name="description" content="Ensaio visual de ~3 minutos sobre a alegoria feminina na história da cultura jurídica.">
 <link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
-  :root{--paper:#EFE5CF;--ink:#211B16;--rubric:#9B2C1C;--gold:#B08D3C;--disp:'Cormorant Garamond',serif;--body:'Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',monospace}
+  :root{
+    --paper:#EFE5CF;--paper2:#F2EAD9;--ink:#211B16;--rubric:#9B2C1C;
+    --gold:#B08D3C;--navy:#243049;
+    --disp:'Cormorant Garamond',serif;--body:'Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
   html,body{margin:0}
-  body{background:var(--paper);color:var(--ink);font-family:var(--body);min-height:100vh;background-image:radial-gradient(rgba(33,27,22,.04) .5px,transparent .5px);background-size:4px 4px;display:flex;flex-direction:column}
-  .bar{display:flex;align-items:center;gap:10px;border-bottom:1.5px solid var(--ink);padding:8px clamp(14px,3vw,28px);font-family:var(--mono);font-size:12px}
-  .bar a{color:var(--ink);text-decoration:none}.bar a:hover{color:var(--rubric)}
-  .wrap{flex:1;max-width:760px;margin:0 auto;padding:clamp(48px,10vh,110px) 24px;text-align:center}
-  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rubric);margin:0}
-  h1{font-family:var(--disp);font-weight:600;font-size:clamp(40px,8vw,72px);margin:8px 0 0;line-height:1}
-  p{font-size:17px;line-height:1.6;color:color-mix(in srgb,var(--ink) 80%,var(--paper));max-width:52ch;margin:22px auto 0}
-  .flr{color:var(--gold);font-family:var(--disp);font-size:26px;margin-top:28px}
+  body{
+    background:var(--paper);color:var(--ink);font-family:var(--body);
+    min-height:100dvh;display:flex;flex-direction:column;
+    background-image:radial-gradient(rgba(33,27,22,.04) .5px,transparent .5px);
+    background-size:4px 4px;
+  }
+  /* losango rubricado — só em elementos interativos (preserva I-beam no texto) */
+  a,button,[role=button]{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 2 L20 11 L11 20 L2 11 Z' fill='%239B2C1C' stroke='%23F2EAD9' stroke-width='1.6'/%3E%3C/svg%3E") 11 11, pointer;
+  }
+  .bar{
+    position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;
+    border-bottom:1.5px solid var(--ink);padding:8px clamp(14px,3vw,28px);
+    font-family:var(--mono);font-size:12px;background:var(--paper2);
+  }
+  .bar a{color:var(--ink);text-decoration:none}
+  .bar a:hover{color:var(--rubric)}
+  .bar .sp{margin-left:auto}
+  .langtog{display:inline-flex;border:1px solid var(--ink)}
+  .langtog button{font-family:var(--mono);font-size:11px;border:0;background:var(--paper2);color:var(--ink);padding:2px 9px;cursor:pointer}
+  .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper2)}
+
+  main{flex:1;width:100%;max-width:980px;margin:0 auto;padding:clamp(34px,7vh,80px) clamp(18px,4vw,28px) 90px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rubric);margin:0;text-align:center}
+  h1{font-family:var(--disp);font-weight:600;font-size:clamp(44px,9vw,88px);margin:6px 0 0;line-height:.96;text-align:center;letter-spacing:.5px}
+  .lede{font-family:var(--disp);font-style:italic;font-size:clamp(18px,2.6vw,24px);line-height:1.45;
+    color:color-mix(in srgb,var(--ink) 82%,var(--paper));max-width:60ch;margin:18px auto 0;text-align:center}
+
+  /* moldura dupla (paper tray + núcleo navy) em volta do vídeo */
+  .stage{margin:clamp(28px,5vh,52px) auto 0;background:var(--paper2);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    border-radius:20px;padding:10px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 18px 40px -28px rgba(33,27,22,.55);}
+  .screen{background:var(--navy);border-radius:12px;overflow:hidden;
+    box-shadow:0 1px 1px rgba(255,255,255,.10) inset;}
+  video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--navy)}
+
+  .meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 18px;
+    margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:color-mix(in srgb,var(--ink) 60%,var(--paper))}
+  .meta a{color:var(--rubric);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--rubric) 40%,transparent)}
+  .meta a:hover{color:var(--ink)}
+
+  /* roteiro — falas do vídeo, verbatim (transcrição + voz autoral) */
+  .roteiro{max-width:680px;margin:clamp(46px,8vh,86px) auto 0}
+  .roteiro h2{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--rubric);text-align:center;margin:0 0 6px}
+  .roteiro .rule{height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 70%,transparent),transparent);margin:0 auto 30px;max-width:120px}
+  .roteiro ol{list-style:none;counter-reset:fala;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+  .roteiro li{counter-increment:fala;position:relative;padding-left:46px;
+    font-family:var(--disp);font-size:clamp(21px,3.2vw,28px);line-height:1.3;color:var(--ink)}
+  .roteiro li::before{content:counter(fala,decimal-leading-zero);position:absolute;left:0;top:.45em;
+    font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--gold)}
+  .roteiro li:last-child{font-style:italic;color:var(--rubric)}
+
+  .flr{color:var(--gold);font-family:var(--disp);font-size:28px;text-align:center;margin-top:44px}
+
+  @media (max-width:560px){
+    .roteiro li{padding-left:34px}
+    main{padding-bottom:64px}
+  }
 </style>
 </head>
 <body>
-  <nav class="bar"><a href="/landing/">← <span data-pt="voltar à mesa" data-en="back to the desk">voltar à mesa</span></a></nav>
-  <main class="wrap">
+  <nav class="bar">
+    <a href="/landing/">← <span data-pt="voltar à mesa" data-en="back to the desk">voltar à mesa</span></a>
+    <a href="/manifesto/" data-pt="manifesto" data-en="manifesto">manifesto</a>
+    <a href="/apresentacao/" data-pt="apresentação" data-en="presentation">apresentação</a>
+    <span class="sp"></span>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </nav>
+
+  <main>
     <p class="kick">Iconocracia</p>
     <h1 data-pt="Vídeo" data-en="Video">Vídeo</h1>
-    <p data-pt="O vídeo explicador (motor de animação + cenas) está sendo integrado a partir dos arquivos originais. Em breve aqui."
-       data-en="The explainer video (animation engine + scenes) is being integrated from the source files. Coming soon.">O vídeo explicador (motor de animação + cenas) está sendo integrado a partir dos arquivos originais. Em breve aqui.</p>
+    <p class="lede"
+       data-pt="Um ensaio visual de cerca de três minutos: o poder precisa de um rosto — e, na história da cultura jurídica, esse rosto foi quase sempre o de uma mulher. Da alegoria da República à “irmã tropical”, o paradoxo de reinar como símbolo e desaparecer como sujeito."
+       data-en="A roughly three-minute visual essay: power needs a face — and in the history of legal culture, that face was almost always a woman’s. From the allegory of the Republic to the “tropical sister”, the paradox of reigning as symbol while vanishing as subject.">Um ensaio visual de cerca de três minutos: o poder precisa de um rosto — e, na história da cultura jurídica, esse rosto foi quase sempre o de uma mulher. Da alegoria da República à “irmã tropical”, o paradoxo de reinar como símbolo e desaparecer como sujeito.</p>
+
+    <div class="stage">
+      <div class="screen">
+        <video controls preload="metadata" playsinline poster="/assets/video/poster-16x9.jpg" width="1280" height="720">
+          <source src="/assets/video/iconocracia-16x9.mp4" type="video/mp4">
+          <p data-pt="Seu navegador não reproduz vídeo. Baixe o arquivo:" data-en="Your browser can’t play video. Download the file:">Seu navegador não reproduz vídeo.</p>
+        </video>
+      </div>
+    </div>
+    <p class="meta">
+      <span>16:9 · 720p · ~3 min</span>
+      <a href="/assets/video/iconocracia-9x16.mp4"><span data-pt="ver versão vertical (9:16)" data-en="watch vertical version (9:16)">ver versão vertical (9:16)</span></a>
+    </p>
+
+    <section class="roteiro" aria-label="Roteiro do vídeo">
+      <h2 data-pt="Roteiro" data-en="Script">Roteiro</h2>
+      <div class="rule"></div>
+      <ol>
+        <li>O poder precisa de um rosto.</li>
+        <li>Na imagem, ela reina.</li>
+        <li>A mulher casada perdia a própria nacionalidade.</li>
+        <li>As imagens não ilustram o poder.</li>
+        <li>O corpo vivo torna-se emblema.</li>
+        <li>Quanto mais símbolo — menos sujeito.</li>
+        <li>A alegoria ganha um rosto — sempre o de uma beldade.</li>
+        <li>A irmã tropical — circula nas mãos de todos.</li>
+        <li>Talvez a República nunca tenha sido esculpida em mármore.</li>
+        <li>Talvez sempre tenha sido escrita na pele.</li>
+        <li>Mas toda imagem pode ser virada do avesso.</li>
+        <li>Nomear é começar a recusar.</li>
+      </ol>
+    </section>
+
     <div class="flr">❧</div>
   </main>
+
   <script src="/editorial.js"></script>
 </body>
 </html>
