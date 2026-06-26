@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ana vanzin · mesa iluminada (preview)</title>
+<meta name="robots" content="noindex"><!-- preview route; remove ao virar index -->
+<link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+  :root{
+    --paper:#EFE5CF; --paper-card:#F4ECD8; --ink:#211B16;
+    --navy:#243049; --rubric:#9B2C1C; --gold:#B08D3C; --amethyst:#6E5A86;
+    --rule:color-mix(in srgb, var(--ink) 22%, var(--paper));
+    --hard:4px 4px 0 rgba(33,27,22,.16);
+    --hard-sm:3px 3px 0 rgba(33,27,22,.16);
+    --disp:'Cormorant Garamond','Times New Roman',serif;
+    --body:'Hanken Grotesk','Helvetica Neue',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--body);
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+    background-image:radial-gradient(rgba(33,27,22,.04) .5px, transparent .5px);
+    background-size:4px 4px;
+  }
+  a{color:inherit}
+
+  /* ---------- menu bar (System 7) ---------- */
+  .menubar{
+    position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:18px;
+    background:var(--paper-card); border-bottom:1.5px solid var(--ink);
+    box-shadow:0 2px 0 rgba(33,27,22,.08);
+    padding:5px clamp(12px,3vw,26px); font-family:var(--mono); font-size:13px;
+  }
+  .menubar .seal{width:18px;height:18px}
+  .menubar nav{display:flex; gap:16px; flex-wrap:wrap}
+  .menubar nav span{cursor:default}
+  .menubar .sys{margin-left:auto; font-family:var(--disp); font-weight:600; font-size:15px; white-space:nowrap}
+  .menubar .langtog{display:inline-flex; border:1px solid var(--ink); border-radius:0; overflow:hidden}
+  .menubar .langtog button{font-family:var(--mono); font-size:11px; border:0; background:var(--paper); color:var(--ink); padding:2px 9px; cursor:pointer}
+  .menubar .langtog button[aria-pressed=true]{background:var(--ink); color:var(--paper)}
+  .menubar .clock{font-variant-numeric:tabular-nums; font-size:12px; min-width:44px; text-align:right}
+  .menubar .q{border:1px solid var(--ink); width:20px; height:20px; display:grid; place-items:center; font-family:var(--disp); font-weight:600}
+  @media(max-width:720px){ .menubar nav{display:none} }
+
+  /* ---------- layout ---------- */
+  .stage{max-width:1320px; margin:0 auto; padding:clamp(14px,2.4vw,28px);
+    display:grid; grid-template-columns:1fr 1.25fr 1fr; gap:clamp(14px,1.8vw,22px); align-items:start}
+  @media(max-width:980px){ .stage{grid-template-columns:1fr} }
+
+  /* ---------- cards (facetas) ---------- */
+  .col{display:flex; flex-direction:column; gap:clamp(14px,1.8vw,22px)}
+  .card{
+    display:flex; gap:16px; text-decoration:none; color:var(--ink);
+    background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard);
+    padding:18px 20px; transition:transform .14s ease, box-shadow .14s ease;
+  }
+  .card:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 rgba(33,27,22,.18)}
+  .card:active{transform:translate(1px,1px); box-shadow:var(--hard-sm)}
+  .cap{
+    flex:0 0 auto; width:52px; height:52px; display:grid; place-items:center;
+    background:var(--rubric); color:var(--paper); border:1px solid var(--ink);
+    box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--gold) 60%, transparent);
+    font-family:var(--disp); font-weight:700; font-size:34px; line-height:1;
+  }
+  .card:nth-child(even) .cap{background:var(--navy)}
+  .card .cbody h2{font-family:var(--disp); font-weight:600; font-size:25px; margin:0 0 4px; line-height:1.04}
+  .card .cbody p{font-size:13.5px; line-height:1.5; margin:0; color:color-mix(in srgb,var(--ink) 78%, var(--paper)); max-width:34ch}
+
+  /* ---------- center ---------- */
+  .center{display:flex; flex-direction:column; gap:16px}
+  .masthead{display:flex; align-items:center; gap:14px; padding:2px 2px 0}
+  .masthead .logo{width:46px;height:46px}
+  .masthead .lk h1{font-family:var(--disp); font-weight:700; font-size:clamp(30px,4.4vw,46px); margin:0; line-height:.95; letter-spacing:.005em}
+  .masthead .lk .tag{font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:lowercase; color:var(--rubric); margin-top:3px}
+  .hero{border:1.5px solid var(--ink); box-shadow:var(--hard); background:var(--navy)}
+  .hero img{display:block; width:100%; height:auto}
+  .scroll{
+    text-align:center; font-family:var(--disp); font-style:italic; font-size:clamp(17px,2.2vw,22px);
+    color:var(--ink); background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard-sm);
+    padding:12px 18px; margin-top:-2px;
+  }
+  /* dock */
+  .dock{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:4px 0 2px}
+  .dock a{
+    display:flex; flex-direction:column; align-items:center; gap:6px; width:84px; text-decoration:none; color:var(--ink);
+  }
+  .dock .tile{
+    width:48px; height:48px; display:grid; place-items:center; background:var(--paper-card);
+    border:1.5px solid var(--ink); box-shadow:var(--hard-sm); font-family:var(--disp); font-weight:600; font-size:22px;
+    transition:transform .12s ease}
+  .dock a:hover .tile{transform:translateY(-3px)}
+  .dock span{font-family:var(--mono); font-size:11px; letter-spacing:.04em}
+
+  /* ---------- status panel ---------- */
+  .status{background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard); padding:16px 18px}
+  .status h3{font-family:var(--disp); font-weight:600; font-size:20px; margin:0 0 12px}
+  .status .row{display:flex; align-items:center; gap:10px; padding:7px 0; border-top:1px solid var(--rule); font-size:13px}
+  .status .row:first-of-type{border-top:0}
+  .status .lab{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; width:74px; color:color-mix(in srgb,var(--ink) 70%,var(--paper))}
+  .status .pips{letter-spacing:2px; font-size:14px}
+  .status .pips.mind{color:var(--rubric)} .status .pips.focus{color:var(--amethyst)}
+  .status .caf{display:flex; align-items:center; gap:8px}
+  .status .caf button{font:inherit; cursor:pointer; border:1px solid var(--ink); background:var(--paper); width:22px;height:22px; line-height:1; box-shadow:var(--hard-sm)}
+  .status .caf button:active{transform:translate(1px,1px); box-shadow:none}
+  .status .now{font-style:italic; font-family:var(--disp); font-size:15px}
+
+  footer.legal{max-width:1320px; margin:6px auto 30px; padding:0 clamp(14px,2.4vw,28px); font-family:var(--mono); font-size:11px; color:color-mix(in srgb,var(--ink) 55%,var(--paper)); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+  footer.legal a{color:color-mix(in srgb,var(--ink) 70%,var(--paper))}
+  footer.legal .flr{color:var(--gold); font-family:var(--disp); font-size:16px}
+</style>
+</head>
+<body>
+
+<header class="menubar">
+  <img class="seal" src="/assets/sun-seal.svg" alt="">
+  <nav aria-hidden="true"><span>Ficheiro</span><span>Editar</span><span>Ver</span><span>Etiqueta</span><span>Especial</span></nav>
+  <span class="sys">Anavanzin System 7.3.1</span>
+  <span class="langtog" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </span>
+  <span class="clock" id="clock">--:--</span>
+  <span class="q" title="anavanzin.com">?</span>
+</header>
+
+<main class="stage">
+
+  <!-- coluna esquerda -->
+  <div class="col">
+    <a class="card" href="/conceitos.html">
+      <span class="cap">D</span>
+      <span class="cbody">
+        <h2 data-pt="Direito" data-en="Law">Direito</h2>
+        <p data-pt="Ideias, instituições e injustiças. Estudadas de perto. Questionadas sempre."
+           data-en="Ideas, institutions, and injustices. Studied closely. Questioned constantly.">Ideias, instituições e injustiças. Estudadas de perto. Questionadas sempre.</p>
+      </span>
+    </a>
+    <a class="card" href="/sala-de-leitura/">
+      <span class="cap">P</span>
+      <span class="cbody">
+        <h2 data-pt="Pesquisa" data-en="Research">Pesquisa</h2>
+        <p data-pt="Fontes primárias. Livros velhos. Marginália e notas de rodapé."
+           data-en="Primary sources. Old books. Marginalia and footnotes.">Fontes primárias. Livros velhos. Marginália e notas de rodapé.</p>
+      </span>
+    </a>
+    <a class="card" href="/atlas/">
+      <span class="cap">A</span>
+      <span class="cbody">
+        <h2 data-pt="Arquivos" data-en="Archives">Arquivos</h2>
+        <p data-pt="Documentos, registros e traços do passado. Preservados. Organizados."
+           data-en="Documents, records, and traces of the past. Preserved. Organized.">Documentos, registros e traços do passado. Preservados. Organizados.</p>
+      </span>
+    </a>
+  </div>
+
+  <!-- centro -->
+  <div class="center">
+    <div class="masthead">
+      <img class="logo" src="/assets/monogram-av.svg" alt="" onerror="this.style.display='none'">
+      <span class="lk">
+        <h1>anavanzin.com</h1>
+        <div class="tag" data-pt="direito · história · palavras · imagens" data-en="law · history · words · images">direito · história · palavras · imagens</div>
+      </span>
+    </div>
+    <div class="hero"><img src="/assets/landing/hero.png" alt="Ana Vanzin — retrato em arco iluminado, com balança, livros e pena"></div>
+    <div class="scroll">“veritas in iure, libertas in scriptis”</div>
+    <nav class="dock" aria-label="Atalhos">
+      <a href="/sobre.html"><span class="tile">✒</span><span data-pt="sobre" data-en="about">sobre</span></a>
+      <a href="/perfil.html"><span class="tile">❦</span><span data-pt="perfil" data-en="profile">perfil</span></a>
+      <a href="/readme.html"><span class="tile">≡</span><span data-pt="currículo" data-en="cv">currículo</span></a>
+      <a href="/trabalhos.html"><span class="tile">⚏</span><span data-pt="trabalhos" data-en="works">trabalhos</span></a>
+      <a href="/quotes/"><span class="tile">“</span><span data-pt="citações" data-en="quotes">citações</span></a>
+      <a href="mailto:anavvanzin@outlook.com"><span class="tile">✉</span><span data-pt="contato" data-en="contact">contato</span></a>
+    </nav>
+  </div>
+
+  <!-- coluna direita -->
+  <div class="col">
+    <a class="card" href="/marginalia/">
+      <span class="cap">E</span>
+      <span class="cbody">
+        <h2 data-pt="Escrita" data-en="Writing">Escrita</h2>
+        <p data-pt="Ensaios, argumentos e histórias. Arestas afiadas. Frases cuidadas."
+           data-en="Essays, arguments, and stories. Sharp edges. Careful sentences.">Ensaios, argumentos e histórias. Arestas afiadas. Frases cuidadas.</p>
+      </span>
+    </a>
+    <a class="card" href="/iconocracia/">
+      <span class="cap">I</span>
+      <span class="cbody">
+        <h2 data-pt="Iconografia" data-en="Iconography">Iconografia</h2>
+        <p data-pt="Símbolos, santos e criaturas estranhas. O sentido nos detalhes."
+           data-en="Symbols, saints, and strange creatures. Meaning in the details.">Símbolos, santos e criaturas estranhas. O sentido nos detalhes.</p>
+      </span>
+    </a>
+    <a class="card" href="/metodologia/">
+      <span class="cap">M</span>
+      <span class="cbody">
+        <h2 data-pt="Metodologia" data-en="Methodology">Metodologia</h2>
+        <p data-pt="Métodos, ferramentas e materiais para ajudar estudantes."
+           data-en="Methods, tools, and materials to help students.">Métodos, ferramentas e materiais para ajudar estudantes.</p>
+      </span>
+    </a>
+    <div class="status">
+      <h3 data-pt="Status" data-en="Status">Status</h3>
+      <div class="row"><span class="lab">Mind</span><span class="pips mind">★★★★★</span></div>
+      <div class="row"><span class="lab">Focus</span><span class="pips focus">★★★★☆</span></div>
+      <div class="row"><span class="lab">Caffeine</span>
+        <span class="caf"><span id="cups">☕</span><button id="addcup" title="mais um café" aria-label="mais um café">+</button></span>
+      </div>
+      <div class="row"><span class="lab" data-pt="Lendo" data-en="Reading">Lendo</span>
+        <span class="now">Mondzain, <em>Image, icône, économie</em></span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="legal">
+  <span>© 2026 ana vanzin · PPGD/UFSC · Ius Gentium</span>
+  <span class="flr">❧</span>
+  <a href="/advocacia.html" data-pt="advocacia" data-en="practice">advocacia</a>
+  <a href="/" data-pt="modo mesa (janelas)" data-en="desk mode (windows)">modo mesa (janelas)</a>
+</footer>
+
+<script src="/editorial.js"></script>
+<script>
+  (function(){
+    // relógio
+    function tick(){ try{ var d=new Date(); document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }catch(e){} }
+    tick(); setInterval(tick, 15000);
+    // café clicável (lúdico, reseta no reload)
+    var cups=1, el=document.getElementById('cups'), MAX=6;
+    document.getElementById('addcup').addEventListener('click', function(){
+      cups = cups>=MAX ? 1 : cups+1; el.textContent = '☕'.repeat(cups);
+    });
+  })();
+</script>
+</body>
+</html>
