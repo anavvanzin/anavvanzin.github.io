@@ -34,9 +34,12 @@
   .menu .right{margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:10px}
   .menu .hint{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--text-faint);white-space:nowrap}
   .vista{display:flex;border:1px solid var(--ink);font-family:var(--font-body)}
-  .vista a,.vista span{font-size:11.5px;padding:5px 12px;text-decoration:none;color:var(--ink);letter-spacing:.02em}
-  .vista a:hover{color:var(--rubric)}
+  .vista .vseg{display:flex;flex-direction:column;gap:1px;padding:5px 12px 4px;text-decoration:none;color:var(--ink);letter-spacing:.02em}
+  .vista .vt{font-size:11.5px;line-height:1.25}
+  .vista .vf{font-size:8.5px;letter-spacing:.04em;opacity:.5;line-height:1.1}
+  .vista a.vseg:hover{color:var(--rubric)}
   .vista .on{background:var(--ink);color:var(--paper)}
+  .vista .on .vf{opacity:.62}
   .vista>*+*{border-left:1px solid var(--ink)}
   .langtog{display:inline-flex;border:1px solid var(--ink);overflow:hidden}
   .langtog button{font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:.12em;border:0;background:var(--paper);color:var(--text-faint);padding:4px 9px;cursor:pointer}
@@ -121,7 +124,7 @@
     <a data-page="perfil.html" data-pt="perfil" data-en="profile" href="perfil.html">perfil</a>
     <a data-pt="contato" data-en="contact" href="mailto:anavvanzin@outlook.com">contato</a>
   </nav>
-      <span class="vista" id="vista"><a href="sobre.html" data-pt="sobre" data-en="about">sobre</a><span class="on" aria-current="page" data-pt="perfil" data-en="profile">perfil</span><a href="readme.html" data-pt="dossiê" data-en="dossier">dossiê</a></span>
+      <span class="vista" id="vista"><a class="vseg" href="sobre.html"><span class="vt" data-pt="sobre" data-en="about">sobre</span><span class="vf" data-pt="a narrativa" data-en="the narrative">a narrativa</span></a><span class="vseg on" aria-current="page"><span class="vt" data-pt="perfil" data-en="profile">perfil</span><span class="vf" data-pt="o cartão" data-en="the card">o cartão</span></span><a class="vseg" href="readme.html"><span class="vt" data-pt="dossiê" data-en="dossier">dossiê</span><span class="vf" data-pt="o currículo" data-en="the CV">o currículo</span></a></span>
       <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true">PT</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
