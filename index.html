@@ -114,23 +114,13 @@
   .group .glabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, color-mix(in srgb,var(--gold) 55%, transparent), transparent)}
   .icons{display:grid; grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:clamp(10px,1.4vw,18px)}
   a.icon{display:flex; flex-direction:column; align-items:center; gap:7px; text-decoration:none; color:var(--ink); padding:4px 2px}
-  /* tecla 16-bit: drop-shadow chunky + bevel (luz topo-esq, sombra baixo-dir) */
-  a.icon .cap{width:52px; height:52px; display:grid; place-items:center; background:var(--paper-card);
-    border:1.5px solid var(--ink);
-    box-shadow:var(--hard-sm), inset 2px 2px 0 rgba(255,255,255,.30), inset -2px -2px 0 rgba(33,27,22,.22);
-    font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; color:var(--ink);
-    position:relative; transition:transform .12s ease, box-shadow .12s ease}
-  a.icon .cap::before{content:""; position:absolute; inset:3px; border:1px solid color-mix(in srgb,var(--gold) 45%, transparent); pointer-events:none}
-  a.icon .cap svg{width:30px; height:30px; display:block; color:inherit; overflow:visible}
-  a.icon:hover .cap{transform:translate(-2px,-2px);
-    box-shadow:5px 5px 0 rgba(33,27,22,.18), inset 2px 2px 0 rgba(255,255,255,.34), inset -2px -2px 0 rgba(33,27,22,.22);
-    color:var(--rubric)}
-  /* clique: bevel invertido = tecla afundada */
-  a.icon:active .cap{transform:translate(1px,1px);
-    box-shadow:inset -2px -2px 0 rgba(255,255,255,.22), inset 2px 2px 0 rgba(33,27,22,.30)}
-  a.icon.rb .cap{background:var(--rubric); color:var(--paper)}
-  a.icon.nv .cap{background:var(--navy); color:var(--paper)}
-  a.icon.rb:hover .cap, a.icon.nv:hover .cap{color:var(--paper)}
+  /* tile iluminado (cada um traz sua moldura): drop-shadow chunky 16-bit + lift no hover/clique */
+  a.icon .cap{width:54px; height:54px; display:block; position:relative;
+    box-shadow:var(--hard-sm); transition:transform .12s ease, box-shadow .12s ease}
+  a.icon .cap img{width:100%; height:100%; display:block; object-fit:cover}
+  a.icon:hover .cap{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(33,27,22,.20)}
+  /* clique: tecla afundada */
+  a.icon:active .cap{transform:translate(1px,1px); box-shadow:1px 1px 0 rgba(33,27,22,.22)}
   a.icon .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-align:center; line-height:1.25; color:color-mix(in srgb,var(--ink) 82%,var(--paper))}
   a.icon .lbl .ext{color:color-mix(in srgb,var(--ink) 45%,var(--paper))}
 
@@ -227,44 +217,44 @@
     <section class="group">
       <h2 class="glabel" data-pt="Identidade" data-en="Identity">Identidade</h2>
       <div class="icons">
-        <a class="icon nv" href="/sobre.html"><span class="cap">S</span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
-        <a class="icon rb" href="/perfil.html"><span class="cap">P</span><span class="lbl">perfil<span class="ext">.card</span></span></a>
-        <a class="icon" href="/readme.html"><span class="cap">C</span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
+        <a class="icon nv" href="/sobre.html"><span class="cap"><img src="/assets/icons/sobre.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
+        <a class="icon rb" href="/perfil.html"><span class="cap"><img src="/assets/icons/perfil.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">perfil<span class="ext">.card</span></span></a>
+        <a class="icon" href="/readme.html"><span class="cap"><img src="/assets/icons/curriculo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
       </div>
     </section>
 
     <section class="group">
       <h2 class="glabel" data-pt="Pesquisa" data-en="Research">Pesquisa</h2>
       <div class="icons">
-        <a class="icon rb" href="/iconocracia/"><span class="cap">I</span><span class="lbl">iconocracia</span></a>
-        <a class="icon" href="/atlas/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="5" ry="11"/><line x1="5" y1="16" x2="27" y2="16"/><line x1="7.5" y1="9.5" x2="24.5" y2="9.5"/><line x1="7.5" y1="22.5" x2="24.5" y2="22.5"/></svg></span><span class="lbl">atlas</span></a>
-        <a class="icon" href="/iconocracia/radiografia/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="5" x2="16" y2="25"/><path d="M16 9 Q24 9 23 14"/><path d="M16 9 Q8 9 9 14"/><path d="M16 14 Q25 14 24 19"/><path d="M16 14 Q7 14 8 19"/><path d="M16 19 Q24 19 22 23"/><path d="M16 19 Q8 19 10 23"/></svg></span><span class="lbl">radiografia</span></a>
-        <a class="icon" href="/marginalia/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M16 8 C13 6 8 6 5 7 V25 C8 24 13 24 16 26"/><path d="M16 8 C19 6 24 6 27 7 V25 C24 24 19 24 16 26"/><line x1="16" y1="8" x2="16" y2="26"/></svg></span><span class="lbl" data-pt="marginália" data-en="marginalia">marginália</span></a>
-        <a class="icon" href="/publicacoes/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 11 L16 5 L28 11 Z"/><line x1="7" y1="14" x2="7" y2="24"/><line x1="13" y1="14" x2="13" y2="24"/><line x1="19" y1="14" x2="19" y2="24"/><line x1="25" y1="14" x2="25" y2="24"/><line x1="4" y1="27" x2="28" y2="27"/></svg></span><span class="lbl" data-pt="publicações" data-en="publications">publicações</span></a>
-        <a class="icon" href="/sala-de-leitura/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M9 15 C9 9 23 9 23 15 Z"/><line x1="16" y1="15" x2="16" y2="24"/><line x1="10" y1="25" x2="22" y2="25"/></svg></span><span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span></a>
-        <a class="icon" href="/conceitos.html"><span class="cap">C</span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
-        <a class="icon nv" href="/metodologia/"><span class="cap">M</span><span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span></a>
+        <a class="icon rb" href="/iconocracia/"><span class="cap"><img src="/assets/icons/iconocracia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">iconocracia</span></a>
+        <a class="icon" href="/atlas/"><span class="cap"><img src="/assets/icons/atlas.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">atlas</span></a>
+        <a class="icon" href="/iconocracia/radiografia/"><span class="cap"><img src="/assets/icons/radiografia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">radiografia</span></a>
+        <a class="icon" href="/marginalia/"><span class="cap"><img src="/assets/icons/marginalia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="marginália" data-en="marginalia">marginália</span></a>
+        <a class="icon" href="/publicacoes/"><span class="cap"><img src="/assets/icons/publicacoes.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="publicações" data-en="publications">publicações</span></a>
+        <a class="icon" href="/sala-de-leitura/"><span class="cap"><img src="/assets/icons/sala.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span></a>
+        <a class="icon" href="/conceitos.html"><span class="cap"><img src="/assets/icons/conceitos.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
+        <a class="icon nv" href="/metodologia/"><span class="cap"><img src="/assets/icons/metodologia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span></a>
       </div>
     </section>
 
     <section class="group">
       <h2 class="glabel" data-pt="Outros" data-en="Other">Outros</h2>
       <div class="icons">
-        <a class="icon" href="/trabalhos.html"><span class="cap">T</span><span class="lbl" data-pt="trabalhos" data-en="works">trabalhos</span></a>
-        <a class="icon" href="/quotes/"><span class="cap"><svg viewBox="0 0 32 32" fill="currentColor" stroke="none"><path d="M7 9 h6 v6 l-3 6 h-3 l3 -6 h-3 z"/><path d="M18 9 h6 v6 l-3 6 h-3 l3 -6 h-3 z"/></svg></span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
-        <a class="icon" href="/advocacia.html"><span class="cap">A</span><span class="lbl">advocacia</span></a>
-        <a class="icon nv" href="/mesa/"><span class="cap">D</span><span class="lbl">desktop<span class="ext">.app</span></span></a>
-        <a class="icon" href="/assets/pixel-justitia-sky.png"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><line x1="16" y1="5" x2="16" y2="27"/><line x1="8" y1="9" x2="24" y2="9"/><line x1="11" y1="27" x2="21" y2="27"/><path d="M8 9 L5 16 H11 Z"/><path d="M24 9 L21 16 H27 Z"/></svg></span><span class="lbl">justitia<span class="ext">.png</span></span></a>
-        <a class="icon" href="/assets/avo.png"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="6" y="5" width="20" height="22"/><circle cx="16" cy="14" r="3.5"/><path d="M10 23 C10 18 22 18 22 23"/></svg></span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
+        <a class="icon" href="/trabalhos.html"><span class="cap"><img src="/assets/icons/trabalhos.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="trabalhos" data-en="works">trabalhos</span></a>
+        <a class="icon" href="/quotes/"><span class="cap"><img src="/assets/icons/citacoes.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
+        <a class="icon" href="/advocacia.html"><span class="cap"><img src="/assets/icons/advocacia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">advocacia</span></a>
+        <a class="icon nv" href="/mesa/"><span class="cap"><img src="/assets/icons/desktop.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">desktop<span class="ext">.app</span></span></a>
+        <a class="icon" href="/assets/pixel-justitia-sky.png"><span class="cap"><img src="/assets/icons/justitia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">justitia<span class="ext">.png</span></span></a>
+        <a class="icon" href="/assets/avo.png"><span class="cap"><img src="/assets/icons/vo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
       </div>
     </section>
 
     <section class="group">
       <h2 class="glabel" data-pt="Novos" data-en="New">Novos</h2>
       <div class="icons">
-        <a class="icon rb" href="/manifesto/"><span class="cap">M</span><span class="lbl">manifesto</span></a>
-        <a class="icon nv" href="/apresentacao/"><span class="cap">A</span><span class="lbl" data-pt="apresentação" data-en="deck">apresentação</span></a>
-        <a class="icon rb" href="/video/"><span class="cap"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="11" cy="9" r="3.3"/><circle cx="19" cy="9" r="3.3"/><rect x="5" y="13" width="16" height="12"/><path d="M21 17 L27 14 V24 L21 21 Z"/></svg></span><span class="lbl" data-pt="vídeo" data-en="video">vídeo</span></a>
+        <a class="icon rb" href="/manifesto/"><span class="cap"><img src="/assets/icons/manifesto.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">manifesto</span></a>
+        <a class="icon nv" href="/apresentacao/"><span class="cap"><img src="/assets/icons/apresentacao.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="apresentação" data-en="deck">apresentação</span></a>
+        <a class="icon rb" href="/video/"><span class="cap"><img src="/assets/icons/video.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="vídeo" data-en="video">vídeo</span></a>
       </div>
     </section>
 
