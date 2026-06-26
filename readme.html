@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Perfil · ana vanzin</title>
+<title>Dossiê · ana vanzin</title>
 <link rel="icon" href="assets/sun-seal.svg">
-<meta name="description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta name="description" content="Dossiê acadêmico — linhas de pesquisa, formação e comunicações de Ana Vanzin (PPGD/UFSC).">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ana vanzin">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://anavanzin.com/readme.html">
-<meta property="og:title" content="Perfil · ana vanzin">
-<meta property="og:description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta property="og:title" content="Dossiê · ana vanzin">
+<meta property="og:description" content="Dossiê acadêmico — linhas de pesquisa, formação e comunicações de Ana Vanzin (PPGD/UFSC).">
 <meta property="og:image" content="https://anavanzin.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Perfil · ana vanzin">
-<meta name="twitter:description" content="Perfil, linhas de pesquisa e canais — Lattes, Instagram e Tumblr.">
+<meta name="twitter:title" content="Dossiê · ana vanzin">
+<meta name="twitter:description" content="Dossiê acadêmico — linhas de pesquisa, formação e comunicações de Ana Vanzin (PPGD/UFSC).">
 <meta name="twitter:image" content="https://anavanzin.com/assets/og-image.png">
 <meta name="theme-color" content="#F2EAD9">
 <link rel="stylesheet" href="styles.css">
@@ -34,15 +34,15 @@
   .crumb{font-family:var(--mono);font-size:13px;color:var(--text-muted)}
   .crumb a{color:var(--ink);font-weight:500;text-decoration:none}
   .crumb a:hover{color:var(--dev)}
-  .chrome .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .chrome .right{margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;align-items:center}
   .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:var(--paper);padding:6px 12px;white-space:nowrap;display:flex;gap:7px;align-items:center;cursor:pointer;text-decoration:none;color:var(--ink)}
   .btn .star{color:var(--gold)}
   .btn.primary{background:var(--dev);color:#fff;border-color:var(--dev)}
   .btn:hover{border-color:var(--dev)}
   .vista{display:flex;border:1px solid var(--ink);font-family:var(--mono)}
-  .vista a{font-size:11px;padding:6px 11px;text-decoration:none;color:var(--ink)}
-  .vista a.on{background:var(--ink);color:var(--paper)}
-  .vista a+a{border-left:1px solid var(--ink)}
+  .vista a,.vista span{font-size:11px;padding:6px 11px;text-decoration:none;color:var(--ink)}
+  .vista .on{background:var(--ink);color:var(--paper)}
+  .vista>*+*{border-left:1px solid var(--ink)}
   .langtog{display:inline-flex;border:1px solid var(--ink);overflow:hidden;font-family:var(--mono)}
   .langtog button{font-size:11px;letter-spacing:.06em;border:0;background:var(--paper);color:var(--text-faint);padding:6px 9px;cursor:pointer}
   .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
@@ -91,7 +91,7 @@
     <a class="wm" href="index.html" title="← voltar à mesa"><span class="b">&lt;ana&gt;</span>vanzin</a>
     <span class="crumb"><a href="index.html">anavanzin</a> / <b id="crumb-leaf">perfil</b></span>
     <span class="right">
-      <span class="vista"><a href="perfil.html" id="v-janela">janela</a><a href="readme.html" class="on" id="v-readme">readme</a></span>
+      <span class="vista"><a href="sobre.html" id="vs-sobre">sobre</a><a href="perfil.html" id="vs-perfil">perfil</a><span class="on" aria-current="page" id="vs-dossie">dossiê</span></span>
       <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true">PT</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -122,7 +122,7 @@ try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') l
 
 const DATA = {
   pt: {
-    crumb:'perfil', cv:'Lattes ↗', treeTh:'anavanzin / main', contato:'contato.md', filemeta:'incunábulo · UTF-8',
+    crumb:'dossiê', psobre:'sobre', pperfil:'perfil', pdossie:'dossiê', cv:'Lattes ↗', treeTh:'anavanzin / main', contato:'contato.md', filemeta:'incunábulo · UTF-8',
     badges:[ ['área','direito · história · gênero'], ['doc','doutoranda · PPGD/UFSC'], ['lang','PT · EN · IT · ES'] ],
     intro:'Ana Vitória Vanzin Mendes — advogada e historiadora do direito. Doutoranda e mestra em Direito (PPGD/UFSC), na linha <strong>Direito dos Grupos Vulneráveis</strong>; especialista em Direito Público (FURB/ESMESC) e bacharela em Direito (UFSC). Pesquiso as <strong>alegorias femininas do direito</strong> — Justitia, a República-como-mulher — e a condição jurídica da mulher entre história, gênero e nacionalidade.',
     h_sobre:'$ sobre',
@@ -156,7 +156,7 @@ const DATA = {
     ],
   },
   en: {
-    crumb:'profile', cv:'Lattes CV ↗', treeTh:'anavanzin / main', contato:'contact.md', filemeta:'incunabulum · UTF-8',
+    crumb:'dossier', psobre:'about', pperfil:'profile', pdossie:'dossier', cv:'Lattes CV ↗', treeTh:'anavanzin / main', contato:'contact.md', filemeta:'incunabulum · UTF-8',
     badges:[ ['field','law · history · gender'], ['role','PhD cand. · PPGD/UFSC'], ['lang','PT · EN · IT · ES'] ],
     intro:'Ana Vitória Vanzin Mendes — lawyer and legal historian. PhD candidate and Master in Law (PPGD/UFSC), in the <strong>Vulnerable Groups</strong> research line; specialist in Public Law (FURB/ESMESC) and Bachelor of Laws (UFSC). I research the <strong>female allegories of law</strong> — Justitia, the Republic-as-woman — and the legal condition of women across history, gender and nationality.',
     h_sobre:'$ about',
@@ -195,6 +195,9 @@ function render(){
   const d = DATA[lang];
   document.documentElement.lang = lang;
   document.getElementById('crumb-leaf').textContent = d.crumb;
+  document.getElementById('vs-sobre').textContent = d.psobre;
+  document.getElementById('vs-perfil').textContent = d.pperfil;
+  document.getElementById('vs-dossie').textContent = d.pdossie;
   document.getElementById('btn-cv').textContent = d.cv;
   document.getElementById('tree-th').textContent = d.treeTh;
   document.getElementById('tree-contato').textContent = d.contato;

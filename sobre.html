@@ -30,6 +30,11 @@
   .strand .sd { grid-column:1; font-size:14px; line-height:1.5; color:var(--text-muted); margin-top:5px; max-width:58ch; }
   .strand .ar { color:var(--rubric); align-self:start; padding-top:5px; }
   a.strand:hover .st { color:var(--rubric); }
+  .ed-peers { display:flex; flex-wrap:wrap; align-items:baseline; gap:14px; margin-top:22px; font-family:var(--font-display); font-size:13px; }
+  .ed-peers .pk { text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--text-faint); }
+  body.ed .ed-peers a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule-hairline); padding-bottom:1px; }
+  body.ed .ed-peers a:hover { color:var(--rubric); border-bottom-color:var(--rubric); }
+  .ed-peers .cur { color:var(--rubric); border-bottom:1px solid var(--rubric); padding-bottom:1px; }
 </style>
 </head>
 <body class="ed" data-route="sobre">
@@ -60,6 +65,13 @@
       <h1 class="ed-title rise" style="--d:.06s">sobre</h1>
       <p class="dek rise" style="--d:.12s" data-pt="Ana Vitória Vanzin Mendes — advogada e historiadora do direito. Estudo as alegorias femininas do direito e a condição jurídica da mulher, entre história, gênero e nacionalidade." data-en="Ana Vitória Vanzin Mendes — lawyer and legal historian. I study the feminine allegories of law and the legal condition of women, across history, gender and nationality.">Ana Vitória Vanzin Mendes — advogada e historiadora do direito.</p>
     </div>
+
+    <nav class="ed-peers" aria-label="Outros perfis">
+      <span class="pk" data-pt="ver também" data-en="see also">ver também</span>
+      <span class="cur" aria-current="page" data-pt="sobre" data-en="about">sobre</span>
+      <a href="perfil.html" data-pt="perfil" data-en="profile">perfil</a>
+      <a href="readme.html" data-pt="dossiê" data-en="dossier">dossiê</a>
+    </nav>
 
     <div class="ab-grid">
       <div class="prose" style="margin:0;max-width:none">
