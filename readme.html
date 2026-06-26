@@ -40,8 +40,12 @@
   .btn.primary{background:var(--dev);color:#fff;border-color:var(--dev)}
   .btn:hover{border-color:var(--dev)}
   .vista{display:flex;border:1px solid var(--ink);font-family:var(--mono)}
-  .vista a,.vista span{font-size:11px;padding:6px 11px;text-decoration:none;color:var(--ink)}
+  .vista .vseg{display:flex;flex-direction:column;gap:1px;padding:5px 11px 4px;text-decoration:none;color:var(--ink)}
+  .vista .vt{font-size:11px;line-height:1.2}
+  .vista .vf{font-size:8.5px;letter-spacing:.05em;opacity:.5;line-height:1.1}
+  a.vseg:hover .vf{opacity:.85}
   .vista .on{background:var(--ink);color:var(--paper)}
+  .vista .on .vf{opacity:.6}
   .vista>*+*{border-left:1px solid var(--ink)}
   .langtog{display:inline-flex;border:1px solid var(--ink);overflow:hidden;font-family:var(--mono)}
   .langtog button{font-size:11px;letter-spacing:.06em;border:0;background:var(--paper);color:var(--text-faint);padding:6px 9px;cursor:pointer}
@@ -91,7 +95,7 @@
     <a class="wm" href="/" title="← ana vanzin"><span class="b">&lt;ana&gt;</span>vanzin</a>
     <span class="crumb"><a href="index.html">anavanzin</a> / <b id="crumb-leaf">perfil</b></span>
     <span class="right">
-      <span class="vista"><a href="sobre.html" id="vs-sobre">sobre</a><a href="perfil.html" id="vs-perfil">perfil</a><span class="on" aria-current="page" id="vs-dossie">dossiê</span></span>
+      <span class="vista"><a class="vseg" href="sobre.html"><span class="vt" id="vs-sobre">sobre</span><span class="vf" id="vf-sobre">a narrativa</span></a><a class="vseg" href="perfil.html"><span class="vt" id="vs-perfil">perfil</span><span class="vf" id="vf-perfil">o cartão</span></a><span class="vseg on" aria-current="page"><span class="vt" id="vs-dossie">dossiê</span><span class="vf" id="vf-dossie">o currículo</span></span></span>
       <span class="langtog" id="langtog" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true">PT</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -122,7 +126,7 @@ try { const s = localStorage.getItem('av_lang'); if (s === 'pt' || s === 'en') l
 
 const DATA = {
   pt: {
-    crumb:'dossiê', psobre:'sobre', pperfil:'perfil', pdossie:'dossiê', cv:'Lattes ↗', treeTh:'anavanzin / main', contato:'contato.md', filemeta:'incunábulo · UTF-8',
+    crumb:'dossiê', psobre:'sobre', pperfil:'perfil', pdossie:'dossiê', lsobre:'a narrativa', lperfil:'o cartão', ldossie:'o currículo', cv:'Lattes ↗', treeTh:'anavanzin / main', contato:'contato.md', filemeta:'incunábulo · UTF-8',
     badges:[ ['área','direito · história · gênero'], ['doc','doutoranda · PPGD/UFSC'], ['lang','PT · EN · IT · ES'] ],
     intro:'Ana Vitória Vanzin Mendes — advogada e historiadora do direito. Doutoranda e mestra em Direito (PPGD/UFSC), na linha <strong>Direito dos Grupos Vulneráveis</strong>; especialista em Direito Público (FURB/ESMESC) e bacharela em Direito (UFSC). Pesquiso as <strong>alegorias femininas do direito</strong> — Justitia, a República-como-mulher — e a condição jurídica da mulher entre história, gênero e nacionalidade.',
     h_sobre:'$ sobre',
@@ -156,7 +160,7 @@ const DATA = {
     ],
   },
   en: {
-    crumb:'dossier', psobre:'about', pperfil:'profile', pdossie:'dossier', cv:'Lattes CV ↗', treeTh:'anavanzin / main', contato:'contact.md', filemeta:'incunabulum · UTF-8',
+    crumb:'dossier', psobre:'about', pperfil:'profile', pdossie:'dossier', lsobre:'the narrative', lperfil:'the card', ldossie:'the CV', cv:'Lattes CV ↗', treeTh:'anavanzin / main', contato:'contact.md', filemeta:'incunabulum · UTF-8',
     badges:[ ['field','law · history · gender'], ['role','PhD cand. · PPGD/UFSC'], ['lang','PT · EN · IT · ES'] ],
     intro:'Ana Vitória Vanzin Mendes — lawyer and legal historian. PhD candidate and Master in Law (PPGD/UFSC), in the <strong>Vulnerable Groups</strong> research line; specialist in Public Law (FURB/ESMESC) and Bachelor of Laws (UFSC). I research the <strong>female allegories of law</strong> — Justitia, the Republic-as-woman — and the legal condition of women across history, gender and nationality.',
     h_sobre:'$ about',
@@ -198,6 +202,9 @@ function render(){
   document.getElementById('vs-sobre').textContent = d.psobre;
   document.getElementById('vs-perfil').textContent = d.pperfil;
   document.getElementById('vs-dossie').textContent = d.pdossie;
+  document.getElementById('vf-sobre').textContent = d.lsobre;
+  document.getElementById('vf-perfil').textContent = d.lperfil;
+  document.getElementById('vf-dossie').textContent = d.ldossie;
   document.getElementById('btn-cv').textContent = d.cv;
   document.getElementById('tree-th').textContent = d.treeTh;
   document.getElementById('tree-contato').textContent = d.contato;

@@ -35,6 +35,8 @@
   body.ed .ed-peers a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule-hairline); padding-bottom:1px; }
   body.ed .ed-peers a:hover { color:var(--rubric); border-bottom-color:var(--rubric); }
   .ed-peers .cur { color:var(--rubric); border-bottom:1px solid var(--rubric); padding-bottom:1px; }
+  .ed-peers .pgrp { display:inline-flex; align-items:baseline; gap:6px; }
+  .ed-peers .pf { font-size:10.5px; font-style:italic; color:var(--text-faint); letter-spacing:.01em; }
 </style>
 </head>
 <body class="ed" data-route="sobre">
@@ -68,9 +70,9 @@
 
     <nav class="ed-peers" aria-label="Outros perfis">
       <span class="pk" data-pt="ver também" data-en="see also">ver também</span>
-      <span class="cur" aria-current="page" data-pt="sobre" data-en="about">sobre</span>
-      <a href="perfil.html" data-pt="perfil" data-en="profile">perfil</a>
-      <a href="readme.html" data-pt="dossiê" data-en="dossier">dossiê</a>
+      <span class="pgrp"><span class="cur" aria-current="page" data-pt="sobre" data-en="about">sobre</span><span class="pf" data-pt="a narrativa" data-en="the narrative">a narrativa</span></span>
+      <span class="pgrp"><a href="perfil.html" data-pt="perfil" data-en="profile">perfil</a><span class="pf" data-pt="o cartão" data-en="the card">o cartão</span></span>
+      <span class="pgrp"><a href="readme.html" data-pt="dossiê" data-en="dossier">dossiê</a><span class="pf" data-pt="o currículo" data-en="the CV">o currículo</span></span>
     </nav>
 
     <div class="ab-grid">
