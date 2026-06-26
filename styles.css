@@ -7,6 +7,12 @@
    Three inks only, like an incunabulum page: black ink, laid paper, rubric red.
    Never introduce new hues. Tints are derived with color-mix for rules/borders. */
 :root {
+  /* Force the warm-paper palette regardless of OS appearance: the whole site
+     is an illuminated-manuscript aesthetic and the home (index.html) has no
+     dark variant, so a dark override here made the site incoherent. Keeping
+     light also renders native controls/scrollbars on-palette. */
+  color-scheme: light;
+
   /* base */
   --ink: #211B16;
   --paper: #F2EAD9;
@@ -47,23 +53,12 @@
   --focus-ring: var(--rubric);
 }
 
-/* ===== tokens/colors-dark.css ===== */
-/* Dark mode: same three inks, inverted surfaces. Tints auto-recalculate via color-mix()
-   because they reference var(--ink) and var(--paper). No tint needs manual override. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #E8E0D0;       /* warm cream — text on dark */
-    --paper: #12100D;      /* very dark warm brown — page background */
-    --rubric: #CC5A4A;     /* brighter rubric for contrast */
-    --gold: #C9A84D;       /* brighter gold */
-    --gold-2: #D4B866;
-
-    /* lilac softens in dark mode */
-    --lilac: #C4B0E0;
-    --lilac-2: #A890D0;
-    --lilac-bg: #1E1A28;
-  }
-}
+/* Dark-mode override removed 2026-06-26: it flipped --paper to near-black on the
+   ~55 pages that link styles.css, while the home (index.html, own inline tokens,
+   no dark block) stayed light — making the site look broken in dark mode. The
+   mesa icon tiles also bake in #EFE5CF paper padding, so a true dark theme would
+   need new assets + a home variant. Reinstate as a complete, coherent feature if
+   wanted. */
 
 
 /* ===== tokens/typography.css ===== */
