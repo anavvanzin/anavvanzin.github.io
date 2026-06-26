@@ -11,3 +11,7 @@ node_modules/
 !.dev.vars.example
 .env*
 !.env.example
+
+# preview/build artifacts (not part of the deployed site)
+.playwright-mcp/
+site/

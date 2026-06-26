@@ -1,4 +1,4 @@
-@import url('fonts/fonts.css'); /* self-hosted woff2 — MUST stay at line 1 (CSS drops @import placed after any rule) */
+@import url('fonts/fonts.css'); /* self-hosted webfonts — MUST stay first: an @import after any rule is ignored per CSS spec */
 
 /* Ana Vanzin — bundled tokens */
 
@@ -53,8 +53,10 @@
    Two families only:
    - Cormorant Garamond 500/600 — display, headings, tracked-out small caps
    - Hanken Grotesk 400/600 — body and UI
-   No italics for emphasis in UI; use rubric small caps instead.
-   (Fonts loaded via self-hosted fonts/fonts.css imported at the top of this file.) */
+   No italics for emphasis in UI; use rubric small caps instead. */
+/* Webfonts moved to a self-hosted @import at the top of this file.
+   An @import here (after :root) was being ignored by browsers, so the
+   site had silently fallen back to Times New Roman / Helvetica Neue. */
 
 :root {
   --font-display: 'Cormorant Garamond', 'Times New Roman', serif;

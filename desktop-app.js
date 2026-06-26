@@ -19,7 +19,6 @@ const {
   WIus,
   WContato,
   WJustitia,
-  WCv,
   WVo
 } = window.avapp;
 const REG = {
@@ -54,14 +53,6 @@ const REG = {
     },
     w: 440,
     Body: WIus
-  },
-  curriculo: {
-    title: {
-      pt: 'currículo',
-      en: 'curriculum'
-    },
-    w: 460,
-    Body: WCv
   },
   contato: {
     title: {
@@ -132,6 +123,20 @@ const DESK_ICONS = [{
   },
   Icon: DocIcon
 }, {
+  id: 'atlas',
+  label: {
+    pt: 'atlas',
+    en: 'atlas'
+  },
+  Icon: AtlasIcon
+}, {
+  id: 'sala-de-leitura',
+  label: {
+    pt: 'sala de leitura',
+    en: 'reading room'
+  },
+  Icon: FolderIcon
+}, {
   id: 'advocacia',
   label: {
     pt: 'advocacia',
@@ -173,6 +178,13 @@ const DESK_ICONS = [{
     en: 'curriculum'
   },
   Icon: DocIcon
+}, {
+  id: 'perfil',
+  label: {
+    pt: 'perfil.card',
+    en: 'profile.card'
+  },
+  Icon: ImageIcon
 }, {
   id: 'justitia',
   label: {
@@ -618,7 +630,7 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'sobre') {
-      window.location.href = 'readme.html';
+      window.location.href = 'sobre.html';
       return;
     }
     if (id === 'conceitos') {
@@ -647,6 +659,26 @@ function Desktop() {
     }
     if (id === 'trabalhos') {
       window.location.href = 'trabalhos.html';
+      return;
+    }
+    if (id === 'publicacoes') {
+      window.location.href = 'publicacoes/';
+      return;
+    }
+    if (id === 'atlas') {
+      window.location.href = 'atlas/';
+      return;
+    }
+    if (id === 'sala-de-leitura') {
+      window.location.href = 'sala-de-leitura/';
+      return;
+    }
+    if (id === 'curriculo') {
+      window.location.href = 'readme.html';
+      return;
+    }
+    if (id === 'perfil') {
+      window.location.href = 'perfil.html';
       return;
     }
     setSel(id);

@@ -6,9 +6,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ICONOCRACIA — Atlas da Pesquisa</title>
 <link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/iconocracia/sysbar.css" />
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
 <script src="tweaks-panel.js"></script>
+<script src="corpus.generated.js"></script>
 <script src="data.js"></script>
 <script src="parts.js"></script>
 <style>
@@ -27,8 +29,47 @@
     .reveal > *:nth-child(3){animation-delay:.16s} .reveal > *:nth-child(4){animation-delay:.22s}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "ICONOCRACIA — Atlas da Pesquisa",
+  "url": "https://anavanzin.com/iconocracia/atlas/",
+  "inLanguage": "pt-BR",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ana vanzin",
+    "url": "https://anavanzin.com/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Início",
+      "item": "https://anavanzin.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ICONOCRACIA — Atlas da Pesquisa",
+      "item": "https://anavanzin.com/iconocracia/atlas/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<header class="ico-bar">
+<a class="brand" href="/iconocracia/" title="ICONOCRACIA · Iuris Memoria"><img src="/assets/avatar-pixel.png" alt=""><b>ana vanzin</b><span class="div"></span><span class="lbl">atlas</span></a>
+<span class="sp"></span>
+<a class="back" href="/"><span class="ar">←</span> voltar à mesa</a>
+</header>
 <div id="root"></div>
 <script>
 (function () {

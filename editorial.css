@@ -244,14 +244,27 @@ figcaption .src {
 /* ---------- shared footer (ink, inverse) ---------- */
 .ed-foot { background: var(--ink); color: var(--paper); margin-top: clamp(60px, 9vh, 110px); }
 .ed-foot .in {
-  max-width: var(--page-max); margin: 0 auto; padding: 34px var(--page-pad);
-  display: flex; gap: 22px; align-items: center; flex-wrap: wrap;
+  max-width: var(--page-max); margin: 0 auto; padding: clamp(40px, 6vh, 64px) var(--page-pad) 28px;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(26px, 5vw, 72px); align-items: start;
 }
-.ed-foot img { width: 28px; height: 28px; }
-.ed-foot a { color: var(--paper); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--rubric) 80%, var(--paper)); }
-.ed-foot a:hover { color: var(--paper); }
-.ed-foot .sep { margin-left: auto; font-size: var(--text-small); color: color-mix(in srgb, var(--paper) 60%, var(--ink)); }
-.ed-foot .flr { font-family: var(--font-display); font-size: 18px; color: color-mix(in srgb, var(--paper) 55%, var(--ink)); }
+.ed-foot .zone { display: flex; flex-direction: column; gap: 9px; }
+.ed-foot .id { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); text-decoration: none; border: 0; }
+.ed-foot .id img { width: 30px; height: 30px; }
+.ed-foot .id b { font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: .01em; }
+.ed-foot .desc { font-family: var(--font-body); font-size: var(--text-small); line-height: 1.5; color: color-mix(in srgb, var(--paper) 62%, var(--ink)); margin: 4px 0 0; max-width: 32ch; }
+.ed-foot .zt { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tracking-eyebrow); font-size: var(--text-eyebrow); color: color-mix(in srgb, var(--rubric) 72%, var(--paper)); margin-bottom: 5px; }
+.ed-foot .nav a, .ed-foot .links a { font-family: var(--font-body); font-size: 14px; color: var(--paper); text-decoration: none; border: 0; width: max-content; }
+.ed-foot a:hover { color: color-mix(in srgb, var(--rubric) 65%, var(--paper)); }
+.ed-foot .base {
+  max-width: var(--page-max); margin: 0 auto; padding: 15px var(--page-pad) 22px;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 16%, var(--ink));
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.ed-foot .base .cl { font-size: var(--text-small); color: color-mix(in srgb, var(--paper) 55%, var(--ink)); }
+.ed-foot .base .flr { font-family: var(--font-display); font-size: 18px; color: color-mix(in srgb, var(--paper) 55%, var(--ink)); }
+.ed-foot .base .top { margin-left: auto; font-size: var(--text-small); color: color-mix(in srgb, var(--paper) 70%, var(--ink)); text-decoration: none; border: 0; }
+.ed-foot .base .top:hover { color: var(--paper); }
+@media (max-width: 720px) { .ed-foot .in { grid-template-columns: 1fr; gap: 26px; } }
 
 /* ============================================================
    route-specific layers (atlas · reading room · theme filter ·
