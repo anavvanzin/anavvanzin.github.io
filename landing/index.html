@@ -36,107 +36,60 @@
     padding:5px clamp(12px,3vw,26px); font-family:var(--mono); font-size:13px;
   }
   .menubar .seal{width:18px;height:18px}
-  .menubar nav{display:flex; gap:16px; flex-wrap:wrap}
-  .menubar nav span{cursor:default}
-  .menubar .sys{margin-left:auto; font-family:var(--disp); font-weight:600; font-size:15px; white-space:nowrap}
+  .menubar .brand{font-family:var(--disp); font-weight:600; font-size:15px; letter-spacing:.04em}
+  .menubar nav{display:flex; gap:15px; flex-wrap:wrap}
+  .menubar nav a{text-decoration:none; color:var(--ink)}
+  .menubar nav a:hover{color:var(--rubric)}
+  .menubar .sp{margin-left:auto}
   .menubar .langtog{display:inline-flex; border:1px solid var(--ink); border-radius:0; overflow:hidden}
   .menubar .langtog button{font-family:var(--mono); font-size:11px; border:0; background:var(--paper); color:var(--ink); padding:2px 9px; cursor:pointer}
   .menubar .langtog button[aria-pressed=true]{background:var(--ink); color:var(--paper)}
   .menubar .clock{font-variant-numeric:tabular-nums; font-size:12px; min-width:44px; text-align:right}
-  .menubar .q{border:1px solid var(--ink); width:20px; height:20px; display:grid; place-items:center; font-family:var(--disp); font-weight:600}
-  @media(max-width:720px){ .menubar nav{display:none} }
+  @media(max-width:760px){ .menubar nav{display:none} }
 
-  /* ---------- layout ---------- */
-  .stage{max-width:1320px; margin:0 auto; padding:clamp(14px,2.4vw,28px);
-    display:grid; grid-template-columns:1fr 1.25fr 1fr; gap:clamp(14px,1.8vw,22px); align-items:start}
-  @media(max-width:980px){ .stage{grid-template-columns:1fr} }
+  /* ---------- mesa: icon grid + manuscript panel ---------- */
+  .mesa{display:grid; grid-template-columns:1fr minmax(280px,360px); gap:0; min-height:calc(100vh - 46px)}
+  @media(max-width:900px){ .mesa{grid-template-columns:1fr} }
+  .zones{padding:clamp(20px,3vw,38px) clamp(16px,3vw,40px); display:flex; flex-direction:column; gap:clamp(22px,3vh,34px)}
+  .group .glabel{font-family:var(--disp); font-weight:600; text-transform:uppercase; letter-spacing:.26em;
+    font-size:12px; color:var(--rubric); margin:0 0 12px; display:flex; align-items:center; gap:14px}
+  .group .glabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, color-mix(in srgb,var(--gold) 55%, transparent), transparent)}
+  .icons{display:grid; grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:clamp(10px,1.4vw,18px)}
+  a.icon{display:flex; flex-direction:column; align-items:center; gap:7px; text-decoration:none; color:var(--ink); padding:4px 2px}
+  a.icon .cap{width:52px; height:52px; display:grid; place-items:center; background:var(--paper-card);
+    border:1.5px solid var(--ink); box-shadow:var(--hard-sm);
+    font-family:var(--disp); font-weight:700; font-size:30px; line-height:1; color:var(--ink);
+    position:relative; transition:transform .12s ease, box-shadow .12s ease}
+  a.icon .cap::before{content:""; position:absolute; inset:3px; border:1px solid color-mix(in srgb,var(--gold) 45%, transparent); pointer-events:none}
+  a.icon:hover .cap{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(33,27,22,.18); color:var(--rubric)}
+  a.icon:active .cap{transform:translate(1px,1px); box-shadow:none}
+  a.icon.rb .cap{background:var(--rubric); color:var(--paper)}
+  a.icon.nv .cap{background:var(--navy); color:var(--paper)}
+  a.icon.rb:hover .cap, a.icon.nv:hover .cap{color:var(--paper)}
+  a.icon .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-align:center; line-height:1.25; color:color-mix(in srgb,var(--ink) 82%,var(--paper))}
+  a.icon .lbl .ext{color:color-mix(in srgb,var(--ink) 45%,var(--paper))}
 
-  /* ---------- cards (facetas) ---------- */
-  .col{display:flex; flex-direction:column; gap:clamp(14px,1.8vw,22px)}
-  .card{
-    display:flex; gap:16px; text-decoration:none; color:var(--ink);
-    background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard);
-    padding:18px 20px; transition:transform .14s ease, box-shadow .14s ease;
-  }
-  .card:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 rgba(33,27,22,.18)}
-  .card:active{transform:translate(1px,1px); box-shadow:var(--hard-sm)}
-  .cap{
-    flex:0 0 auto; width:52px; height:52px; display:grid; place-items:center;
-    background:var(--rubric); color:var(--paper); border:1px solid var(--ink);
-    box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--gold) 60%, transparent);
-    font-family:var(--disp); font-weight:700; font-size:34px; line-height:1;
-  }
-  .card:nth-child(even) .cap{background:var(--navy)}
-  .card .cbody h2{font-family:var(--disp); font-weight:600; font-size:25px; margin:0 0 4px; line-height:1.04}
-  .card .cbody p{font-size:13.5px; line-height:1.5; margin:0; color:color-mix(in srgb,var(--ink) 78%, var(--paper)); max-width:34ch}
+  /* manuscript side panel (página de livro aberto) */
+  .mspanel{position:relative; border-left:1.5px solid var(--ink);
+    background:var(--navy) url("/assets/landing/bg-justitia.png") center top/cover no-repeat;
+    min-height:100%}
+  .mspanel::before{content:""; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 6px 0 16px rgba(33,27,22,.28), inset 0 0 0 6px color-mix(in srgb,var(--paper) 0%, transparent)}
+  .mspanel::after{content:""; position:absolute; inset:10px; pointer-events:none;
+    border:1px solid color-mix(in srgb,var(--gold) 45%, transparent)}
+  .mspanel .lemma{position:absolute; left:0; right:0; bottom:0; padding:14px 16px;
+    background:linear-gradient(0deg, rgba(20,16,12,.82), transparent);
+    color:#F4ECD8; font-family:var(--disp); font-style:italic; font-size:16px; text-align:center}
+  @media(max-width:900px){ .mspanel{min-height:320px; border-left:0; border-top:1.5px solid var(--ink)} }
 
-  /* ---------- center ---------- */
-  .center{display:flex; flex-direction:column; gap:16px}
-  .masthead{display:flex; align-items:center; gap:14px; padding:2px 2px 0}
-  .masthead .logo{width:46px;height:46px}
-  .masthead .lk h1{font-family:var(--disp); font-weight:700; font-size:clamp(30px,4.4vw,46px); margin:0; line-height:.95; letter-spacing:.005em}
-  .masthead .lk .tag{font-family:var(--mono); font-size:11px; letter-spacing:2px; text-transform:lowercase; color:var(--rubric); margin-top:3px}
-  .hero{border:1.5px solid var(--ink); box-shadow:var(--hard); background:var(--navy)}
-  .hero img{display:block; width:100%; height:auto}
-  .scroll{
-    text-align:center; font-family:var(--disp); font-style:italic; font-size:clamp(17px,2.2vw,22px);
-    color:var(--ink); background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard-sm);
-    padding:12px 18px; margin-top:-2px;
-  }
-  /* dock */
-  .dock{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:4px 0 2px}
-  .dock a{
-    display:flex; flex-direction:column; align-items:center; gap:6px; width:84px; text-decoration:none; color:var(--ink);
-  }
-  .dock .tile{
-    width:48px; height:48px; display:grid; place-items:center; background:var(--paper-card);
-    border:1.5px solid var(--ink); box-shadow:var(--hard-sm); font-family:var(--disp); font-weight:600; font-size:22px;
-    transition:transform .12s ease}
-  .dock a:hover .tile{transform:translateY(-3px)}
-  .dock span{font-family:var(--mono); font-size:11px; letter-spacing:.04em}
+  .hint{font-family:var(--mono); font-size:11px; color:color-mix(in srgb,var(--ink) 50%,var(--paper));
+    text-align:center; padding:10px; border-top:1px solid var(--rule)}
 
-  /* ---------- status panel ---------- */
-  .status{background:var(--paper-card); border:1.5px solid var(--ink); box-shadow:var(--hard); padding:16px 18px}
-  .status h3{font-family:var(--disp); font-weight:600; font-size:20px; margin:0 0 12px}
-  .status .row{display:flex; align-items:center; gap:10px; padding:7px 0; border-top:1px solid var(--rule); font-size:13px}
-  .status .row:first-of-type{border-top:0}
-  .status .lab{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; width:74px; color:color-mix(in srgb,var(--ink) 70%,var(--paper))}
-  .status .pips{letter-spacing:2px; font-size:14px}
-  .status .pips.mind{color:var(--rubric)} .status .pips.focus{color:var(--amethyst)}
-  .status .caf{display:flex; align-items:center; gap:8px}
-  .status .caf button{font:inherit; cursor:pointer; border:1px solid var(--ink); background:var(--paper); width:22px;height:22px; line-height:1; box-shadow:var(--hard-sm)}
-  .status .caf button:active{transform:translate(1px,1px); box-shadow:none}
-  .status .now{font-style:italic; font-family:var(--disp); font-size:15px}
-
-  footer.legal{max-width:1320px; margin:6px auto 30px; padding:0 clamp(14px,2.4vw,28px); font-family:var(--mono); font-size:11px; color:color-mix(in srgb,var(--ink) 55%,var(--paper)); display:flex; gap:14px; flex-wrap:wrap; align-items:center}
-  footer.legal a{color:color-mix(in srgb,var(--ink) 70%,var(--paper))}
-  footer.legal .flr{color:var(--gold); font-family:var(--disp); font-size:16px}
-
-  /* ---------- ornaments (polish) ---------- */
-  /* illuminated page frame (manuscrit border) */
+  /* ---------- page frame ---------- */
   .pageframe{position:fixed; inset:9px; pointer-events:none; z-index:40;
     border:1px solid color-mix(in srgb,var(--gold) 50%, transparent);
     outline:1px solid color-mix(in srgb,var(--ink) 14%, transparent); outline-offset:3px}
   @media(max-width:720px){ .pageframe{inset:5px} }
-  /* cards: inner gold frame + retro window squares */
-  .card{position:relative}
-  .card::before{content:""; position:absolute; inset:5px; pointer-events:none;
-    border:1px solid color-mix(in srgb,var(--gold) 36%, transparent)}
-  .card::after{content:""; position:absolute; top:8px; right:8px; width:8px; height:8px;
-    border:1px solid color-mix(in srgb,var(--ink) 55%, var(--paper-card));
-    box-shadow:3px 0 0 -1px color-mix(in srgb,var(--ink) 55%, var(--paper-card))}
-  /* drop-cap: gold border + nested rules */
-  .cap{border:1px solid var(--gold);
-    box-shadow:inset 0 0 0 1px var(--ink), inset 0 0 0 3px color-mix(in srgb,var(--gold) 42%, transparent)}
-  /* hero: inner gold frame */
-  .hero{position:relative}
-  .hero::before{content:""; position:absolute; inset:6px; z-index:2; pointer-events:none;
-    border:1px solid color-mix(in srgb,var(--gold) 52%, transparent)}
-  /* flourish divider */
-  .flourish{display:flex; align-items:center; justify-content:center; gap:14px;
-    color:var(--gold); font-family:var(--disp); font-size:18px; margin:2px 0 -4px}
-  .flourish::before,.flourish::after{content:""; height:1px; flex:1; max-width:130px;
-    background:linear-gradient(90deg, transparent, color-mix(in srgb,var(--gold) 65%, transparent), transparent)}
 
   /* ---------- boot / entrada ---------- */
   #boot{position:fixed; inset:0; z-index:200; background:var(--paper);
@@ -171,128 +124,84 @@
 
 <header class="menubar">
   <img class="seal" src="/assets/sun-seal.svg" alt="">
-  <nav aria-hidden="true"><span>Ficheiro</span><span>Editar</span><span>Ver</span><span>Etiqueta</span><span>Especial</span></nav>
-  <span class="sys">Anavanzin System 7.3.1</span>
+  <span class="brand">ANA VANZIN</span>
+  <nav aria-label="Navegação">
+    <a href="/sobre.html" data-pt="Sobre" data-en="About">Sobre</a>
+    <a href="/iconocracia/">Tese</a>
+    <a href="/conceitos.html" data-pt="Conceitos" data-en="Concepts">Conceitos</a>
+    <a href="/publicacoes/" data-pt="Perfis" data-en="Profiles">Perfis</a>
+    <a href="/manifesto/">Manifesto</a>
+    <a href="mailto:anavvanzin@outlook.com" data-pt="Contato" data-en="Contact">Contato</a>
+  </nav>
+  <span class="sp"></span>
   <span class="langtog" role="group" aria-label="Idioma / Language">
     <button type="button" data-lang="pt" aria-pressed="true">PT</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </span>
   <span class="clock" id="clock">--:--</span>
-  <span class="q" title="anavanzin.com">?</span>
 </header>
 
-<main class="stage">
+<main class="mesa">
+  <div class="zones">
 
-  <!-- coluna esquerda -->
-  <div class="col">
-    <a class="card" href="/conceitos.html">
-      <span class="cap">D</span>
-      <span class="cbody">
-        <h2 data-pt="Direito" data-en="Law">Direito</h2>
-        <p data-pt="Ideias, instituições e injustiças. Estudadas de perto. Questionadas sempre."
-           data-en="Ideas, institutions, and injustices. Studied closely. Questioned constantly.">Ideias, instituições e injustiças. Estudadas de perto. Questionadas sempre.</p>
-      </span>
-    </a>
-    <a class="card" href="/sala-de-leitura/">
-      <span class="cap">P</span>
-      <span class="cbody">
-        <h2 data-pt="Pesquisa" data-en="Research">Pesquisa</h2>
-        <p data-pt="Fontes primárias. Livros velhos. Marginália e notas de rodapé."
-           data-en="Primary sources. Old books. Marginalia and footnotes.">Fontes primárias. Livros velhos. Marginália e notas de rodapé.</p>
-      </span>
-    </a>
-    <a class="card" href="/atlas/">
-      <span class="cap">A</span>
-      <span class="cbody">
-        <h2 data-pt="Arquivos" data-en="Archives">Arquivos</h2>
-        <p data-pt="Documentos, registros e traços do passado. Preservados. Organizados."
-           data-en="Documents, records, and traces of the past. Preserved. Organized.">Documentos, registros e traços do passado. Preservados. Organizados.</p>
-      </span>
-    </a>
-  </div>
-
-  <!-- centro -->
-  <div class="center">
-    <div class="masthead">
-      <img class="logo" src="/assets/monogram-av.svg" alt="" onerror="this.style.display='none'">
-      <span class="lk">
-        <h1>anavanzin.com</h1>
-        <div class="tag" data-pt="direito · história · palavras · imagens" data-en="law · history · words · images">direito · história · palavras · imagens</div>
-      </span>
-    </div>
-    <div class="flourish" aria-hidden="true">❦</div>
-    <div class="hero"><img src="/assets/landing/hero.png" alt="Ana Vanzin — retrato em arco iluminado, com balança, livros e pena"></div>
-    <div class="scroll">“veritas in iure, libertas in scriptis”</div>
-    <nav class="dock" aria-label="Atalhos">
-      <a href="/sobre.html"><span class="tile">✒</span><span data-pt="sobre" data-en="about">sobre</span></a>
-      <a href="/perfil.html"><span class="tile">❦</span><span data-pt="perfil" data-en="profile">perfil</span></a>
-      <a href="/readme.html"><span class="tile">≡</span><span data-pt="currículo" data-en="cv">currículo</span></a>
-      <a href="/trabalhos.html"><span class="tile">⚏</span><span data-pt="trabalhos" data-en="works">trabalhos</span></a>
-      <a href="/quotes/"><span class="tile">“</span><span data-pt="citações" data-en="quotes">citações</span></a>
-      <a href="mailto:anavvanzin@outlook.com"><span class="tile">✉</span><span data-pt="contato" data-en="contact">contato</span></a>
-    </nav>
-  </div>
-
-  <!-- coluna direita -->
-  <div class="col">
-    <a class="card" href="/marginalia/">
-      <span class="cap">E</span>
-      <span class="cbody">
-        <h2 data-pt="Escrita" data-en="Writing">Escrita</h2>
-        <p data-pt="Ensaios, argumentos e histórias. Arestas afiadas. Frases cuidadas."
-           data-en="Essays, arguments, and stories. Sharp edges. Careful sentences.">Ensaios, argumentos e histórias. Arestas afiadas. Frases cuidadas.</p>
-      </span>
-    </a>
-    <a class="card" href="/iconocracia/">
-      <span class="cap">I</span>
-      <span class="cbody">
-        <h2 data-pt="Iconografia" data-en="Iconography">Iconografia</h2>
-        <p data-pt="Símbolos, santos e criaturas estranhas. O sentido nos detalhes."
-           data-en="Symbols, saints, and strange creatures. Meaning in the details.">Símbolos, santos e criaturas estranhas. O sentido nos detalhes.</p>
-      </span>
-    </a>
-    <a class="card" href="/metodologia/">
-      <span class="cap">M</span>
-      <span class="cbody">
-        <h2 data-pt="Metodologia" data-en="Methodology">Metodologia</h2>
-        <p data-pt="Métodos, ferramentas e materiais para ajudar estudantes."
-           data-en="Methods, tools, and materials to help students.">Métodos, ferramentas e materiais para ajudar estudantes.</p>
-      </span>
-    </a>
-    <div class="status">
-      <h3 data-pt="Status" data-en="Status">Status</h3>
-      <div class="row"><span class="lab">Mind</span><span class="pips mind">★★★★★</span></div>
-      <div class="row"><span class="lab">Focus</span><span class="pips focus">★★★★☆</span></div>
-      <div class="row"><span class="lab">Caffeine</span>
-        <span class="caf"><span id="cups">☕</span><button id="addcup" title="mais um café" aria-label="mais um café">+</button></span>
+    <section class="group">
+      <h2 class="glabel" data-pt="Identidade" data-en="Identity">Identidade</h2>
+      <div class="icons">
+        <a class="icon nv" href="/sobre.html"><span class="cap">S</span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
+        <a class="icon rb" href="/perfil.html"><span class="cap">P</span><span class="lbl">perfil<span class="ext">.card</span></span></a>
+        <a class="icon" href="/readme.html"><span class="cap">C</span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
       </div>
-      <div class="row"><span class="lab" data-pt="Lendo" data-en="Reading">Lendo</span>
-        <span class="now">Mondzain, <em>Image, icône, économie</em></span>
+    </section>
+
+    <section class="group">
+      <h2 class="glabel" data-pt="Pesquisa" data-en="Research">Pesquisa</h2>
+      <div class="icons">
+        <a class="icon rb" href="/iconocracia/"><span class="cap">I</span><span class="lbl">iconocracia</span></a>
+        <a class="icon" href="/atlas/"><span class="cap">A</span><span class="lbl">atlas</span></a>
+        <a class="icon" href="/iconocracia/radiografia/"><span class="cap">R</span><span class="lbl">radiografia</span></a>
+        <a class="icon" href="/marginalia/"><span class="cap">M</span><span class="lbl" data-pt="marginália" data-en="marginalia">marginália</span></a>
+        <a class="icon" href="/publicacoes/"><span class="cap">P</span><span class="lbl" data-pt="publicações" data-en="publications">publicações</span></a>
+        <a class="icon" href="/sala-de-leitura/"><span class="cap">S</span><span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span></a>
+        <a class="icon" href="/conceitos.html"><span class="cap">C</span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
+        <a class="icon nv" href="/metodologia/"><span class="cap">M</span><span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span></a>
       </div>
-    </div>
+    </section>
+
+    <section class="group">
+      <h2 class="glabel" data-pt="Outros" data-en="Other">Outros</h2>
+      <div class="icons">
+        <a class="icon" href="/trabalhos.html"><span class="cap">T</span><span class="lbl" data-pt="trabalhos" data-en="works">trabalhos</span></a>
+        <a class="icon" href="/quotes/"><span class="cap">C</span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
+        <a class="icon" href="/advocacia.html"><span class="cap">A</span><span class="lbl">advocacia</span></a>
+        <a class="icon" href="/assets/pixel-justitia-sky.png"><span class="cap">J</span><span class="lbl">justitia<span class="ext">.png</span></span></a>
+        <a class="icon" href="/assets/avo.png"><span class="cap">V</span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="glabel" data-pt="Novos" data-en="New">Novos</h2>
+      <div class="icons">
+        <a class="icon rb" href="/manifesto/"><span class="cap">M</span><span class="lbl">manifesto</span></a>
+        <a class="icon nv" href="/apresentacao/"><span class="cap">A</span><span class="lbl" data-pt="apresentação" data-en="deck">apresentação</span></a>
+        <a class="icon rb" href="/video/"><span class="cap">V</span><span class="lbl" data-pt="vídeo" data-en="video">vídeo</span></a>
+      </div>
+    </section>
+
+    <p class="hint" data-pt="clique num ícone para abrir · ou explore a tese no painel ao lado"
+       data-en="click an icon to open · or explore the thesis in the panel">clique num ícone para abrir · ou explore a tese no painel ao lado</p>
   </div>
 
+  <aside class="mspanel" aria-label="Justitia — manuscrito iluminado">
+    <div class="lemma">“veritas in iure, libertas in scriptis”</div>
+  </aside>
 </main>
-
-<footer class="legal">
-  <span>© 2026 ana vanzin · PPGD/UFSC · Ius Gentium</span>
-  <span class="flr">❧</span>
-  <a href="/advocacia.html" data-pt="advocacia" data-en="practice">advocacia</a>
-  <a href="/" data-pt="modo mesa (janelas)" data-en="desk mode (windows)">modo mesa (janelas)</a>
-</footer>
 
 <script src="/editorial.js"></script>
 <script>
   (function(){
-    // relógio
     function tick(){ try{ var d=new Date(); document.getElementById('clock').textContent =
       String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }catch(e){} }
     tick(); setInterval(tick, 15000);
-    // café clicável (lúdico, reseta no reload)
-    var cups=1, el=document.getElementById('cups'), MAX=6;
-    document.getElementById('addcup').addEventListener('click', function(){
-      cups = cups>=MAX ? 1 : cups+1; el.textContent = '☕'.repeat(cups);
-    });
     // boot / entrada (uma vez por sessão)
     var boot=document.getElementById('boot');
     try{ if(boot && sessionStorage.getItem('av_entered')==='1'){ boot.remove(); boot=null; } }catch(e){}
