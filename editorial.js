@@ -7,6 +7,11 @@
    - .avnav a[data-match] (space-separated filenames) gets .cur for current page
    No asset paths here, so the file loads correctly from root or a subdir. */
 (function () {
+  // Feature detection — progressive enhancement: lang toggle requires these APIs.
+  // Without them, the page remains fully functional in Portuguese (the HTML default).
+  if (!document.querySelectorAll || !window.localStorage) return;
+  document.documentElement.classList.add('js');
+
   function getLang() {
     try { var s = localStorage.getItem('av_lang'); return s === 'en' ? 'en' : 'pt'; } catch (e) { return 'pt'; }
   }

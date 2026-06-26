@@ -40,7 +40,8 @@ body.ed a { color: var(--rubric); }
 }
 .avnav a:hover { color: var(--rubric); }
 .avnav a.cur { color: var(--rubric); border-bottom-color: var(--rubric); }
-.langtog { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.langtog { display: none; }
+html.js .langtog { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; overflow: hidden; }
 .langtog button {
   font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: .12em;
   border: 0; background: var(--paper); color: var(--text-faint); padding: 3px 10px; cursor: pointer; line-height: 1.6;

@@ -47,6 +47,24 @@
   --focus-ring: var(--rubric);
 }
 
+/* ===== tokens/colors-dark.css ===== */
+/* Dark mode: same three inks, inverted surfaces. Tints auto-recalculate via color-mix()
+   because they reference var(--ink) and var(--paper). No tint needs manual override. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #E8E0D0;       /* warm cream — text on dark */
+    --paper: #12100D;      /* very dark warm brown — page background */
+    --rubric: #CC5A4A;     /* brighter rubric for contrast */
+    --gold: #C9A84D;       /* brighter gold */
+    --gold-2: #D4B866;
+
+    /* lilac softens in dark mode */
+    --lilac: #C4B0E0;
+    --lilac-2: #A890D0;
+    --lilac-bg: #1E1A28;
+  }
+}
+
 
 /* ===== tokens/typography.css ===== */
 /* Ana Vanzin — type tokens
