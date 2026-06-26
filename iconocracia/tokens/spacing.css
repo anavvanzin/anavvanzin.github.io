@@ -1,0 +1,52 @@
+/* ICONOCRACIA — Spacing, radii, shadows, rules, texture
+   Geometry of institutional reason: grids, columns, borders that
+   pretend to contain — and the gold rule that frames the document. */
+
+:root {
+  /* ── Spacing scale (4px base) ───────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Radii ──────────────────────────────────── */
+  --radius-sm: 4px;   /* plates, corpus cards — nearly square      */
+  --radius:    10px;  /* default card / panel                      */
+  --radius-pill: 999px;
+
+  /* ── Borders & rules ────────────────────────── */
+  --rule-gold:        1px solid var(--gold);
+  --rule-gold-double: 3px double var(--gold);
+  --border-card:      1px solid var(--light-border);
+  --margin-bar:       3px solid var(--terracotta); /* live margin   */
+
+  /* ── Shadows — soft, document-on-table ──────── */
+  --shadow-sm:   0 2px 6px rgba(26,22,18,.06), 0 1px 2px rgba(26,22,18,.05);
+  --shadow-md:   0 10px 26px rgba(26,22,18,.10), 0 2px 8px rgba(26,22,18,.05);
+  --shadow-lg:   0 24px 72px rgba(26,22,18,.14), 0 8px 24px rgba(26,22,18,.08);
+  --shadow-card: 0 8px 20px rgba(26,22,18,.06), 0 0 0 1px rgba(26,22,18,.03);
+  --shadow-plate:0 6px 20px rgba(0,0,0,.18); /* plates on dark      */
+
+  /* ── Layout ─────────────────────────────────── */
+  --sidebar-w: 232px;
+  --header-h:  88px;
+  --content-max: 1160px;
+
+  /* ── Motion ─────────────────────────────────── */
+  --ease-out: cubic-bezier(.22,1,.36,1); /* @kind other */
+  --dur-fast: .15s; /* @kind other */
+  --dur:      .25s; /* @kind other */
+  --dur-slow: .5s; /* @kind other */
+
+  /* ── Texture · fine paper grain (overlay) ───── */
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E"); /* @kind other */
+
+  /* ── Texture · faint grid (institutional reason) ─ */
+  --grid-gold: linear-gradient(rgba(184,146,74,.04) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(184,146,74,.04) 1px, transparent 1px); /* @kind other */
+  --grid-size: 20px 20px;
+}

@@ -19,7 +19,6 @@ const {
   WIus,
   WContato,
   WJustitia,
-  WCv,
   WVo
 } = window.avapp;
 const REG = {
@@ -54,14 +53,6 @@ const REG = {
     },
     w: 440,
     Body: WIus
-  },
-  curriculo: {
-    title: {
-      pt: 'currículo',
-      en: 'curriculum'
-    },
-    w: 460,
-    Body: WCv
   },
   contato: {
     title: {
@@ -118,6 +109,41 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }, {
+  id: 'radiografia',
+  label: {
+    pt: 'radiografia',
+    en: 'radiografia'
+  },
+  Icon: SealIcon
+}, {
+  id: 'marginalia',
+  label: {
+    pt: 'marginália',
+    en: 'marginalia'
+  },
+  Icon: DocIcon
+}, {
+  id: 'atlas',
+  label: {
+    pt: 'atlas',
+    en: 'atlas'
+  },
+  Icon: AtlasIcon
+}, {
+  id: 'sala-de-leitura',
+  label: {
+    pt: 'sala de leitura',
+    en: 'reading room'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'advocacia',
+  label: {
+    pt: 'advocacia',
+    en: 'practice'
+  },
+  Icon: WorksIcon
+}, {
   id: 'quotes',
   label: {
     pt: 'citações',
@@ -152,6 +178,13 @@ const DESK_ICONS = [{
     en: 'curriculum'
   },
   Icon: DocIcon
+}, {
+  id: 'perfil',
+  label: {
+    pt: 'perfil.card',
+    en: 'profile.card'
+  },
+  Icon: ImageIcon
 }, {
   id: 'justitia',
   label: {
@@ -484,11 +517,14 @@ function Boot({
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
-    alt: "",
+    src: "assets/avatar-pixel.png",
+    alt: "Ana Vanzin",
     style: {
-      height: 150,
-      imageRendering: 'pixelated'
+      height: 168,
+      width: 'auto',
+      borderRadius: 14,
+      border: '1px solid var(--ink)',
+      boxShadow: '4px 4px 0 0 var(--ink)'
     }
   }), /*#__PURE__*/React.createElement("h1", {
     style: {
@@ -594,7 +630,7 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'sobre') {
-      window.location.href = 'readme.html';
+      window.location.href = 'sobre.html';
       return;
     }
     if (id === 'conceitos') {
@@ -605,12 +641,44 @@ function Desktop() {
       window.location.href = 'iconocracia/';
       return;
     }
+    if (id === 'radiografia') {
+      window.location.href = 'iconocracia/radiografia/';
+      return;
+    }
+    if (id === 'marginalia') {
+      window.location.href = 'marginalia/';
+      return;
+    }
+    if (id === 'advocacia') {
+      window.location.href = 'advocacia.html';
+      return;
+    }
     if (id === 'quotes') {
       window.location.href = 'quotes/';
       return;
     }
     if (id === 'trabalhos') {
       window.location.href = 'trabalhos.html';
+      return;
+    }
+    if (id === 'publicacoes') {
+      window.location.href = 'publicacoes/';
+      return;
+    }
+    if (id === 'atlas') {
+      window.location.href = 'atlas/';
+      return;
+    }
+    if (id === 'sala-de-leitura') {
+      window.location.href = 'sala-de-leitura/';
+      return;
+    }
+    if (id === 'curriculo') {
+      window.location.href = 'readme.html';
+      return;
+    }
+    if (id === 'perfil') {
+      window.location.href = 'perfil.html';
       return;
     }
     setSel(id);
@@ -717,8 +785,20 @@ function Desktop() {
       alignItems: 'center',
       gap: 8
     }
-  }, /*#__PURE__*/React.createElement(SealIcon, {
-    size: 20
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "assets/avatar-pixel.png",
+    alt: "Ana Vanzin",
+    width: 22,
+    height: 22,
+    style: {
+      width: 22,
+      height: 22,
+      borderRadius: '50%',
+      objectFit: 'cover',
+      objectPosition: 'top center',
+      border: '1px solid var(--ink)',
+      flexShrink: 0
+    }
   }), !isMobile && /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: 'var(--font-display)',

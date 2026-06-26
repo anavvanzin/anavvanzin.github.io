@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Radiografia · Comparação iconométrica · ICONOCRACIA</title>
+<link rel="canonical" href="https://anavanzin.com/iconocracia/radiografia/" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/avatar-pixel.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/avatar-pixel.png" />
+<link rel="apple-touch-icon" href="/assets/avatar-pixel.png" />
+<meta name="description" content="Radiografia iconométrica — confronta dois espécimes alegóricos do corpus sob a mesma régua: venda, equilíbrio, endurecimento. Três disposições: Confronto, Sobreposição, Prancha." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Radiografia · Comparação iconométrica" />
+<meta property="og:description" content="Confronta dois espécimes alegóricos do corpus sob a mesma régua iconométrica." />
+<meta property="og:url" content="https://anavanzin.com/iconocracia/radiografia/" />
+<meta property="og:image" content="https://anavanzin.com/iconocracia/assets/og-cover.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://anavanzin.com/iconocracia/assets/og-cover.png" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/iconocracia/sysbar.css" />
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #141A33; }
+  #root { min-height: 100vh; }
+  @keyframes radioFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  input[type="range"] { height: 3px; }
+  ::selection { background: rgba(154,109,188,.35); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="ico-bar">
+<a class="brand" href="/iconocracia/" title="ICONOCRACIA · Iuris Memoria"><img src="/assets/avatar-pixel.png" alt=""><b>ana vanzin</b><span class="div"></span><span class="lbl">radiografia</span></a>
+<span class="sp"></span>
+<a class="back" href="/"><span class="ar">←</span> voltar à mesa</a>
+</header>
+<div id="root"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  // Mount the Radiografia tool with the design's default props (from Radiografia.dc.html).
+  const __radioRoot = ReactDOM.createRoot(document.getElementById("root"));
+  __radioRoot.render(React.createElement(window.RadiografiaApp, {
+    layout: "confronto",
+    defaultA: "liberte-1792",
+    defaultB: "germania-1900",
+    accent: "#A04030",
+    scale: 1,
+  }));
+</script>
+</body>
+</html>

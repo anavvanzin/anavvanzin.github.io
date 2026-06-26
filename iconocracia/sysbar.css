@@ -1,0 +1,92 @@
+/* ============================================================
+   ana vanzin — iconocracia wing: shared "voltar à mesa" top bar.
+
+   Uniform editorial bar (paper / ink / rubric, Cormorant Garamond),
+   replicated from the editorial `.ed-bar` (editorial.css) with the
+   palette values BAKED IN, namespaced under `.ico-bar`, so it does
+   NOT collide with the wing's own token palette (iconocracia/styles.css,
+   where --ink is navy, --paper is cream, etc.).
+
+   Fonts come from the shared /fonts/fonts.css (already imported by the
+   wing's styles.css) — Cormorant Garamond + Hanken Grotesk are part of
+   the consolidated set, so this adds NO new font files.
+
+   Linked by: iconocracia/index.html, iconocracia/atlas/index.html,
+   iconocracia/atlas-lab/index.html, iconocracia/radiografia/index.html.
+   On the React tool pages the markup sits as static HTML ABOVE the
+   #root mount, so "voltar à mesa" survives even if the tool fails.
+   ============================================================ */
+@import url("/fonts/fonts.css");
+
+.ico-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 54px;
+  padding: 8px clamp(14px, 3vw, 30px);
+  box-sizing: border-box;
+  background: #F2EAD9;               /* editorial --paper */
+  border-bottom: 1px solid #211B16; /* editorial --ink   */
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+}
+
+.ico-bar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #211B16;
+}
+.ico-bar .brand img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: 2px;
+}
+.ico-bar .brand b {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.ico-bar .brand .div {
+  width: 1px;
+  height: 15px;
+  background: rgba(33, 27, 22, .3); /* editorial --rule-hairline (~ink 30%) */
+}
+.ico-bar .brand .lbl {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: .18em;
+  font-size: 11px;
+  color: #9B2C1C;                   /* editorial --rubric */
+}
+.ico-bar .brand:hover .lbl {
+  color: #7D2316;                   /* ~ --accent-hover (rubric darkened) */
+}
+
+.ico-bar .sp {
+  flex: 1;
+}
+
+.ico-bar .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  color: rgba(33, 27, 22, .7);      /* editorial --text-muted (~ink 70%) */
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ico-bar .back:hover {
+  color: #9B2C1C;
+}
+.ico-bar .back .ar {
+  color: #9B2C1C;
+}

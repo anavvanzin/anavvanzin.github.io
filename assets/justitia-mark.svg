@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Blindfolded Justitia mark">
+  
+  <g fill="none" stroke="#211B16" stroke-linecap="round" stroke-linejoin="round">
+    
+    <circle cx="120" cy="88" r="44" stroke-width="9"></circle>
+    
+    <path d="M 92 50 L 96 30 L 106 44" stroke-width="7"></path>
+    <path d="M 113 42 L 120 22 L 127 42" stroke-width="7"></path>
+    <path d="M 134 44 L 144 30 L 148 50" stroke-width="7"></path>
+    
+    <path d="M 120 132 L 120 150" stroke-width="7"></path>
+  </g>
+  
+  <g stroke="#9B2C1C" fill="none" stroke-linecap="round">
+    <path d="M 74 88 L 166 88" stroke-width="14"></path>
+    <path d="M 166 88 L 184 74" stroke-width="7"></path>
+    <path d="M 166 88 L 186 96" stroke-width="7"></path>
+  </g>
+  
+  <g stroke="#211B16" fill="none" stroke-linecap="round">
+    <path d="M 50 150 L 190 150" stroke-width="8"></path>
+    <path d="M 50 150 L 50 184" stroke-width="4"></path>
+    <path d="M 190 150 L 190 184" stroke-width="4"></path>
+    <path d="M 32 186 Q 50 206 68 186" stroke-width="7"></path>
+    <path d="M 172 186 Q 190 206 208 186" stroke-width="7"></path>
+  </g>
+  <circle cx="50" cy="150" r="6" fill="#211B16"></circle>
+  <circle cx="190" cy="150" r="6" fill="#211B16"></circle>
+</svg>

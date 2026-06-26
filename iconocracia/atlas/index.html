@@ -1,0 +1,174 @@
+<!-- @dsCard group="Companion" viewport="1280x900" name="Atlas — página da pesquisa" subtitle="Página única rolável: tese, corpus, atlas, radiografia, léxico, método — com Tweaks" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ICONOCRACIA — Atlas da Pesquisa</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/iconocracia/sysbar.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="tweaks-panel.js"></script>
+<script src="corpus.generated.js"></script>
+<script src="data.js"></script>
+<script src="parts.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    body { transition: none; }
+  }
+  body { margin: 0; transition: background .35s var(--ease-out); }
+  .atlas-root { position: relative; min-height: 100vh; }
+  .grain-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 1; background-image: var(--c-grain); background-size: 200px; opacity: .8; mix-blend-mode: multiply; }
+  .reveal > * { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal > * { animation: fadeSlideUp .7s var(--ease-out) both; }
+    .reveal > *:nth-child(1){animation-delay:.02s} .reveal > *:nth-child(2){animation-delay:.10s}
+    .reveal > *:nth-child(3){animation-delay:.16s} .reveal > *:nth-child(4){animation-delay:.22s}
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "ICONOCRACIA — Atlas da Pesquisa",
+  "url": "https://anavanzin.com/iconocracia/atlas/",
+  "inLanguage": "pt-BR",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ana vanzin",
+    "url": "https://anavanzin.com/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Início",
+      "item": "https://anavanzin.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "ICONOCRACIA — Atlas da Pesquisa",
+      "item": "https://anavanzin.com/iconocracia/atlas/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="ico-bar">
+<a class="brand" href="/iconocracia/" title="ICONOCRACIA · Iuris Memoria"><img src="/assets/avatar-pixel.png" alt=""><b>ana vanzin</b><span class="div"></span><span class="lbl">atlas</span></a>
+<span class="sp"></span>
+<a class="back" href="/"><span class="ar">←</span> voltar à mesa</a>
+</header>
+<div id="root"></div>
+<script>
+(function () {
+const {
+  useTweaks,
+  TweaksPanel,
+  TweakSection,
+  TweakRadio,
+  TweakSelect,
+  TweakColor,
+  TweakSlider,
+  TweakText
+} = window;
+const P = window.AtlasParts;
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tone": "claro",
+  "accent": "#8A5FA8",
+  "scale": 1.1,
+  "density": "regular",
+  "heroSplit": "texto dominante",
+  "title": "A alegoria feminina ",
+  "kicker": "ICONOCRACIA · Tese de Doutorado · PPGD\/UFSC"
+} /*EDITMODE-END*/;
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const theme = P.atlasTheme(t);
+  React.useEffect(() => {
+    document.body.style.background = theme["--c-ground"];
+  }, [theme["--c-ground"]]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "atlas-root",
+    style: {
+      ...theme,
+      background: "var(--c-ground)",
+      color: "var(--c-ink)",
+      fontFamily: "var(--font-body)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "grain-overlay"
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative",
+      zIndex: 2
+    }
+  }, /*#__PURE__*/React.createElement(P.Nav, {
+    tone: t.tone
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "reveal"
+  }, /*#__PURE__*/React.createElement(P.Hero, {
+    t: t
+  }), /*#__PURE__*/React.createElement(P.Stats, null)), /*#__PURE__*/React.createElement(P.Argument, null), /*#__PURE__*/React.createElement(P.Anatomia, null), /*#__PURE__*/React.createElement(P.CorpusWall, {
+    t: t
+  }), /*#__PURE__*/React.createElement(P.AtlasBand, null), /*#__PURE__*/React.createElement(P.Radiografia, null), /*#__PURE__*/React.createElement(P.Lexico, null), /*#__PURE__*/React.createElement(P.Method, null), /*#__PURE__*/React.createElement(P.Colophon, null)), /*#__PURE__*/React.createElement(TweaksPanel, null, /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Tom & paleta"
+  }), /*#__PURE__*/React.createElement(TweakRadio, {
+    label: "Tom",
+    value: t.tone,
+    options: ["claro", "cabinet"],
+    onChange: v => setTweak('tone', v)
+  }), /*#__PURE__*/React.createElement(TweakColor, {
+    label: "Acento",
+    value: t.accent,
+    options: ["#8A5FA8", "#A04030", "#B8924A", "#2A7A5A", "#1D2548"],
+    onChange: v => setTweak('accent', v)
+  }), /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Tipografia"
+  }), /*#__PURE__*/React.createElement(TweakSlider, {
+    label: "Escala",
+    value: t.scale,
+    min: 0.85,
+    max: 1.25,
+    step: 0.05,
+    onChange: v => setTweak('scale', v)
+  }), /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Layout"
+  }), /*#__PURE__*/React.createElement(TweakRadio, {
+    label: "Densidade",
+    value: t.density,
+    options: ["compacto", "regular", "amplo"],
+    onChange: v => setTweak('density', v)
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "Propor\xE7\xE3o do her\xF3i",
+    value: t.heroSplit,
+    options: ["equilíbrio", "imagem dominante", "texto dominante"],
+    onChange: v => setTweak('heroSplit', v)
+  }), /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Texto"
+  }), /*#__PURE__*/React.createElement(TweakText, {
+    label: "T\xEDtulo",
+    value: t.title,
+    onChange: v => setTweak('title', v)
+  }), /*#__PURE__*/React.createElement(TweakText, {
+    label: "Kicker",
+    value: t.kicker,
+    onChange: v => setTweak('kicker', v)
+  })));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
+})();
+</script>
+</body>
+</html>

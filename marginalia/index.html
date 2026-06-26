@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginália · ana vanzin</title>
+<link rel="icon" href="/assets/avatar-pixel.png">
+<meta name="description" content="Marginália — ensaios curtos sobre imagens jurídicas, alegoria, símbolos públicos e a vida visual da autoridade.">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../editorial.css">
+<style>
+  /* featured essay */
+  .feat { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(24px,4vw,52px); align-items: start;
+    margin: clamp(40px,6vh,72px) 0 0; padding-bottom: clamp(40px,6vh,68px); border-bottom: 1.5px solid var(--ink); }
+  .feat .ed-fig { margin: 0; }
+  .feat .fmeta { font-family:'JetBrains Mono',monospace; font-size: 11px; letter-spacing:.04em; color: var(--text-faint); display:flex; gap:14px; flex-wrap:wrap; }
+  .feat h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem,4vw,2.9rem); line-height:1.05; margin: 12px 0 0; text-transform: lowercase; letter-spacing:-.01em; }
+  .feat .fd { font-family: var(--font-display); font-style: italic; font-size: 1.3rem; line-height:1.34; color: var(--ink); margin: 14px 0 0; }
+  .feat .fx { font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 16px 0 0; max-width: 50ch; }
+  .feat .flink { margin-top: 18px; }
+  @media(max-width: 820px){ .feat { grid-template-columns: 1fr; } }
+
+  /* essay index — vertical editorial list */
+  .essays { margin-top: clamp(36px,5vh,56px); }
+  .essays .ix-h { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing:.18em; font-size:12px; color: var(--text-faint); margin:0 0 6px; }
+  .essay { display: grid; grid-template-columns: 110px 1fr 132px; gap: 6px 22px; align-items: start;
+    padding: 26px 0; border-top: 1px solid var(--rule-hairline); text-decoration:none; color: var(--ink); }
+  .essay:first-of-type { border-top: 1.5px solid var(--ink); }
+  .essay .date { font-family:'JetBrains Mono',monospace; font-size: 11.5px; letter-spacing:.04em; color: var(--text-faint); padding-top:5px; }
+  .essay .et { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; line-height:1.12; text-transform: lowercase; }
+  .essay .ed2 { font-size: 14.5px; line-height:1.55; color: var(--text-muted); margin-top: 7px; max-width: 52ch; }
+  .essay .themes { display:flex; gap:8px 16px; flex-wrap:wrap; margin-top:11px; }
+  .essay .themes span { font-family: var(--font-display); font-weight:600; text-transform:uppercase; letter-spacing:.12em; font-size:10px; color: var(--rubric); }
+  .essay .det { grid-row: 1 / span 4; grid-column: 3; }
+  .essay .det .ph { min-height: 96px; }
+  .essay .det .ph .ph-lbl { font-size: 9.5px; padding: 3px 6px; }
+  .essay:hover .et { color: var(--rubric); }
+  @media(max-width: 720px){ .essay { grid-template-columns: 1fr; } .essay .det { grid-row: auto; grid-column: 1; max-width: 220px; margin-top: 12px; } .essay .date{padding-top:0;} }
+
+  .archive-note { max-width: 56ch; margin: clamp(46px,7vh,80px) auto 0; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height:1.4; color: var(--text-muted); text-align:center; }
+</style>
+</head>
+<body class="ed" data-route="marginalia">
+  <header class="ed-bar">
+    <a class="brand" href="../index.html" title="← voltar à mesa">
+      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="marginália" data-en="marginalia">marginália</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="../iconocracia/" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="index.html" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
+      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
+
+  <main class="ed-page">
+    <a class="ed-back" href="../iconocracia/"><span class="ar">←</span><span data-pt="ICONOCRACIA" data-en="ICONOCRACIA">ICONOCRACIA</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="Escrita · notas de pesquisa" data-en="Writing · research notes">Escrita · notas de pesquisa</p>
+      <h1 class="ed-title rise" style="--d:.06s">marginália</h1>
+      <p class="dek rise" style="--d:.12s" data-pt="Ensaios curtos sobre imagens jurídicas, alegoria, símbolos públicos e a vida visual da autoridade." data-en="Short essays on legal images, allegory, public symbols and the visual life of authority.">Ensaios curtos sobre imagens jurídicas, alegoria, símbolos públicos e a vida visual da autoridade.</p>
+    </div>
+
+    <!-- featured essay -->
+    <article class="feat">
+      <figure class="ed-fig">
+        <div class="frame"><div class="ph tall"><span class="ph-lbl" data-pt="detalhe — Justitia vendada, tradição do Narrenschiff · imagem a digitalizar" data-en="detail — blindfolded Justitia, Narrenschiff tradition · image to be digitised">detalhe — Justitia vendada, tradição do Narrenschiff · imagem a digitalizar</span></div></div>
+        <figcaption><span class="cap" data-pt="Detalhe de estudo." data-en="Study detail.">Detalhe de estudo.</span><span class="src" data-pt="direitos a verificar" data-en="rights to be verified">direitos a verificar</span></figcaption>
+      </figure>
+      <div>
+        <p class="fmeta"><span data-pt="Em destaque" data-en="Featured">Em destaque</span><span>2026 · 03</span><span data-pt="justiça e cegueira" data-en="justice and blindness">justiça e cegueira</span></p>
+        <h2><a href="justica-nao-nasceu-cega.html" style="color:inherit;text-decoration:none" data-pt="a justiça não nasceu cega" data-en="justice was not born blind">a justiça não nasceu cega</a></h2>
+        <p class="fd" data-pt="A venda chegou pela porta do escárnio — não da virtude." data-en="The blindfold entered through the door of mockery — not of virtue.">A venda chegou pela porta do escárnio — não da virtude.</p>
+        <p class="fx" data-pt="Na gravura de 1494, um tolo cobre os olhos de Justitia. A imagem é sátira: zomba de uma justiça que não quer ver. Levaria mais de um século para que a mesma venda passasse a significar imparcialidade. [Texto provisório — verificação arquivística em curso.]" data-en="In the 1494 woodcut a fool covers Justitia's eyes. The image is satire: it mocks a justice that refuses to see. It would take more than a century for the same blindfold to come to mean impartiality. [Provisional text — archival verification in progress.]">Na gravura de 1494, um tolo cobre os olhos de Justitia. A imagem é sátira: zomba de uma justiça que não quer ver. Levaria mais de um século para que a mesma venda passasse a significar imparcialidade. [Texto provisório — verificação arquivística em curso.]</p>
+        <p class="flink"><a class="tl" href="justica-nao-nasceu-cega.html"><span data-pt="Ler o ensaio" data-en="Read essay">Ler o ensaio</span> <span class="ar">→</span></a></p>
+      </div>
+    </article>
+
+    <!-- essay index -->
+    <section class="essays">
+      <p class="ix-h" data-pt="Todas as entradas" data-en="All entries">Todas as entradas</p>
+
+      <a class="essay" href="justica-nao-nasceu-cega.html">
+        <span class="date">2026 · 03</span>
+        <span>
+          <span class="et" data-pt="a justiça não nasceu cega" data-en="justice was not born blind">a justiça não nasceu cega</span>
+          <span class="ed2" data-pt="Como a venda de Justitia passou de escárnio a promessa institucional." data-en="How Justitia's blindfold went from satire to institutional promise.">Como a venda de Justitia passou de escárnio a promessa institucional.</span>
+          <span class="themes"><span data-pt="justiça e cegueira" data-en="justice and blindness">justiça e cegueira</span><span data-pt="alegoria feminina" data-en="feminine allegory">alegoria feminina</span></span>
+        </span>
+        <span class="det"><span class="frame" style="display:block;border:1px solid var(--ink)"><span class="ph short" style="display:flex"><span class="ph-lbl" data-pt="venda · estudo" data-en="blindfold · study">venda · estudo</span></span></span></span>
+      </a>
+
+      <a class="essay" href="balanca.html">
+        <span class="date">2026 · 02</span>
+        <span>
+          <span class="et" data-pt="uma balança nunca é só uma balança" data-en="a scale is never just a scale">uma balança nunca é só uma balança</span>
+          <span class="ed2" data-pt="O fiel, os pratos e o gesto de pesar como tecnologia política da medida. [Excerto provisório.]" data-en="The beam, the pans and the act of weighing as a political technology of measure. [Provisional excerpt.]">O fiel, os pratos e o gesto de pesar como tecnologia política da medida. [Excerto provisório.]</span>
+          <span class="themes"><span data-pt="direito e violência" data-en="law and violence">direito e violência</span><span data-pt="soberania visual" data-en="visual sovereignty">soberania visual</span></span>
+        </span>
+        <span class="det"><span class="frame" style="display:block;border:1px solid var(--ink)"><span class="ph short" style="display:flex"><span class="ph-lbl" data-pt="balança · detalhe" data-en="scale · detail">balança · detalhe</span></span></span></span>
+      </a>
+
+      <a class="essay" href="fachada.html">
+        <span class="date">2026 · 01</span>
+        <span>
+          <span class="et" data-pt="a mulher na fachada do tribunal" data-en="the woman on the courthouse façade">a mulher na fachada do tribunal</span>
+          <span class="ed2" data-pt="Por que a figura feminina guarda a entrada da lei — e o que ela é convocada a representar. [Excerto provisório.]" data-en="Why the feminine figure guards the entrance of law — and what she is summoned to represent. [Provisional excerpt.]">Por que a figura feminina guarda a entrada da lei — e o que ela é convocada a representar. [Excerto provisório.]</span>
+          <span class="themes"><span data-pt="nação e república" data-en="nation and republic">nação e república</span><span data-pt="feminilidade de estado" data-en="state femininity">feminilidade de estado</span></span>
+        </span>
+        <span class="det"><span class="frame" style="display:block;border:1px solid var(--ink)"><span class="ph short" style="display:flex"><span class="ph-lbl" data-pt="fachada · detalhe" data-en="façade · detail">fachada · detalhe</span></span></span></span>
+      </a>
+    </section>
+
+    <p class="archive-note" data-pt="Estas entradas nascem da pesquisa em curso, dos arquivos, do ensino e da vida pública. São notas — não conclusões." data-en="These entries emerge from ongoing research, archives, teaching and public life. They are notes — not conclusions.">Estas entradas nascem da pesquisa em curso, dos arquivos, do ensino e da vida pública. São notas — não conclusões.</p>
+  </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <div class="zone brand">
+        <a class="id" href="/"><img src="/assets/monogram-av-inverse.svg" alt=""> <b>ana vanzin</b></a>
+        <p class="desc" data-pt="advogada · historiadora do direito · doutoranda PPGD/UFSC" data-en="lawyer · legal historian · PhD candidate, PPGD/UFSC">advogada · historiadora do direito · doutoranda PPGD/UFSC</p>
+      </div>
+      <nav class="zone nav" aria-label="Navegação do rodapé">
+        <span class="zt" data-pt="navegação" data-en="navigation">navegação</span>
+        <a href="/">mesa</a>
+        <a href="/iconocracia/">iconocracia</a>
+        <a href="/publicacoes/" data-pt="publicações" data-en="publications">publicações</a>
+        <a href="/sala-de-leitura/" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+        <a href="/sobre.html" data-pt="sobre" data-en="about">sobre</a>
+      </nav>
+      <div class="zone links">
+        <span class="zt" data-pt="canais" data-en="channels">canais</span>
+        <a href="mailto:anavvanzin@outlook.com">e-mail</a>
+        <a href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener">Lattes ↗</a>
+        <a href="https://instagram.com/anavanzin" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="http://hookahr.tumblr.com/" target="_blank" rel="noopener">Tumblr ↗</a>
+      </div>
+    </div>
+    <div class="base">
+      <span class="cl">© 2026 ana vanzin · PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+      <a class="top" href="#" data-pt="voltar ao topo ↑" data-en="back to top ↑">voltar ao topo ↑</a>
+    </div>
+  </footer>
+  <script src="../editorial.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+/* ICONOCRACIA — Color tokens
+   "Iuris Memoria": an archival, juridical palette sourced as if from
+   actual documents — iron-gall ink, faded vermilion, dust-yellow vellum,
+   aged gold leaf, malachite verdigris, with cool analytical intrusions. */
+
+:root {
+  /* ── Base · grounds ─────────────────────────── */
+  --paper:        #EFE5CF; /* warm vellum — primary page ground          */
+  --cream:        #F8F5EE; /* card / panel surface                       */
+  --ghost:        #F8F5EE; /* document folio surface (codex pages)       */
+  --ivory:        #E8DCC4; /* warm ivory — text on dark grounds          */
+  --ivory-light:  #F4F0E8;
+  --muted:        #DDD0B8; /* image placeholder / inert fill             */
+
+  /* ── Base · inks ────────────────────────────── */
+  --ink:          #1A1612; /* near-black warm-brown iron-gall ink        */
+  --warm-gray:    #7D756D; /* secondary prose                            */
+  --marble:       #9A9690; /* tertiary / stone captions                  */
+  --faded:        #8D8377; /* labels, meta, disabled                     */
+  --faded-on-dark:#D8CDBA; /* muted text over dark grounds               */
+
+  /* ── Brand mark · "Selo-Cartela · Lacre" ─────
+     The locked logo palette (mark 05 + palette 07). These are the
+     canonical brand-identity hexes; the document-sourced tokens above
+     remain the working surface palette. Keep them in lock-step:
+     reach for --brand-* only when rendering the mark / brand lockups. */
+  --brand-paper:    #EFE7D6; /* lockup ground                            */
+  --brand-indigo:   #1B2B4A; /* mark line / wordmark ink                 */
+  --brand-lacre:    #A8281F; /* wax-seal red — reverse chip, seal fill   */
+  --brand-ocre:     #D49A3C; /* brass — secondary mark accent            */
+  --brand-amethyst: #8A5FA8; /* feminine archival voice — inner ring     */
+
+  /* ── Base · juridical accents ───────────────── */
+  --terracotta:   #A04030; /* iron-oxide / faded vermilion — primary act */
+  --terracotta-deep:#7C2D12;
+  --deep-blue:    #1D2548; /* navy-deep — institutional reason           */
+  --navy-mid:     #2B3556; /* cabinet panels                             */
+  --gold:         #B8924A; /* aged gold leaf — rules, marks, frames      */
+  --gold-bright:  #D4A85E; /* lit gold — active / on-dark emphasis       */
+
+  /* ── Base · borders ─────────────────────────── */
+  --light-border: #D4C19A; /* hairline on light grounds                  */
+  --hairline-dark: rgba(184,146,74,.32); /* gold hairline on dark        */
+
+  /* ── Cabinet / "Prumo" chrome ────────────────
+     The dark indigo tier that frames the light vellum reading surface:
+     header, sidebar, plate captions. The plumb line (fio de prumo) and
+     amethyst node are the signature of the navigation spine. */
+  --cabinet-top:    #1B2B4A; /* chrome gradient — top (= brand indigo)    */
+  --cabinet-bottom: #131F36; /* chrome gradient — bottom                  */
+  --cabinet-grad:   linear-gradient(180deg, var(--cabinet-top), var(--cabinet-bottom));
+  --plumb-line:     linear-gradient(180deg, var(--gold-bright), rgba(212,154,60,.16)); /* fio de prumo */
+  --plumb-node:     var(--brand-amethyst);     /* amethyst bob — active spine node */
+  --plumb-halo:     rgba(138,95,168,.22);      /* glow ring around an active node  */
+  --plumb-bob:      var(--brand-lacre);        /* the weight at the line's end     */
+
+  /* ── Regimes (iconocratic classification) ───── */
+  --fundacional:  #5B3FA0; /* foundational — revolutionary corpus        */
+  --normativo:    #2A7A5A; /* normative — bureaucratic stabilization     */
+  --militar:      #A02828; /* military — ENDURECIMENTO                    */
+  --contra-alegoria:#A04030; /* counter-allegory / fissures              */
+
+  /* ── Semantic aliases ───────────────────────── */
+  --surface-page:    var(--paper);
+  --surface-card:    var(--cream);
+  --surface-folio:   var(--ghost);
+  --surface-cabinet: var(--deep-blue); /* dark "cabinet" tier (Atlas)    */
+  --surface-cabinet-2: var(--navy-mid);
+
+  --text-primary:  var(--ink);
+  --text-secondary:var(--warm-gray);
+  --text-tertiary: var(--faded);
+  --text-on-dark:  var(--ivory);
+  --text-on-dark-muted: var(--faded-on-dark);
+
+  /* ── Semantic accents (the system's two-voice rule) ──
+     terracotta = the LIVE MARGIN: primary action, the iron-oxide rule
+                  down the side of a record, alerts/contra-allegory.
+     amethyst   = SELECTION / ACTIVE STATE: the chosen nav node, the
+                  selected row, the feminine archival voice. */
+  --accent:         var(--terracotta); /* primary action / live margin    */
+  --accent-gold:   var(--gold);       /* archival mark / frame           */
+  --accent-navy:   var(--deep-blue);
+  --state-active:  var(--brand-amethyst); /* selected / active node       */
+  --state-active-halo: var(--plumb-halo);
+  --alert:         var(--terracotta);  /* warnings / fissures             */
+
+  --border:        var(--light-border);
+  --border-on-dark:var(--hairline-dark);
+
+  --selection:     rgba(139,58,26,.18);
+
+  /* ── Country accents (corpus geography) ─────── */
+  --country-fr:#1D3A6E; --country-uk:#7C2D12; --country-de:#3A3A3A;
+  --country-us:#2A4D7A; --country-be:#8A6D1F; --country-br:#2A7A5A;
+}

@@ -10,25 +10,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trechos | anavanzin</title>
   <meta name="description" content="Coleção de 1.608 trechos literários reunidos entre 2014 e 2026.">
+  <link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
+  <link rel="apple-touch-icon" href="/assets/avatar-pixel.png">
+  <link rel="stylesheet" href="../fonts/fonts.css"><!-- self-hosted woff2: Crimson Pro + Cormorant + Hanken (no CDN) -->
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="site-header">
     <div class="brand">
+      <a class="back-mesa" href="/" title="voltar à mesa" aria-label="Voltar à mesa" style="color:var(--text-muted);text-decoration:none;font-family:var(--font-ui);font-size:.85rem;margin-right:.6rem;white-space:nowrap">←</a>
       <span class="brand-mark">❝</span>
       <h1>Trechos</h1>
       <span class="brand-count" id="quoteCount"></span>
     </div>
     <nav class="toolbar">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Buscar por palavra, autor..." autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Buscar por palavra, autor..." autocomplete="off" aria-label="Buscar trechos por palavra ou autor">
         <kbd>Ctrl+K</kbd>
       </div>
-      <button id="randomBtn" title="Sortear um trecho">🎲</button>
-      <button id="themeBtn" title="Alternar modo claro/escuro">◐</button>
+      <button id="randomBtn" title="Sortear um trecho" aria-label="Sortear um trecho">🎲</button>
+      <button id="themeBtn" title="Alternar modo claro/escuro" aria-label="Alternar modo claro/escuro">◐</button>
     </nav>
   </header>
 

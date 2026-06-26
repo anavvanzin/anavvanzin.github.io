@@ -4,3 +4,14 @@ node_modules/
 .vscode/
 .idea/
 *.log
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# preview/build artifacts (not part of the deployed site)
+.playwright-mcp/
+site/
