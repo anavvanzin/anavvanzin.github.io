@@ -15,3 +15,7 @@ node_modules/
 # preview/build artifacts (not part of the deployed site)
 .playwright-mcp/
 site/
+
+# local-only reference material (NOT deployed — kept off GH Pages)
+assets/anavanzin_site_asset_pack/
+FOTOSSSS/
