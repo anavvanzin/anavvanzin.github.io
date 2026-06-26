@@ -137,10 +137,37 @@
     color:var(--gold); font-family:var(--disp); font-size:18px; margin:2px 0 -4px}
   .flourish::before,.flourish::after{content:""; height:1px; flex:1; max-width:130px;
     background:linear-gradient(90deg, transparent, color-mix(in srgb,var(--gold) 65%, transparent), transparent)}
+
+  /* ---------- boot / entrada ---------- */
+  #boot{position:fixed; inset:0; z-index:200; background:var(--paper);
+    background-image:radial-gradient(rgba(33,27,22,.04) .5px,transparent .5px); background-size:4px 4px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; text-align:center;
+    transition:opacity .6s ease}
+  #boot.gone{opacity:0; pointer-events:none}
+  #boot .seal{width:148px; height:148px; border-radius:50%; object-fit:contain; padding:14px;
+    background:radial-gradient(circle, color-mix(in srgb,var(--gold) 13%, var(--paper)) 0%, var(--paper) 70%)}
+  #boot .mart{font-family:var(--disp); font-weight:600; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin:0}
+  #boot .nm{font-family:var(--mono); font-size:12px; letter-spacing:.06em; border:1px solid var(--ink); padding:3px 12px; background:var(--paper-card)}
+  #boot .sub{font-family:var(--mono); font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:color-mix(in srgb,var(--ink) 58%,var(--paper)); margin:6px 0 0}
+  #boot .barwrap{width:min(280px,60vw); height:9px; border:1px solid var(--ink); background:var(--paper); margin-top:4px; padding:1px}
+  #boot .bar{height:100%; width:0; background:var(--rubric); transition:width .12s linear}
+  #boot .enter{margin-top:6px; font-family:var(--disp); font-weight:600; letter-spacing:.18em; text-transform:uppercase; font-size:14px;
+    border:1px solid var(--ink); background:var(--paper-card); color:var(--ink); padding:8px 28px; box-shadow:var(--hard-sm); cursor:pointer; opacity:.35; pointer-events:none; transition:opacity .3s, background .15s}
+  #boot .enter.ready{opacity:1; pointer-events:auto}
+  #boot .enter:hover{background:var(--ink); color:var(--paper)}
 </style>
 </head>
 <body>
 <div class="pageframe" aria-hidden="true"></div>
+
+<div id="boot" role="dialog" aria-label="Abertura">
+  <img class="seal" src="/assets/landing/martirios.png" alt="">
+  <p class="mart">Martírios e Delírios</p>
+  <span class="nm">ANA VANZIN</span>
+  <p class="sub" data-pt="Iconocracia · Mesa" data-en="Iconocracy · Desk">Iconocracia · Mesa</p>
+  <div class="barwrap"><div class="bar" id="bootbar"></div></div>
+  <button class="enter" id="bootenter" type="button" data-pt="Entrar" data-en="Enter">Entrar</button>
+</div>
 
 <header class="menubar">
   <img class="seal" src="/assets/sun-seal.svg" alt="">
@@ -266,6 +293,15 @@
     document.getElementById('addcup').addEventListener('click', function(){
       cups = cups>=MAX ? 1 : cups+1; el.textContent = '☕'.repeat(cups);
     });
+    // boot / entrada (uma vez por sessão)
+    var boot=document.getElementById('boot');
+    try{ if(boot && sessionStorage.getItem('av_entered')==='1'){ boot.remove(); boot=null; } }catch(e){}
+    if(boot){
+      var bar=document.getElementById('bootbar'), enter=document.getElementById('bootenter'), p=0;
+      var iv=setInterval(function(){ p+=4+Math.round(p/12); if(p>=100){ p=100; clearInterval(iv); enter.classList.add('ready'); } bar.style.width=p+'%'; }, 60);
+      var go=function(){ boot.classList.add('gone'); try{ sessionStorage.setItem('av_entered','1'); }catch(e){} setTimeout(function(){ if(boot) boot.remove(); }, 700); };
+      enter.addEventListener('click', go);
+    }
   })();
 </script>
 </body>
