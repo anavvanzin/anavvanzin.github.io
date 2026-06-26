@@ -147,9 +147,8 @@ function WIus({
       paddingTop: 4
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "#",
-    external: true
-  }, L(lang, 'Diretório CNPq', 'CNPq Directory'))));
+    href: "grupoiusgentium/"
+  }, L(lang, 'Página do grupo', 'Group page'))));
 }
 function WContato({
   lang

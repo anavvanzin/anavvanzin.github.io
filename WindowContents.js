@@ -79,7 +79,7 @@ function WIus({ lang }) {
       <p style={win_p}>{L(lang,
         'Encontros quinzenais, abertos a graduação e pós-graduação.',
         'Fortnightly meetings, open to undergraduate and graduate students.')}</p>
-      <div style={{ paddingTop: 4 }}><RubricLink href="#" external>{L(lang, 'Diretório CNPq', 'CNPq Directory')}</RubricLink></div>
+      <div style={{ paddingTop: 4 }}><RubricLink href="grupoiusgentium/">{L(lang, 'Página do grupo', 'Group page')}</RubricLink></div>
     </div>
   );
 }
