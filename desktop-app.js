@@ -517,7 +517,7 @@ function Boot({
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/avatar-pixel.png",
+    src: "/assets/avatar-pixel.png",
     alt: "Ana Vanzin",
     style: {
       height: 168,
@@ -630,55 +630,55 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'sobre') {
-      window.location.href = 'sobre.html';
+      window.location.href = '/sobre.html';
       return;
     }
     if (id === 'conceitos') {
-      window.location.href = 'conceitos.html';
+      window.location.href = '/conceitos.html';
       return;
     }
     if (id === 'iconocracia') {
-      window.location.href = 'iconocracia/';
+      window.location.href = '/iconocracia/';
       return;
     }
     if (id === 'radiografia') {
-      window.location.href = 'iconocracia/radiografia/';
+      window.location.href = '/iconocracia/radiografia/';
       return;
     }
     if (id === 'marginalia') {
-      window.location.href = 'marginalia/';
+      window.location.href = '/marginalia/';
       return;
     }
     if (id === 'advocacia') {
-      window.location.href = 'advocacia.html';
+      window.location.href = '/advocacia.html';
       return;
     }
     if (id === 'quotes') {
-      window.location.href = 'quotes/';
+      window.location.href = '/quotes/';
       return;
     }
     if (id === 'trabalhos') {
-      window.location.href = 'trabalhos.html';
+      window.location.href = '/trabalhos.html';
       return;
     }
     if (id === 'publicacoes') {
-      window.location.href = 'publicacoes/';
+      window.location.href = '/publicacoes/';
       return;
     }
     if (id === 'atlas') {
-      window.location.href = 'atlas/';
+      window.location.href = '/atlas/';
       return;
     }
     if (id === 'sala-de-leitura') {
-      window.location.href = 'sala-de-leitura/';
+      window.location.href = '/sala-de-leitura/';
       return;
     }
     if (id === 'curriculo') {
-      window.location.href = 'readme.html';
+      window.location.href = '/readme.html';
       return;
     }
     if (id === 'perfil') {
-      window.location.href = 'perfil.html';
+      window.location.href = '/perfil.html';
       return;
     }
     setSel(id);
@@ -751,7 +751,7 @@ function Desktop() {
       fontFamily: 'var(--font-body)'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     "aria-hidden": "true",
     style: {
@@ -786,7 +786,7 @@ function Desktop() {
       gap: 8
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/avatar-pixel.png",
+    src: "/assets/avatar-pixel.png",
     alt: "Ana Vanzin",
     width: 22,
     height: 22,

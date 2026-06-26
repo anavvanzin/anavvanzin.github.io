@@ -76,7 +76,7 @@ function WTese({
       overflow: 'hidden'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/banner.png",
+    src: "/assets/banner.png",
     alt: L(lang, 'Alegoria Feminina na História da Cultura Jurídica — Projeto de Doutorado, PPGD/UFSC', 'Female Allegory in the History of Legal Culture — PhD Project, PPGD/UFSC'),
     style: {
       display: 'block',
@@ -147,7 +147,7 @@ function WIus({
       paddingTop: 4
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "grupoiusgentium/"
+    href: "/grupoiusgentium/"
   }, L(lang, 'Página do grupo', 'Group page'))));
 }
 function WContato({
@@ -285,7 +285,7 @@ function WJustitia({
       justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia-sky.png",
+    src: "/assets/pixel-justitia-sky.png",
     alt: "Justitia, pixel art",
     style: {
       maxWidth: '100%',
@@ -320,7 +320,7 @@ function WVo({
       padding: '12px 12px 0'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/avo.png",
+    src: "/assets/avo.png",
     alt: L(lang, 'Ana, ainda menina, com a avó e um troféu', 'Ana as a child, with her grandmother and a trophy'),
     style: {
       display: 'block',

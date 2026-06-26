@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ana vanzin · mesa de trabalho</title>
+<meta name="robots" content="noindex"><!-- vista secundária; a home canônica é / -->
+<link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
+<link rel="apple-touch-icon" href="/assets/avatar-pixel.png">
+<meta name="description" content="Mesa de trabalho retrô de Ana Vanzin — desktop-OS com janelas para perfil, publicações, atlas visual e a pesquisa em iconocracia jurídica.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ana vanzin">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://anavanzin.com/mesa/">
+<meta property="og:title" content="ana vanzin · mesa de trabalho">
+<meta property="og:description" content="Mesa de trabalho retrô — desktop-OS com janelas para perfil, publicações, atlas visual e a pesquisa em iconocracia jurídica.">
+<meta property="og:image" content="https://anavanzin.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ana vanzin · mesa de trabalho">
+<meta name="twitter:description" content="Mesa de trabalho retrô — desktop-OS com janelas para perfil, publicações, atlas visual e a pesquisa em iconocracia jurídica.">
+<meta name="twitter:image" content="https://anavanzin.com/assets/og-image.png">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="/styles.css">
+<script src="/vendor/react/react-18.3.1.production.min.js"></script>
+<script src="/vendor/react/react-dom-18.3.1.production.min.js"></script>
+<script src="/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; min-height: 100%; background: var(--paper); }
+  html.desktop-enhanced, html.desktop-enhanced body { height: 100%; overflow: hidden; }
+  ::selection { background: var(--rubric); color: var(--paper); }
+</style>
+</head>
+<body style="font-family: sans-serif">
+<div id="root">
+  <main class="semantic-home" aria-labelledby="home-title" style="max-width: 760px; margin: 0 auto; padding: clamp(2rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem);">
+    <p style="letter-spacing: .18em; text-transform: uppercase; color: var(--rubric); font-size: .85rem; margin-bottom: 1rem;">direito · iconografia jurídica · pesquisa</p>
+    <h1 id="home-title" style="font-family: var(--font-display); font-size: clamp(3rem, 10vw, 6rem); line-height: 1; margin-bottom: 1rem;">ana vanzin</h1>
+    <p style="font-size: 1.2rem; line-height: 1.6; max-width: 62ch; margin-bottom: 1.5rem;">Advogada e historiadora do direito dedicada às alegorias femininas do direito, à iconografia jurídica e às relações entre imagem, poder e condição da mulher.</p>
+    <p style="line-height: 1.7; max-width: 62ch; margin-bottom: 1.5rem;">Esta é a mesa de trabalho retrô — uma camada interativa progressiva. Os principais caminhos também estão disponíveis aqui no HTML inicial, antes de qualquer hidratação JavaScript.</p>
+    <nav aria-label="Navegação principal" style="display: flex; flex-wrap: wrap; gap: .75rem 1rem;">
+      <a href="/sobre.html">Perfil</a>
+      <a href="/publicacoes/">Publicações</a>
+      <a href="/atlas/">Atlas</a>
+      <a href="/iconocracia/">Iconocracia</a>
+      <a href="/">Mesa iluminada</a>
+      <a href="mailto:anavvanzin@outlook.com">Contato</a>
+    </nav>
+  </main>
+</div>
+<script src="/icons.js"></script>
+<script src="/window-contents.js"></script>
+<script src="/desktop-app.js"></script>
+<script>
+  document.documentElement.classList.add('desktop-enhanced');
+  var Desktop = window.avapp.Desktop;
+  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(Desktop));
+</script>
+</body>
+</html>

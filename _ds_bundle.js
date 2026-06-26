@@ -629,7 +629,7 @@ function NavBar({
   items = [],
   activeId,
   onSelect,
-  lockupSrc = 'assets/lockup.svg',
+  lockupSrc = '/assets/lockup.svg',
   langToggle,
   style
 }) {
@@ -704,7 +704,7 @@ Object.assign(__ds_scope, { NavBar });
 try { (() => {
 /** Inverse ink footer: seal, contact line, printer's flourish. */
 function SiteFooter({
-  sealSrc = 'assets/seal.svg',
+  sealSrc = '/assets/seal.svg',
   email = 'ana@anavanzin.com',
   lines = [],
   style
@@ -1207,7 +1207,7 @@ function Boot({
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     style: {
       height: 150,
@@ -1314,15 +1314,15 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'conceitos') {
-      window.location.href = 'conceitos.html';
+      window.location.href = '/conceitos.html';
       return;
     }
     if (id === 'iconocracia') {
-      window.location.href = 'iconocracia/';
+      window.location.href = '/iconocracia/';
       return;
     }
     if (id === 'quotes') {
-      window.location.href = 'quotes/';
+      window.location.href = '/quotes/';
       return;
     }
     setSel(id);
@@ -1395,7 +1395,7 @@ function Desktop() {
       fontFamily: 'var(--font-body)'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     "aria-hidden": "true",
     style: {
@@ -1837,7 +1837,7 @@ function GroupIcon({
 }
 function ImageIcon({
   size = 46,
-  src = 'assets/pixel-justitia.png'
+  src = '/assets/pixel-justitia.png'
 }) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1864,7 +1864,7 @@ function ImageIcon({
 }
 function SealIcon({
   size = 46,
-  src = 'assets/sun-seal.svg'
+  src = '/assets/sun-seal.svg'
 }) {
   return /*#__PURE__*/React.createElement("img", {
     src: src,
@@ -2112,7 +2112,7 @@ function WTese({
       justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     style: {
       width: '100%',
@@ -2304,7 +2304,7 @@ function WJustitia({
       justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "assets/pixel-justitia-sky.png",
+    src: "/assets/pixel-justitia-sky.png",
     alt: "Justitia, pixel art",
     style: {
       maxWidth: '100%',
@@ -2781,7 +2781,7 @@ function Boot({
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     style: {
       height: 150,
@@ -2888,15 +2888,15 @@ function Desktop() {
   });
   const open = id => {
     if (id === 'conceitos') {
-      window.location.href = 'conceitos.html';
+      window.location.href = '/conceitos.html';
       return;
     }
     if (id === 'iconocracia') {
-      window.location.href = 'iconocracia/';
+      window.location.href = '/iconocracia/';
       return;
     }
     if (id === 'quotes') {
-      window.location.href = 'quotes/';
+      window.location.href = '/quotes/';
       return;
     }
     setSel(id);
@@ -2969,7 +2969,7 @@ function Desktop() {
       fontFamily: 'var(--font-body)'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     "aria-hidden": "true",
     style: {
@@ -3347,7 +3347,7 @@ function WTese({
       justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/pixel-justitia.png",
+    src: "/assets/pixel-justitia.png",
     alt: "",
     style: {
       width: '100%',
@@ -3539,7 +3539,7 @@ function WJustitia({
       justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/pixel-justitia-sky.png",
+    src: "/assets/pixel-justitia-sky.png",
     alt: "Justitia, pixel art",
     style: {
       maxWidth: '100%',
@@ -3741,7 +3741,7 @@ function GroupIcon({
 }
 function ImageIcon({
   size = 46,
-  src = '../../assets/pixel-justitia.png'
+  src = '/assets/pixel-justitia.png'
 }) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3768,7 +3768,7 @@ function ImageIcon({
 }
 function SealIcon({
   size = 46,
-  src = '../../assets/sun-seal.svg'
+  src = '/assets/sun-seal.svg'
 }) {
   return /*#__PURE__*/React.createElement("img", {
     src: src,
@@ -4201,7 +4201,7 @@ function PageTese() {
       alignItems: 'flex-start'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/justitia-mark.svg",
+    src: "/assets/justitia-mark.svg",
     alt: "",
     width: "72"
   }), /*#__PURE__*/React.createElement(Eyebrow, {
