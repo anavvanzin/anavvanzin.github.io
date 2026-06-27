@@ -303,8 +303,9 @@
   let currentQuoteIndex = 0;
 
   function showNextQuote() {
-    currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
-    const q = QUOTES[currentQuoteIndex];
+    const active = ALLEGORIES[activeAllegoryIndex];
+    currentQuoteIndex = (currentQuoteIndex + 1) % active.quotes.length;
+    const q = active.quotes[currentQuoteIndex];
     const firstChar = q.text.charAt(0);
     const remainingText = q.text.slice(1);
     
@@ -1190,6 +1191,15 @@
       p.draw();
     }
 
+    // Draw allegory banner name
+    ctx.save();
+    ctx.fillStyle = 'var(--gold)';
+    ctx.font = 'bold 9px var(--font-mono)';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0.12em';
+    ctx.fillText('❧ ' + ALLEGORIES[activeAllegoryIndex].name + ' ❧', cx, HEIGHT - 18);
+    ctx.restore();
+
     ctx.restore();
   }
 
@@ -1209,7 +1219,11 @@
     flipStartAngle = angle;
     targetAngle = angle + Math.PI;
     
-    // Efeito 3D de escala (Z-axis shrink) durante o giro
+    // Cycle allegory
+    activeAllegoryIndex = (activeAllegoryIndex + 1) % ALLEGORIES.length;
+    currentQuoteIndex = -1; // Reset quote index for the new allegory
+    initActiveSegments();   // Load new collision segments
+
     outerFrame.style.transform = 'scale(0.94) rotate(' + (targetAngle * 180 / Math.PI) + 'deg)';
   });
 
