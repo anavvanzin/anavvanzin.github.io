@@ -10,7 +10,8 @@ const {
   QuoteIcon,
   AtlasIcon,
   WorksIcon,
-  CloseBox
+  CloseBox,
+  HourglassIcon
 } = window.avapp;
 const {
   WSobre,
@@ -19,7 +20,8 @@ const {
   WIus,
   WContato,
   WJustitia,
-  WVo
+  WVo,
+  WAmpulheta
 } = window.avapp;
 const REG = {
   sobre: {
@@ -77,6 +79,14 @@ const REG = {
     },
     w: 360,
     Body: WVo
+  },
+  ampulheta: {
+    title: {
+      pt: 'ampulheta.app',
+      en: 'hourglass.app'
+    },
+    w: 480,
+    Body: WAmpulheta
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
@@ -206,6 +216,13 @@ const DESK_ICONS = [{
     en: 'contact'
   },
   Icon: MailIcon
+}, {
+  id: 'ampulheta',
+  label: {
+    pt: 'ampulheta.app',
+    en: 'hourglass.app'
+  },
+  Icon: HourglassIcon
 }];
 const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
@@ -407,11 +424,11 @@ function WindowFrame({
     onMin: () => onMin(win.id),
     onDown: e => onDragStart(e, win.id),
     draggable: !isMobile
-  }), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: win.id === 'justitia' ? 12 : 22,
+      padding: win.id === 'ampulheta' ? 0 : (win.id === 'justitia' ? 12 : 22),
       maxHeight: isMobile ? '64vh' : '58vh',
-      overflow: 'auto'
+      overflow: win.id === 'ampulheta' ? 'hidden' : 'auto'
     }
   }, /*#__PURE__*/React.createElement(Body, {
     lang: lang

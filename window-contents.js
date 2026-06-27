@@ -347,6 +347,19 @@ function WVo({
     }
   }, L(lang, 'família · onde tudo começou', 'family · where it all began')))));
 }
+function WAmpulheta() {
+  return /*#__PURE__*/React.createElement("iframe", {
+    src: "/ampulheta.html",
+    style: {
+      width: '100%',
+      height: '70vh',
+      maxHeight: '540px',
+      border: 'none',
+      display: 'block'
+    },
+    title: "Ampulheta Caótica"
+  });
+}
 Object.assign(window.avapp = window.avapp || {}, {
   WSobre,
   WTese,
@@ -355,6 +368,7 @@ Object.assign(window.avapp = window.avapp || {}, {
   WContato,
   WJustitia,
   WCv,
-  WVo
+  WVo,
+  WAmpulheta
 });
 })();

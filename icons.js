@@ -387,6 +387,64 @@ function CloseBox({
     }
   });
 }
+function HourglassIcon({
+  size = 46
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 48 48",
+    style: _crisp,
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "10",
+    y: "38",
+    width: "28",
+    height: "4",
+    fill: "var(--ink)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "10",
+    y: "6",
+    width: "28",
+    height: "4",
+    fill: "var(--ink)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "12",
+    y: "10",
+    width: "2",
+    height: "28",
+    fill: "var(--gold)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "34",
+    y: "10",
+    width: "2",
+    height: "28",
+    fill: "var(--gold)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M 16 10 L 32 10 L 26 22 L 32 34 L 16 34 L 22 22 Z",
+    fill: "var(--paper)",
+    stroke: "var(--ink)",
+    strokeWidth: "1.6"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M 17 12 L 31 12 L 28 17 L 20 17 Z",
+    fill: "var(--rubric)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M 22 30 L 26 30 L 30 33 L 18 33 Z",
+    fill: "var(--rubric)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "23",
+    y: "21",
+    width: "2",
+    height: "2",
+    fill: "var(--rubric)"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "23",
+    y: "25",
+    width: "2",
+    height: "2",
+    fill: "var(--rubric)"
+  }));
+}
 Object.assign(window.avapp = window.avapp || {}, {
   FolderIcon,
   DocIcon,
@@ -397,6 +455,7 @@ Object.assign(window.avapp = window.avapp || {}, {
   QuoteIcon,
   AtlasIcon,
   WorksIcon,
-  CloseBox
+  CloseBox,
+  HourglassIcon
 });
 })();

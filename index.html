@@ -263,6 +263,7 @@
         <a class="icon" href="/quotes/"><span class="cap"><img src="/assets/icons/citacoes.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
         <a class="icon" href="/advocacia.html"><span class="cap"><img src="/assets/icons/advocacia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">advocacia</span></a>
         <a class="icon nv" href="/mesa/"><span class="cap"><img src="/assets/icons/desktop.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">desktop<span class="ext">.app</span></span></a>
+        <a class="icon" href="/ampulheta.html" data-win="ampulheta.app" data-win-alt="Ampulheta Caótica e Pêndulo Duplo"><span class="cap"><svg width="54" height="54" viewBox="0 0 48 48" style="shape-rendering:crispEdges; width:100%; height:100%; display:block;" aria-hidden="true"><rect x="10" y="38" width="28" height="4" fill="var(--ink)" /><rect x="10" y="6" width="28" height="4" fill="var(--ink)" /><rect x="12" y="10" width="2" height="28" fill="var(--gold)" /><rect x="34" y="10" width="2" height="28" fill="var(--gold)" /><path d="M 16 10 L 32 10 L 26 22 L 32 34 L 16 34 L 22 22 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6" /><path d="M 17 12 L 31 12 L 28 17 L 20 17 Z" fill="var(--rubric)" /><path d="M 22 30 L 26 30 L 30 33 L 18 33 Z" fill="var(--rubric)" /><rect x="23" y="21" width="2" height="2" fill="var(--rubric)" /><rect x="23" y="25" width="2" height="2" fill="var(--rubric)" /></svg></span><span class="lbl">ampulheta<span class="ext">.app</span></span></a>
         <a class="icon" href="/assets/pixel-justitia-sky.png" data-win="justitia.png" data-win-alt="Justitia em pixel art sobre o céu — emblema do site"><span class="cap"><img src="/assets/icons/justitia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">justitia<span class="ext">.png</span></span></a>
         <a class="icon" href="/assets/avo.png" data-win="vó.jpg" data-win-alt="Fotografia da avó de Ana Vanzin"><span class="cap"><img src="/assets/icons/vo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
       </div>
@@ -369,11 +370,24 @@
       bar.appendChild(t); bar.appendChild(x);
 
       var body = document.createElement('div'); body.className='dwin-body';
-      var img = document.createElement('img'); img.alt = alt || title;
-      img.setAttribute('draggable','false');
-      img.addEventListener('load', function(){ clampIntoView(win); });   // reposiciona após saber o tamanho
-      img.src = src;
-      body.appendChild(img);
+      
+      var content;
+      if (src.indexOf('.html') !== -1) {
+        content = document.createElement('iframe');
+        content.src = src;
+        content.style.border = 'none';
+        content.style.display = 'block';
+        content.style.width = 'min(440px, 82vw)';
+        content.style.height = 'min(500px, 60vh)';
+        setTimeout(function(){ clampIntoView(win); }, 100);
+      } else {
+        content = document.createElement('img');
+        content.alt = alt || title;
+        content.setAttribute('draggable','false');
+        content.addEventListener('load', function(){ clampIntoView(win); });
+        content.src = src;
+      }
+      body.appendChild(content);
 
       win.appendChild(bar); win.appendChild(body);
       win._ret = ret;

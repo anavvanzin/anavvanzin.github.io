@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ampulheta Caótica</title>
+<style>
+  :root {
+    --ink: #211B16;
+    --paper: #F2EAD9;
+    --rubric: #9B2C1C;
+    --gold: #9C7C3D;
+    --gold-2: #B7934C;
+    --gold-soft: color-mix(in srgb, var(--gold) 15%, var(--paper));
+    --amethyst: #6E5A86;
+    --amethyst-light: #B49AD4;
+    
+    --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --font-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    margin: 0;
+    padding: 16px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    gap: 12px;
+  }
+
+  /* Toolbar com estilo retrô System 7 */
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    font-family: var(--font-mono);
+  }
+
+  .btn {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform 0.05s, box-shadow 0.05s;
+    outline: none;
+  }
+
+  .btn:hover {
+    background: var(--gold-soft);
+    color: var(--ink);
+  }
+
+  .btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+
+  /* Container do Canvas com a moldura dupla */
+  #canvas-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    max-height: 55vh;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: 3px 3px 0 var(--ink);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+
+  /* Pergaminho de citações inferior */
+  .scroll-container {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+    padding: 12px 16px;
+    box-sizing: border-box;
+    min-height: 100px;
+    max-height: 22vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+
+  .scroll-container::before {
+    content: "❧";
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    color: var(--gold-2);
+    font-size: 14px;
+  }
+
+  .quote-text {
+    font-family: var(--font-display);
+    font-size: 17px;
+    line-height: 1.35;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    margin: 0;
+    margin-top: auto;
+  }
+
+  /* Responsividade de toque para o canvas */
+  #canvas-container {
+    touch-action: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="app-container">
+  <div class="toolbar">
+    <button class="btn" id="btn-flip">GIRAR AMPULHETA</button>
+    <button class="btn" id="btn-reset">REINICIAR</button>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="physics-canvas"></canvas>
+  </div>
+
+  <div class="scroll-container">
+    <p class="quote-text" id="quote-text">A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.</p>
+    <p class="quote-author" id="quote-author">Sebastian Brant, Das Narrenschiff (1494)</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const canvas = document.getElementById('physics-canvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Citações da Tese
+  const QUOTES = [
+    { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
+    { text: "A venda que hoje cega a Justiça para a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
+    { text: "A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.", author: "Ana Vanzin, Iconocracia" },
+    { text: "O endurecimento alegórico converte a figura narrativa, tridimensional e fluida da mulher em um selo heráldico, bidimensional e rígido.", author: "Ana Vanzin, Iconocracia" },
+    { text: "No Nível 3 de endurecimento, a alegoria feminina perde sua humanidade e torna-se pura inscrição do poder estatal.", author: "Ana Vanzin, Iconocracia" },
+    { text: "Tempo e direito se cruzam na ampulheta: a fluidez da areia representa a transição dos costumes, o peso acumulado representa a jurisprudência.", author: "Ana Vanzin, Iconocracia" },
+    { text: "A Marianne, a Germânia, a República. Corpos femininos esculpidos em pedra para representar leis escritas por homens.", author: "Ana Vanzin, Iconocracia" }
+  ];
+
+  let currentQuoteIndex = 0;
+
+  function showNextQuote() {
+    currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
+    document.getElementById('quote-text').textContent = QUOTES[currentQuoteIndex].text;
+    document.getElementById('quote-author').textContent = QUOTES[currentQuoteIndex].author;
+  }
+
+  // Dimensões Virtuais (Physics Resolution)
+  const WIDTH = 300;
+  const HEIGHT = 400;
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+
+  // Parâmetros de Física
+  const GRAVITY = 0.18;
+  const PARTICLE_COUNT = 160;
+  const PARTICLE_RADIUS = 3.5;
+  const RESTITUTION = 0.25; // Baixa elasticidade para areia
+  const FRICTION = 0.98;
+
+  // Estado da Ampulheta
+  let angle = 0; // Ângulo de rotação visual (rad)
+  let targetAngle = 0;
+  let isFlipping = false;
+
+  // Partículas de Areia
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = 0;
+      this.r = PARTICLE_RADIUS + (Math.random() - 0.5) * 0.8; // Pequena variação de tamanho
+      this.color = Math.random() > 0.4 ? 'var(--rubric)' : 'var(--gold-2)';
+    }
+
+    update() {
+      // Vetor de gravidade rotacionado
+      const gx = Math.sin(angle) * GRAVITY;
+      const gy = Math.cos(angle) * GRAVITY;
+      
+      this.vx += gx;
+      this.vy += gy;
+      
+      this.vx *= FRICTION;
+      this.vy *= FRICTION;
+      
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+  let particles = [];
+
+  function initParticles() {
+    particles = [];
+    // Inicializa na câmara superior
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const px = WIDTH / 2 + (Math.random() - 0.5) * 60;
+      const py = 60 + Math.random() * 80;
+      particles.push(new Particle(px, py));
+    }
+  }
+
+  // Segmentos de Parede da Ampulheta
+  class Wall {
+    constructor(x1, y1, x2, y2) {
+      this.x1 = x1;
+      this.y1 = y1;
+      this.x2 = x2;
+      this.y2 = y2;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.moveTo(this.x1, this.y1);
+      ctx.lineTo(this.x2, this.y2);
+      ctx.strokeStyle = 'var(--ink)';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+  }
+
+  const walls = [];
+  const neckWidth = 14;
+  const neckHeight = 10;
+  const cy = HEIGHT / 2;
+  const cx = WIDTH / 2;
+
+  // Construir geometria interna da Ampulheta (Suficientemente espessa)
+  function initWalls() {
+    walls.length = 0;
+    
+    // Filtro / Funil Superior
+    walls.push(new Wall(10, cy - 140, cx - neckWidth, cy - neckHeight));
+    walls.push(new Wall(WIDTH - 10, cy - 140, cx + neckWidth, cy - neckHeight));
+    
+    // Canal do Pescoço
+    walls.push(new Wall(cx - neckWidth, cy - neckHeight, cx - neckWidth, cy + neckHeight));
+    walls.push(new Wall(cx + neckWidth, cy - neckHeight, cx + neckWidth, cy + neckHeight));
+    
+    // Funil Inferior
+    walls.push(new Wall(cx - neckWidth, cy + neckHeight, 10, cy + 140));
+    walls.push(new Wall(cx + neckWidth, cy + neckHeight, WIDTH - 10, cy + 140));
+
+    // Bordas Externas
+    walls.push(new Wall(10, cy - 140, 10, cy + 140));
+    walls.push(new Wall(WIDTH - 10, cy - 140, WIDTH - 10, cy + 140));
+    walls.push(new Wall(10, cy - 140, WIDTH - 10, cy - 140));
+    walls.push(new Wall(10, cy + 140, WIDTH - 10, cy + 140));
+  }
+
+  // Silhueta de Justitia no Fundo
+  const justitiaSegments = [];
+  function initJustitia() {
+    justitiaSegments.length = 0;
+    // Desenha uma silhueta simplificada (cabeça, ombros, espada e balança)
+    // Centralizada na câmara inferior (y entre cy + 60 e cy + 140)
+    const jy = cy + 90;
+    
+    // Ombros e Cabeça
+    addJustitiaSegment(cx - 10, jy - 22, cx + 10, jy - 22);
+    addJustitiaSegment(cx - 10, jy - 22, cx - 10, jy - 10);
+    addJustitiaSegment(cx + 10, jy - 22, cx + 10, jy - 10);
+    
+    // Ombro Esquerdo
+    addJustitiaSegment(cx - 10, jy - 10, cx - 28, jy + 2);
+    // Ombro Direito
+    addJustitiaSegment(cx + 10, jy - 10, cx + 28, jy + 2);
+    
+    // Braço Esquerdo (segurando Balança)
+    addJustitiaSegment(cx - 28, jy + 2, cx - 48, jy + 2);
+    // Prato da Balança esquerdo
+    addJustitiaSegment(cx - 58, jy + 18, cx - 38, jy + 18);
+    
+    // Braço Direito (segurando Espada vertical)
+    addJustitiaSegment(cx + 28, jy + 2, cx + 48, jy + 2);
+    // Lâmina da Espada
+    addJustitiaSegment(cx + 44, jy - 26, cx + 44, jy + 14);
+    
+    // Tronco/Saia até a base
+    addJustitiaSegment(cx - 28, jy + 2, cx - 32, cy + 140);
+    addJustitiaSegment(cx + 28, jy + 2, cx + 32, cy + 140);
+  }
+
+  function addJustitiaSegment(x1, y1, x2, y2) {
+    justitiaSegments.push({ x1, y1, x2, y2 });
+  }
+
+  function drawJustitia() {
+    ctx.save();
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.lineWidth = 1.5;
+    
+    ctx.beginPath();
+    ctx.arc(cx, cy + 74, 10, 0, Math.PI * 2);
+    ctx.moveTo(cx - 10, cy + 80);
+    ctx.lineTo(cx - 28, cy + 92);
+    ctx.lineTo(cx - 32, cy + 140);
+    ctx.lineTo(cx + 32, cy + 140);
+    ctx.lineTo(cx + 28, cy + 92);
+    ctx.lineTo(cx + 10, cy + 80);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(cx + 44, cy + 64);
+    ctx.lineTo(cx + 44, cy + 104);
+    ctx.moveTo(cx + 39, cy + 96);
+    ctx.lineTo(cx + 49, cy + 96);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(cx - 28, cy + 92);
+    ctx.lineTo(cx - 48, cy + 92);
+    ctx.moveTo(cx - 48, cy + 92);
+    ctx.lineTo(cx - 56, cy + 108);
+    ctx.lineTo(cx - 40, cy + 108);
+    ctx.closePath();
+    ctx.moveTo(cx - 58, cy + 108);
+    ctx.lineTo(cx - 38, cy + 108);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Pêndulo Duplo Caótico
+  class DoublePendulum {
+    constructor(x, y) {
+      this.x0 = x;
+      this.y0 = y;
+      
+      this.l1 = 58;
+      this.l2 = 52;
+      
+      this.x1 = x;
+      this.y1 = y + this.l1;
+      this.x2 = x;
+      this.y2 = y + this.l1 + this.l2;
+      
+      this.px1 = this.x1;
+      this.py1 = this.y1;
+      this.px2 = this.x2;
+      this.py2 = this.y2;
+      
+      this.r1 = 5;
+      this.r2 = 9;
+      
+      this.trail = [];
+      this.maxTrail = 35;
+    }
+
+    update() {
+      const gx = Math.sin(angle) * GRAVITY * 1.2;
+      const gy = Math.cos(angle) * GRAVITY * 1.2;
+      
+      if (!draggedPoint) {
+        let tempX1 = this.x1;
+        let tempY1 = this.y1;
+        this.x1 += (this.x1 - this.px1) * 0.992 + gx;
+        this.y1 += (this.y1 - this.py1) * 0.992 + gy;
+        this.px1 = tempX1;
+        this.py1 = tempY1;
+
+        let tempX2 = this.x2;
+        let tempY2 = this.y2;
+        this.x2 += (this.x2 - this.px2) * 0.992 + gx;
+        this.y2 += (this.y2 - this.py2) * 0.992 + gy;
+        this.px2 = tempX2;
+        this.py2 = tempY2;
+      } else {
+        if (draggedPoint === 1) {
+          this.px1 = this.x1 = mouse.x;
+          this.py1 = this.y1 = mouse.y;
+          
+          let tempX2 = this.x2;
+          let tempY2 = this.y2;
+          this.x2 += (this.x2 - this.px2) * 0.95 + gx;
+          this.y2 += (this.y2 - this.py2) * 0.95 + gy;
+          this.px2 = tempX2;
+          this.py2 = tempY2;
+        } else if (draggedPoint === 2) {
+          this.px2 = this.x2 = mouse.x;
+          this.py2 = this.y2 = mouse.y;
+          
+          let tempX1 = this.x1;
+          let tempY1 = this.y1;
+          this.x1 += (this.x1 - this.px1) * 0.95 + gx;
+          this.y1 += (this.y1 - this.py1) * 0.95 + gy;
+          this.px1 = tempX1;
+          this.py1 = tempY1;
+        }
+      }
+
+      for (let i = 0; i < 5; i++) {
+        let dx1 = this.x1 - this.x0;
+        let dy1 = this.y1 - this.y0;
+        let d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+        let diff1 = this.l1 - d1;
+        let percent1 = (diff1 / d1) * 0.5;
+        let offsetX1 = dx1 * percent1;
+        let offsetY1 = dy1 * percent1;
+        
+        if (draggedPoint !== 1) {
+          this.x1 += offsetX1 * 2;
+          this.y1 += offsetY1 * 2;
+        }
+
+        let dx2 = this.x2 - this.x1;
+        let dy2 = this.y2 - this.y1;
+        let d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+        let diff2 = this.l2 - d2;
+        let percent2 = (diff2 / d2) * 0.5;
+        let offsetX2 = dx2 * percent2;
+        let offsetY2 = dy2 * percent2;
+        
+        if (draggedPoint === 1) {
+          this.x2 += offsetX2 * 2;
+          this.y2 += offsetY2 * 2;
+        } else if (draggedPoint === 2) {
+          this.x1 -= offsetX2 * 2;
+          this.y1 -= offsetY2 * 2;
+        } else {
+          this.x1 -= offsetX2;
+          this.y1 -= offsetY2;
+          this.x2 += offsetX2;
+          this.y2 += offsetY2;
+        }
+      }
+
+      this.trail.push({ x: this.x2, y: this.y2 });
+      if (this.trail.length > this.maxTrail) {
+        this.trail.shift();
+      }
+    }
+
+    draw() {
+      if (this.trail.length > 1) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(this.trail[0].x, this.trail[0].y);
+        for (let i = 1; i < this.trail.length; i++) {
+          ctx.lineTo(this.trail[i].x, this.trail[i].y);
+        }
+        ctx.strokeStyle = 'var(--amethyst-light)';
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = 'var(--amethyst)';
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(this.x0, this.y0);
+      ctx.lineTo(this.x1, this.y1);
+      ctx.lineTo(this.x2, this.y2);
+      ctx.strokeStyle = 'var(--gold)';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(this.x1, this.y1, this.r1, 0, Math.PI * 2);
+      ctx.fillStyle = 'var(--ink)';
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(this.x2, this.y2, this.r2, 0, Math.PI * 2);
+      ctx.fillStyle = 'var(--rubric)';
+      ctx.strokeStyle = 'var(--ink)';
+      ctx.lineWidth = 1.5;
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+
+  let pendulum;
+
+  function initPendulum() {
+    pendulum = new DoublePendulum(cx, cy - 2);
+  }
+
+  function checkCircleLineCollision(circle, line, isStaticSegment = false) {
+    const abx = line.x2 - line.x1;
+    const aby = line.y2 - line.y1;
+    const acx = circle.x - line.x1;
+    const acy = circle.y - line.y1;
+
+    const ab2 = abx * abx + aby * aby;
+    if (ab2 === 0) return;
+
+    let t = (acx * abx + acy * aby) / ab2;
+    t = Math.max(0, Math.min(1, t));
+
+    const closestX = line.x1 + t * abx;
+    const closestY = line.y1 + t * aby;
+
+    const dx = circle.x - closestX;
+    const dy = circle.y - closestY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < circle.r) {
+      const normalX = dx / dist;
+      const normalY = dy / dist;
+
+      circle.x = closestX + normalX * circle.r;
+      circle.y = closestY + normalY * circle.r;
+
+      const dot = circle.vx * normalX + circle.vy * normalY;
+      circle.vx = (circle.vx - 2 * dot * normalX) * (isStaticSegment ? RESTITUTION : 0.6);
+      circle.vy = (circle.vy - 2 * dot * normalY) * (isStaticSegment ? RESTITUTION : 0.6);
+    }
+  }
+
+  function resolveCollisions() {
+    for (let p of particles) {
+      for (let w of walls) {
+        checkCircleLineCollision(p, w, true);
+      }
+      for (let seg of justitiaSegments) {
+        checkCircleLineCollision(p, seg, true);
+      }
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      const p1 = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const minDist = p1.r + p2.r;
+
+        if (dist < minDist) {
+          const overlap = minDist - dist;
+          const nx = dx / dist;
+          const ny = dy / dist;
+
+          p1.x -= nx * overlap * 0.5;
+          p1.y -= ny * overlap * 0.5;
+          p2.x += nx * overlap * 0.5;
+          p2.y += ny * overlap * 0.5;
+
+          const kx = p1.vx - p2.vx;
+          const ky = p1.vy - p2.vy;
+          const p = 2 * (kx * nx + ky * ny) / 2;
+
+          p1.vx = (p1.vx - p * nx) * RESTITUTION;
+          p1.vy = (p1.vy - p * ny) * RESTITUTION;
+          p2.vx = (p2.vx + p * nx) * RESTITUTION;
+          p2.vy = (p2.vy + p * ny) * RESTITUTION;
+        }
+      }
+    }
+
+    const segment1 = { x1: pendulum.x0, y1: pendulum.y0, x2: pendulum.x1, y2: pendulum.y1 };
+    const segment2 = { x1: pendulum.x1, y1: pendulum.y1, x2: pendulum.x2, y2: pendulum.y2 };
+
+    for (let p of particles) {
+      checkCircleLineCollision(p, segment1, false);
+      checkCircleLineCollision(p, segment2, false);
+      
+      const dx = p.x - pendulum.x2;
+      const dy = p.y - pendulum.y2;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const minDist = p.r + pendulum.r2;
+      
+      if (dist < minDist) {
+        const overlap = minDist - dist;
+        const nx = dx / dist;
+        const ny = dy / dist;
+
+        p.x += nx * overlap;
+        p.y += ny * overlap;
+
+        const pSpeed = Math.sqrt(
+          (pendulum.x2 - pendulum.px2) * (pendulum.x2 - pendulum.px2) +
+          (pendulum.y2 - pendulum.py2) * (pendulum.y2 - pendulum.py2)
+        );
+        p.vx = (p.vx + nx * (pSpeed + 1.2)) * 0.6;
+        p.vy = (p.vy + ny * (pSpeed + 1.2)) * 0.6;
+      }
+    }
+  }
+
+  const mouse = { x: 0, y: 0, down: false };
+  let draggedPoint = null;
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = WIDTH / rect.width;
+    const scaleY = HEIGHT / rect.height;
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY
+    };
+  }
+
+  canvas.addEventListener('pointerdown', function(e) {
+    const pos = getMousePos(e);
+    mouse.x = pos.x;
+    mouse.y = pos.y;
+    mouse.down = true;
+
+    const d2 = Math.hypot(mouse.x - pendulum.x2, mouse.y - pendulum.y2);
+    if (d2 < pendulum.r2 + 10) {
+      draggedPoint = 2;
+      return;
+    }
+
+    const d1 = Math.hypot(mouse.x - pendulum.x1, mouse.y - pendulum.y1);
+    if (d1 < pendulum.r1 + 10) {
+      draggedPoint = 1;
+    }
+  });
+
+  window.addEventListener('pointermove', function(e) {
+    if (!mouse.down) return;
+    const pos = getMousePos(e);
+    mouse.x = pos.x;
+    mouse.y = pos.y;
+  });
+
+  window.addEventListener('pointerup', function() {
+    mouse.down = false;
+    draggedPoint = null;
+  });
+
+  let flipProgress = 1;
+  const flipDuration = 45;
+  let flipStartAngle = 0;
+
+  function update() {
+    if (flipProgress < 1) {
+      flipProgress += 1 / flipDuration;
+      if (flipProgress >= 1) {
+        flipProgress = 1;
+        angle = targetAngle;
+        isFlipping = false;
+        showNextQuote();
+      } else {
+        const t = flipProgress;
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        angle = flipStartAngle + (targetAngle - flipStartAngle) * ease;
+      }
+    }
+
+    pendulum.update();
+
+    for (let p of particles) {
+      p.update();
+    }
+
+    resolveCollisions();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    ctx.strokeStyle = 'rgba(33,27,22,0.02)';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < WIDTH; x += 12) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, HEIGHT); ctx.stroke();
+    }
+    for (let y = 0; y < HEIGHT; y += 12) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(WIDTH, y); ctx.stroke();
+    }
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(-angle);
+    ctx.translate(-cx, -cy);
+
+    drawJustitia();
+
+    for (let w of walls) {
+      w.draw();
+    }
+
+    pendulum.draw();
+
+    for (let p of particles) {
+      p.draw();
+    }
+
+    ctx.restore();
+  }
+
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  document.getElementById('btn-flip').addEventListener('click', function() {
+    if (isFlipping) return;
+    isFlipping = true;
+    flipProgress = 0;
+    flipStartAngle = angle;
+    targetAngle = angle + Math.PI;
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', function() {
+    angle = 0;
+    targetAngle = 0;
+    flipProgress = 1;
+    isFlipping = false;
+    initParticles();
+    initPendulum();
+  });
+
+  initWalls();
+  initJustitia();
+  initParticles();
+  initPendulum();
+  loop();
+})();
+</script>
+
+</body>
+</html>
