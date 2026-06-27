@@ -8,10 +8,11 @@
   :root {
     --ink: #211B16;
     --paper: #F2EAD9;
+    --paper-card: #F9F6EE;
     --rubric: #9B2C1C;
     --gold: #9C7C3D;
     --gold-2: #B7934C;
-    --gold-soft: color-mix(in srgb, var(--gold) 15%, var(--paper));
+    --gold-soft: color-mix(in srgb, var(--gold) 12%, var(--paper));
     --amethyst: #6E5A86;
     --amethyst-light: #B49AD4;
     
@@ -20,9 +21,21 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  /* Textura de papel artesanal usando SVG noise filter */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: transparent;
+    filter: url(#paper-noise);
+    opacity: 0.7;
+  }
+
   body {
     margin: 0;
-    padding: 16px;
+    padding: clamp(12px, 3.5vh, 24px);
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-body);
@@ -42,57 +55,95 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 480px;
+    max-width: 440px;
     height: 100%;
-    gap: 12px;
+    gap: clamp(8px, 2vh, 16px);
   }
 
-  /* Toolbar com estilo retrô System 7 */
+  /* Toolbar Premium: System 7 metódico mas refinado */
   .toolbar {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
     justify-content: center;
-    font-family: var(--font-mono);
+    z-index: 10;
   }
 
   .btn {
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
     border: 1px solid var(--ink);
-    padding: 6px 14px;
+    padding: 8px 18px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 9999px;
     cursor: pointer;
-    box-shadow: 2px 2px 0 var(--ink);
-    transition: transform 0.05s, box-shadow 0.05s;
+    box-shadow: 0 3px 6px rgba(33,27,22,0.16);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     outline: none;
   }
 
   .btn:hover {
-    background: var(--gold-soft);
-    color: var(--ink);
+    background: var(--rubric);
+    border-color: var(--rubric);
+    box-shadow: 0 5px 12px rgba(155,44,28,0.3);
+    transform: translateY(-1.5px);
   }
 
   .btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--ink);
+    transform: translateY(0.5px);
+    box-shadow: 0 2px 4px rgba(33,27,22,0.12);
   }
 
-  /* Container do Canvas com a moldura dupla */
-  #canvas-container {
-    position: relative;
+  .btn-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(242,234,217,0.16);
+    font-size: 8px;
+    line-height: 1;
+    font-weight: bold;
+    transform: rotate(90deg);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn:hover .btn-arrow {
+    transform: rotate(270deg);
+  }
+
+  /* Moldura Double-Bezel (Doppelrand) */
+  .double-bezel-outer {
+    background: var(--paper-card);
+    border: 1.5px solid var(--ink);
+    padding: 6px;
+    box-shadow: 4px 4px 0 rgba(33,27,22,0.12);
     width: 100%;
-    aspect-ratio: 3 / 4;
-    max-height: 55vh;
-    border: 2px solid var(--ink);
-    background: var(--paper);
-    box-shadow: 3px 3px 0 var(--ink);
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 3 / 4;
+    max-height: 52vh;
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .double-bezel-inner {
+    border: 1px solid var(--gold);
+    background: var(--paper-card);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
   }
 
   canvas {
@@ -102,52 +153,68 @@
     background: transparent;
   }
 
-  /* Pergaminho de citações inferior */
+  /* Pergaminho de Citações com Drop Cap */
   .scroll-container {
     width: 100%;
-    background: var(--paper);
-    border: 1px solid var(--ink);
-    box-shadow: 2px 2px 0 var(--ink);
-    padding: 12px 16px;
+    background: var(--paper-card);
+    border: 1.5px solid var(--ink);
+    box-shadow: 3px 3px 0 rgba(33,27,22,0.12);
+    padding: 16px 20px;
     box-sizing: border-box;
-    min-height: 100px;
+    min-height: 110px;
     max-height: 22vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     position: relative;
   }
 
   .scroll-container::before {
     content: "❧";
     position: absolute;
-    top: 6px;
-    right: 12px;
+    top: 8px;
+    right: 14px;
     color: var(--gold-2);
-    font-size: 14px;
+    font-size: 15px;
+    opacity: 0.7;
   }
 
-  .quote-text {
-    font-family: var(--font-display);
-    font-size: 17px;
-    line-height: 1.35;
-    font-style: italic;
-    color: var(--ink);
+  .quote-body {
     margin: 0;
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--ink);
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .drop-cap {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 600;
+    float: left;
+    line-height: 0.8;
+    margin-top: 3px;
+    margin-right: 6px;
+    color: var(--rubric);
+    text-shadow: 1px 1px 0 rgba(33,27,22,0.08);
   }
 
   .quote-author {
     font-family: var(--font-mono);
-    font-size: 9.5px;
-    letter-spacing: 0.05em;
+    font-size: 9px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--rubric);
-    margin: 0;
+    color: var(--gold);
+    margin: 6px 0 0;
     margin-top: auto;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
+    padding-top: 4px;
   }
 
-  /* Responsividade de toque para o canvas */
+  /* Responsividade tátil */
   #canvas-container {
     touch-action: none;
   }
@@ -155,19 +222,36 @@
 </head>
 <body>
 
+<!-- SVG Noise Filter para textura física de papel de prensa -->
+<svg style="display:none;" aria-hidden="true">
+  <filter id="paper-noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" stitchTiles="stitch" />
+    <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.038 0" />
+  </filter>
+</svg>
+
 <div id="app-container">
   <div class="toolbar">
-    <button class="btn" id="btn-flip">GIRAR AMPULHETA</button>
-    <button class="btn" id="btn-reset">REINICIAR</button>
+    <button class="btn" id="btn-flip">
+      <span>GIRAR AMPULHETA</span>
+      <span class="btn-arrow">➔</span>
+    </button>
+    <button class="btn" id="btn-reset" style="background:transparent; color:var(--ink); box-shadow:none;">
+      <span>REINICIAR</span>
+    </button>
   </div>
 
-  <div id="canvas-container">
-    <canvas id="physics-canvas"></canvas>
+  <div class="double-bezel-outer" id="frame-outer">
+    <div class="double-bezel-inner">
+      <canvas id="physics-canvas"></canvas>
+    </div>
   </div>
 
   <div class="scroll-container">
-    <p class="quote-text" id="quote-text">A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.</p>
-    <p class="quote-author" id="quote-author">Sebastian Brant, Das Narrenschiff (1494)</p>
+    <p class="quote-body" id="quote-body">
+      <span class="drop-cap">A</span> primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.
+    </p>
+    <p class="quote-author" id="quote-author">Sebastian Brant, Das Narrenschiff (Basel, 1494)</p>
   </div>
 </div>
 
@@ -176,10 +260,10 @@
   const canvas = document.getElementById('physics-canvas');
   const ctx = canvas.getContext('2d');
   
-  // Citações da Tese
+  // Citações da Tese com capitulares implícitas
   const QUOTES = [
     { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
-    { text: "A venda que hoje cega a Justiça para a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
+    { text: "A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
     { text: "A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.", author: "Ana Vanzin, Iconocracia" },
     { text: "O endurecimento alegórico converte a figura narrativa, tridimensional e fluida da mulher em um selo heráldico, bidimensional e rígido.", author: "Ana Vanzin, Iconocracia" },
     { text: "No Nível 3 de endurecimento, a alegoria feminina perde sua humanidade e torna-se pura inscrição do poder estatal.", author: "Ana Vanzin, Iconocracia" },
@@ -191,25 +275,27 @@
 
   function showNextQuote() {
     currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
-    document.getElementById('quote-text').textContent = QUOTES[currentQuoteIndex].text;
-    document.getElementById('quote-author').textContent = QUOTES[currentQuoteIndex].author;
+    const q = QUOTES[currentQuoteIndex];
+    const firstChar = q.text.charAt(0);
+    const remainingText = q.text.slice(1);
+    
+    document.getElementById('quote-body').innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
+    document.getElementById('quote-author').textContent = q.author;
   }
 
-  // Dimensões Virtuais (Physics Resolution)
+  // Dimensões Físicas
   const WIDTH = 300;
   const HEIGHT = 400;
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
 
-  // Parâmetros de Física
   const GRAVITY = 0.18;
-  const PARTICLE_COUNT = 160;
+  const PARTICLE_COUNT = 180;
   const PARTICLE_RADIUS = 3.5;
-  const RESTITUTION = 0.25; // Baixa elasticidade para areia
-  const FRICTION = 0.98;
+  const RESTITUTION = 0.16; // Muito inelástico, simula grãos de rocha
+  const FRICTION = 0.96;
 
-  // Estado da Ampulheta
-  let angle = 0; // Ângulo de rotação visual (rad)
+  let angle = 0;
   let targetAngle = 0;
   let isFlipping = false;
 
@@ -218,14 +304,22 @@
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vx = (Math.random() - 0.5) * 0.4;
       this.vy = 0;
-      this.r = PARTICLE_RADIUS + (Math.random() - 0.5) * 0.8; // Pequena variação de tamanho
-      this.color = Math.random() > 0.4 ? 'var(--rubric)' : 'var(--gold-2)';
+      this.r = PARTICLE_RADIUS + (Math.random() - 0.5) * 0.8;
+      
+      // Amostragem de cores premium da tese
+      const rand = Math.random();
+      if (rand > 0.6) {
+        this.color = 'var(--rubric)';
+      } else if (rand > 0.25) {
+        this.color = 'var(--gold-2)';
+      } else {
+        this.color = 'var(--amethyst)';
+      }
     }
 
     update() {
-      // Vetor de gravidade rotacionado
       const gx = Math.sin(angle) * GRAVITY;
       const gy = Math.cos(angle) * GRAVITY;
       
@@ -251,10 +345,9 @@
 
   function initParticles() {
     particles = [];
-    // Inicializa na câmara superior
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const px = WIDTH / 2 + (Math.random() - 0.5) * 60;
-      const py = 60 + Math.random() * 80;
+      const px = WIDTH / 2 + (Math.random() - 0.5) * 55;
+      const py = 50 + Math.random() * 80;
       particles.push(new Particle(px, py));
     }
   }
@@ -279,65 +372,51 @@
   }
 
   const walls = [];
-  const neckWidth = 14;
-  const neckHeight = 10;
+  const neckWidth = 13;
+  const neckHeight = 8;
   const cy = HEIGHT / 2;
   const cx = WIDTH / 2;
 
-  // Construir geometria interna da Ampulheta (Suficientemente espessa)
   function initWalls() {
     walls.length = 0;
     
-    // Filtro / Funil Superior
-    walls.push(new Wall(10, cy - 140, cx - neckWidth, cy - neckHeight));
-    walls.push(new Wall(WIDTH - 10, cy - 140, cx + neckWidth, cy - neckHeight));
+    // Funil Superior
+    walls.push(new Wall(12, cy - 135, cx - neckWidth, cy - neckHeight));
+    walls.push(new Wall(WIDTH - 12, cy - 135, cx + neckWidth, cy - neckHeight));
     
-    // Canal do Pescoço
+    // Pescoço
     walls.push(new Wall(cx - neckWidth, cy - neckHeight, cx - neckWidth, cy + neckHeight));
     walls.push(new Wall(cx + neckWidth, cy - neckHeight, cx + neckWidth, cy + neckHeight));
     
     // Funil Inferior
-    walls.push(new Wall(cx - neckWidth, cy + neckHeight, 10, cy + 140));
-    walls.push(new Wall(cx + neckWidth, cy + neckHeight, WIDTH - 10, cy + 140));
+    walls.push(new Wall(cx - neckWidth, cy + neckHeight, 12, cy + 135));
+    walls.push(new Wall(cx + neckWidth, cy + neckHeight, WIDTH - 12, cy + 135));
 
     // Bordas Externas
-    walls.push(new Wall(10, cy - 140, 10, cy + 140));
-    walls.push(new Wall(WIDTH - 10, cy - 140, WIDTH - 10, cy + 140));
-    walls.push(new Wall(10, cy - 140, WIDTH - 10, cy - 140));
-    walls.push(new Wall(10, cy + 140, WIDTH - 10, cy + 140));
+    walls.push(new Wall(12, cy - 135, 12, cy + 135));
+    walls.push(new Wall(WIDTH - 12, cy - 135, WIDTH - 12, cy + 135));
+    walls.push(new Wall(12, cy - 135, WIDTH - 12, cy - 135));
+    walls.push(new Wall(12, cy + 135, WIDTH - 12, cy + 135));
   }
 
-  // Silhueta de Justitia no Fundo
+  // Justitia Silhouette em Estilo Gravura/Xilogravura
   const justitiaSegments = [];
   function initJustitia() {
     justitiaSegments.length = 0;
-    // Desenha uma silhueta simplificada (cabeça, ombros, espada e balança)
-    // Centralizada na câmara inferior (y entre cy + 60 e cy + 140)
     const jy = cy + 90;
     
-    // Ombros e Cabeça
+    // Segmentos físicos para colisão
     addJustitiaSegment(cx - 10, jy - 22, cx + 10, jy - 22);
     addJustitiaSegment(cx - 10, jy - 22, cx - 10, jy - 10);
     addJustitiaSegment(cx + 10, jy - 22, cx + 10, jy - 10);
-    
-    // Ombro Esquerdo
     addJustitiaSegment(cx - 10, jy - 10, cx - 28, jy + 2);
-    // Ombro Direito
     addJustitiaSegment(cx + 10, jy - 10, cx + 28, jy + 2);
-    
-    // Braço Esquerdo (segurando Balança)
     addJustitiaSegment(cx - 28, jy + 2, cx - 48, jy + 2);
-    // Prato da Balança esquerdo
     addJustitiaSegment(cx - 58, jy + 18, cx - 38, jy + 18);
-    
-    // Braço Direito (segurando Espada vertical)
     addJustitiaSegment(cx + 28, jy + 2, cx + 48, jy + 2);
-    // Lâmina da Espada
     addJustitiaSegment(cx + 44, jy - 26, cx + 44, jy + 14);
-    
-    // Tronco/Saia até a base
-    addJustitiaSegment(cx - 28, jy + 2, cx - 32, cy + 140);
-    addJustitiaSegment(cx + 28, jy + 2, cx + 32, cy + 140);
+    addJustitiaSegment(cx - 28, jy + 2, cx - 32, cy + 135);
+    addJustitiaSegment(cx + 28, jy + 2, cx + 32, cy + 135);
   }
 
   function addJustitiaSegment(x1, y1, x2, y2) {
@@ -346,22 +425,53 @@
 
   function drawJustitia() {
     ctx.save();
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
-    ctx.fillStyle = 'var(--gold-soft)';
-    ctx.lineWidth = 1.5;
     
+    // 1. Silhueta interna (Tom dourado desbotado)
+    ctx.fillStyle = 'var(--gold-soft)';
     ctx.beginPath();
-    ctx.arc(cx, cy + 74, 10, 0, Math.PI * 2);
+    ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
     ctx.moveTo(cx - 10, cy + 80);
     ctx.lineTo(cx - 28, cy + 92);
-    ctx.lineTo(cx - 32, cy + 140);
-    ctx.lineTo(cx + 32, cy + 140);
+    ctx.lineTo(cx - 32, cy + 135);
+    ctx.lineTo(cx + 32, cy + 135);
     ctx.lineTo(cx + 28, cy + 92);
     ctx.lineTo(cx + 10, cy + 80);
     ctx.closePath();
     ctx.fill();
+
+    // 2. Efeito de hachura fina (Estilo Gravura do século XV)
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 14%, transparent)';
+    ctx.lineWidth = 0.8;
+    for (let l = cy + 86; l < cy + 135; l += 3.5) {
+      ctx.beginPath();
+      // Linhas horizontais que se limitam ao contorno da saia/tronco
+      const factor = (l - (cy + 86)) / 49;
+      const leftBound = cx - 18 - factor * 14;
+      const rightBound = cx + 18 + factor * 14;
+      ctx.moveTo(leftBound, l);
+      ctx.lineTo(rightBound, l);
+      ctx.stroke();
+    }
+
+    // 3. Contorno e Detalhes
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    
+    // Cabeça & Ombros
+    ctx.beginPath();
+    ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 80);
+    ctx.lineTo(cx - 28, cy + 92);
+    ctx.lineTo(cx - 32, cy + 135);
+    ctx.moveTo(cx + 10, cy + 80);
+    ctx.lineTo(cx + 28, cy + 92);
+    ctx.lineTo(cx + 32, cy + 135);
     ctx.stroke();
 
+    // Espada
     ctx.beginPath();
     ctx.moveTo(cx + 44, cy + 64);
     ctx.lineTo(cx + 44, cy + 104);
@@ -369,6 +479,7 @@
     ctx.lineTo(cx + 49, cy + 96);
     ctx.stroke();
 
+    // Balança
     ctx.beginPath();
     ctx.moveTo(cx - 28, cy + 92);
     ctx.lineTo(cx - 48, cy + 92);
@@ -380,6 +491,10 @@
     ctx.lineTo(cx - 38, cy + 108);
     ctx.stroke();
 
+    // Venda Vermelha (Elemento satírico de 1494 da tese)
+    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillRect(cx - 7, cy + 72, 14, 3.5);
+
     ctx.restore();
   }
 
@@ -388,9 +503,8 @@
     constructor(x, y) {
       this.x0 = x;
       this.y0 = y;
-      
-      this.l1 = 58;
-      this.l2 = 52;
+      this.l1 = 56;
+      this.l2 = 50;
       
       this.x1 = x;
       this.y1 = y + this.l1;
@@ -402,29 +516,29 @@
       this.px2 = this.x2;
       this.py2 = this.y2;
       
-      this.r1 = 5;
-      this.r2 = 9;
+      this.r1 = 4.5;
+      this.r2 = 8.5;
       
       this.trail = [];
-      this.maxTrail = 35;
+      this.maxTrail = 40;
     }
 
     update() {
-      const gx = Math.sin(angle) * GRAVITY * 1.2;
-      const gy = Math.cos(angle) * GRAVITY * 1.2;
+      const gx = Math.sin(angle) * GRAVITY * 1.25;
+      const gy = Math.cos(angle) * GRAVITY * 1.25;
       
       if (!draggedPoint) {
         let tempX1 = this.x1;
         let tempY1 = this.y1;
-        this.x1 += (this.x1 - this.px1) * 0.992 + gx;
-        this.y1 += (this.y1 - this.py1) * 0.992 + gy;
+        this.x1 += (this.x1 - this.px1) * 0.993 + gx;
+        this.y1 += (this.y1 - this.py1) * 0.993 + gy;
         this.px1 = tempX1;
         this.py1 = tempY1;
 
         let tempX2 = this.x2;
         let tempY2 = this.y2;
-        this.x2 += (this.x2 - this.px2) * 0.992 + gx;
-        this.y2 += (this.y2 - this.py2) * 0.992 + gy;
+        this.x2 += (this.x2 - this.px2) * 0.993 + gx;
+        this.y2 += (this.y2 - this.py2) * 0.993 + gy;
         this.px2 = tempX2;
         this.py2 = tempY2;
       } else {
@@ -451,6 +565,7 @@
         }
       }
 
+      // 5 iterações de relaxamento de distâncias
       for (let i = 0; i < 5; i++) {
         let dx1 = this.x1 - this.x0;
         let dy1 = this.y1 - this.y0;
@@ -494,42 +609,49 @@
     }
 
     draw() {
+      // 1. Rastro caótico brilhante com gradiente
       if (this.trail.length > 1) {
         ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(this.trail[0].x, this.trail[0].y);
         for (let i = 1; i < this.trail.length; i++) {
+          const ratio = i / this.trail.length;
+          ctx.beginPath();
+          ctx.moveTo(this.trail[i-1].x, this.trail[i-1].y);
           ctx.lineTo(this.trail[i].x, this.trail[i].y);
+          ctx.strokeStyle = `rgba(110, 90, 134, ${ratio * 0.7})`;
+          ctx.lineWidth = 1 + ratio * 3;
+          ctx.stroke();
         }
-        ctx.strokeStyle = 'var(--amethyst-light)';
-        ctx.lineWidth = 3.5;
-        ctx.shadowColor = 'var(--amethyst)';
-        ctx.shadowBlur = 8;
-        ctx.stroke();
         ctx.restore();
       }
 
+      // 2. Hastes douradas
       ctx.beginPath();
       ctx.moveTo(this.x0, this.y0);
       ctx.lineTo(this.x1, this.y1);
       ctx.lineTo(this.x2, this.y2);
       ctx.strokeStyle = 'var(--gold)';
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 2.2;
       ctx.stroke();
 
+      // 3. Articulações
       ctx.beginPath();
       ctx.arc(this.x1, this.y1, this.r1, 0, Math.PI * 2);
       ctx.fillStyle = 'var(--ink)';
       ctx.fill();
       ctx.stroke();
 
+      // Bob vermelho-rubrica com brilho aura
+      ctx.save();
       ctx.beginPath();
       ctx.arc(this.x2, this.y2, this.r2, 0, Math.PI * 2);
+      ctx.shadowColor = 'var(--rubric)';
+      ctx.shadowBlur = 8;
       ctx.fillStyle = 'var(--rubric)';
       ctx.strokeStyle = 'var(--ink)';
       ctx.lineWidth = 1.5;
       ctx.fill();
       ctx.stroke();
+      ctx.restore();
     }
   }
 
@@ -565,13 +687,16 @@
       circle.x = closestX + normalX * circle.r;
       circle.y = closestY + normalY * circle.r;
 
-      const dot = circle.vx * normalX + circle.vy * normalY;
-      circle.vx = (circle.vx - 2 * dot * normalX) * (isStaticSegment ? RESTITUTION : 0.6);
-      circle.vy = (circle.vy - 2 * dot * normalY) * (isStaticSegment ? RESTITUTION : 0.6);
+      const speedAlongNormal = circle.vx * normalX + circle.vy * normalY;
+      
+      // Impede bounce excessivo para simular areia verdadeira
+      circle.vx = (circle.vx - 2 * speedAlongNormal * normalX) * (isStaticSegment ? RESTITUTION : 0.45);
+      circle.vy = (circle.vy - 2 * speedAlongNormal * normalY) * (isStaticSegment ? RESTITUTION : 0.45);
     }
   }
 
   function resolveCollisions() {
+    // Colisão Partícula-Muros
     for (let p of particles) {
       for (let w of walls) {
         checkCircleLineCollision(p, w, true);
@@ -581,6 +706,7 @@
       }
     }
 
+    // Colisão Partícula-Partícula
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
       for (let j = i + 1; j < particles.length; j++) {
@@ -595,6 +721,7 @@
           const nx = dx / dist;
           const ny = dy / dist;
 
+          // Afasta
           p1.x -= nx * overlap * 0.5;
           p1.y -= ny * overlap * 0.5;
           p2.x += nx * overlap * 0.5;
@@ -612,6 +739,7 @@
       }
     }
 
+    // Colisão Partícula-Pêndulo
     const segment1 = { x1: pendulum.x0, y1: pendulum.y0, x2: pendulum.x1, y2: pendulum.y1 };
     const segment2 = { x1: pendulum.x1, y1: pendulum.y1, x2: pendulum.x2, y2: pendulum.y2 };
 
@@ -636,8 +764,8 @@
           (pendulum.x2 - pendulum.px2) * (pendulum.x2 - pendulum.px2) +
           (pendulum.y2 - pendulum.py2) * (pendulum.y2 - pendulum.py2)
         );
-        p.vx = (p.vx + nx * (pSpeed + 1.2)) * 0.6;
-        p.vy = (p.vy + ny * (pSpeed + 1.2)) * 0.6;
+        p.vx = (p.vx + nx * (pSpeed + 1.4)) * 0.55;
+        p.vy = (p.vy + ny * (pSpeed + 1.4)) * 0.55;
       }
     }
   }
@@ -662,13 +790,13 @@
     mouse.down = true;
 
     const d2 = Math.hypot(mouse.x - pendulum.x2, mouse.y - pendulum.y2);
-    if (d2 < pendulum.r2 + 10) {
+    if (d2 < pendulum.r2 + 12) {
       draggedPoint = 2;
       return;
     }
 
     const d1 = Math.hypot(mouse.x - pendulum.x1, mouse.y - pendulum.y1);
-    if (d1 < pendulum.r1 + 10) {
+    if (d1 < pendulum.r1 + 12) {
       draggedPoint = 1;
     }
   });
@@ -686,7 +814,7 @@
   });
 
   let flipProgress = 1;
-  const flipDuration = 45;
+  const flipDuration = 48; // Frames de rotação cinemática
   let flipStartAngle = 0;
 
   function update() {
@@ -699,6 +827,7 @@
         showNextQuote();
       } else {
         const t = flipProgress;
+        // Easing desaceleração pesada
         const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         angle = flipStartAngle + (targetAngle - flipStartAngle) * ease;
       }
@@ -716,12 +845,13 @@
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-    ctx.strokeStyle = 'rgba(33,27,22,0.02)';
+    // Efeito sutil de linhas de pauta de pergaminho
+    ctx.strokeStyle = 'rgba(33,27,22,0.015)';
     ctx.lineWidth = 0.5;
-    for (let x = 0; x < WIDTH; x += 12) {
+    for (let x = 0; x < WIDTH; x += 10) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, HEIGHT); ctx.stroke();
     }
-    for (let y = 0; y < HEIGHT; y += 12) {
+    for (let y = 0; y < HEIGHT; y += 10) {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(WIDTH, y); ctx.stroke();
     }
 
@@ -751,12 +881,18 @@
     requestAnimationFrame(loop);
   }
 
+  // Rotação visual cinemática tridimensional (com encolhimento de escala)
+  const outerFrame = document.getElementById('frame-outer');
+  
   document.getElementById('btn-flip').addEventListener('click', function() {
     if (isFlipping) return;
     isFlipping = true;
     flipProgress = 0;
     flipStartAngle = angle;
     targetAngle = angle + Math.PI;
+    
+    // Efeito 3D de escala (Z-axis shrink) durante o giro
+    outerFrame.style.transform = 'scale(0.94) rotate(' + (targetAngle * 180 / Math.PI) + 'deg)';
   });
 
   document.getElementById('btn-reset').addEventListener('click', function() {
@@ -764,6 +900,7 @@
     targetAngle = 0;
     flipProgress = 1;
     isFlipping = false;
+    outerFrame.style.transform = 'scale(1) rotate(0deg)';
     initParticles();
     initPendulum();
   });
