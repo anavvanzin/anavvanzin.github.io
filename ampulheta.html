@@ -261,16 +261,45 @@
   const ctx = canvas.getContext('2d');
   
   // Citações da Tese com capitulares implícitas
-  const QUOTES = [
-    { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
-    { text: "A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
-    { text: "A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.", author: "Ana Vanzin, Iconocracia" },
-    { text: "O endurecimento alegórico converte a figura narrativa, tridimensional e fluida da mulher em um selo heráldico, bidimensional e rígido.", author: "Ana Vanzin, Iconocracia" },
-    { text: "No Nível 3 de endurecimento, a alegoria feminina perde sua humanidade e torna-se pura inscrição do poder estatal.", author: "Ana Vanzin, Iconocracia" },
-    { text: "Tempo e direito se cruzam na ampulheta: a fluidez da areia representa a transição dos costumes, o peso acumulado representa a jurisprudência.", author: "Ana Vanzin, Iconocracia" },
-    { text: "A Marianne, a Germânia, a República. Corpos femininos esculpidos em pedra para representar leis escritas por homens.", author: "Ana Vanzin, Iconocracia" }
+  const ALLEGORIES = [
+    {
+      name: "IUSTITIA",
+      quotes: [
+        { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
+        { text: "A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
+        { text: "A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.", author: "Ana Vanzin, Iconocracia" }
+      ]
+    },
+    {
+      name: "MARIANNE",
+      quotes: [
+        { text: "O barrete frígio e a lança tornam o corpo feminino o receptáculo da própria liberdade revolucionária e da soberania nacional.", author: "Maurice Agulhon, Marianne au Combat" },
+        { text: "A República não é neutra: ela se reveste de carne e sangue na imagem de Marianne para disputar a devoção popular com as imagens religiosas.", author: "Ana Vanzin, Iconocracia" }
+      ]
+    },
+    {
+      name: "BRITANNIA",
+      quotes: [
+        { text: "Britannia governa as águas: a fusão heráldica entre o império marítimo e o escudo de lei civil consagra a divindade insular.", author: "Madge Dresser, The Britannia Iconography" },
+        { text: "Com o tridente em punho e o escudo romano, a soberania britânica contrapõe a fluidez do mar à rigidez da lei constitucional.", author: "Ana Vanzin, Iconocracia" }
+      ]
+    },
+    {
+      name: "GERMANIA",
+      quotes: [
+        { text: "Germania empunha a espada imperial deitada sob o carvalho: o corpo da mulher se confunde com as fronteiras do solo e da floresta.", author: "Heinrich Heine, Lieder" },
+        { text: "A alegoria territorializada: a Germania de 1848 estabiliza o espírito nacional em uma pose monumental de proteção armada.", author: "Ana Vanzin, Iconocracia" }
+      ]
+    },
+    {
+      name: "HELVETIA",
+      quotes: [
+        { text: "Nas montanhas, Helvetia guarda os passos alpinos com lança e escudo da confederação, personificando a neutralidade armada.", author: "François de Capitani, Helvetia" },
+        { text: "O isolamento virtuoso em pose clássica: Helvetia é a sentinela que traduz a geografia alpina em soberania jurídica pacificada.", author: "Ana Vanzin, Iconocracia" }
+      ]
+    }
   ];
-
+  let activeAllegoryIndex = 0;
   let currentQuoteIndex = 0;
 
   function showNextQuote() {
