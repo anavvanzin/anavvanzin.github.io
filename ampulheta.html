@@ -428,34 +428,23 @@
     walls.push(new Wall(12, cy + 135, WIDTH - 12, cy + 135));
   }
 
-  // Justitia Silhouette em Estilo Gravura/Xilogravura
-  const justitiaSegments = [];
-  function initJustitia() {
-    justitiaSegments.length = 0;
-    const jy = cy + 90;
-    
-    // Segmentos físicos para colisão
-    addJustitiaSegment(cx - 10, jy - 22, cx + 10, jy - 22);
-    addJustitiaSegment(cx - 10, jy - 22, cx - 10, jy - 10);
-    addJustitiaSegment(cx + 10, jy - 22, cx + 10, jy - 10);
-    addJustitiaSegment(cx - 10, jy - 10, cx - 28, jy + 2);
-    addJustitiaSegment(cx + 10, jy - 10, cx + 28, jy + 2);
-    addJustitiaSegment(cx - 28, jy + 2, cx - 48, jy + 2);
-    addJustitiaSegment(cx - 58, jy + 18, cx - 38, jy + 18);
-    addJustitiaSegment(cx + 28, jy + 2, cx + 48, jy + 2);
-    addJustitiaSegment(cx + 44, jy - 26, cx + 44, jy + 14);
-    addJustitiaSegment(cx - 28, jy + 2, cx - 32, cy + 135);
-    addJustitiaSegment(cx + 28, jy + 2, cx + 32, cy + 135);
+  // Silhuetas e Segmentos Físicos para o Ciclo das Soberanias
+  const activeSegments = [];
+
+  function drawHatching(leftBound, rightBound, startY, endY, step) {
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 12%, transparent)';
+    ctx.lineWidth = 0.8;
+    for (let l = startY; l < endY; l += step) {
+      ctx.beginPath();
+      ctx.moveTo(leftBound(l), l);
+      ctx.lineTo(rightBound(l), l);
+      ctx.stroke();
+    }
   }
 
-  function addJustitiaSegment(x1, y1, x2, y2) {
-    justitiaSegments.push({ x1, y1, x2, y2 });
-  }
-
-  function drawJustitia() {
+  function drawIustitia() {
     ctx.save();
-    
-    // 1. Silhueta interna (Tom dourado desbotado)
+    // Silhueta Dourada
     ctx.fillStyle = 'var(--gold-soft)';
     ctx.beginPath();
     ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
@@ -465,66 +454,366 @@
     ctx.lineTo(cx + 32, cy + 135);
     ctx.lineTo(cx + 28, cy + 92);
     ctx.lineTo(cx + 10, cy + 80);
-    ctx.closePath();
     ctx.fill();
 
-    // 2. Efeito de hachura fina (Estilo Gravura do século XV)
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 14%, transparent)';
-    ctx.lineWidth = 0.8;
-    for (let l = cy + 86; l < cy + 135; l += 3.5) {
-      ctx.beginPath();
-      // Linhas horizontais que se limitam ao contorno da saia/tronco
-      const factor = (l - (cy + 86)) / 49;
-      const leftBound = cx - 18 - factor * 14;
-      const rightBound = cx + 18 + factor * 14;
-      ctx.moveTo(leftBound, l);
-      ctx.lineTo(rightBound, l);
-      ctx.stroke();
-    }
+    // Hachuras
+    drawHatching(
+      (l) => cx - 18 - ((l - (cy + 86)) / 49) * 14,
+      (l) => cx + 18 + ((l - (cy + 86)) / 49) * 14,
+      cy + 86, cy + 135, 3.5
+    );
 
-    // 3. Contorno e Detalhes
+    // Contorno Ink
     ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
     ctx.lineWidth = 1.2;
-    
-    // Cabeça & Ombros
     ctx.beginPath();
     ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
     ctx.stroke();
-    
+
     ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 80);
-    ctx.lineTo(cx - 28, cy + 92);
-    ctx.lineTo(cx - 32, cy + 135);
-    ctx.moveTo(cx + 10, cy + 80);
-    ctx.lineTo(cx + 28, cy + 92);
-    ctx.lineTo(cx + 32, cy + 135);
+    ctx.moveTo(cx - 10, cy + 80); ctx.lineTo(cx - 28, cy + 92); ctx.lineTo(cx - 32, cy + 135);
+    ctx.moveTo(cx + 10, cy + 80); ctx.lineTo(cx + 28, cy + 92); ctx.lineTo(cx + 32, cy + 135);
     ctx.stroke();
 
     // Espada
     ctx.beginPath();
-    ctx.moveTo(cx + 44, cy + 64);
-    ctx.lineTo(cx + 44, cy + 104);
-    ctx.moveTo(cx + 39, cy + 96);
-    ctx.lineTo(cx + 49, cy + 96);
+    ctx.moveTo(cx + 44, cy + 64); ctx.lineTo(cx + 44, cy + 104);
+    ctx.moveTo(cx + 39, cy + 96); ctx.lineTo(cx + 49, cy + 96);
     ctx.stroke();
 
     // Balança
     ctx.beginPath();
-    ctx.moveTo(cx - 28, cy + 92);
-    ctx.lineTo(cx - 48, cy + 92);
-    ctx.moveTo(cx - 48, cy + 92);
-    ctx.lineTo(cx - 56, cy + 108);
-    ctx.lineTo(cx - 40, cy + 108);
+    ctx.moveTo(cx - 28, cy + 92); ctx.lineTo(cx - 48, cy + 92);
+    ctx.moveTo(cx - 48, cy + 92); ctx.lineTo(cx - 56, cy + 108); ctx.lineTo(cx - 40, cy + 108);
     ctx.closePath();
-    ctx.moveTo(cx - 58, cy + 108);
-    ctx.lineTo(cx - 38, cy + 108);
+    ctx.moveTo(cx - 58, cy + 108); ctx.lineTo(cx - 38, cy + 108);
     ctx.stroke();
 
-    // Venda Vermelha (Elemento satírico de 1494 da tese)
+    // Venda Rubrica
     ctx.fillStyle = 'var(--rubric)';
     ctx.fillRect(cx - 7, cy + 72, 14, 3.5);
+    ctx.restore();
+  }
+
+  function drawMarianne() {
+    ctx.save();
+    // Silhueta Dourada
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
+    // Barrete frígio
+    ctx.moveTo(cx - 9, cy + 71);
+    ctx.quadraticCurveTo(cx - 14, cy + 62, cx - 2, cy + 58);
+    ctx.quadraticCurveTo(cx + 8, cy + 60, cx + 7, cy + 70);
+    // Corpo
+    ctx.moveTo(cx - 10, cy + 82);
+    ctx.lineTo(cx - 25, cy + 94);
+    ctx.lineTo(cx - 30, cy + 135);
+    ctx.lineTo(cx + 30, cy + 135);
+    ctx.lineTo(cx + 25, cy + 94);
+    ctx.lineTo(cx + 10, cy + 82);
+    ctx.fill();
+
+    // Hachuras
+    drawHatching(
+      (l) => cx - 16 - ((l - (cy + 86)) / 49) * 14,
+      (l) => cx + 16 + ((l - (cy + 86)) / 49) * 14,
+      cy + 86, cy + 135, 3.5
+    );
+
+    // Contornos Ink
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Barrete
+    ctx.beginPath();
+    ctx.moveTo(cx - 9, cy + 71);
+    ctx.quadraticCurveTo(cx - 14, cy + 62, cx - 2, cy + 58);
+    ctx.quadraticCurveTo(cx + 8, cy + 60, cx + 7, cy + 70);
+    ctx.stroke();
+
+    // Ombros
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 25, cy + 94); ctx.lineTo(cx - 30, cy + 135);
+    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 25, cy + 94); ctx.lineTo(cx + 30, cy + 135);
+    ctx.stroke();
+
+    // Lança com Bandeira
+    ctx.beginPath();
+    ctx.moveTo(cx - 44, cy + 56); ctx.lineTo(cx - 44, cy + 135); // Mastro
+    ctx.stroke();
+    // Bandeira ondulando
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.moveTo(cx - 44, cy + 58);
+    ctx.bezierCurveTo(cx - 58, cy + 54, cx - 52, cy + 72, cx - 68, cy + 68);
+    ctx.lineTo(cx - 68, cy + 84);
+    ctx.bezierCurveTo(cx - 52, cy + 88, cx - 58, cy + 70, cx - 44, cy + 74);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Detalhe Rubrica na Bandeira
+    ctx.fillStyle = 'var(--rubric)';
+    ctx.beginPath();
+    ctx.moveTo(cx - 44, cy + 58);
+    ctx.bezierCurveTo(cx - 49, cy + 56, cx - 48, cy + 62, cx - 52, cy + 61);
+    ctx.lineTo(cx - 52, cy + 76);
+    ctx.bezierCurveTo(cx - 48, cy + 77, cx - 49, cy + 72, cx - 44, cy + 74);
+    ctx.closePath();
+    ctx.fill();
+
+    // Barrete Cocarde rubrica
+    ctx.fillStyle = 'var(--rubric)';
+    ctx.beginPath();
+    ctx.arc(cx + 4, cy + 67, 3, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.restore();
+  }
+
+  function drawBritannia() {
+    ctx.save();
+    // Silhueta Dourada
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
+    // Elmo crista
+    ctx.moveTo(cx - 5, cy + 67);
+    ctx.quadraticCurveTo(cx, cy + 56, cx + 5, cy + 67);
+    // Corpo
+    ctx.moveTo(cx - 10, cy + 82);
+    ctx.lineTo(cx - 24, cy + 94);
+    ctx.lineTo(cx - 28, cy + 135);
+    ctx.lineTo(cx + 28, cy + 135);
+    ctx.lineTo(cx + 24, cy + 94);
+    ctx.lineTo(cx + 10, cy + 82);
+    ctx.fill();
+
+    // Hachuras
+    drawHatching(
+      (l) => cx - 16 - ((l - (cy + 86)) / 49) * 12,
+      (l) => cx + 16 + ((l - (cy + 86)) / 49) * 12,
+      cy + 86, cy + 135, 3.5
+    );
+
+    // Contorno Ink
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Crista do Elmo
+    ctx.fillStyle = 'var(--rubric)';
+    ctx.beginPath();
+    ctx.moveTo(cx - 4, cy + 67);
+    ctx.bezierCurveTo(cx - 8, cy + 54, cx + 8, cy + 54, cx + 4, cy + 67);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Ombros
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 24, cy + 94); ctx.lineTo(cx - 28, cy + 135);
+    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 24, cy + 94); ctx.lineTo(cx + 30, cy + 135);
+    ctx.stroke();
+
+    // Tridente
+    ctx.beginPath();
+    ctx.moveTo(cx + 42, cy + 52); ctx.lineTo(cx + 42, cy + 135); // Haste
+    ctx.moveTo(cx + 35, cy + 56); ctx.lineTo(cx + 49, cy + 56); // Travessa
+    ctx.moveTo(cx + 35, cy + 44); ctx.lineTo(cx + 35, cy + 56);
+    ctx.moveTo(cx + 49, cy + 44); ctx.lineTo(cx + 49, cy + 56);
+    ctx.moveTo(cx + 42, cy + 40); ctx.lineTo(cx + 42, cy + 56);
+    ctx.stroke();
+
+    // Escudo circular no braço esquerdo
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.arc(cx - 42, cy + 110, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Detalhes da bandeira Union Jack no escudo (Rubric)
+    ctx.strokeStyle = 'var(--rubric)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 42, cy + 90); ctx.lineTo(cx - 42, cy + 130);
+    ctx.moveTo(cx - 62, cy + 110); ctx.lineTo(cx - 22, cy + 110);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawGermania() {
+    ctx.save();
+    // Silhueta Dourada
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
+    // Ombros e Tronco
+    ctx.moveTo(cx - 10, cy + 82);
+    ctx.lineTo(cx - 28, cy + 94);
+    ctx.lineTo(cx - 32, cy + 135);
+    ctx.lineTo(cx + 32, cy + 135);
+    ctx.lineTo(cx + 28, cy + 94);
+    ctx.lineTo(cx + 10, cy + 82);
+    ctx.fill();
+
+    // Hachuras
+    drawHatching(
+      (l) => cx - 18 - ((l - (cy + 86)) / 49) * 14,
+      (l) => cx + 18 + ((l - (cy + 86)) / 49) * 14,
+      cy + 86, cy + 135, 3.5
+    );
+
+    // Contorno Ink
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 28, cy + 94); ctx.lineTo(cx - 32, cy + 135);
+    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 28, cy + 94); ctx.lineTo(cx + 32, cy + 135);
+    ctx.stroke();
+
+    // Coroa de Carvalho (Rubric)
+    ctx.strokeStyle = 'var(--rubric)';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 71, 10, Math.PI, Math.PI * 2);
+    ctx.stroke();
+
+    // Espada imperial apoiada no colo
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(cx - 40, cy + 120); ctx.lineTo(cx + 40, cy + 120); // Lâmina horizontal
+    ctx.moveTo(cx - 32, cy + 115); ctx.lineTo(cx - 32, cy + 125); // Guarda
+    ctx.moveTo(cx - 40, cy + 120); ctx.lineTo(cx - 46, cy + 120); // Cabo
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawHelvetia() {
+    ctx.save();
+    // Silhueta Dourada
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
+    // Corpo
+    ctx.moveTo(cx - 10, cy + 82);
+    ctx.lineTo(cx - 26, cy + 94);
+    ctx.lineTo(cx - 30, cy + 135);
+    ctx.lineTo(cx + 30, cy + 135);
+    ctx.lineTo(cx + 26, cy + 94);
+    ctx.lineTo(cx + 10, cy + 82);
+    ctx.fill();
+
+    // Hachuras
+    drawHatching(
+      (l) => cx - 17 - ((l - (cy + 86)) / 49) * 13,
+      (l) => cx + 17 + ((l - (cy + 86)) / 49) * 13,
+      cy + 86, cy + 135, 3.5
+    );
+
+    // Contorno Ink
+    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 26, cy + 94); ctx.lineTo(cx - 30, cy + 135);
+    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 26, cy + 94); ctx.lineTo(cx + 30, cy + 135);
+    ctx.stroke();
+
+    // Lança vertical
+    ctx.beginPath();
+    ctx.moveTo(cx + 42, cy + 48); ctx.lineTo(cx + 42, cy + 135);
+    ctx.stroke();
+
+    // Escudo triangular da confederação no braço esquerdo
+    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.beginPath();
+    ctx.moveTo(cx - 48, cy + 92);
+    ctx.lineTo(cx - 28, cy + 92);
+    ctx.lineTo(cx - 38, cy + 122);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Cruz Suíça no escudo (Rubric)
+    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillRect(cx - 40, cy + 101, 4, 12);
+    ctx.fillRect(cx - 44, cy + 105, 12, 4);
+
+    ctx.restore();
+  }
+
+  function drawActiveAllegory() {
+    switch (activeAllegoryIndex) {
+      case 0: drawIustitia(); break;
+      case 1: drawMarianne(); break;
+      case 2: drawBritannia(); break;
+      case 3: drawGermania(); break;
+      case 4: drawHelvetia(); break;
+    }
+  }
+
+  function initActiveSegments() {
+    activeSegments.length = 0;
+    const jy = cy + 90;
+
+    // Segmentos básicos compartilhados do corpo
+    activeSegments.push(new Wall(cx - 10, jy - 22, cx + 10, jy - 22));
+    activeSegments.push(new Wall(cx - 10, jy - 22, cx - 10, jy - 10));
+    activeSegments.push(new Wall(cx + 10, jy - 22, cx + 10, jy - 10));
+    activeSegments.push(new Wall(cx - 10, jy - 10, cx - 28, jy + 2));
+    activeSegments.push(new Wall(cx + 10, jy - 10, cx + 28, jy + 2));
+
+    // Barreiras específicas de colisão por alegoria
+    if (activeAllegoryIndex === 0) {
+      // Justitia
+      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 48, jy + 2));
+      activeSegments.push(new Wall(cx - 58, jy + 18, cx - 38, jy + 18));
+      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 48, jy + 2));
+      activeSegments.push(new Wall(cx + 44, jy - 26, cx + 44, jy + 14));
+      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 32, cy + 135));
+      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 32, cy + 135));
+    } else if (activeAllegoryIndex === 1) {
+      // Marianne
+      activeSegments.push(new Wall(cx - 44, cy + 56, cx - 44, cy + 135));
+      activeSegments.push(new Wall(cx - 25, jy + 2, cx - 30, cy + 135));
+      activeSegments.push(new Wall(cx + 25, jy + 2, cx + 30, cy + 135));
+    } else if (activeAllegoryIndex === 2) {
+      // Britannia
+      activeSegments.push(new Wall(cx + 42, cy + 52, cx + 42, cy + 135));
+      // Escudo circular colisor (aproximado por 2 segmentos retos na borda superior)
+      activeSegments.push(new Wall(cx - 62, cy + 110, cx - 42, cy + 90));
+      activeSegments.push(new Wall(cx - 42, cy + 90, cx - 22, cy + 110));
+      activeSegments.push(new Wall(cx - 24, jy + 2, cx - 28, cy + 135));
+      activeSegments.push(new Wall(cx + 24, jy + 2, cx + 30, cy + 135));
+    } else if (activeAllegoryIndex === 3) {
+      // Germania
+      activeSegments.push(new Wall(cx - 40, cy + 120, cx + 40, cy + 120)); // Espada colisor
+      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 32, cy + 135));
+      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 32, cy + 135));
+    } else if (activeAllegoryIndex === 4) {
+      // Helvetia
+      activeSegments.push(new Wall(cx + 42, cy + 48, cx + 42, cy + 135)); // Lança
+      activeSegments.push(new Wall(cx - 48, cy + 92, cx - 28, cy + 92)); // Escudo topo
+      activeSegments.push(new Wall(cx - 26, jy + 2, cx - 30, cy + 135));
+      activeSegments.push(new Wall(cx + 26, jy + 2, cx + 30, cy + 135));
+    }
   }
 
   // Pêndulo Duplo Caótico
@@ -730,7 +1019,7 @@
       for (let w of walls) {
         checkCircleLineCollision(p, w, true);
       }
-      for (let seg of justitiaSegments) {
+      for (let seg of activeSegments) {
         checkCircleLineCollision(p, seg, true);
       }
     }
@@ -889,7 +1178,7 @@
     ctx.rotate(-angle);
     ctx.translate(-cx, -cy);
 
-    drawJustitia();
+    drawActiveAllegory();
 
     for (let w of walls) {
       w.draw();
@@ -935,7 +1224,7 @@
   });
 
   initWalls();
-  initJustitia();
+  initActiveSegments();
   initParticles();
   initPendulum();
   loop();
