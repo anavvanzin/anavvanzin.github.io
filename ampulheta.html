@@ -264,6 +264,7 @@
   const ALLEGORIES = [
     {
       name: "IUSTITIA",
+      imagePath: "images/justitia.jpg",
       quotes: [
         { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
         { text: "A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
@@ -272,6 +273,7 @@
     },
     {
       name: "MARIANNE",
+      imagePath: "images/marianne.jpg",
       quotes: [
         { text: "O barrete frígio e a lança tornam o corpo feminino o receptáculo da própria liberdade revolucionária e da soberania nacional.", author: "Maurice Agulhon, Marianne au Combat" },
         { text: "A República não é neutra: ela se reveste de carne e sangue na imagem de Marianne para disputar a devoção popular com as imagens religiosas.", author: "Ana Vanzin, Iconocracia" }
@@ -279,6 +281,7 @@
     },
     {
       name: "BRITANNIA",
+      imagePath: "images/britannia.jpg",
       quotes: [
         { text: "Britannia governa as águas: a fusão heráldica entre o império marítimo e o escudo de lei civil consagra a divindade insular.", author: "Madge Dresser, The Britannia Iconography" },
         { text: "Com o tridente em punho e o escudo romano, a soberania britânica contrapõe a fluidez do mar à rigidez da lei constitucional.", author: "Ana Vanzin, Iconocracia" }
@@ -286,6 +289,7 @@
     },
     {
       name: "GERMANIA",
+      imagePath: "images/germania.jpg",
       quotes: [
         { text: "Germania empunha a espada imperial deitada sob o carvalho: o corpo da mulher se confunde com as fronteiras do solo e da floresta.", author: "Heinrich Heine, Lieder" },
         { text: "A alegoria territorializada: a Germania de 1848 estabiliza o espírito nacional em uma pose monumental de proteção armada.", author: "Ana Vanzin, Iconocracia" }
@@ -293,12 +297,21 @@
     },
     {
       name: "HELVETIA",
+      imagePath: "images/helvetia.jpg",
       quotes: [
         { text: "Nas montanhas, Helvetia guarda os passos alpinos com lança e escudo da confederação, personificando a neutralidade armada.", author: "François de Capitani, Helvetia" },
         { text: "O isolamento virtuoso em pose clássica: Helvetia é a sentinela que traduz a geografia alpina em soberania jurídica pacificada.", author: "Ana Vanzin, Iconocracia" }
       ]
     }
   ];
+  
+  // Preload das imagens de xilogravura
+  const images = {};
+  ALLEGORIES.forEach((allegory, index) => {
+    const img = new Image();
+    img.src = allegory.imagePath;
+    images[index] = img;
+  });
   let activeAllegoryIndex = 0;
   let currentQuoteIndex = 0;
 
@@ -761,12 +774,16 @@
   }
 
   function drawActiveAllegory() {
-    switch (activeAllegoryIndex) {
-      case 0: drawIustitia(); break;
-      case 1: drawMarianne(); break;
-      case 2: drawBritannia(); break;
-      case 3: drawGermania(); break;
-      case 4: drawHelvetia(); break;
+    const img = images[activeAllegoryIndex];
+    if (img && img.complete) {
+      ctx.save();
+      // Aplica blend mode multiply para misturar o fundo da imagem com a pauta de papel
+      ctx.globalCompositeOperation = 'multiply';
+      
+      const w = 110;
+      const h = 110;
+      ctx.drawImage(img, cx - w / 2, cy + 25, w, h);
+      ctx.restore();
     }
   }
 
