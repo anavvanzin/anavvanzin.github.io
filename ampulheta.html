@@ -259,7 +259,21 @@
 (function() {
   const canvas = document.getElementById('physics-canvas');
   const ctx = canvas.getContext('2d');
-  
+
+  // Paleta literal — Canvas 2D não resolve var(--…) do CSS (string inválida = ignorada,
+  // cai pro preto). Espelha o :root local. gold-soft e os ink-transparentes já
+  // pré-computados (gold-soft = color-mix gold 12% + paper; ink a 12% / 25% alpha).
+  const C = {
+    ink:      '#211B16',
+    rubric:   '#9B2C1C',
+    gold:     '#9C7C3D',
+    gold2:    '#B7934C',
+    goldSoft: '#E8DDC6',
+    amethyst: '#6E5A86',
+    inkFaint: 'rgba(33,27,22,0.12)',
+    inkSoft:  'rgba(33,27,22,0.25)'
+  };
+
   // Citações da Tese com capitulares implícitas
   const ALLEGORIES = [
     {
@@ -354,11 +368,11 @@
       // Amostragem de cores premium da tese
       const rand = Math.random();
       if (rand > 0.6) {
-        this.color = 'var(--rubric)';
+        this.color = C.rubric;
       } else if (rand > 0.25) {
-        this.color = 'var(--gold-2)';
+        this.color = C.gold2;
       } else {
-        this.color = 'var(--amethyst)';
+        this.color = C.amethyst;
       }
     }
 
@@ -408,7 +422,7 @@
       ctx.beginPath();
       ctx.moveTo(this.x1, this.y1);
       ctx.lineTo(this.x2, this.y2);
-      ctx.strokeStyle = 'var(--ink)';
+      ctx.strokeStyle = C.ink;
       ctx.lineWidth = 2.5;
       ctx.stroke();
     }
@@ -446,7 +460,7 @@
   const activeSegments = [];
 
   function drawHatching(leftBound, rightBound, startY, endY, step) {
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 12%, transparent)';
+    ctx.strokeStyle = C.inkFaint;
     ctx.lineWidth = 0.8;
     for (let l = startY; l < endY; l += step) {
       ctx.beginPath();
@@ -459,7 +473,7 @@
   function drawIustitia() {
     ctx.save();
     // Silhueta Dourada
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
     ctx.moveTo(cx - 10, cy + 80);
@@ -478,7 +492,7 @@
     );
 
     // Contorno Ink
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
@@ -504,7 +518,7 @@
     ctx.stroke();
 
     // Venda Rubrica
-    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillStyle = C.rubric;
     ctx.fillRect(cx - 7, cy + 72, 14, 3.5);
     ctx.restore();
   }
@@ -512,7 +526,7 @@
   function drawMarianne() {
     ctx.save();
     // Silhueta Dourada
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
     // Barrete frígio
@@ -536,7 +550,7 @@
     );
 
     // Contornos Ink
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
@@ -560,7 +574,7 @@
     ctx.moveTo(cx - 44, cy + 56); ctx.lineTo(cx - 44, cy + 135); // Mastro
     ctx.stroke();
     // Bandeira ondulando
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.moveTo(cx - 44, cy + 58);
     ctx.bezierCurveTo(cx - 58, cy + 54, cx - 52, cy + 72, cx - 68, cy + 68);
@@ -571,7 +585,7 @@
     ctx.stroke();
 
     // Detalhe Rubrica na Bandeira
-    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillStyle = C.rubric;
     ctx.beginPath();
     ctx.moveTo(cx - 44, cy + 58);
     ctx.bezierCurveTo(cx - 49, cy + 56, cx - 48, cy + 62, cx - 52, cy + 61);
@@ -581,7 +595,7 @@
     ctx.fill();
 
     // Barrete Cocarde rubrica
-    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillStyle = C.rubric;
     ctx.beginPath();
     ctx.arc(cx + 4, cy + 67, 3, 0, Math.PI * 2);
     ctx.fill();
@@ -592,7 +606,7 @@
   function drawBritannia() {
     ctx.save();
     // Silhueta Dourada
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
     // Elmo crista
@@ -615,14 +629,14 @@
     );
 
     // Contorno Ink
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
     ctx.stroke();
 
     // Crista do Elmo
-    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillStyle = C.rubric;
     ctx.beginPath();
     ctx.moveTo(cx - 4, cy + 67);
     ctx.bezierCurveTo(cx - 8, cy + 54, cx + 8, cy + 54, cx + 4, cy + 67);
@@ -646,14 +660,14 @@
     ctx.stroke();
 
     // Escudo circular no braço esquerdo
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx - 42, cy + 110, 20, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
 
     // Detalhes da bandeira Union Jack no escudo (Rubric)
-    ctx.strokeStyle = 'var(--rubric)';
+    ctx.strokeStyle = C.rubric;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(cx - 42, cy + 90); ctx.lineTo(cx - 42, cy + 130);
@@ -666,7 +680,7 @@
   function drawGermania() {
     ctx.save();
     // Silhueta Dourada
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
     // Ombros e Tronco
@@ -686,7 +700,7 @@
     );
 
     // Contorno Ink
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
@@ -698,14 +712,14 @@
     ctx.stroke();
 
     // Coroa de Carvalho (Rubric)
-    ctx.strokeStyle = 'var(--rubric)';
+    ctx.strokeStyle = C.rubric;
     ctx.lineWidth = 1.6;
     ctx.beginPath();
     ctx.arc(cx, cy + 71, 10, Math.PI, Math.PI * 2);
     ctx.stroke();
 
     // Espada imperial apoiada no colo
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(cx - 40, cy + 120); ctx.lineTo(cx + 40, cy + 120); // Lâmina horizontal
@@ -719,7 +733,7 @@
   function drawHelvetia() {
     ctx.save();
     // Silhueta Dourada
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
     // Corpo
@@ -739,7 +753,7 @@
     );
 
     // Contorno Ink
-    ctx.strokeStyle = 'color-mix(in srgb, var(--ink) 25%, transparent)';
+    ctx.strokeStyle = C.inkSoft;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
@@ -756,7 +770,7 @@
     ctx.stroke();
 
     // Escudo triangular da confederação no braço esquerdo
-    ctx.fillStyle = 'var(--gold-soft)';
+    ctx.fillStyle = C.goldSoft;
     ctx.beginPath();
     ctx.moveTo(cx - 48, cy + 92);
     ctx.lineTo(cx - 28, cy + 92);
@@ -766,7 +780,7 @@
     ctx.stroke();
 
     // Cruz Suíça no escudo (Rubric)
-    ctx.fillStyle = 'var(--rubric)';
+    ctx.fillStyle = C.rubric;
     ctx.fillRect(cx - 40, cy + 101, 4, 12);
     ctx.fillRect(cx - 44, cy + 105, 12, 4);
 
@@ -965,14 +979,14 @@
       ctx.moveTo(this.x0, this.y0);
       ctx.lineTo(this.x1, this.y1);
       ctx.lineTo(this.x2, this.y2);
-      ctx.strokeStyle = 'var(--gold)';
+      ctx.strokeStyle = C.gold;
       ctx.lineWidth = 2.2;
       ctx.stroke();
 
       // 3. Articulações
       ctx.beginPath();
       ctx.arc(this.x1, this.y1, this.r1, 0, Math.PI * 2);
-      ctx.fillStyle = 'var(--ink)';
+      ctx.fillStyle = C.ink;
       ctx.fill();
       ctx.stroke();
 
@@ -980,10 +994,10 @@
       ctx.save();
       ctx.beginPath();
       ctx.arc(this.x2, this.y2, this.r2, 0, Math.PI * 2);
-      ctx.shadowColor = 'var(--rubric)';
+      ctx.shadowColor = C.rubric;
       ctx.shadowBlur = 8;
-      ctx.fillStyle = 'var(--rubric)';
-      ctx.strokeStyle = 'var(--ink)';
+      ctx.fillStyle = C.rubric;
+      ctx.strokeStyle = C.ink;
       ctx.lineWidth = 1.5;
       ctx.fill();
       ctx.stroke();
@@ -1210,8 +1224,8 @@
 
     // Draw allegory banner name
     ctx.save();
-    ctx.fillStyle = 'var(--gold)';
-    ctx.font = 'bold 9px var(--font-mono)';
+    ctx.fillStyle = C.gold;
+    ctx.font = 'bold 9px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
     ctx.letterSpacing = '0.12em';
     ctx.fillText('❧ ' + ALLEGORIES[activeAllegoryIndex].name + ' ❧', cx, HEIGHT - 18);
