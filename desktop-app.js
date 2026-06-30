@@ -21,7 +21,8 @@ const {
   WContato,
   WJustitia,
   WVo,
-  WAmpulheta
+  WAmpulheta,
+  WPoster
 } = window.avapp;
 const REG = {
   sobre: {
@@ -87,6 +88,15 @@ const REG = {
     },
     w: 480,
     Body: WAmpulheta
+  },
+  poster: {
+    title: {
+      pt: 'sala de pôsteres',
+      en: 'poster room'
+    },
+    w: 800,
+    h: 600,
+    Body: WPoster
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
@@ -223,6 +233,13 @@ const DESK_ICONS = [{
     en: 'hourglass.app'
   },
   Icon: HourglassIcon
+}, {
+  id: 'poster',
+  label: {
+    pt: 'pôsteres',
+    en: 'pôsteres'
+  },
+  Icon: AtlasIcon
 }];
 const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
@@ -314,7 +331,8 @@ function TitleBar({
   onClose,
   onMin,
   onDown,
-  draggable = true
+  draggable = true,
+  isPoster = false
 }) {
   const stripes = active ? 'repeating-linear-gradient(to bottom, var(--ink) 0 1px, transparent 1px 3px)' : 'none';
   const flank = {
@@ -337,12 +355,14 @@ function TitleBar({
       borderBottom: '1px solid var(--ink)',
       cursor: draggable ? 'grab' : 'default',
       userSelect: 'none',
-      touchAction: 'none'
+      touchAction: 'none',
+      position: 'relative',
+      zIndex: 1010
     }
   }, /*#__PURE__*/React.createElement(ChromeBox, {
     active: active,
     onClick: onClose,
-    label: "Fechar"
+    label: isPoster ? (active ? "Fechar" : "Fechar Inativo") : "Fechar Janela"
   }), /*#__PURE__*/React.createElement("div", {
     style: flank
   }), /*#__PURE__*/React.createElement("span", {
@@ -359,7 +379,7 @@ function TitleBar({
   }), /*#__PURE__*/React.createElement(ChromeBox, {
     active: active,
     onClick: onMin,
-    label: "Minimizar"
+    label: active ? "Minimizar" : "Minimizar Inativo"
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       width: 7,
@@ -403,6 +423,7 @@ function WindowFrame({
   };
   return /*#__PURE__*/React.createElement("div", {
     onPointerDown: () => onFocus(win.id),
+    className: "dwin",
     style: frame
   }, isMobile && /*#__PURE__*/React.createElement("div", {
     style: {
@@ -423,8 +444,9 @@ function WindowFrame({
     onClose: () => onClose(win.id),
     onMin: () => onMin(win.id),
     onDown: e => onDragStart(e, win.id),
-    draggable: !isMobile
-  }, /*#__PURE__*/React.createElement("div", {
+    draggable: !isMobile,
+    isPoster: win.id === 'poster'
+  }), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: win.id === 'ampulheta' ? 0 : (win.id === 'justitia' ? 12 : 22),
       maxHeight: isMobile ? '64vh' : '58vh',

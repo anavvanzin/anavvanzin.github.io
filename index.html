@@ -253,6 +253,7 @@
         <a class="icon" href="/sala-de-leitura/"><span class="cap"><img src="/assets/icons/sala.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span></a>
         <a class="icon" href="/conceitos.html"><span class="cap"><img src="/assets/icons/conceitos.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
         <a class="icon nv" href="/metodologia/"><span class="cap"><img src="/assets/icons/metodologia.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span></a>
+        <a class="icon" href="/poster.html" data-win="sala de pôsteres" data-win-alt="Sala de Pôsteres Acadêmicos"><span class="cap"><img src="/assets/icons/atlas.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="pôsteres" data-en="posters">pôsteres</span></a>
       </div>
     </section>
 
@@ -377,8 +378,13 @@
         content.src = src;
         content.style.border = 'none';
         content.style.display = 'block';
-        content.style.width = 'min(440px, 82vw)';
-        content.style.height = 'min(500px, 60vh)';
+        if (src.indexOf('poster.html') !== -1) {
+          content.style.width = 'min(800px, 92vw)';
+          content.style.height = 'min(600px, 80vh)';
+        } else {
+          content.style.width = 'min(440px, 82vw)';
+          content.style.height = 'min(500px, 60vh)';
+        }
         setTimeout(function(){ clampIntoView(win); }, 100);
       } else {
         content = document.createElement('img');

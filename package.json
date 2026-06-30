@@ -1,0 +1,15 @@
+{
+  "name": "iconocracia",
+  "version": "1.0.0",
+  "description": "Iconocracia E2E Tests",
+  "main": "index.html",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
