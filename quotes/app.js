@@ -133,7 +133,14 @@ async function loadData() {
 /* ── Hero ── */
 function renderHero() {
   if (!allPosts.length) return;
-  const hero = allPosts[Math.floor(Math.random() * allPosts.length)];
+  // pool curado para o herói cinematográfico: citações curtas, legíveis, sem URLs
+  const isUrl = (s) => /^\s*https?:\/\//i.test(s) || /\b[\w-]+\.(com|org|net|br|blogspot|html?)\b/i.test(s);
+  const pool = allPosts.filter(p => {
+    const len = (p._quote || '').trim().length;
+    return len >= 40 && len <= 200 && !isUrl(p._quote);
+  });
+  const src = pool.length ? pool : allPosts;
+  const hero = src[Math.floor(Math.random() * src.length)];
   const el = document.createElement('div');
   el.className = 'hero-section';
   el.innerHTML = `

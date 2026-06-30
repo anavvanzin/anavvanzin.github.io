@@ -8,6 +8,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    /* entrada escalonada só quando seguro: IntersectionObserver presente e sem
+       reduced-motion. Sem essa classe, os cards nascem visíveis (no-JS / browser
+       antigo / reduced-motion nunca deixam o conteúdo invisível). */
+    try {
+      if ('IntersectionObserver' in window &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('stagger-on');
+      }
+    } catch (e) {}
+  </script>
   <title>Trechos | anavanzin</title>
   <meta name="description" content="Coleção de 1.608 trechos literários reunidos entre 2014 e 2026.">
   <link rel="icon" type="image/png" href="/assets/avatar-pixel.png">
@@ -28,7 +39,7 @@
         <input type="text" id="searchInput" placeholder="Buscar por palavra, autor..." autocomplete="off" aria-label="Buscar trechos por palavra ou autor">
         <kbd>Ctrl+K</kbd>
       </div>
-      <button id="randomBtn" title="Sortear um trecho" aria-label="Sortear um trecho">🎲</button>
+      <button id="randomBtn" title="Sortear um trecho" aria-label="Sortear um trecho"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><circle cx="8.5" cy="8.5" r="1.15" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.15" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.15" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.15" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.15" fill="currentColor" stroke="none"/></svg></button>
       <button id="themeBtn" title="Alternar modo claro/escuro" aria-label="Alternar modo claro/escuro">◐</button>
     </nav>
   </header>
