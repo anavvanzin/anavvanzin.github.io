@@ -9,24 +9,30 @@
   --accent: #bfa889;
   --accent-soft: rgba(191,168,137,0.10);
   --highlight: rgba(191,168,137,0.25);
+  --inner-light: rgba(255,255,255,0.045);             /* brilho concêntrico do núcleo */
+  --shadow-soft: 0 18px 40px -24px rgba(0,0,0,0.60);  /* sombra ambiente difusa (no hover) */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-quote: 'Crimson Pro', Georgia, serif;
   --font-ui: 'Hanken Grotesk', system-ui, sans-serif;
   --radius: 0px;
   --shadow: none;
+  --ease: cubic-bezier(.32,.72,0,1);                  /* easing premium com mola */
   --max-width: 1100px;
 }
 
+/* tema claro = paleta do site anavanzin.com (papel quente · ouro · tinta) */
 [data-theme="light"] {
-  --bg: #f2efe9;
-  --surface: #faf8f3;
-  --surface-hover: #ece8df;
-  --border: #ddd7cb;
-  --text: #1a1a1a;
-  --text-muted: #8a847a;
-  --accent: #5c4830;
-  --accent-soft: rgba(92,72,48,0.06);
-  --highlight: rgba(92,72,48,0.18);
+  --bg: #EFE5CF;            /* paper */
+  --surface: #F4ECD8;       /* paper-card */
+  --surface-hover: #ece1c6;
+  --border: #d8ccab;
+  --text: #211B16;          /* ink */
+  --text-muted: #8a7f63;
+  --accent: #B08D3C;        /* gold */
+  --accent-soft: rgba(176,141,60,0.10);
+  --highlight: rgba(176,141,60,0.26);
+  --inner-light: rgba(255,255,255,0.55);
+  --shadow-soft: 0 18px 40px -24px rgba(33,27,22,0.22);
   --shadow: none;
 }
 
@@ -40,8 +46,15 @@ body {
   color: var(--text);
   line-height: 1.65;
   min-height: 100vh;
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* textura de papel (pontilhado) — igual à home, só no tema claro */
+[data-theme="light"] body {
+  background-image: radial-gradient(rgba(33,27,22,0.045) .5px, transparent .5px);
+  background-size: 4px 4px;
 }
 
 /* ── Typography imports helper (loaded via Google Fonts in HTML) ── */
@@ -63,7 +76,7 @@ body {
 }
 
 [data-theme="light"] .site-header {
-  background: rgba(242,239,233,0.92);
+  background: rgba(239,229,207,0.90);
 }
 
 .brand {
@@ -158,17 +171,20 @@ body {
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
 }
 
 .toolbar button:hover {
   background: var(--surface-hover);
   border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .toolbar button:active {
   transform: scale(0.96);
 }
+
+.toolbar button svg { display: block; }
 
 /* ── Author Tags ── */
 .author-tags {
@@ -199,7 +215,7 @@ body {
   color: var(--text-muted);
   cursor: pointer;
   font-family: var(--font-ui);
-  transition: all 0.2s;
+  transition: color .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
   white-space: nowrap;
   letter-spacing: 0.04em;
 }
@@ -207,6 +223,7 @@ body {
 .tag:hover {
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .tag.active {
@@ -225,7 +242,7 @@ body {
 /* ── Hero ── */
 .hero-section {
   border-bottom: 1px solid var(--border);
-  padding: 4rem 2rem;
+  padding: 5.5rem 2rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -324,36 +341,56 @@ body {
 .quotes-grid {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2.5rem 2rem 1rem;
+  padding: 3.5rem 2rem 1.5rem;
   columns: 2;
-  column-gap: 1.5rem;
+  column-gap: 2rem;
 }
 
 .quote-card {
   display: inline-block;
   width: 100%;
   break-inside: avoid;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 1.8rem 2rem;
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.35s ease,
-              background 0.35s ease;
+  transition: transform .45s var(--ease),
+              border-color .35s ease,
+              background .35s ease,
+              box-shadow .45s var(--ease);
   position: relative;
+}
+
+/* núcleo: brilho concêntrico interno — "vidro assentado na bandeja" */
+.quote-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 var(--inner-light);
+}
+
+/* entrada escalonada (fade-up + blur) — só com IntersectionObserver e sem
+   reduced-motion (classe .stagger-on setada no <head>). Sem ela, os cards
+   nascem visíveis: nenhum caminho deixa o conteúdo invisível. */
+.stagger-on .quote-card {
   opacity: 0;
   transform: translateY(24px);
+  filter: blur(4px);
 }
-
-.quote-card.visible {
+.stagger-on .quote-card.visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
-.quote-card:hover {
+.quote-card:hover,
+.stagger-on .quote-card.visible:hover {
   border-color: var(--accent);
   background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
 }
 
 /* Editorial catalog number */
@@ -455,13 +492,14 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
 }
 
 .load-more button:hover {
   background: var(--surface-hover);
   border-color: var(--accent);
   color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .load-more button:disabled {
@@ -513,7 +551,7 @@ body {
 }
 
 [data-theme="light"] .overlay-bg {
-  background: rgba(240,235,225,0.88);
+  background: rgba(239,229,207,0.88);
 }
 
 .overlay-card {
@@ -539,9 +577,9 @@ body {
   content: '';
   position: absolute;
   inset: 1.5rem;
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .close-overlay {
@@ -620,13 +658,14 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
 }
 
 .overlay-actions button:hover {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-soft);
+  transform: translateY(-1px);
 }
 
 /* ── Scrollbar ── */
@@ -644,6 +683,15 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* ── Reduced motion: sem entrada animada nem transições de mola ── */
+@media (prefers-reduced-motion: reduce) {
+  .quote-card, .quote-card:hover,
+  .overlay-card, .toolbar button, .tag,
+  .load-more button, .overlay-actions button { transition: none !important; }
+  .stagger-on .quote-card { opacity: 1; transform: none; filter: none; }
+  html { scroll-behavior: auto; }
 }
 
 /* ── Mobile ── */
