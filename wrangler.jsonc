@@ -6,7 +6,15 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    // Serve directory pages (e.g. /iconocracia/index.html) at both /iconocracia
+    // and /iconocracia/ without forcing a redirect — matches the site's mix of
+    // /dir/ links and /file.html links. This is the Workers default, set
+    // explicitly so routing is not left implicit (it's a Worker, not a static host).
+    "html_handling": "auto-trailing-slash",
+    // Serve the custom 404.html on unknown routes. Without this the default is a
+    // bare 404 and 404.html (with its "← ana vanzin" backlink) is never reached.
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"
