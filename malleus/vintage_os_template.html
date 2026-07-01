@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Retro OS - Xilogravura</title>
+  
+  <!-- Fontes Clássicas e Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Paleta de Cores Clássica (Inspirada no mockup) */
+      --color-paper: #F3EFE0;    /* Tom de papel pergaminho antigo */
+      --color-ink: #1A120B;      /* Tinta preta envelhecida */
+      --color-accent-red: #A34A42;  /* Vermelho laca/medieval */
+      --color-accent-gold: #C69B56; /* Ouro envelhecido */
+      --color-accent-purple: #5E4B56; /* Roxo litúrgico */
+
+      /* Fontes */
+      --font-serif: 'EB Garamond', serif;
+      --font-mono: 'Courier Prime', monospace;
+      --font-pixel: 'VT323', monospace;
+
+      /* Bordas Pixeladas / Xilogravura */
+      --border-thick: 3px solid var(--color-ink);
+      --border-thin: 1px solid var(--color-ink);
+      
+      /* Efeito de sombreamento de xilogravura (Dither/Hatch) */
+      --bg-dither-light: radial-gradient(var(--color-ink) 12%, transparent 13%),
+                         radial-gradient(var(--color-ink) 12%, transparent 13%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #2b2520; /* Fundo escuro externo (mesa de madeira fictícia) */
+      color: var(--color-ink);
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.5;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Tela do Computador Antigo */
+    #desktop-screen {
+      width: 100%;
+      max-width: 1024px;
+      background-color: var(--color-paper);
+      border: var(--border-thick);
+      box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* 1. Barra de Menu Superior do Sistema (Estilo System 7) */
+    #system-menu-bar {
+      background-color: var(--color-paper);
+      border-bottom: var(--border-thick);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 12px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .menu-left, .menu-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .menu-item {
+      cursor: pointer;
+      padding: 2px 8px;
+    }
+
+    .menu-item:hover {
+      background-color: var(--color-ink);
+      color: var(--color-paper);
+    }
+
+    .apple-icon {
+      font-size: 16px;
+    }
+
+    /* 2. Janela Principal do OS */
+    #window-container {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .window-chrome {
+      border: var(--border-thick);
+      background-color: var(--color-paper);
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    /* Barra de Título da Janela com Listras Retro */
+    .window-header {
+      background: repeating-linear-gradient(
+        0deg,
+        var(--color-ink),
+        var(--color-ink) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      height: 36px;
+      border-bottom: var(--border-thick);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+    }
+
+    .window-title {
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      font-family: var(--font-mono);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 15px;
+      padding: 2px 14px;
+      border: var(--border-thin);
+      z-index: 10;
+      letter-spacing: 1px;
+    }
+
+    /* Botão de Fechar da Janela (Quadrado Clássico) */
+    .window-btn-close {
+      width: 16px;
+      height: 16px;
+      border: var(--border-thin);
+      background-color: var(--color-paper);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .window-btn-close:active {
+      background-color: var(--color-ink);
+    }
+
+    /* Controles do Lado Direito da Janela */
+    .window-controls-right {
+      display: flex;
+      gap: 4px;
+      z-index: 10;
+    }
+    .window-btn-zoom {
+      width: 16px;
+      height: 16px;
+      border: var(--border-thin);
+      background-color: var(--color-paper);
+      cursor: pointer;
+    }
+
+    /* Layout Interno da Janela (Sidebar + Grid Principal) */
+    .window-body {
+      display: grid;
+      grid-template-columns: 80px 1fr 60px; /* Coluna Menu | Conteúdo | Elementos Decorativos */
+      min-height: 500px;
+    }
+
+    @media (max-width: 768px) {
+      .window-body {
+        grid-template-columns: 1fr;
+      }
+      .window-sidebar, .window-decor-bar {
+        display: none;
+      }
+    }
+
+    /* 3. Barra Lateral de Navegação (Estilo Retro OS) */
+    .window-sidebar {
+      border-right: var(--border-thick);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 4px;
+      gap: 12px;
+      background-color: var(--color-paper);
+    }
+
+    /* Botão Retro OS */
+    .nav-btn {
+      width: 68px;
+      height: 68px;
+      border: var(--border-thick);
+      border-radius: 6px;
+      background-color: var(--color-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: bold;
+      color: var(--color-ink);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: none; /* Ação instantânea */
+      box-shadow: 2px 2px 0px var(--color-ink);
+    }
+
+    .nav-btn:hover {
+      background-color: var(--color-ink);
+      color: var(--color-paper);
+      box-shadow: none;
+      transform: translate(2px, 2px);
+    }
+
+    /* Icones no estilo pixel art / vetor */
+    .nav-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    /* 4. Canvas Central (Conteúdo do Site) */
+    .window-content {
+      padding: 24px;
+      overflow-y: auto;
+      background-color: var(--color-paper);
+      border-right: var(--border-thick);
+      position: relative;
+    }
+
+    /* Enquadramento Interno de Xilogravura */
+    .content-frame {
+      border: var(--border-thin);
+      outline: var(--border-thin);
+      outline-offset: -5px;
+      padding: 20px;
+      min-height: 100%;
+      position: relative;
+    }
+
+    /* Ornatos de Canto Clássicos */
+    .corner-ornament {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: var(--color-ink);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .top-left     { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+    .top-right    { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+    .bottom-left  { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+    .bottom-right { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+
+    /* Letra Capitular Iluminada (Estilo Manuscrito) */
+    .drop-cap {
+      float: left;
+      font-size: 64px;
+      line-height: 48px;
+      padding-top: 4px;
+      padding-right: 8px;
+      padding-left: 4px;
+      font-family: var(--font-serif);
+      color: var(--color-accent-red);
+      font-weight: bold;
+      border: var(--border-thin);
+      margin-right: 8px;
+      margin-bottom: 4px;
+      background-color: var(--color-paper);
+      box-shadow: 2px 2px 0px var(--color-ink);
+    }
+
+    .main-heading {
+      font-size: 32px;
+      font-family: var(--font-serif);
+      font-weight: 800;
+      color: var(--color-accent-red);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .sub-heading {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: var(--color-ink);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Divisor Clássico com Losango */
+    .divider-woodcut {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 24px 0;
+    }
+    .divider-woodcut::before,
+    .divider-woodcut::after {
+      content: '';
+      flex: 1;
+      border-bottom: var(--border-thin);
+    }
+    .divider-woodcut::before { margin-right: 12px; }
+    .divider-woodcut::after { margin-left: 12px; }
+    .divider-woodcut .glyph {
+      color: var(--color-accent-red);
+      font-size: 12px;
+    }
+
+    /* Caixa Mística / Bloco Decorado */
+    .mystic-box {
+      border: var(--border-thick);
+      padding: 16px;
+      background-color: var(--color-paper);
+      margin: 20px 0;
+      box-shadow: 4px 4px 0px var(--color-ink);
+      position: relative;
+    }
+
+    /* 5. Dithering (Padrão de Meio-Tom) para Elementos Visuais */
+    .dither-panel {
+      background-image: var(--bg-dither-light);
+      background-size: 4px 4px;
+      background-position: 0 0, 2px 2px;
+      border: var(--border-thin);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .dither-inner-box {
+      background-color: var(--color-paper);
+      border: var(--border-thick);
+      padding: 10px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      box-shadow: 4px 4px 0 var(--color-ink);
+    }
+
+    /* 6. Barra Lateral Direita (Elementos Decorativos) */
+    .window-decor-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 4px;
+      border-left: var(--border-thin);
+      gap: 24px;
+    }
+
+    .decor-symbol {
+      font-size: 24px;
+      color: var(--color-accent-gold);
+    }
+
+    /* Linha Vertical com Hachura */
+    .vertical-hachure {
+      flex: 1;
+      width: 4px;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--color-ink),
+        var(--color-ink) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    }
+
+    /* 7. Rodapé Clássico */
+    #system-footer {
+      border-top: var(--border-thick);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela Geral do Desktop -->
+  <div id="desktop-screen">
+    
+    <!-- Barra de Menu do OS -->
+    <header id="system-menu-bar">
+      <div class="menu-left">
+        <span class="menu-item apple-icon"></span>
+        <span class="menu-item">Arquivo</span>
+        <span class="menu-item">Editar</span>
+        <span class="menu-item">Visualizar</span>
+        <span class="menu-item">Histórico</span>
+      </div>
+      <div class="menu-right">
+        <span class="menu-item">ANAVANZIN.COM</span>
+      </div>
+    </header>
+
+    <!-- Janela de Conteúdo do OS -->
+    <div id="window-container">
+      <div class="window-chrome">
+        
+        <!-- Topo da Janela -->
+        <div class="window-header">
+          <button class="window-btn-close" aria-label="Fechar Janela"></button>
+          <div class="window-title">Espaço de Trabalho</div>
+          <div class="window-controls-right">
+            <button class="window-btn-zoom" aria-label="Maximizar"></button>
+          </div>
+        </div>
+
+        <!-- Corpo da Janela -->
+        <div class="window-body">
+          
+          <!-- Sidebar de Ícones (Esquerda) -->
+          <aside class="window-sidebar">
+            <a href="#lei" class="nav-btn">
+              <span class="nav-icon">⚖</span>
+              <span>LEI</span>
+            </a>
+            <a href="#livros" class="nav-btn">
+              <span class="nav-icon">☤</span>
+              <span>LIVROS</span>
+            </a>
+            <a href="#arquivo" class="nav-btn">
+              <span class="nav-icon">🗄</span>
+              <span>ARQUIVO</span>
+            </a>
+            <a href="#escrita" class="nav-btn">
+              <span class="nav-icon">✎</span>
+              <span>ESCRITA</span>
+            </a>
+          </aside>
+
+          <!-- Canvas de Leitura Principal (Centro) -->
+          <main class="window-content">
+            <div class="content-frame">
+              <!-- Ornatos de Canto -->
+              <div class="corner-ornament top-left"></div>
+              <div class="corner-ornament top-right"></div>
+              <div class="corner-ornament bottom-left"></div>
+              <div class="corner-ornament bottom-right"></div>
+
+              <!-- Conteúdo Exemplo -->
+              <h1 class="main-heading">
+                <span class="drop-cap">A</span>NAVANZIN.COM
+              </h1>
+              <div class="sub-heading">
+                <span>Direito, História e Filosofia</span> 
+                <span>✦</span>
+                <span>PPGD / UFSC</span>
+              </div>
+
+              <p>
+                Este espaço foi projetado para reunir estudos, anotações de pesquisa e reflexões críticas. A interface adota um visual clássico de sistemas operacionais de 1-bit, combinando a precisão da litografia medieval e das obras de Escher com o formato digital retro.
+              </p>
+
+              <!-- Divisor Estilizado -->
+              <div class="divider-woodcut">
+                <span class="glyph">✦ ✦ ✦</span>
+              </div>
+
+              <!-- Caixa Mística com Frase/Citação -->
+              <div class="mystic-box">
+                <p style="font-style: italic; text-align: center; font-weight: bold; color: var(--color-accent-red);">
+                  "O Direito é a arte de ordenar o poder. A Justiça é o propósito de ordenar o poder."
+                </p>
+              </div>
+
+              <!-- Painel com Textura de Dithering -->
+              <div class="dither-panel">
+                <div class="dither-inner-box">
+                  Padrão Reticulado (1-Bit)
+                </div>
+              </div>
+
+            </div>
+          </main>
+
+          <!-- Barra Lateral Decorativa (Direita) -->
+          <aside class="window-decor-bar">
+            <span class="decor-symbol">✸</span>
+            <div class="vertical-hachure"></div>
+            <span class="decor-symbol">❖</span>
+            <div class="vertical-hachure"></div>
+            <span class="decor-symbol">✸</span>
+          </aside>
+
+        </div>
+
+        <!-- Rodapé do Sistema -->
+        <footer id="system-footer">
+          <span>Veritas</span>
+          <span>✦</span>
+          <span>Iustitia</span>
+          <span>✦</span>
+          <span>Dignitas</span>
+        </footer>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
