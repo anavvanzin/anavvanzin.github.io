@@ -1,0 +1,141 @@
+<!-- @dsCard group="Companion" viewport="1280x800" name="Manifesto da Iconocracia" subtitle="Deck React das frases-síntese da tese — bilíngue, com Tweaks, notas do orador e PDF" -->
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manifesto · Iconocracia · ana vanzin</title>
+<link rel="icon" href="../assets/sun-seal.svg">
+<meta name="description" content="Manifesto da Iconocracia — as frases-síntese da tese de Ana Vanzin sobre a alegoria feminina na história da cultura jurídica.">
+<meta name="theme-color" content="#F2EAD9">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+  :root{
+    --font-display:"Cormorant Garamond",Georgia,serif;
+    --font-body:"Hanken Grotesk",system-ui,sans-serif;
+    --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--m-ground,#F2EAD9);color:var(--m-ink,#211B16);font-family:var(--font-body);overflow:hidden;}
+  #root{height:100%}
+  ::selection{background:var(--m-accent,#9B2C1C);color:#F2EAD9;}
+
+  .m-root{height:100%;position:relative;background:var(--m-ground);color:var(--m-ink);
+    transition:background .4s ease,color .4s ease;}
+  .m-root.grain{background-image:radial-gradient(var(--m-dot) .7px,transparent .7px);background-size:26px 26px;}
+
+  /* top bar */
+  .m-top{position:fixed;top:0;left:0;right:0;height:50px;z-index:40;display:flex;align-items:center;gap:14px;
+    padding:0 clamp(16px,4vw,40px);border-bottom:1.5px solid var(--m-ink);
+    background:color-mix(in srgb,var(--m-ground) 86%,transparent);backdrop-filter:blur(4px);}
+  .m-brand{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:600;font-size:18px;
+    white-space:nowrap;text-decoration:none;color:var(--m-ink);}
+  .m-brand img{width:22px;height:22px;}
+  .m-word{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.28em;
+    font-size:11px;color:var(--m-ink-50);}
+  .m-tools{margin-left:auto;display:flex;align-items:center;gap:7px;}
+  .m-lang{appearance:none;background:none;border:0;cursor:pointer;font-family:var(--font-display);font-weight:600;
+    font-size:13px;letter-spacing:.06em;color:var(--m-ink-50);padding:4px 5px;}
+  .m-lang.on{color:var(--m-ink);border-bottom:1.5px solid var(--m-accent);}
+  .m-sep{width:1px;height:18px;background:var(--m-hair);margin:0 4px;}
+  .m-ic{appearance:none;background:none;border:1.5px solid transparent;cursor:pointer;width:30px;height:30px;
+    display:flex;align-items:center;justify-content:center;color:var(--m-ink-70);font-size:15px;border-radius:4px;}
+  .m-ic:hover{color:var(--m-ink);border-color:var(--m-hair);}
+  .m-ic.on{color:var(--m-accent);border-color:var(--m-accent);}
+
+  /* deck + slides */
+  .m-deck{position:fixed;inset:50px 0 60px 0;}
+  .m-slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:clamp(28px,7vw,110px);}
+  .m-slide.on{display:flex;}
+
+  .m-folio{position:absolute;top:clamp(16px,3.4vh,30px);left:50%;transform:translateX(-50%);
+    font-family:var(--font-display);font-style:italic;font-weight:600;color:var(--m-accent);font-size:1.15rem;}
+  .m-eb{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.26em;
+    font-size:calc(13px * var(--m-scale,1));color:var(--m-accent);margin:0 0 28px;}
+  .m-phrase{font-family:var(--font-display);font-weight:500;line-height:1.04;letter-spacing:-.01em;margin:0;
+    font-size:calc(clamp(2rem,5.4vw,4.7rem) * var(--m-scale,1));max-width:19ch;text-wrap:balance;color:var(--m-ink);}
+  .m-phrase.sm{font-size:calc(clamp(1.7rem,4.4vw,3.5rem) * var(--m-scale,1));max-width:22ch;}
+  .m-phrase em{font-style:italic;color:var(--m-accent);}
+  .m-sub{font-family:var(--font-display);font-style:italic;font-size:calc(clamp(1.05rem,1.7vw,1.5rem) * var(--m-scale,1));
+    color:var(--m-ink-70);margin:28px 0 0;max-width:52ch;line-height:1.36;text-wrap:pretty;}
+
+  .m-risco{width:var(--risco-w,120px);max-width:var(--risco-w,120px);height:3px;background:var(--m-accent);margin:32px 0 0;}
+
+  /* cover */
+  .m-display{font-family:var(--font-display);font-weight:500;line-height:.86;letter-spacing:-.02em;
+    font-size:calc(clamp(3.4rem,12vw,9rem) * var(--m-scale,1));margin:0;position:relative;display:inline-block;color:var(--m-ink);}
+  .m-band{position:absolute;left:-3%;right:-3%;top:48%;height:5px;background:var(--m-accent);}
+
+  /* close signature */
+  .m-sign{margin-top:clamp(30px,5vh,56px);display:flex;flex-direction:column;align-items:center;}
+  .m-rule{width:46px;height:1.5px;background:var(--m-accent);margin-bottom:20px;}
+  .m-name{font-family:var(--font-display);font-weight:500;font-size:calc(clamp(2rem,6vw,3.6rem) * var(--m-scale,1));
+    line-height:.9;margin:0;white-space:nowrap;color:var(--m-ink);}
+  .m-role{font-family:var(--font-display);font-style:italic;font-size:calc(1.15rem * var(--m-scale,1));color:var(--m-ink-70);margin:14px 0 0;}
+
+  /* entrance — transform/opacity, direction-aware */
+  @media(prefers-reduced-motion:no-preference){
+    .m-slide.on .m-eb{animation:mrise var(--m-speed,600ms) cubic-bezier(.22,1,.36,1) .1s both;}
+    .m-slide.on .m-phrase,.m-slide.on .m-display,.m-slide.on .m-sign{animation:mrise var(--m-speed,600ms) cubic-bezier(.22,1,.36,1) .18s both;}
+    .m-slide.on .m-sub{animation:mrise var(--m-speed,600ms) cubic-bezier(.22,1,.36,1) .34s both;}
+    .m-slide.on.dir-prev .m-phrase,.m-slide.on.dir-prev .m-display{animation-name:mrise-prev;}
+    .m-slide.on .m-risco{animation:mrisco var(--m-speed,600ms) cubic-bezier(.5,0,.18,1) .3s both;}
+  }
+  @keyframes mrise{0%{transform:translateY(22px);opacity:0;}100%{transform:none;opacity:1;}}
+  @keyframes mrise-prev{0%{transform:translateY(-22px);opacity:0;}100%{transform:none;opacity:1;}}
+  @keyframes mrisco{0%{width:0;max-width:0;}100%{width:var(--risco-w,120px);max-width:var(--risco-w,120px);}}
+
+  /* click zones */
+  .m-zone{position:fixed;top:50px;bottom:60px;width:22%;z-index:20;cursor:pointer;}
+  .m-zone.l{left:0;} .m-zone.r{right:0;}
+
+  /* nav */
+  .m-nav{position:fixed;bottom:0;left:0;right:0;height:60px;z-index:40;display:flex;align-items:center;justify-content:center;gap:18px;}
+  .m-arw{appearance:none;border:1.5px solid var(--m-ink);background:var(--m-ground);width:38px;height:38px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;color:var(--m-ink);font-size:16px;box-shadow:3px 3px 0 0 var(--m-ink);
+    transition:transform .12s,box-shadow .12s;}
+  .m-arw:hover:not(:disabled){background:var(--m-ink);color:var(--m-ground);}
+  .m-arw:active:not(:disabled){transform:translate(3px,3px);box-shadow:none;}
+  .m-arw:disabled{opacity:.3;cursor:default;box-shadow:none;}
+  .m-dots{display:flex;gap:9px;}
+  .m-dot{width:9px;height:9px;border:1.5px solid var(--m-ink);background:var(--m-ground);cursor:pointer;padding:0;border-radius:0;
+    transition:background .15s,transform .15s;}
+  .m-dot:hover{transform:scale(1.25);}
+  .m-dot[aria-current="true"]{background:var(--m-accent);border-color:var(--m-accent);}
+  .m-count{position:fixed;bottom:20px;right:clamp(16px,4vw,40px);font-family:var(--font-mono);font-size:12px;color:var(--m-ink-50);z-index:40;}
+
+  /* speaker notes */
+  .m-notes{position:fixed;left:0;right:0;bottom:60px;z-index:35;max-width:760px;margin:0 auto;
+    background:var(--m-panel);border:1.5px solid var(--m-ink);border-bottom:0;
+    box-shadow:0 -8px 30px rgba(0,0,0,.13);padding:18px 26px 20px;}
+  .m-notes-h{font-family:var(--font-display);font-weight:600;text-transform:uppercase;letter-spacing:.18em;
+    font-size:10.5px;color:var(--m-accent);margin:0 0 9px;}
+  .m-notes-h span{font-style:italic;text-transform:none;letter-spacing:0;color:var(--m-ink-50);}
+  .m-notes-b{font-size:14.5px;line-height:1.55;color:var(--m-ink);margin:0;max-width:64ch;}
+
+  /* print: one slide per page */
+  @media print{
+    @page{size:landscape;margin:0;}
+    body,html{overflow:visible;height:auto;}
+    .m-top,.m-nav,.m-count,.m-zone,.m-notes,#tweaks-root,[data-tweaks-root]{display:none !important;}
+    .m-deck{position:static;inset:auto;}
+  .m-root.printing .m-slide{position:relative;display:flex !important;inset:auto;
+      width:100vw;height:100vh;page-break-after:always;break-after:page;}
+  }
+  .m-root.printing .m-deck{position:static;}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="data.js"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+</body>
+</html>

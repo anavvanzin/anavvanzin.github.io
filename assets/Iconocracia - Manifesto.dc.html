@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;600&display=swap');
+:root {
+  --ink: #211B16;
+  --paper: #F2EAD9;
+  --rubric: #9B2C1C;
+  --gold: #9C7C3D;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Hanken Grotesk', sans-serif;
+}
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.doc { box-sizing: border-box; max-width: 1080px; margin: 0 auto; background: inherit; padding: 48px 24px 96px; }
+.doc-frame { width: 100%; border-collapse: collapse; }
+.doc-frame td { padding: 0; }
+.hdr-space, .ftr-space { display: none; }
+main { display: grid; grid-template-columns: 1fr 280px; gap: 60px; }
+article { flex: 1; }
+aside { font-size: 13px; line-height: 1.6; color: color-mix(in oklab, var(--ink) 60%, transparent); }
+h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 3.5rem); line-height: 1.1; margin: 0 0 48px; font-weight: 500; }
+h2 { font-family: var(--font-display); font-size: 28px; margin: 48px 0 24px; font-weight: 500; line-height: 1.2; }
+h3 { font-family: var(--font-body); font-size: 18px; font-weight: 600; margin: 32px 0 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rubric); }
+p { font-size: 16px; line-height: 1.65; margin: 0 0 24px; text-wrap: pretty; }
+.intro { font-size: 18px; line-height: 1.7; font-weight: 500; margin: 0 0 42px; max-width: 62ch; }
+.eyebrow { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rubric); margin: 0 0 8px; }
+.rubric-note { color: var(--rubric); font-weight: 600; }
+figure { margin: 40px 0; }
+figure.fig-wide { margin: 48px 0; }
+.img-frame { border: 1px solid color-mix(in oklab, var(--ink) 25%, transparent); padding: 10px; background: #fff; display: block; }
+.img-frame img { display: block; width: 100%; height: auto; }
+.fig-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fig-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.fig-quad { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+.fig-cell figcaption, figure > figcaption { font-family: var(--font-display); font-size: 13px; font-style: italic; color: color-mix(in oklab, var(--ink) 55%, transparent); margin-top: 8px; line-height: 1.4; }
+.fig-cell .img-frame { padding: 8px; }
+.fig-num { font-family: var(--font-body); font-weight: 600; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rubric); font-style: normal; display: block; margin-bottom: 2px; }
+blockquote { border-left: 1px solid var(--rubric); padding-left: 24px; margin: 32px 0; font-style: italic; color: color-mix(in oklab, var(--ink) 80%, transparent); }
+@page { size: letter; margin: 0; }
+@media print {
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; }
+  .doc { max-width: none; margin: 0; padding: 0.75in; box-shadow: none; }
+  .hdr-space, .ftr-space { display: table-cell; height: 0.75in; }
+  main { display: block; }
+  aside { float: left; width: 200px; margin-right: 40px; margin-bottom: 20px; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  figure { break-inside: avoid; }
+}
+@media (max-width: 1024px) {
+  main { grid-template-columns: 1fr; gap: 40px; }
+  aside { font-size: 12px; color: color-mix(in oklab, var(--ink) 50%, transparent); margin: 20px 0; padding: 16px; border-left: 1px solid var(--rubric); }
+}
+@media (max-width: 600px) {
+  .fig-quad, .fig-trio { grid-template-columns: 1fr 1fr; }
+}
+.doc-manifesto h1 { text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.doc-manifesto h2 { text-transform: uppercase; letter-spacing: 0.04em; }
+.doc-manifesto .rubric-note { text-transform: uppercase; letter-spacing: 0.1em; }
+.doc-manifesto p { font-size: 17px; font-weight: 500; }
+.doc-legivel p { font-size: 18px; line-height: 1.8; }
+.doc-legivel h2 { font-size: 32px; margin: 56px 0 28px; }
+.doc-legivel main { grid-template-columns: 1fr 320px; gap: 80px; }
+.doc-legivel .doc { padding: 60px 48px 120px; }
+.aside-minimal { display: none; }
+.main-fullwidth { grid-template-columns: 1fr; }
+.enfase-sutil .rubric-note { color: color-mix(in oklab, var(--ink) 70%, transparent); font-weight: 500; }
+.enfase-sutil h3 { color: color-mix(in oklab, var(--ink) 60%, transparent); }
+.enfase-polemica h3 { font-weight: 700; letter-spacing: 0.15em; }
+.enfase-polemica .rubric-note { font-weight: 700; background: color-mix(in oklab, var(--rubric) 8%, transparent); padding: 2px 6px; }
+.enfase-polemica article > p:last-child { font-weight: 600; border-left: 2px solid var(--rubric); padding-left: 24px; }
+</style>
+</helmet>
+
+<main class="doc {{ docClass }}" style="{{ mainStyle }}">
+  <table class="doc-frame" role="presentation">
+    <thead><tr><td class="hdr-space"></td></tr></thead>
+    <tbody><tr><td>
+      <article>
+        <h1>Iconocracia</h1>
+        <p class="intro">Um manifesto sobre a organização visual do poder, a alegoria feminina e a continuidade entre a lei que subordina e a imagem que glorifica. Da nacionalidade dependente na letra ao triunfo da mulher-símbolo na moeda e no brasão — dois registros de um mesmo contrato de poder.</p>
+
+        <figure class="fig-wide">
+          <img src="assets/frontispicio-justitia.png" alt="Justitia entronizada, de olhos vendados com venda vermelha, segurando a balança, ao lado de um códice iluminado, uma moeda, a espada e a coluna" style="display:block; width:100%; height:auto;">
+          <figcaption><span class="fig-num">Frontispício</span>A Justiça entronizada — venda, balança e espada entre o códice iluminado e a moeda: a lei como texto e como imagem no mesmo gesto. <span class="rubric-note">Cega não por imparcialidade, mas porque não se enxerga no espelho do poder.</span></figcaption>
+        </figure>
+
+        <h2>I. Da lei à imagem: uma continuidade</h2>
+        <p>Há um fio que atravessa toda a minha pesquisa — a pesquisa que começou no mestrado e continua no doutorado — e ele é feito de uma pergunta muito simples: <em>por que o mesmo poder que subordina a mulher na lei a glorifica na imagem?</em></p>
+        <p>Quando defendi minha dissertação em 2024, "United by marriage, chained by nationality", havia lido códigos e constituições de meia dúzia de países. Encontrei uma estrutura brutal em sua frieza jurídica: a mulher casada perdia sua nacionalidade de origem e adquiria automaticamente a do marido. Ius sanguinis a patre — o sangue que transmite a pertença nacional é o do pai. Durante mais de um século, em quase todo o Ocidente, a mulher era, perante a lei, um apêndice do vínculo conjugal. Não havia sujeito ali. Havia um vazio onde deveria haver um nome.</p>
+        <p>Então comecei a estudar as imagens do Estado. Moedas, selos, brasões, frontispícios constitucionais, a arquitetura dos tribunais. E encontrei algo desconcertante: quanto mais a mulher é excluída como sujeito de direito, mais ela brilha como símbolo. A Justiça é uma mulher de olhos vendados. A República francesa é Marianne. A nação inglesa é Britannia. Os Estados Unidos são Columbia. A República brasileira veste barrete frígio e segura a balança.</p>
+        <p>Essas duas pesquisas não são independentes. São a mesma engrenagem vista de dois ângulos diferentes. O contrato que mantém a mulher fora do poder político existe em duas dimensões: uma textual (a lei que a subordina) e uma visual (a imagem que a glorifica). E estas dimensões se reforçam mutuamente. Quanto mais ela brilha na moeda, menos ela existe no código. A glória da alegoria e o silêncio da norma não se contradizem — eles se completam.</p>
+
+        <h2>II. O que é iconocracia</h2>
+        <p>Há um termo que Marie-José Mondzain cunhou ao estudar a economia das imagens em Bizâncio, e que Peter Goodrich depois transportou para o campo jurídico. <span class="rubric-note">Iconocracia</span>: a organização do visível que provoca uma adesão que se poderia chamar de submissão ao olhar.</p>
+        <p>É um regime. As imagens governam afetos, produzem crença, fundam autoridade. Quando o Estado monopoliza a produção dos signos oficiais, disciplina a imaginação coletiva. O que você vê na moeda, no selo, no brasão, no tribunal — isso circula em seus olhos dia após dia, ano após ano. Entra em seus sonhos. Torna-se indistinguível de uma verdade.</p>
+        <p>A iconocracia jurídica é o sistema pelo qual o poder legal se torna visível, e através dessa visibilidade se torna incontestável. Não é propaganda — é mais profundo. É o próprio Direito aprendendo a falar por imagens.</p>
+        <p>E aqui está o ponto provocador: o feminino não é acidental nessa estrutura. É estrutural. A alegoria feminina não apenas representa a lei — ela <em>constitui</em> uma forma de lei que funciona através do corpo simbólico da mulher, enquanto exclui as mulheres reais como sujeitos de direito.</p>
+
+        <h2>III. Os três conceitos</h2>
+        <p>Para nomear esse arranjo, trabalho com três conceitos que tentam capturar uma realidade que a teoria jurídica tradicional deixou invisível.</p>
+
+        <h3>1. O Contrato Sexual Visual</h3>
+        <p>Carole Pateman descreveu o contrato sexual como o pacto silencioso da fraternidade masculina que cria igualdade entre os homens através da exclusão comum das mulheres. Há uma dimensão visual desse contrato que a teoria política clássica nunca nomeou explicitamente.</p>
+        <p>O <span class="rubric-note">Contrato Sexual Visual</span> é exatamente isso: a projeção iconográfica desse pacto. O Estado se apresenta com rosto de mulher — Justiça, Liberdade, República, Pátria — justamente porque essas abstrações precisam de um corpo para se tornarem reconhecíveis. E esse corpo é feminino. Mas — e aqui está a sutileza — é um corpo sem sujeito. É a forma perfeita de reconhecimento simbólico que preserva a exclusão política. A mulher é admitida na imagem precisamente para que não precise ser admitida na lei.</p>
+
+        <h3>2. A Feminilidade de Estado</h3>
+        <p>O Estado não herda passivamente as alegorias femininas da tradição clássica. Ele as administra ativamente. As produz, reproduz, serializa, padroniza. Há uma <span class="rubric-note">Feminilidade de Estado</span> — um regime pelo qual o corpo feminino é convertido em recurso icônico do Estado, esvaziado de subjetividade, tornado infraestrutura de afeto público.</p>
+        <p>A moeda educacional americana de 1896 é um exemplo perfeito: a figura feminina literalmente instrui o cidadão. O corpo da mulher é pedagogia. A sua imagem é a lição. Não há aqui uma mulher que fala — há uma imagem que educa em nome de um Estado que fala através dela.</p>
+
+        <h3>3. O Contrato Racial Visual</h3>
+        <p>Quando a alegoria neoclássica europeia atravessa o Atlântico, ela não chega neutra. A Justiça que figura nos tribunais brasileiros, na moeda de mil-réis, na escultura do Supremo, tem traços brancos e europeus numa nação majoritariamente negra e mestiça. A branquitude é constitutiva da alegoria dita "universal".</p>
+        <p>O <span class="rubric-note">Contrato Racial Visual</span> é a extensão do Contrato Sexual para a dimensão racial: o mesmo mecanismo que exclui as mulheres como sujeitos enquanto as celebra como símbolos também codifica uma hierarquia racial de representação. A alegoria branca de liberdade e o monumento colonial que justifica a tutela sobre povos colonizados são faces da mesma gramática visual.</p>
+
+        <h2>IV. O endurecimento como método</h2>
+        <p>Mas como passar da intuição hermenêutica para o argumento? Como transformar uma leitura provocativa em tese testável?</p>
+        <p>Construí um corpus — em expansão — de mais de cento e quarenta imagens de iconografia estatal e jurídica. Seis países (França, Reino Unido, Alemanha, Estados Unidos, Bélgica, Brasil), oito suportes (moeda, selo, monumento, arquitetura, gravura, frontispício, papel-moeda, cartaz), estratificados em três regimes que derivam da teoria.</p>
+        <p>Para cada imagem, medi o grau de <span class="rubric-note">endurecimento</span> — o processo pelo qual um corpo vivo, narrativo, sexuado, vai sendo convertido em emblema rígido, heráldico, serial. Decomponho isso em dez indicadores ordinais: desincorporação, rigidez postural, dessexualização, uniformização facial, heraldicização, enquadramento arquitetônico, apagamento narrativo, monocromatização, serialidade, inscrição estatal.</p>
+        <p>Reparem no gesto: transformo uma intuição interpretativa numa variável mensurável. É arriscado. E quero discutir esse risco com vocês: quantificar a imagem não é trair a imagem?</p>
+        <p>Os números, porém, falam. Em nove dos dez indicadores, há diferença estatisticamente significativa entre os regimes (Kruskal-Wallis, p &lt; 0,05). Uma regressão ordinal mostra que regime e suporte, juntos, predizem o endurecimento com R² = 0,49. A análise de correspondência múltipla revela famílias alegóricas que circulam pelo Atlântico.</p>
+        <p>A estatística não prova a tese — a disciplina. Mostra que o padrão não é impressão minha.</p>
+
+        <h2>V. As famílias iconográficas</h2>
+        <p>Mas os números voltam a ser corpo. Voltam a ser história.</p>
+        <p><span class="rubric-note">Marianne</span> é o caso fundador. À esquerda, a alegoria ainda quente — a República amável de 1871, de Félicien Rops, a Liberdade armada da Revolução. À direita, a mesma figura endurecida: a Ceres da moeda, serial, heráldica, sem rosto próprio. Agulhon mostrou que a Terceira República escolheu deliberadamente a mulher anônima contra o retrato viril do chefe. Napoleão-homem versus República-mulher. A feminilidade é convocada exatamente quando se quer apagar o indivíduo do poder. A imagem coletiva é mulher; o poder pessoal é homem.</p>
+
+        <figure>
+          <div class="fig-quad">
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/fr-rops-republique-1871.jpg" alt="Félicien Rops, A República amável, 1871"></span><figcaption>Rops · 1871 — quente, encarnada</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/fr-moitte-liberte-1792.jpg" alt="Moitte, Liberdade, 1792"></span><figcaption>Moitte · 1792 — a Liberdade armada</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/fr-clesinger-republique-1900.jpg" alt="Clésinger, A República, 1900"></span><figcaption>Clésinger · 1900</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/fr-ceres-5f-1849-c.png" alt="Ceres, moeda de 5 francos, 1849"></span><figcaption>Ceres · 5 francos · 1849 — endurecida, serial</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">França · regime normativo</span>O trajeto do endurecimento: da alegoria encarnada ao emblema anônimo da moeda.</figcaption>
+        </figure>
+
+        <p>Mas o caso de Marianne tem um segundo movimento, ainda mais revelador. A alegoria abstrata, com o tempo, exige um rosto concreto — e o Estado o encontra no rosto das suas <em>beldades</em>. Em 1969, o primeiro busto oficial de Marianne foi modelado nas feições de Brigitte Bardot; vieram depois Catherine Deneuve, Mireille Mathieu. A República viaja: a sua irmã tropical circula na cédula brasileira de um real e na estátua de Décio Villares. E o paradoxo se fecha em 2013, quando o novo selo francês de Marianne foi desenhado a partir de Inna Shevchenko, militante do FEMEN — <span class="rubric-note">o mesmo corpo que protestou seminu contra o Estado foi escolhido para ser o rosto oficial do Estado</span>. A alegoria não apenas precisa de um corpo de mulher: ela o consome, esvazia e devolve como emblema. Talvez a República nunca tenha sido esculpida em mármore — talvez sempre tenha sido escrita na pele.</p>
+
+        <figure>
+          <div class="fig-trio">
+            <div class="fig-cell"><span class="img-frame"><img src="assets/marianne/m-bardot-bust.png" alt="Busto oficial de Marianne modelado em Brigitte Bardot, 1969"></span><figcaption>Bardot · busto oficial · 1969</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/marianne/m-stamp.png" alt="Selo francês de Marianne, 2013, desenhado a partir de Inna Shevchenko"></span><figcaption>Selo da Marianne · 2013</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/marianne/m-inna.png" alt="Inna Shevchenko, militante do FEMEN, modelo do selo de 2013"></span><figcaption>Inna Shevchenko · FEMEN</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">França &amp; Brasil · a alegoria feita carne</span>A abstração ganha rosto de celebridade e, por fim, o rosto da militante que a contestava.</figcaption>
+        </figure>
+
+        <p><span class="rubric-note">Britannia e Thatcher</span> é o caso da inversão paradoxal. Na moeda de um pêni de 1912, Britannia senta-se com elmo, tridente, escudo — a nação como guerreira serena. Mas em 1983, durante a Guerra das Malvinas, a capa do <em>The Sun</em> funde Margaret Thatcher com Britannia. Marina Warner disse que Thatcher trouxe Britannia à vida. Aqui a estrutura se inverte de modo fascinante: uma mulher real só é admitida no centro do poder quando se deixa ler como alegoria. A exceção confirma a regra — a mulher entra no poder como imagem, não como sujeito.</p>
+
+        <figure>
+          <span class="img-frame"><img src="assets/corpus/uk-britannia-penny-1912.jpg" alt="Britannia sentada, pêni britânico de 1912"></span>
+          <figcaption><span class="fig-num">Reino Unido · regime militar-imperial</span>Britannia · One Penny · 1912 — elmo, tridente e escudo: a nação como guerreira serena.</figcaption>
+        </figure>
+
+        <p><span class="rubric-note">Columbia</span> dá o caso mais didático do regime normativo. A Seated Liberty da moeda de 1840 é quase irmã de Britannia — a liberdade sentada, contida, monumental. A série Educational de 1896 mostra a alegoria feminina literalmente instruindo o cidadão. A nação tem corpo de mulher; a cidadania, não.</p>
+
+        <figure>
+          <div class="fig-duo">
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/us-seated-liberty-1840-c.png" alt="Seated Liberty, moeda americana de 1840"></span><figcaption>Seated Liberty · 1840</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/us-educational-1896-c.png" alt="Nota Educational Series, 1896"></span><figcaption>Educational Series · 1896 — o corpo como pedagogia</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">Estados Unidos · regime normativo</span>A Feminilidade de Estado em estado puro: a figura feminina instrui o cidadão em nome do Estado.</figcaption>
+        </figure>
+
+        <p><span class="rubric-note">A República brasileira</span> e o Contrato Racial Visual. Quando o modelo neoclássico atravessa o Atlântico, ele chega racializado. A alegoria branca em moedas, em brasões, na fachada do Supremo — numa nação negra. A branquitude é constitutiva da alegoria dita universal. E coloco deliberadamente ao lado o monumento colonial belga no Congo: a mesma gramática que exalta a mulher-nação na metrópole justifica a tutela sobre os povos colonizados, lidos como femininos e imaturos.</p>
+
+        <figure>
+          <div class="fig-quad">
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/br-villares-republica.jpg" alt="Décio Villares, alegoria da República"></span><figcaption>Villares · A República</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/br-1000reis-1906-c.png" alt="Moeda de 1000 réis, 1906"></span><figcaption>1000 réis · 1906</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/br-stf-justica-1961.jpg" alt="Escultura da Justiça no STF, 1961"></span><figcaption>Justiça · STF · 1961</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/be-congo-monumento-1921.jpg" alt="Monumento colonial belga no Congo, 1921"></span><figcaption>Bélgica · Congo · 1921 — a outra face</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">Brasil &amp; Bélgica · contrato racial visual</span>A alegoria branca da nação mestiça e o monumento colonial: duas faces da mesma gramática.</figcaption>
+        </figure>
+
+        <p><span class="rubric-note">Justitia</span> — a alegoria mais óbvia e mais reveladora. A venda nos olhos é lida como imparcialidade. Mas Marina Warner inverte: a Justiça é cega não por virtude, mas porque não se enxerga a si mesma no espelho do poder. A balança é um instrumento que pesa, julga, decide — mas quem segura a balança não é sujeito de direito. A balança é uma arma — e nas mãos dela, uma arma que não lhe pertence.</p>
+
+        <figure>
+          <div class="fig-trio">
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/fr-bruegel-justicia-1559.jpg" alt="Bruegel, Justitia, 1559"></span><figcaption>Bruegel · 1559</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/de-justitia-esslingen-1589-c.png" alt="Justitia de Esslingen, 1589"></span><figcaption>Esslingen · 1589</figcaption></div>
+            <div class="fig-cell"><span class="img-frame"><img src="assets/corpus/uk-justitia-prudentia-c.png" alt="Justitia e Prudentia, Reino Unido"></span><figcaption>Justitia &amp; Prudentia</figcaption></div>
+          </div>
+          <figcaption><span class="fig-num">Transnacional · regime normativo</span>A mulher empunha o atributo da decisão — a balança — sem nunca decidir.</figcaption>
+        </figure>
+
+        <h2>VI. As fissuras</h2>
+        <p>Mas o regime não é total. As imagens são, no sentido de Benjamin, ruínas: carregam fissuras que podem ser reativadas.</p>
+        <p>Movimentos feministas, abolicionistas, operários, ao longo dos séculos dezenove e vinte, subverteram, destruíram e ressignificaram esses símbolos. E o presente não escapa: pensem em como alegorias e símbolos do Estado foram disputados, atacados e reapropriados em episódios recentes de crise democrática.</p>
+        <p>A mesma imagem que disciplina pode ser virada do avesso. O Contrato Sexual Visual descreve uma dominação — mas descrevê-la é o primeiro gesto para contestá-la.</p>
+
+        <h2>VII. Por que isso importa à história do direito</h2>
+        <p>Se aceitarmos que o Direito governa também pelo olhar — que a lei não é apenas o texto, mas também a imagem através da qual o texto se torna reconhecível — então a história do direito precisa aprender a ler imagens.</p>
+        <p>Não como ilustração. Não como decoração. Como <em>argumento</em>. Como tecnologia de poder.</p>
+        <p>A moeda que circula em suas mãos todos os dias está fazendo trabalho jurídico. O brasão na fachada do tribunal está produzindo autoridade. A escultura da Justiça na praça está disciplinando a imaginação sobre o que é a lei.</p>
+        <p>Ignorar isso é deixar metade do direito invisível. É deixar que o poder continue a governar através de imagens que ninguém nomeou como imagens — que ninguém pôs em questão porque as tomou como símbolos inofensivos, patrimônio histórico, ornamento.</p>
+        <p>Mas alegorias não são ornamento. São <em>instituições visuais</em>. E quando essas instituições sistematicamente representam o poder como feminino enquanto subordinam as mulheres reais — isso é uma estrutura que merece ser nomeada, medida, contestada.</p>
+
+        <h2>VIII. Fechamento</h2>
+        <p>Minha pesquisa, então, não é sobre arte. Não é sobre a história da representação como um passeio pelo museu. É sobre o poder — sobre como o poder se veste, se apresenta, se torna visível de forma a parecer inevitável.</p>
+        <p>A pergunta que me move desde o mestrado até agora é simples e implacável: <em>como a mesma estrutura que nega direitos à mulher consegue exaltá-la como símbolo do direito?</em> E a resposta, temo, é que não são estruturas diferentes. São a mesma estrutura funcionando em dois registros: um que subordina, outro que glorifica. Um que silencia, outro que celebra.</p>
+        <p>Chamar isso de Contrato Sexual Visual, de Feminilidade de Estado, de Contrato Racial Visual — isso é nomear o inominado. E nomear é o primeiro passo para recusar.</p>
+        <p>O que proponho é uma leitura do direito que o veja em sua inteireza — como texto, sim, mas também como imagem; como norma, sim, mas também como estética; como lei, sim, mas também como afeto.</p>
+        <p>Se essa leitura fizer sentido para vocês, então talvez a história do direito possa se fazer diferentemente daqui para frente.</p>
+      </article>
+
+      <aside style="{{ asideStyle }}">
+        <h3 style="margin-top: 0;">Dissertação · 2024</h3>
+        <p><em>"United by marriage, chained by nationality"</em> · Mestrado em Direito Internacional · PPGD/UFSC</p>
+        <p><strong>Tema:</strong> nacionalidade dependente da mulher casada, 1804–1957.</p>
+        <p><strong>Fio:</strong> ius sanguinis a patre.</p>
+
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
+
+        <h3>Corpus da tese</h3>
+        <p><strong>~145 itens</strong> de iconografia estatal e jurídica <em>(amostra em expansão)</em>.</p>
+        <p><strong>6 países:</strong> França, Reino Unido, Alemanha, EUA, Bélgica, Brasil.</p>
+        <p><strong>8 suportes:</strong> moeda, selo, monumento, arquitetura, gravura, frontispício, papel-moeda, cartaz.</p>
+        <p><strong>~88%</strong> codificados <em>(em curso)</em>.</p>
+
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
+
+        <h3>Os 10 indicadores de endurecimento</h3>
+        <ol style="font-size: 12px; line-height: 1.5; margin: 0; padding-left: 16px;">
+          <li>Desincorporação</li>
+          <li>Rigidez postural</li>
+          <li>Dessexualização</li>
+          <li>Uniformização facial</li>
+          <li>Heraldicização</li>
+          <li>Enquadramento arquitetônico</li>
+          <li>Apagamento narrativo</li>
+          <li>Monocromatização</li>
+          <li>Serialidade</li>
+          <li>Inscrição estatal</li>
+        </ol>
+
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
+
+        <h3>Os 3 regimes iconocráticos</h3>
+        <p><strong>Fundacional-sacrificial</strong> · maternidade, dor e sangue</p>
+        <p><strong>Normativo-jurídico</strong> · Justiça, Liberdade, República</p>
+        <p><strong>Militar-imperial</strong> · vitória, guerra, heroísmo cívico</p>
+
+        <hr style="border: none; border-top: 1px solid var(--rubric); margin: 32px 0;">
+
+        <h3>Estatística preliminar</h3>
+        <p><strong>9/10</strong> indicadores diferem entre regimes (Kruskal-Wallis, p &lt; 0,05)</p>
+        <p><strong>R² = 0,49</strong> · regime e suporte predizem o endurecimento</p>
+        <p><strong>MCA</strong> · famílias alegóricas transnacionais</p>
+      </aside>
+    </td></tr></tbody>
+    <tfoot><tr><td class="ftr-space"></td></tr></tfoot>
+  </table>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1080px&quot;,&quot;height&quot;:&quot;1400px&quot;},&quot;registro&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Acadêmico&quot;,&quot;Manifesto&quot;,&quot;Legível&quot;],&quot;default&quot;:&quot;Acadêmico&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;margemAnotada&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Mínima&quot;,&quot;Padrão&quot;,&quot;Extensiva&quot;],&quot;default&quot;:&quot;Mínima&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;enfase&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Sutil&quot;,&quot;Padrão&quot;,&quot;Polêmica&quot;],&quot;default&quot;:&quot;Padrão&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const { registro = 'Acadêmico', margemAnotada = 'Padrão', enfase = 'Padrão' } = this.props;
+    
+    let docClass = '';
+    let mainStyle = '';
+    let asideStyle = '';
+    
+    // Registro tipográfico
+    if (registro === 'Manifesto') {
+      docClass += 'doc-manifesto ';
+    } else if (registro === 'Legível') {
+      docClass += 'doc-legivel ';
+    }
+    
+    // Margem anotada
+    if (margemAnotada === 'Mínima') {
+      asideStyle = 'display: none;';
+      mainStyle = 'grid-template-columns: 1fr !important;';
+    } else if (margemAnotada === 'Extensiva') {
+      // Margem ativa, deixar padrão
+    }
+    
+    // Ênfase
+    if (enfase === 'Sutil') {
+      docClass += 'enfase-sutil ';
+    } else if (enfase === 'Polêmica') {
+      docClass += 'enfase-polemica ';
+    }
+    
+    return { docClass: docClass.trim(), mainStyle, asideStyle };
+  }
+}
+</script>
+</body>
+</html>

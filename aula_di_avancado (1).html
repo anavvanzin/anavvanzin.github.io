@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="slides-format" content="viewport">
+    <title>Direito Internacional Avançado — Teoria Crítica & Infraestrutura Digital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-bg: #10100e;
+            --color-bg-deep: #07070a;
+            --color-surface: #1c1c1e;
+            --color-text: #f5f0e8;
+            --color-text-secondary: #c9bfa8;
+            --color-text-muted: #7a7060;
+            --color-accent-1: #c9a84c;
+            --color-accent-2: #e8d5b5;
+            --color-accent-3: #7a6030;
+            --color-crimson: #9b2335;
+            --color-teal: #2d7d7d;
+            --color-glass-bg: rgba(255,255,255,0.05);
+            --color-glass-border: rgba(201,168,76,0.15);
+            --color-vignette: rgba(0,0,0,0.55);
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+    </style>
+
+    <style>
+        :root {
+            --color-bg: #10100e;
+            --color-text: #f5f0e8;
+            --glow-color-rgb: 201,168,76;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { background: var(--color-bg); margin: 0; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+        .deck { width: 100vw; height: 100vh; position: relative; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.97); transition: opacity 0.65s ease, transform 0.65s ease; pointer-events: none; overflow: hidden; }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+        .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1100px; padding: clamp(1.5rem, 3.5vw, 3.5rem); }
+        .nav-controls { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; z-index: 100; background: rgba(16,16,14,0.85); backdrop-filter: blur(12px); padding: 8px 22px; border-radius: 40px; border: 1px solid rgba(201,168,76,0.2); }
+        .nav-btn { width: 36px; height: 36px; border: none; background: transparent; color: #c9a84c; border-radius: 50%; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .nav-btn:hover { background: rgba(201,168,76,0.1); }
+        .slide-dots { display: flex; gap: 6px; }
+        .slide-dots .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(201,168,76,0.25); cursor: pointer; transition: all 0.3s; }
+        .slide-dots .dot.active { background: #c9a84c; transform: scale(1.4); }
+        .slide-counter { font-size: 0.75rem; color: #7a7060; min-width: 36px; text-align: center; font-family: 'DM Sans', sans-serif; }
+        .reveal { opacity: 0; transform: translateY(18px); }
+        .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 12s ease-in-out infinite; }
+        .blob:nth-child(2) { animation: float-drift 16s ease-in-out infinite; }
+        .blob:nth-child(3) { animation: float-slow 20s ease-in-out infinite reverse; }
+        .blob:nth-child(4) { animation: float-drift 9s ease-in-out infinite reverse; }
+        @keyframes float-slow { 0%,100% { transform: translate(0,0) scale(1); } 25% { transform: translate(55px,-45px) scale(1.1); } 50% { transform: translate(-35px,35px) scale(0.92); } 75% { transform: translate(45px,18px) scale(1.07); } }
+        @keyframes float-drift { 0%,100% { transform: translate(0,0) scale(1) rotate(0deg); } 33% { transform: translate(-45px,-55px) scale(1.13) rotate(3deg); } 66% { transform: translate(35px,28px) scale(0.9) rotate(-2deg); } }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+        .slide::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px; opacity:0.035; mix-blend-mode:overlay; }
+        .slide::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:radial-gradient(ellipse at center, transparent 50%, var(--color-vignette) 100%); }
+        .text-glow { text-shadow: 0 0 20px rgba(201,168,76,0.45), 0 0 40px rgba(201,168,76,0.2); }
+        .stat-glow { text-shadow: 0 0 30px rgba(201,168,76,0.6), 0 0 60px rgba(201,168,76,0.25); }
+        @keyframes glow-pulse { 0%,100% { text-shadow: 0 0 20px rgba(201,168,76,0.5),0 0 40px rgba(201,168,76,0.2); } 50% { text-shadow: 0 0 30px rgba(201,168,76,0.85),0 0 60px rgba(201,168,76,0.32); } }
+        .glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+        .bar-fill { height: 100%; border-radius: 4px; width: 0%; transition: width 0.7s ease; background: linear-gradient(90deg, #c9a84c, #e8d5b5); }
+
+        /* Step indicator */
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #c9a84c, #7a6030); font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .phase-badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+        .phase-a { background: rgba(201,168,76,0.15); color: #c9a84c; border: 1px solid rgba(201,168,76,0.3); }
+        .phase-b { background: rgba(45,125,125,0.15); color: #4db8b8; border: 1px solid rgba(45,125,125,0.3); }
+        .phase-c { background: rgba(155,35,53,0.15); color: #e05a6e; border: 1px solid rgba(155,35,53,0.3); }
+
+        /* Code snippet style */
+        .code-snippet { background: rgba(0,0,0,0.4); border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 10px 16px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.82rem; color: #e8d5b5; }
+        .code-snippet .kw { color: #c9a84c; }
+        .code-snippet .str { color: #4db8b8; }
+
+        /* Workflow arrow */
+        .wf-arrow { color: #c9a84c; font-size: 1.4rem; flex-shrink: 0; }
+
+        /* Alert card */
+        .alert-border { border-left: 4px solid #9b2335; }
+
+        /* Tag pill */
+        .tag-pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; background: rgba(201,168,76,0.12); color: #c9a84c; border: 1px solid rgba(201,168,76,0.25); }
+    </style>
+</head>
+<body>
+
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+
+<div class="deck">
+
+    <!-- ═══ SLIDE 1: TITLE ═══ -->
+    <div class="slide slide-1 active" data-slide="1">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:520px;height:520px;top:-120px;right:-100px;background:#c9a84c;opacity:0.12;"></div>
+            <div class="blob" style="width:320px;height:320px;bottom:-90px;left:-70px;background:#9b2335;opacity:0.1;"></div>
+            <div class="blob" style="width:220px;height:220px;top:42%;left:12%;background:#2d7d7d;opacity:0.09;"></div>
+        </div>
+        <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+        <div class="content text-center">
+            <div style="font-size:80px;margin-bottom:1.2rem;animation:float 3.5s ease-in-out infinite;" class="reveal">⚖️</div>
+            <div class="reveal" style="font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a7060;margin-bottom:1.2rem;font-family:'DM Sans',sans-serif;">Direito Internacional Avançado</div>
+            <h1 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5.2vw,4.2rem);font-weight:900;background:linear-gradient(135deg,#c9a84c,#e8d5b5,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.15;margin-bottom:1.2rem;">Teoria Crítica<br>&amp; Infraestrutura Digital</h1>
+            <p class="reveal" style="font-size:clamp(0.85rem,1.4vw,1.15rem);color:#c9bfa8;letter-spacing:0.04em;margin-bottom:2rem;">História, Feminismo, TWAIL — e o <em>workflow</em> que liberta a pesquisadora</p>
+            <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <span class="phase-badge phase-a">Elicit</span>
+                <span class="phase-badge phase-b">VPN · CAPES</span>
+                <span class="phase-badge phase-c">Zotero</span>
+                <span style="padding:3px 12px;border-radius:20px;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:rgba(245,240,232,0.07);color:#c9bfa8;border:1px solid rgba(245,240,232,0.12);">ABNT · Chicago · Harvard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 2: MAPA DA AULA ═══ -->
+    <div class="slide slide-2" data-slide="2">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:380px;height:380px;top:-80px;right:-60px;background:#c9a84c;opacity:0.08;"></div>
+            <div class="blob" style="width:260px;height:260px;bottom:-60px;left:-40px;background:#2d7d7d;opacity:0.07;"></div>
+        </div>
+        <div class="content">
+            <div class="reveal" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a7060;margin-bottom:0.6rem;">Timeline · 2h30</div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:700;margin-bottom:1.6rem;">Mapa Geral da Aula</h2>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#c9a84c;font-family:'DM Sans',sans-serif;">0:00–0:30</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Disparador Conceitual</span><span style="color:#7a7060;font-size:0.85rem;"> — Westfália, alegorias, a pergunta fundadora</span></div>
+                </div>
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#c9a84c;">0:30–0:40</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Apresentação do Workflow</span><span style="color:#7a7060;font-size:0.85rem;"> — Descoberta → Acesso → Organização → Escrita</span></div>
+                </div>
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(45,125,125,0.25);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#4db8b8;">0:40–1:20</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Demonstração Guiada</span><span style="color:#7a7060;font-size:0.85rem;"> — Elicit + VPN + Zotero ao vivo</span></div>
+                </div>
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(155,35,53,0.25);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#e05a6e;">1:20–1:30</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Alerta Crítico</span><span style="color:#7a7060;font-size:0.85rem;"> — Vieses algorítmicos e eurocentrismo das bases</span></div>
+                </div>
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#c9a84c;">1:30–2:10</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Workshop Prático</span><span style="color:#7a7060;font-size:0.85rem;"> — Duplas executam o workflow completo</span></div>
+                </div>
+                <div class="reveal" style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.12);border-radius:10px;padding:12px 16px;">
+                    <div style="font-size:0.78rem;font-weight:700;color:#c9a84c;">2:10–2:30</div>
+                    <div><span style="font-weight:600;color:#e8d5b5;">Socialização + Fechamento</span><span style="color:#7a7060;font-size:0.85rem;"> — Apresentação das duplas, retomada conceitual</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 3: DISPARADOR — A IMAGEM ═══ -->
+    <div class="slide slide-3" data-slide="3">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:500px;height:500px;top:-100px;left:-80px;background:#9b2335;opacity:0.13;"></div>
+            <div class="blob" style="width:280px;height:280px;bottom:-60px;right:-50px;background:#c9a84c;opacity:0.09;"></div>
+        </div>
+        <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1;"></canvas>
+        <div class="content">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+                <div>
+                    <div class="reveal" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a7060;margin-bottom:0.8rem;">Disparador Conceitual</div>
+                    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:900;line-height:1.2;margin-bottom:1.2rem;">Quem é<br>a Justiça?</h2>
+                    <p class="reveal" style="color:#c9bfa8;font-size:0.95rem;line-height:1.7;margin-bottom:1.2rem;">A alegoria feminina da Justiça projeta <em>neutralidade</em>, <em>racionalidade</em>, <em>universalidade</em>. Mas quem a produziu — e para representar quem?</p>
+                    <div class="reveal" style="background:rgba(155,35,53,0.12);border-left:4px solid #9b2335;border-radius:0 8px 8px 0;padding:14px 16px;">
+                        <p style="color:#e8d5b5;font-size:0.9rem;line-height:1.6;margin:0;"><strong>Westfália, 1648:</strong> Os sujeitos soberanos são <strong>Estados europeus. Masculinos. Colonizadores.</strong> A origem da disciplina é constitutivamente excludente.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal" style="text-align:center;font-size:7rem;margin-bottom:1.2rem;">🏛️</div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="reveal" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                            <div style="font-size:0.75rem;color:#7a7060;margin-bottom:3px;">Ausência no sistema</div>
+                            <div style="color:#e8d5b5;font-size:0.88rem;font-weight:500;">Mulheres, povos colonizados, epistemologias não-europeias</div>
+                        </div>
+                        <div class="reveal" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                            <div style="font-size:0.75rem;color:#7a7060;margin-bottom:3px;">A pergunta que muda tudo</div>
+                            <div style="color:#c9a84c;font-size:0.88rem;font-weight:600;font-style:italic;">"Como acessar a história que os manuais silenciaram?"</div>
+                        </div>
+                        <div class="reveal" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                            <div style="font-size:0.75rem;color:#7a7060;margin-bottom:3px;">A resposta da aula de hoje</div>
+                            <div style="color:#e8d5b5;font-size:0.88rem;font-weight:500;">Teoria crítica <strong>começa na forma</strong> como construímos nossa base de conhecimento.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 4: TWAIL + FEMINISMO ═══ -->
+    <div class="slide slide-4" data-slide="4">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:400px;height:400px;top:-80px;right:-70px;background:#c9a84c;opacity:0.09;"></div>
+            <div class="blob" style="width:280px;height:280px;bottom:-50px;left:-40px;background:#2d7d7d;opacity:0.08;"></div>
+        </div>
+        <div class="content">
+            <div class="reveal" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a7060;margin-bottom:0.6rem;">Eixos Teóricos</div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;margin-bottom:1.4rem;">O que vamos pesquisar</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+                <div class="reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:20px;hover:-translate-y-1;">
+                    <div style="font-size:2rem;margin-bottom:10px;">📜</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">História do DI</div>
+                    <p style="color:#c9bfa8;font-size:0.83rem;line-height:1.6;margin:0;">Análise crítica de fontes, tratados e arqueologia jurídica — rastreando o que foi excluído da narrativa dominante.</p>
+                    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+                        <span class="tag-pill">#fontes</span>
+                        <span class="tag-pill">#tratados</span>
+                    </div>
+                </div>
+                <div class="reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(45,125,125,0.25);border-radius:12px;padding:20px;">
+                    <div style="font-size:2rem;margin-bottom:10px;">♀️</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4db8b8;margin-bottom:8px;">Feminismos & TWAIL</div>
+                    <p style="color:#c9bfa8;font-size:0.83rem;line-height:1.6;margin:0;">Abordagens feministas e Terceiras Abordagens do DI — reinterpretando soberania, sujeito e legitimidade.</p>
+                    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+                        <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(45,125,125,0.12);color:#4db8b8;border:1px solid rgba(45,125,125,0.25);">#TWAIL</span>
+                        <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(45,125,125,0.12);color:#4db8b8;border:1px solid rgba(45,125,125,0.25);">#gênero</span>
+                    </div>
+                </div>
+                <div class="reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(155,35,53,0.25);border-radius:12px;padding:20px;">
+                    <div style="font-size:2rem;margin-bottom:10px;">🔧</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e05a6e;margin-bottom:8px;">Infraestrutura Digital</div>
+                    <p style="color:#c9bfa8;font-size:0.83rem;line-height:1.6;margin:0;">VPN, Elicit e Zotero como instrumentos epistemológicos — não apenas operacionais.</p>
+                    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+                        <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#método</span>
+                        <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#autonomia</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal" style="margin-top:18px;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;">
+                <span style="font-size:1.3rem;">💡</span>
+                <p style="margin:0;color:#e8d5b5;font-size:0.88rem;line-height:1.5;"><strong>Objetivo da aula:</strong> aprender teoria crítica <em>através</em> do manuseio prático das ferramentas, construindo um workflow profissional de pesquisa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 5: O WORKFLOW ═══ -->
+    <div class="slide slide-5" data-slide="5">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:450px;height:450px;top:-100px;left:-80px;background:#c9a84c;opacity:0.1;"></div>
+            <div class="blob" style="width:300px;height:300px;bottom:-70px;right:-50px;background:#9b2335;opacity:0.08;"></div>
+        </div>
+        <div class="content text-center">
+            <div class="reveal" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a7060;margin-bottom:0.8rem;">Método como infraestrutura</div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:700;margin-bottom:2rem;">O Workflow de Pesquisa</h2>
+            <div class="reveal" style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;overflow-x:auto;">
+                <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:20px 18px;min-width:160px;text-align:center;">
+                    <div style="font-size:2.2rem;margin-bottom:8px;">🔍</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px;">Fase 1</div>
+                    <div style="font-weight:700;font-size:1rem;color:#e8d5b5;margin-bottom:4px;">Descoberta</div>
+                    <div style="font-size:0.78rem;color:#7a7060;">Elicit.com</div>
+                </div>
+                <div style="color:#c9a84c;font-size:1.6rem;padding:0 10px;">→</div>
+                <div style="background:rgba(45,125,125,0.1);border:1px solid rgba(45,125,125,0.3);border-radius:12px;padding:20px 18px;min-width:160px;text-align:center;">
+                    <div style="font-size:2.2rem;margin-bottom:8px;">🔐</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4db8b8;margin-bottom:6px;">Fase 2</div>
+                    <div style="font-weight:700;font-size:1rem;color:#e8d5b5;margin-bottom:4px;">Acesso</div>
+                    <div style="font-size:0.78rem;color:#7a7060;">VPN UFSC + CAPES</div>
+                </div>
+                <div style="color:#c9a84c;font-size:1.6rem;padding:0 10px;">→</div>
+                <div style="background:rgba(155,35,53,0.1);border:1px solid rgba(155,35,53,0.3);border-radius:12px;padding:20px 18px;min-width:160px;text-align:center;">
+                    <div style="font-size:2.2rem;margin-bottom:8px;">📚</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e05a6e;margin-bottom:6px;">Fase 3</div>
+                    <div style="font-weight:700;font-size:1rem;color:#e8d5b5;margin-bottom:4px;">Organização</div>
+                    <div style="font-size:0.78rem;color:#7a7060;">Zotero</div>
+                </div>
+                <div style="color:#c9a84c;font-size:1.6rem;padding:0 10px;">→</div>
+                <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:20px 18px;min-width:160px;text-align:center;">
+                    <div style="font-size:2.2rem;margin-bottom:8px;">✍️</div>
+                    <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px;">Fase 4</div>
+                    <div style="font-weight:700;font-size:1rem;color:#e8d5b5;margin-bottom:4px;">Escrita</div>
+                    <div style="font-size:0.78rem;color:#7a7060;">Citação automática</div>
+                </div>
+            </div>
+            <div class="reveal" style="margin-top:2rem;max-width:680px;margin-left:auto;margin-right:auto;">
+                <p style="color:#c9bfa8;font-size:0.9rem;line-height:1.7;">"Sem método digital, vocês ficam presas ao que aparece primeiro — e o que aparece primeiro geralmente é o mais dominante."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 6: FASE 1 — ELICIT ═══ -->
+    <div class="slide slide-6" data-slide="6">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:400px;height:400px;top:-90px;right:-70px;background:#c9a84c;opacity:0.1;"></div>
+            <div class="blob" style="width:250px;height:250px;bottom:-50px;left:-40px;background:#c9a84c;opacity:0.06;"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;">
+                <span class="phase-badge phase-a reveal">Fase 1</span>
+                <div class="reveal" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a7060;">Guia de Cliques</div>
+            </div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Descoberta com IA Semântica — <span style="color:#c9a84c;">Elicit</span></h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="margin-top:1px;">1</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;margin-bottom:3px;">Acessar elicit.com</div>
+                            <div style="font-size:0.8rem;color:#7a7060;">Não é um chatbot — busca em papers reais (Semantic Scholar). Rastreável, sem alucinação.</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num">2</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;margin-bottom:5px;">Formular a pergunta em inglês</div>
+                            <div class="code-snippet">"How do feminist approaches critique <span class="kw">sovereignty</span> in <span class="str">early international law</span>?"</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num">3</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;margin-bottom:3px;">Ler o Abstract Summary</div>
+                            <div style="font-size:0.8rem;color:#7a7060;">Leitura estratégica: identificar autoras recorrentes, conceitos-chave, padrões teóricos.</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(201,168,76,0.15);">
+                        <span class="step-num">4</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#c9a84c;margin-bottom:3px;">Adicionar colunas customizadas</div>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;">
+                                <span class="tag-pill">Main Findings</span>
+                                <span class="tag-pill">Methodology</span>
+                                <span class="tag-pill">Relevance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:18px;margin-bottom:14px;">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">Por que não o ChatGPT?</div>
+                        <p style="color:#c9bfa8;font-size:0.83rem;line-height:1.6;margin:0;">IAs generativas <strong>fabricam referências</strong>. O Elicit cita papers que existem, com DOI verificável. Para pesquisa acadêmica séria, isso é a diferença entre rigor e fraude involuntária.</p>
+                    </div>
+                    <div class="reveal" style="background:rgba(255,255,255,0.03);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.07);">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7a7060;margin-bottom:10px;">Perguntas sugeridas para esta aula</div>
+                        <div style="display:flex;flex-direction:column;gap:7px;">
+                            <div class="code-snippet" style="font-size:0.75rem;">"TWAIL critique of international law history"</div>
+                            <div class="code-snippet" style="font-size:0.75rem;">"gender and sovereignty in international legal theory"</div>
+                            <div class="code-snippet" style="font-size:0.75rem;">"women historiography international law"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 7: FASE 2 — VPN + CAPES ═══ -->
+    <div class="slide slide-7" data-slide="7">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:420px;height:420px;top:-90px;left:-80px;background:#2d7d7d;opacity:0.12;"></div>
+            <div class="blob" style="width:260px;height:260px;bottom:-50px;right:-40px;background:#4db8b8;opacity:0.07;"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;">
+                <span class="phase-badge phase-b reveal">Fase 2</span>
+                <div class="reveal" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a7060;">Guia de Cliques</div>
+            </div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Quebrando Paywalls — <span style="color:#4db8b8;">VPN UFSC + Portal CAPES</span></h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="reveal" style="background:rgba(45,125,125,0.08);border-left:4px solid #2d7d7d;border-radius:0 10px 10px 0;padding:13px 16px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#4db8b8;margin-bottom:3px;">Lógica institucional</div>
+                        <div style="font-size:0.8rem;color:#c9bfa8;line-height:1.5;">A UFSC paga licenças de acesso. A VPN autentica você como parte da rede da universidade — a chave que abre o cofre.</div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#2d7d7d,#1a4d4d);">1</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Instalar cliente VPN UFSC</div>
+                            <div style="font-size:0.78rem;color:#7a7060;margin-top:2px;">vpn.ufsc.br — seguir instruções do STI</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#2d7d7d,#1a4d4d);">2</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Ativar a conexão VPN</div>
+                            <div style="font-size:0.78rem;color:#7a7060;margin-top:2px;">Login com idUFSC + senha</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:13px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#2d7d7d,#1a4d4d);">3</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Portal CAPES → CAFe</div>
+                            <div style="font-size:0.78rem;color:#7a7060;margin-top:2px;">periodicos.capes.gov.br — buscar periódico por nome</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(45,125,125,0.08);border-radius:10px;padding:13px 14px;border:1px solid rgba(45,125,125,0.2);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#2d7d7d,#1a4d4d);">4</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#4db8b8;">Baixar o PDF completo</div>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;">
+                                <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(45,125,125,0.12);color:#4db8b8;border:1px solid rgba(45,125,125,0.25);">JSTOR</span>
+                                <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(45,125,125,0.12);color:#4db8b8;border:1px solid rgba(45,125,125,0.25);">HeinOnline</span>
+                                <span style="display:inline-block;padding:2px 9px;border-radius:12px;font-size:0.72rem;font-weight:600;background:rgba(45,125,125,0.12);color:#4db8b8;border:1px solid rgba(45,125,125,0.25);">Cambridge Core</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal" style="background:rgba(255,255,255,0.03);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.07);height:100%;">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4db8b8;margin-bottom:14px;">Bases de Direito Internacional disponíveis</div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(45,125,125,0.07);border-radius:8px;">
+                                <span style="font-weight:600;font-size:0.85rem;color:#e8d5b5;">HeinOnline</span>
+                                <span style="font-size:0.75rem;color:#7a7060;">Doutrina + tratados históricos</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(45,125,125,0.07);border-radius:8px;">
+                                <span style="font-weight:600;font-size:0.85rem;color:#e8d5b5;">JSTOR</span>
+                                <span style="font-size:0.75rem;color:#7a7060;">Teoria jurídica + ciências sociais</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(45,125,125,0.07);border-radius:8px;">
+                                <span style="font-weight:600;font-size:0.85rem;color:#e8d5b5;">Cambridge Core</span>
+                                <span style="font-size:0.75rem;color:#7a7060;">Periódicos de DI contemporâneo</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(45,125,125,0.07);border-radius:8px;">
+                                <span style="font-weight:600;font-size:0.85rem;color:#e8d5b5;">Oxford Journals</span>
+                                <span style="font-size:0.75rem;color:#7a7060;">EJIL, ICLQ e outros top-tier</span>
+                            </div>
+                        </div>
+                        <div style="margin-top:16px;padding:10px 12px;background:rgba(45,125,125,0.08);border-radius:8px;border:1px solid rgba(45,125,125,0.2);">
+                            <p style="margin:0;font-size:0.8rem;color:#c9bfa8;line-height:1.5;">💡 <strong>Dica:</strong> Use o DOI encontrado no Elicit para busca direta na base — mais rápido que buscar por título.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 8: FASE 3 — ZOTERO ═══ -->
+    <div class="slide slide-8" data-slide="8">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:420px;height:420px;top:-90px;right:-70px;background:#9b2335;opacity:0.12;"></div>
+            <div class="blob" style="width:260px;height:260px;bottom:-50px;left:-40px;background:#c9a84c;opacity:0.07;"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;">
+                <span class="phase-badge phase-c reveal">Fase 3</span>
+                <div class="reveal" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a7060;">Soberania dos Dados</div>
+            </div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Organização + Escrita — <span style="color:#e05a6e;">Zotero</span></h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#9b2335,#5a0f1a);">1</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Zotero + Connector</div>
+                            <div style="font-size:0.78rem;color:#7a7060;">Captura de metadados + PDF com 1 clique no browser</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(155,35,53,0.08);border-radius:10px;padding:12px 14px;border:1px solid rgba(155,35,53,0.2);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#9b2335,#5a0f1a);">2</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e05a6e;">O pulo do gato — importar .RIS</div>
+                            <div style="font-size:0.78rem;color:#c9bfa8;margin-top:2px;">Exportar resultados do Elicit → importar direto no Zotero. Semanas de trabalho em minutos.</div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#9b2335,#5a0f1a);">3</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Criar coleção + tags críticas</div>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
+                                <span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#TWAIL</span>
+                                <span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#HistóriaDI</span>
+                                <span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#Feminismo</span>
+                                <span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:600;background:rgba(155,35,53,0.12);color:#e05a6e;border:1px solid rgba(155,35,53,0.25);">#soberania</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;border:1px solid rgba(255,255,255,0.07);">
+                        <span class="step-num" style="background:linear-gradient(135deg,#9b2335,#5a0f1a);">4</span>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;color:#e8d5b5;">Plugin Word/Google Docs</div>
+                            <div style="font-size:0.78rem;color:#7a7060;">Inserir citação → trocar estilo em 1 clique</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                    <div class="reveal" style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:16px;">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Formatos de citação — troca instantânea</div>
+                        <div style="display:flex;flex-direction:column;gap:7px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(201,168,76,0.06);border-radius:6px;">
+                                <span style="font-weight:600;font-size:0.82rem;color:#e8d5b5;">ABNT NBR 6023</span>
+                                <span style="font-size:0.72rem;color:#7a7060;">Padrão brasileiro</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(201,168,76,0.06);border-radius:6px;">
+                                <span style="font-weight:600;font-size:0.82rem;color:#e8d5b5;">Chicago Author-Date</span>
+                                <span style="font-size:0.72rem;color:#7a7060;">Publicações internacionais</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(201,168,76,0.06);border-radius:6px;">
+                                <span style="font-weight:600;font-size:0.82rem;color:#e8d5b5;">Harvard</span>
+                                <span style="font-size:0.72rem;color:#7a7060;">Ciências sociais UK/Aus</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="background:rgba(155,35,53,0.08);border:1px solid rgba(155,35,53,0.2);border-radius:12px;padding:16px;">
+                        <p style="margin:0;font-size:0.85rem;color:#c9bfa8;line-height:1.6;"><strong style="color:#e05a6e;">Zotero = soberania</strong> sobre sua base de conhecimento. Organização não é estética — é método. Suas referências são seus dados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 9: ALERTA CRÍTICO ═══ -->
+    <div class="slide slide-9" data-slide="9">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:500px;height:500px;top:-120px;right:-90px;background:#9b2335;opacity:0.15;"></div>
+            <div class="blob" style="width:300px;height:300px;bottom:-70px;left:-50px;background:#c9a84c;opacity:0.08;"></div>
+        </div>
+        <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1;"></canvas>
+        <div class="content">
+            <div class="reveal" style="display:inline-flex;align-items:center;gap:8px;background:rgba(155,35,53,0.15);border:1px solid rgba(155,35,53,0.35);border-radius:20px;padding:5px 14px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e05a6e;margin-bottom:1rem;">⚠ Alerta Crítico · 10 min</div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:900;line-height:1.2;margin-bottom:1.4rem;">O Algoritmo Também<br>Tem Vieses</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="reveal" style="background:rgba(155,35,53,0.1);border-left:4px solid #9b2335;border-radius:0 10px 10px 0;padding:14px 16px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#e05a6e;margin-bottom:5px;">Predominância anglófona</div>
+                        <p style="margin:0;font-size:0.82rem;color:#c9bfa8;line-height:1.55;">O Semantic Scholar indexa predominantemente literatura em inglês e publicações de universidades do Norte Global. Artigos em português, espanhol e francês ficam sistematicamente sub-representados.</p>
+                    </div>
+                    <div class="reveal" style="background:rgba(155,35,53,0.1);border-left:4px solid #9b2335;border-radius:0 10px 10px 0;padding:14px 16px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#e05a6e;margin-bottom:5px;">Centralidade do Norte Global</div>
+                        <p style="margin:0;font-size:0.82rem;color:#c9bfa8;line-height:1.55;">Feminismos decoloniais latino-americanos, produção africana e asiática em DI — e até TWAIL — podem <em>não aparecer</em> ou aparecer de forma distorcida dependendo da indexação.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal" style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:20px;height:100%;">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;">Pergunta para a turma</div>
+                        <p style="color:#e8d5b5;font-size:1.05rem;font-family:'Playfair Display',serif;font-style:italic;line-height:1.5;margin-bottom:16px;">"Se o algoritmo decide o que aparece, quem desaparece?"</p>
+                        <div style="background:rgba(201,168,76,0.08);border-radius:8px;padding:14px;">
+                            <div style="font-weight:600;font-size:0.82rem;color:#c9a84c;margin-bottom:6px;">Insight central</div>
+                            <p style="margin:0;font-size:0.82rem;color:#c9bfa8;line-height:1.55;">Ferramentas ampliam alcance, mas <strong style="color:#e8d5b5;">não substituem curadoria crítica</strong>. A pesquisadora continua sendo responsável pelo enquadramento epistemológico. Tecnologia sem crítica reproduz hegemonia.</p>
+                        </div>
+                        <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+                            <span class="tag-pill">Scielo</span>
+                            <span class="tag-pill">DOAJ</span>
+                            <span class="tag-pill">BDTD</span>
+                            <span class="tag-pill">CLACSO</span>
+                        </div>
+                        <div style="margin-top:8px;font-size:0.75rem;color:#7a7060;">Bases alternativas para produção ibero-americana e global sul</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 10: WORKSHOP ═══ -->
+    <div class="slide slide-10" data-slide="10">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:440px;height:440px;top:-100px;left:-80px;background:#c9a84c;opacity:0.1;"></div>
+            <div class="blob" style="width:280px;height:280px;bottom:-60px;right:-50px;background:#2d7d7d;opacity:0.08;"></div>
+        </div>
+        <div class="content">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+                <div class="reveal" style="background:linear-gradient(135deg,#c9a84c,#7a6030);border-radius:20px;padding:4px 14px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#10100e;">Workshop · 40 min</div>
+                <div class="reveal" style="font-size:0.72rem;color:#7a7060;letter-spacing:0.1em;text-transform:uppercase;">Mão na massa — duplas</div>
+            </div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:700;margin-bottom:1.4rem;">Workshop Prático de Fixação</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div>
+                    <div class="reveal" style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Microperguntas de pesquisa</div>
+                    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+                        <div class="reveal code-snippet" style="font-size:0.78rem;">"How does TWAIL reinterpret <span class="kw">international law origins</span>?"</div>
+                        <div class="reveal code-snippet" style="font-size:0.78rem;">"What is the role of <span class="str">gender</span> in sovereignty theory?"</div>
+                        <div class="reveal code-snippet" style="font-size:0.78rem;">"Women in <span class="kw">international legal historiography</span>"</div>
+                    </div>
+                    <div class="reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;">
+                        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7a7060;margin-bottom:8px;">Estrutura do parágrafo síntese</div>
+                        <div style="display:flex;flex-direction:column;gap:5px;font-size:0.8rem;color:#c9bfa8;">
+                            <div>📌 <strong>1 frase de tema</strong></div>
+                            <div>📝 <strong>2–3 frases</strong> com argumentos da literatura</div>
+                            <div>📚 <strong>3 citações</strong> inseridas automaticamente</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal" style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Checklist de conclusão</div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div class="reveal" style="display:flex;gap:10px;align-items:center;background:rgba(201,168,76,0.07);border-radius:8px;padding:10px 12px;border:1px solid rgba(201,168,76,0.15);">
+                            <span style="font-size:1.1rem;">🔍</span>
+                            <div>
+                                <div style="font-weight:600;font-size:0.84rem;color:#c9a84c;">Elicit</div>
+                                <div style="font-size:0.77rem;color:#7a7060;">3 artigos relevantes encontrados</div>
+                            </div>
+                        </div>
+                        <div class="reveal" style="display:flex;gap:10px;align-items:center;background:rgba(45,125,125,0.07);border-radius:8px;padding:10px 12px;border:1px solid rgba(45,125,125,0.18);">
+                            <span style="font-size:1.1rem;">🔐</span>
+                            <div>
+                                <div style="font-weight:600;font-size:0.84rem;color:#4db8b8;">VPN + CAPES</div>
+                                <div style="font-size:0.77rem;color:#7a7060;">PDFs originais baixados</div>
+                            </div>
+                        </div>
+                        <div class="reveal" style="display:flex;gap:10px;align-items:center;background:rgba(155,35,53,0.07);border-radius:8px;padding:10px 12px;border:1px solid rgba(155,35,53,0.18);">
+                            <span style="font-size:1.1rem;">📚</span>
+                            <div>
+                                <div style="font-weight:600;font-size:0.84rem;color:#e05a6e;">Zotero</div>
+                                <div style="font-size:0.77rem;color:#7a7060;">Coleção + 2 tags por artigo</div>
+                            </div>
+                        </div>
+                        <div class="reveal" style="display:flex;gap:10px;align-items:center;background:rgba(201,168,76,0.07);border-radius:8px;padding:10px 12px;border:1px solid rgba(201,168,76,0.15);">
+                            <span style="font-size:1.1rem;">✍️</span>
+                            <div>
+                                <div style="font-weight:600;font-size:0.84rem;color:#c9a84c;">Escrita</div>
+                                <div style="font-size:0.77rem;color:#7a7060;">Parágrafo + 3 citações automáticas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ SLIDE 11: FECHAMENTO ═══ -->
+    <div class="slide slide-11" data-slide="11">
+        <div class="gradient-mesh">
+            <div class="blob" style="width:550px;height:550px;top:-130px;right:-100px;background:#c9a84c;opacity:0.13;"></div>
+            <div class="blob" style="width:350px;height:350px;bottom:-90px;left:-70px;background:#9b2335;opacity:0.1;"></div>
+            <div class="blob" style="width:220px;height:220px;top:40%;left:15%;background:#2d7d7d;opacity:0.09;"></div>
+        </div>
+        <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+        <div class="content text-center">
+            <div style="font-size:70px;margin-bottom:1.2rem;animation:float 3.5s ease-in-out infinite;" class="reveal">⚖️</div>
+            <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;background:linear-gradient(135deg,#c9a84c,#e8d5b5,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;margin-bottom:1.2rem;">Teoria crítica não começa<br>na escrita</h2>
+            <p class="reveal" style="color:#c9bfa8;font-size:1rem;line-height:1.7;max-width:620px;margin:0 auto 2rem;">Começa na forma como você constrói sua base de conhecimento. Dominar a infraestrutura digital é um ato de autonomia intelectual — e de resistência epistemológica.</p>
+            <div class="reveal" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;">
+                <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:10px;padding:12px 18px;text-align:center;min-width:130px;">
+                    <div style="font-size:1.4rem;margin-bottom:4px;">🔍</div>
+                    <div style="font-size:0.75rem;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:0.08em;">Elicit</div>
+                </div>
+                <div style="background:rgba(45,125,125,0.1);border:1px solid rgba(45,125,125,0.25);border-radius:10px;padding:12px 18px;text-align:center;min-width:130px;">
+                    <div style="font-size:1.4rem;margin-bottom:4px;">🔐</div>
+                    <div style="font-size:0.75rem;font-weight:700;color:#4db8b8;text-transform:uppercase;letter-spacing:0.08em;">VPN · CAPES</div>
+                </div>
+                <div style="background:rgba(155,35,53,0.1);border:1px solid rgba(155,35,53,0.25);border-radius:10px;padding:12px 18px;text-align:center;min-width:130px;">
+                    <div style="font-size:1.4rem;margin-bottom:4px;">📚</div>
+                    <div style="font-size:0.75rem;font-weight:700;color:#e05a6e;text-transform:uppercase;letter-spacing:0.08em;">Zotero</div>
+                </div>
+                <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:10px;padding:12px 18px;text-align:center;min-width:130px;">
+                    <div style="font-size:1.4rem;margin-bottom:4px;">✍️</div>
+                    <div style="font-size:0.75rem;font-weight:700;color:#c9a84c;text-transform:uppercase;letter-spacing:0.08em;">Citação Auto.</div>
+                </div>
+            </div>
+            <div class="reveal" style="font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:#7a7060;">PPGD/UFSC · Direito Internacional Avançado</div>
+        </div>
+    </div>
+
+</div><!-- end .deck -->
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+    <div class="slide-dots" id="dots"></div>
+    <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+    <span class="slide-counter" id="counter">1 / 11</span>
+</div>
+
+<script>
+    let current = 1;
+    const total = document.querySelectorAll('.slide').length;
+    const dotsContainer = document.getElementById('dots');
+    const counter = document.getElementById('counter');
+    for (let i = 1; i <= total; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+    }
+    function goToSlide(n) {
+        const prev = document.querySelector('.slide.active');
+        const next = document.querySelector(`.slide[data-slide="${n}"]`);
+        if (prev) prev.classList.remove('active');
+        if (next) { next.classList.add('active'); animateSlide(next); }
+        current = n; updateNav();
+    }
+    function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+    function updateNav() {
+        document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current));
+        counter.textContent = current + ' / ' + total;
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+
+    function animateSlide(slide) {
+        slide.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transition = 'none';
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(18px)';
+            el.offsetHeight;
+            const delay = i * 0.07;
+            el.style.transition = `opacity 0.38s ease ${delay}s, transform 0.38s ease ${delay}s`;
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0px)';
+        });
+        slide.querySelectorAll('.bar-fill:not(.fill-init)').forEach((bar, i) => {
+            bar.classList.add('fill-init');
+            bar.style.width = '0%'; bar.style.transition = `width 0.6s ease ${i * 0.08 + 0.3}s`;
+            bar.offsetHeight; bar.style.width = bar.dataset.width + '%';
+        });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        const spotlight = document.querySelector('.mouse-spotlight');
+        if (spotlight) spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(201,168,76,0.05), transparent 40%)`;
+    });
+
+    window.initParticles = function(canvas, options) {
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+        const interactive = options.interactive !== false;
+        const count = options.count || (interactive ? 45 : 16);
+        let mx = -1000, my = -1000;
+        const particles = Array.from({ length: count }, () => ({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+            size: Math.random() * 2.2 + 0.7, alpha: Math.random() * 0.3 + 0.08
+        }));
+        if (interactive) {
+            canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; });
+            canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
+        }
+        (function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                if (interactive) { const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx*dx + dy*dy); if (dist < 110) { const force = (110 - dist) / 110 * 2; p.vx += (dx/dist) * force * 0.09; p.vy += (dy/dist) * force * 0.09; } }
+                p.vx *= 0.98; p.vy *= 0.98; p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(201,168,76,${p.alpha})`; ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        })();
+    };
+    document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 45 }));
+    document.querySelectorAll('.particle-canvas-ambient').forEach(c => window.initParticles(c, { interactive: false, count: 16 }));
+
+    try { animateSlide(document.querySelector('.slide.active')); } catch(e) {}
+</script>
+</body>
+</html>

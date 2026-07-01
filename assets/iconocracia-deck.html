@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ICONOCRACIA — Cotutela & Defense Deck</title>
+<style>
+:root{
+  --deep-purple:#2B1E3E;
+  --deep-purple-light:#3A2A52;
+  --cosmic-blue:#4A4E8F;
+  --lavender:#A490C2;
+  --lavender-bright:#C0A8DC;
+  --silver:#E6E6FA;
+  --silver-muted:#B8B0D4;
+  --fundacional:#9B87E0;
+  --normativo:#7AB89A;
+  --militar:#E07A7A;
+  --bg:#1A1226;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);min-height:100vh}
+body{
+  font-family:'Trebuchet MS','Tahoma','Helvetica Neue',Arial,sans-serif;
+  color:var(--silver);
+  padding:1.5rem 1rem 5rem;
+  overflow-x:hidden;
+}
+.deck-wrap{
+  max-width:960px;
+  margin:0 auto;
+}
+.deck-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding-bottom:.75rem;margin-bottom:1rem;
+  border-bottom:.5px solid rgba(164,144,194,.3);
+}
+.deck-head h1{
+  font-size:13px;font-weight:500;letter-spacing:4px;
+  color:var(--lavender);
+}
+.deck-head .meta{font-size:11px;color:var(--silver-muted);letter-spacing:1px}
+
+/* 16:9 slide */
+.slide{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:var(--deep-purple);
+  border-radius:10px;
+  padding:3.2% 4%;
+  overflow:hidden;
+  display:none;
+}
+.slide.active{display:block;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Typography */
+.kicker{
+  font-size:clamp(8px,1.0cqw,11px);font-weight:500;
+  letter-spacing:.45em;color:var(--lavender);
+  margin-bottom:.5rem;
+}
+.title{
+  font-size:clamp(22px,3.3cqw,36px);font-weight:700;
+  color:var(--silver);line-height:1.1;margin-bottom:.6rem;
+}
+.subtitle{
+  font-size:clamp(12px,1.5cqw,16px);font-style:italic;
+  color:var(--silver-muted);line-height:1.5;max-width:90%;
+}
+.body{
+  font-family:'Calibri','Segoe UI',sans-serif;
+  font-size:clamp(11px,1.35cqw,15px);line-height:1.55;
+  color:var(--silver-muted);
+}
+
+.slide{container-type:inline-size}
+
+/* Slide 1 — cover */
+.s-cover{
+  padding:3.5%;
+}
+.s-cover .inst{
+  font-size:clamp(9px,1.05cqw,12px);font-weight:500;
+  letter-spacing:.4em;color:var(--lavender);
+}
+.s-cover .constellation{display:flex;gap:.5rem;margin-top:.8rem;margin-bottom:1.5rem}
+.s-cover .dot{width:6px;height:6px;border-radius:50%;background:var(--lavender)}
+.s-cover .dot:nth-child(2){opacity:.6}
+.s-cover .dot:nth-child(4){opacity:.4}
+.s-cover .dot:nth-child(5){opacity:.8}
+.s-cover .big-title{
+  font-size:clamp(42px,8.5cqw,92px);font-weight:700;
+  color:var(--silver);letter-spacing:.08em;
+  line-height:1;margin-top:3cqw;
+}
+.s-cover .sub{
+  font-size:clamp(16px,2.4cqw,26px);font-style:italic;
+  color:var(--lavender);margin-top:1cqw;
+}
+.s-cover .descriptor{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(11px,1.4cqw,15px);color:var(--silver-muted);
+  margin-top:1.2cqw;line-height:1.5;
+}
+.s-cover .author-row{
+  position:absolute;bottom:5%;left:4%;right:4%;
+  border-top:.5px solid var(--lavender);padding-top:.6rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.s-cover .author-row .name{
+  font-size:clamp(10px,1.2cqw,14px);font-weight:500;
+  letter-spacing:.3em;color:var(--silver);
+}
+.s-cover .author-row .info{
+  font-family:'Calibri',sans-serif;font-size:clamp(9px,1.1cqw,12px);
+  color:var(--silver-muted);margin-top:2px;
+}
+.s-cover .author-row .date{
+  font-size:clamp(9px,1.1cqw,12px);letter-spacing:.25em;
+  color:var(--lavender);
+}
+
+/* Slide 2 — argument */
+.s-arg .big-statement{
+  font-size:clamp(22px,4.2cqw,48px);font-weight:700;
+  color:var(--silver);line-height:1.15;margin:1.2cqw 0;
+}
+.s-arg .accent-bar{
+  width:3%;height:3px;background:var(--lavender);
+  margin:.8cqw 0 1.5cqw;
+}
+.s-arg .body-big{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(12px,1.8cqw,20px);line-height:1.45;
+  color:var(--silver-muted);max-width:88%;
+}
+.s-arg b{color:var(--lavender);font-weight:600}
+
+/* Common grid card */
+.card{
+  background:var(--deep-purple-light);
+  border:.5px solid var(--cosmic-blue);
+  border-radius:4px;padding:1.2cqw 1.4cqw;
+  position:relative;
+}
+.card-accent{
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--lavender);
+}
+
+/* Slide 3 — theoretical anchors 2x2 */
+.anchor-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.3cqw;
+  margin-top:1.4cqw;
+}
+.anchor-card{padding:1.4cqw 1.5cqw;position:relative;min-height:0}
+.anchor-name{
+  font-size:clamp(12px,1.7cqw,19px);font-weight:700;
+  color:var(--silver);margin-bottom:.3cqw;
+}
+.anchor-concept{
+  font-size:clamp(8px,1.1cqw,12px);letter-spacing:.25em;
+  color:var(--lavender);margin-bottom:.7cqw;
+}
+.anchor-desc{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(10px,1.3cqw,14px);line-height:1.45;
+  color:var(--silver-muted);
+}
+
+/* Slide 4 — three regimes */
+.regime-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.2cqw;
+  margin-top:1.5cqw;
+}
+.regime-card{
+  padding:1.3cqw 1.4cqw 1.5cqw;border-radius:4px;
+  background:var(--deep-purple-light);
+  border-width:.5px;border-style:solid;position:relative;
+}
+.regime-top{position:absolute;top:0;left:0;right:0;height:5px;border-radius:4px 4px 0 0}
+.regime-card.r1{border-color:var(--fundacional)}
+.regime-card.r1 .regime-top{background:var(--fundacional)}
+.regime-card.r2{border-color:var(--normativo)}
+.regime-card.r2 .regime-top{background:var(--normativo)}
+.regime-card.r3{border-color:var(--militar)}
+.regime-card.r3 .regime-top{background:var(--militar)}
+.regime-tag{
+  font-size:clamp(7px,1.0cqw,11px);letter-spacing:.3em;
+  margin-top:.8cqw;margin-bottom:.25cqw;
+}
+.regime-card.r1 .regime-tag{color:var(--fundacional)}
+.regime-card.r2 .regime-tag{color:var(--normativo)}
+.regime-card.r3 .regime-tag{color:var(--militar)}
+.regime-name{
+  font-size:clamp(14px,2.3cqw,26px);font-weight:700;
+  color:var(--silver);letter-spacing:.12em;margin-bottom:.9cqw;
+}
+.regime-desc{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.25cqw,13px);line-height:1.45;
+  color:var(--silver-muted);margin-bottom:.9cqw;
+}
+.regime-mark{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(8px,1.05cqw,11px);font-style:italic;
+  color:var(--silver-muted);line-height:1.35;
+  padding-top:.6cqw;
+}
+.regime-card.r1 .regime-mark{border-top:.5px solid var(--fundacional)}
+.regime-card.r2 .regime-mark{border-top:.5px solid var(--normativo)}
+.regime-card.r3 .regime-mark{border-top:.5px solid var(--militar)}
+
+/* Slide 5 — presidenta totêmica phases */
+.phases-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.3cqw;
+  position:relative;margin-top:1.8cqw;
+}
+.phase-col{padding-top:0}
+.phase-head{display:flex;align-items:center;gap:.9cqw;margin-bottom:1.1cqw;position:relative;z-index:2}
+.phase-num-circle{
+  width:clamp(32px,5.2cqw,62px);height:clamp(32px,5.2cqw,62px);
+  border-radius:50%;background:var(--deep-purple);
+  border:1.5px solid var(--lavender);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(14px,2.4cqw,28px);font-weight:700;
+  color:var(--lavender);flex-shrink:0;
+}
+.phase-label .name{
+  font-size:clamp(13px,2.0cqw,22px);font-weight:700;
+  color:var(--silver);
+}
+.phase-label .period{
+  font-size:clamp(8px,1.0cqw,11px);letter-spacing:.25em;
+  color:var(--lavender);margin-top:.15cqw;
+}
+.phase-desc{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.25cqw,13px);line-height:1.5;
+  color:var(--silver-muted);
+}
+
+/* Slide 6 — methodology pipeline */
+.method-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.3cqw;
+  margin-top:1.5cqw;
+}
+.method-col .step{
+  font-size:clamp(22px,4.5cqw,50px);font-weight:700;
+  color:var(--cosmic-blue);line-height:1;margin-bottom:.6cqw;
+}
+.method-col .m-title{
+  font-size:clamp(14px,2.1cqw,24px);font-weight:700;
+  color:var(--silver);margin-bottom:.25cqw;
+}
+.method-col .m-tool{
+  font-size:clamp(8px,1.1cqw,12px);letter-spacing:.25em;
+  color:var(--lavender);
+}
+.method-col hr{
+  border:none;border-top:.5px solid var(--lavender);
+  width:12%;margin:.7cqw 0;
+}
+.method-col ul{list-style:none;padding-left:0}
+.method-col li{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.25cqw,13px);line-height:1.45;
+  color:var(--silver-muted);padding-left:1em;position:relative;
+  margin-bottom:.35cqw;
+}
+.method-col li::before{
+  content:'';position:absolute;left:0;top:.55em;
+  width:4px;height:4px;background:var(--lavender);
+}
+
+/* Slide 7 — eight chapters */
+.chap-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.6cqw .7cqw;
+  margin-top:1.4cqw;
+}
+.chap-card{
+  display:grid;grid-template-columns:auto 1fr;
+  background:var(--deep-purple-light);
+  border:.5px solid var(--cosmic-blue);border-radius:3px;
+  overflow:hidden;min-height:0;
+}
+.chap-num{
+  padding:.8cqw 1.2cqw;display:flex;align-items:center;
+  justify-content:center;
+  font-size:clamp(14px,2.2cqw,24px);font-weight:700;
+  color:var(--deep-purple);
+}
+.chap-body{padding:.55cqw .8cqw}
+.chap-title{
+  font-size:clamp(10px,1.4cqw,14px);font-weight:700;
+  color:var(--silver);line-height:1.25;
+}
+.chap-tag{
+  font-size:clamp(7px,.95cqw,10px);letter-spacing:.25em;
+  margin-top:.25cqw;
+}
+.chap-card.c-open .chap-num{background:var(--lavender)}
+.chap-card.c-open .chap-tag{color:var(--lavender)}
+.chap-card.c-cor .chap-num{background:var(--fundacional)}
+.chap-card.c-cor .chap-tag{color:var(--fundacional)}
+.chap-card.c-case .chap-num{background:var(--normativo)}
+.chap-card.c-case .chap-tag{color:var(--normativo)}
+.chap-card.c-synth .chap-num{background:var(--militar)}
+.chap-card.c-synth .chap-tag{color:var(--militar)}
+
+/* Slide 8 — five phase roadmap */
+.phase-timeline{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:.7cqw;
+  margin-top:1.4cqw;
+}
+.pt-card{
+  background:var(--deep-purple-light);
+  border:.5px solid var(--cosmic-blue);
+  border-radius:4px;padding:1cqw;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.pt-band{position:absolute;top:0;left:0;right:0;height:6px}
+.pt-card.p1 .pt-band{background:var(--cosmic-blue)}
+.pt-card.p2 .pt-band{background:#5C61A0}
+.pt-card.p3 .pt-band{background:#6E74B0}
+.pt-card.p4 .pt-band{background:var(--lavender)}
+.pt-card.p5 .pt-band{background:var(--lavender-bright)}
+.pt-label{
+  font-size:clamp(8px,1.0cqw,10px);letter-spacing:.3em;
+  color:var(--lavender);margin-top:.7cqw;
+}
+.pt-when{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(8px,1.0cqw,11px);font-style:italic;
+  color:var(--silver-muted);margin-top:.15cqw;margin-bottom:.8cqw;
+}
+.pt-title{
+  font-size:clamp(11px,1.5cqw,16px);font-weight:700;
+  color:var(--silver);line-height:1.25;margin-bottom:.6cqw;
+}
+.pt-beat{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(8px,1.0cqw,11px);line-height:1.45;
+  color:var(--silver-muted);
+}
+
+/* Slide 9 — cotutela */
+.cotutela{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:1.2cqw;
+  align-items:stretch;margin-top:1.5cqw;
+}
+.cot-card{
+  background:var(--deep-purple-light);
+  border:.75px solid var(--lavender);border-radius:4px;
+  padding:1.3cqw 1.5cqw;
+}
+.cot-kicker{
+  font-size:clamp(8px,1.05cqw,11px);letter-spacing:.3em;
+  color:var(--lavender);
+}
+.cot-inst{
+  font-size:clamp(12px,1.8cqw,19px);font-weight:700;
+  color:var(--silver);margin-top:.35cqw;line-height:1.2;
+}
+.cot-line{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.25cqw,13px);font-style:italic;
+  color:var(--silver-muted);margin-top:.8cqw;line-height:1.45;
+}
+.cot-divider{
+  width:10%;height:.5px;background:var(--lavender);margin:1cqw 0 .7cqw;
+}
+.cot-role-label{
+  font-size:clamp(8px,1.0cqw,11px);letter-spacing:.25em;
+  color:var(--lavender);
+}
+.cot-role-name{
+  font-size:clamp(11px,1.5cqw,15px);font-weight:700;
+  color:var(--silver);margin-top:.2cqw;margin-bottom:.6cqw;
+}
+.cot-role-desc{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.15cqw,12px);line-height:1.45;
+  color:var(--silver-muted);
+}
+.cot-mid{
+  display:flex;align-items:center;justify-content:center;
+  width:auto;align-self:center;
+}
+.cot-cross{
+  width:clamp(22px,2.8cqw,32px);height:clamp(22px,2.8cqw,32px);
+  border-radius:50%;background:var(--lavender);
+  color:var(--deep-purple);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:clamp(12px,1.6cqw,17px);
+}
+
+/* Slide 10 — intellectual network */
+.net-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.2cqw;
+  margin-top:1.5cqw;
+}
+.net-card{
+  background:var(--deep-purple-light);
+  border:.5px solid var(--cosmic-blue);
+  border-radius:4px;padding:1.2cqw;position:relative;overflow:hidden;
+}
+.net-top{position:absolute;top:0;left:0;right:0;height:4px}
+.net-card.n1 .net-top{background:var(--fundacional)}
+.net-card.n2 .net-top{background:var(--normativo)}
+.net-card.n3 .net-top{background:var(--militar)}
+.net-title{
+  font-size:clamp(12px,1.7cqw,18px);font-weight:700;
+  color:var(--silver);margin-top:.6cqw;margin-bottom:.3cqw;
+}
+.net-rule{width:12%;height:.5px;margin-bottom:.8cqw}
+.net-card.n1 .net-rule{background:var(--fundacional)}
+.net-card.n2 .net-rule{background:var(--normativo)}
+.net-card.n3 .net-rule{background:var(--militar)}
+.net-list{list-style:none;padding:0}
+.net-list li{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.2cqw,13px);line-height:1.45;
+  color:var(--silver-muted);
+  padding-left:1em;position:relative;margin-bottom:.45cqw;
+}
+.net-list li::before{
+  content:'';position:absolute;left:0;top:.55em;
+  width:4px;height:4px;background:var(--lavender);
+}
+
+/* Slide 11 — outputs */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.7cqw;
+  margin-top:1.5cqw;
+}
+.stat-card{
+  background:var(--deep-purple-light);
+  border:.5px solid var(--cosmic-blue);
+  border-radius:4px;padding:1.2cqw 1.3cqw;
+}
+.stat-val{
+  font-size:clamp(28px,6cqw,62px);font-weight:700;
+  color:var(--lavender);line-height:1;
+}
+.stat-lbl{
+  font-size:clamp(7px,1.0cqw,11px);letter-spacing:.22em;
+  color:var(--silver-muted);margin-top:.5cqw;
+}
+.funding-band{
+  margin-top:1.4cqw;padding:1cqw 1.3cqw;
+  background:rgba(74,78,143,.25);
+  border:.5px solid var(--lavender);border-radius:4px;
+}
+.funding-label{
+  font-size:clamp(8px,1.05cqw,11px);letter-spacing:.3em;
+  color:var(--lavender);
+}
+.funding-items{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(10px,1.5cqw,16px);line-height:1.5;
+  margin-top:.5cqw;color:var(--silver-muted);
+}
+.funding-items b{color:var(--silver);font-weight:600}
+
+/* Slide 12 — closing */
+.s-close .big-thank{
+  font-size:clamp(40px,7.5cqw,82px);font-weight:700;
+  color:var(--silver);line-height:1;margin-top:3cqw;
+}
+.s-close .accent{
+  width:8%;height:3px;background:var(--lavender);
+  margin:1.5cqw 0 1.5cqw;
+}
+.s-close h3{
+  font-size:clamp(14px,2.0cqw,22px);color:var(--lavender);
+  font-weight:400;margin-bottom:.7cqw;
+}
+.s-close ul{list-style:none;padding:0}
+.s-close ul li{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(12px,1.7cqw,18px);
+  color:var(--silver);padding-left:1.4em;
+  position:relative;margin-bottom:.55cqw;
+  line-height:1.4;
+}
+.s-close ul li::before{
+  content:'';position:absolute;left:0;top:.55em;
+  width:6px;height:6px;background:var(--lavender);
+}
+.s-close .close-foot{
+  position:absolute;bottom:5%;left:4%;right:4%;
+  border-top:.5px solid var(--lavender);padding-top:.6rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.s-close .cf-name{
+  font-size:clamp(10px,1.2cqw,14px);font-weight:500;
+  letter-spacing:.3em;color:var(--silver);
+}
+.s-close .cf-contact{
+  font-family:'Calibri',sans-serif;
+  font-size:clamp(9px,1.1cqw,12px);
+  color:var(--silver-muted);margin-top:2px;
+}
+.s-close .cf-right{
+  font-size:clamp(9px,1.1cqw,12px);letter-spacing:.3em;
+  color:var(--lavender);
+}
+
+/* Slide footer (all non-cover/non-close) */
+.slide-foot{
+  position:absolute;bottom:3.5%;left:4%;right:4%;
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:clamp(7px,.95cqw,10px);
+  color:var(--silver-muted);letter-spacing:.25em;
+}
+.slide-foot .sf-kicker{color:var(--lavender)}
+.slide-foot .sf-brand{
+  text-align:center;flex:1;letter-spacing:.4em;
+}
+
+/* Navigation */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:1rem;gap:1rem;
+}
+.nav-btn{
+  background:transparent;
+  border:.5px solid rgba(164,144,194,.3);
+  color:var(--silver-muted);
+  padding:.55rem 1.1rem;border-radius:6px;
+  font-family:inherit;font-size:12px;letter-spacing:.15em;
+  cursor:pointer;transition:all .15s ease;
+  text-transform:uppercase;
+}
+.nav-btn:hover{
+  border-color:var(--lavender);color:var(--silver);
+  background:rgba(164,144,194,.08);
+}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.nav-center{
+  display:flex;gap:4px;align-items:center;
+}
+.nav-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(164,144,194,.25);cursor:pointer;
+  transition:all .15s;
+}
+.nav-dot:hover{background:rgba(164,144,194,.5)}
+.nav-dot.active{background:var(--lavender);transform:scale(1.4)}
+.counter{
+  font-size:11px;letter-spacing:.3em;color:var(--silver-muted);
+  margin-left:1rem;
+}
+
+.hint{
+  text-align:center;font-size:10px;letter-spacing:.2em;
+  color:var(--silver-muted);margin-top:1rem;opacity:.55;
+  text-transform:uppercase;
+}
+</style>
+</head>
+<body>
+<div class="deck-wrap">
+<div class="deck-head">
+<h1>ICONOCRACIA · COTUTELA PITCH</h1>
+<span class="meta">12 slides · Midnight Galaxy</span>
+</div>
+
+<!-- 1 COVER -->
+<div class="slide s-cover active" data-i="1">
+  <div class="inst">PPGD · UFSC   ×   LEGAL HISTORY INSTITUTE · UGENT</div>
+  <div class="constellation"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div class="big-title">ICONOCRACIA</div>
+  <div class="sub">Regimes iconocráticos e a presidenta totêmica</div>
+  <div class="descriptor">Tese de doutorado em Direito — cotutela UFSC × UGent<br>Linha: Teoria, História e Filosofia do Direito</div>
+  <div class="author-row">
+    <div><div class="name">ANA V. VANZIN</div><div class="info">Doutoranda · PPGD/UFSC · OAB/SC 64.343</div></div>
+    <div class="date">ABRIL 2026</div>
+  </div>
+</div>
+
+<!-- 2 ARGUMENTO -->
+<div class="slide s-arg" data-i="2">
+  <div class="kicker">01 · ARGUMENTO</div>
+  <div class="big-statement">Imagens não são ornamento<br>do poder jurídico.</div>
+  <div class="accent-bar"></div>
+  <div class="body-big">São sua <b>infraestrutura simbólica</b>. Regimes políticos produzem regimes <b>iconocráticos</b> — sistemas estruturados de imagens, gestos, símbolos e rituais que instituem a autoridade antes mesmo que a norma a codifique.</div>
+  <div class="slide-foot"><span class="sf-kicker">ARGUMENTO</span><span class="sf-brand">ICONOCRACIA</span><span>02 · 12</span></div>
+</div>
+
+<!-- 3 ANCORAGENS -->
+<div class="slide" data-i="3">
+  <div class="kicker">02 · FUNDAMENTAÇÃO TEÓRICA</div>
+  <div class="title">Quatro ancoragens teóricas</div>
+  <div class="subtitle">O arcabouço teórico articula quatro tradições que pensam a imagem como operação jurídica — não como mera representação.</div>
+  <div class="anchor-grid">
+    <div class="card anchor-card"><div class="card-accent"></div>
+      <div class="anchor-name">Aby Warburg</div>
+      <div class="anchor-concept">Pathosformel · Mnemosyne</div>
+      <div class="anchor-desc">A sobrevivência das fórmulas gestuais da Antiguidade nas imagens do poder moderno — método atlas.</div>
+    </div>
+    <div class="card anchor-card"><div class="card-accent"></div>
+      <div class="anchor-name">Marie-José Mondzain</div>
+      <div class="anchor-concept">Economia icônica</div>
+      <div class="anchor-desc">O iconoclasmo bizantino como matriz: a imagem não representa — ela opera, medeia, institui.</div>
+    </div>
+    <div class="card anchor-card"><div class="card-accent"></div>
+      <div class="anchor-name">Peter Goodrich</div>
+      <div class="anchor-concept">Semiótica jurídica</div>
+      <div class="anchor-desc">O direito como regime de signos visíveis. A lei lida com o invisível através de seu registro icônico.</div>
+    </div>
+    <div class="card anchor-card"><div class="card-accent"></div>
+      <div class="anchor-name">Loren Hodson</div>
+      <div class="anchor-concept">The Totemic Judge</div>
+      <div class="anchor-desc">O juiz como totem — autoridade institucional ancorada em investimento simbólico. Base para a presidenta totêmica.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">FUNDAMENTAÇÃO</span><span class="sf-brand">ICONOCRACIA</span><span>03 · 12</span></div>
+</div>
+
+<!-- 4 TRÊS REGIMES -->
+<div class="slide" data-i="4">
+  <div class="kicker">03 · TIPOLOGIA</div>
+  <div class="title">Três regimes iconocráticos</div>
+  <div class="subtitle">A tese propõe uma tipologia operativa para classificar regimes políticos pela economia simbólica que os sustenta.</div>
+  <div class="regime-grid">
+    <div class="regime-card r1"><div class="regime-top"></div>
+      <div class="regime-tag">INSTITUINTE</div>
+      <div class="regime-name">FUNDACIONAL</div>
+      <div class="regime-desc">Regimes que produzem suas próprias imagens originárias — constituintes, revolucionários, refundadores. Alta densidade ritual.</div>
+      <div class="regime-mark">Ex.: proclamações, cartas fundamentais, atos de instauração.</div>
+    </div>
+    <div class="regime-card r2"><div class="regime-top"></div>
+      <div class="regime-tag">REGULADOR</div>
+      <div class="regime-name">NORMATIVO</div>
+      <div class="regime-desc">Regimes que operam pela estabilização do símbolo — democracias consolidadas, ordens jurídicas rotinizadas. Baixa saliência.</div>
+      <div class="regime-mark">Ex.: cerimônias eleitorais, rituais parlamentares, iconografia judicial ordinária.</div>
+    </div>
+    <div class="regime-card r3"><div class="regime-top"></div>
+      <div class="regime-tag">COERCITIVO</div>
+      <div class="regime-name">MILITAR</div>
+      <div class="regime-desc">Regimes que substituem o símbolo pela força — ditaduras, estados de exceção, ocupações. A imagem é arma ou alvo.</div>
+      <div class="regime-mark">Ex.: desfiles, iconoclasmos, apropriações violentas do espaço público.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">TIPOLOGIA</span><span class="sf-brand">ICONOCRACIA</span><span>04 · 12</span></div>
+</div>
+
+<!-- 5 PRESIDENTA TOTÊMICA -->
+<div class="slide" data-i="5">
+  <div class="kicker">04 · CASO CENTRAL</div>
+  <div class="title">A presidenta totêmica</div>
+  <div class="subtitle">Dilma Rousseff como caso-limite. Adaptação do modelo de Hodson para uma chefia de Estado feminina no Brasil contemporâneo — lida em três fases iconográficas.</div>
+  <div class="phases-row">
+    <div class="phase-col">
+      <div class="phase-head">
+        <div class="phase-num-circle">I</div>
+        <div class="phase-label"><div class="name">Totem</div><div class="period">2010–2013</div></div>
+      </div>
+      <div class="phase-desc">Ascensão e consagração. A imagem da presidenta condensa os afetos do projeto desenvolvimentista-petista. Iconografia de força.</div>
+    </div>
+    <div class="phase-col">
+      <div class="phase-head">
+        <div class="phase-num-circle">II</div>
+        <div class="phase-label"><div class="name">Tabu</div><div class="period">2014–2016</div></div>
+      </div>
+      <div class="phase-desc">Contaminação simbólica. A figura se torna objeto de interdição: ódio, ridicularização, desdobramento midiático. Iconografia de avaria.</div>
+    </div>
+    <div class="phase-col">
+      <div class="phase-head">
+        <div class="phase-num-circle">III</div>
+        <div class="phase-label"><div class="name">Restauração</div><div class="period">2016–PRESENTE</div></div>
+      </div>
+      <div class="phase-desc">Reinscrição tardia. A imagem retorna como memória política — museificação, biopic, rememoração. Iconografia de luto e de retorno.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">CASO CENTRAL</span><span class="sf-brand">ICONOCRACIA</span><span>05 · 12</span></div>
+</div>
+
+<!-- 6 MÉTODO -->
+<div class="slide" data-i="6">
+  <div class="kicker">05 · MÉTODO</div>
+  <div class="title">Corpus e procedimento analítico</div>
+  <div class="subtitle">Um pipeline em três camadas conecta coleta iconográfica, codificação controlada e análise quantitativa reproduzível.</div>
+  <div class="method-grid">
+    <div class="method-col">
+      <div class="step">01</div>
+      <div class="m-title">Coleta</div>
+      <div class="m-tool">ICONOCODE × SCOUT</div>
+      <hr>
+      <ul>
+        <li>Capa de jornal e revista</li>
+        <li>Imagem digital & memética</li>
+        <li>Fotografia oficial e vernacular</li>
+        <li>Peça museológica e cerimonial</li>
+      </ul>
+    </div>
+    <div class="method-col">
+      <div class="step">02</div>
+      <div class="m-title">Codificação</div>
+      <div class="m-tool">ICONCLASS CONTROLADO</div>
+      <hr>
+      <ul>
+        <li>Classificação iconográfica formal</li>
+        <li>Atribuição de regime iconocrático</li>
+        <li>Mapeamento de pathosformel</li>
+        <li>Revisão inter-coder (κ ≥ 0,70)</li>
+      </ul>
+    </div>
+    <div class="method-col">
+      <div class="step">03</div>
+      <div class="m-title">Análise</div>
+      <div class="m-tool">R · FACTOMINER · OLR</div>
+      <hr>
+      <ul>
+        <li>Ordinal Logistic Regression</li>
+        <li>Teste de Kruskal-Wallis</li>
+        <li>Análise de Correspondência Múltipla</li>
+        <li>Síntese qualitativa em prosa</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">MÉTODO</span><span class="sf-brand">ICONOCRACIA</span><span>06 · 12</span></div>
+</div>
+
+<!-- 7 OITO CAPÍTULOS -->
+<div class="slide" data-i="7">
+  <div class="kicker">06 · ARQUITETURA DA TESE</div>
+  <div class="title">Oito capítulos, três camadas</div>
+  <div class="subtitle">A tese move-se da fundamentação teórica ao caso brasileiro, passando pela análise iconográfica belga como contraponto comparativo.</div>
+  <div class="chap-grid">
+    <div class="chap-card c-open"><div class="chap-num">1</div><div class="chap-body"><div class="chap-title">Introdução</div><div class="chap-tag">ABERTURA</div></div></div>
+    <div class="chap-card c-open"><div class="chap-num">2</div><div class="chap-body"><div class="chap-title">Arcabouço teórico</div><div class="chap-tag">TEORIA</div></div></div>
+    <div class="chap-card c-cor"><div class="chap-num">3</div><div class="chap-body"><div class="chap-title">Iconografia jurídica brasileira</div><div class="chap-tag">CORPUS BR</div></div></div>
+    <div class="chap-card c-cor"><div class="chap-num">4</div><div class="chap-body"><div class="chap-title">Iconografia jurídica europeia (Bélgica)</div><div class="chap-tag">CORPUS UE</div></div></div>
+    <div class="chap-card c-case"><div class="chap-num">5</div><div class="chap-body"><div class="chap-title">Presidenta totêmica — fase totem</div><div class="chap-tag">CASO I</div></div></div>
+    <div class="chap-card c-case"><div class="chap-num">6</div><div class="chap-body"><div class="chap-title">Presidenta totêmica — tabu e restauração</div><div class="chap-tag">CASO II/III</div></div></div>
+    <div class="chap-card c-synth"><div class="chap-num">7</div><div class="chap-body"><div class="chap-title">Síntese — regimes iconocráticos</div><div class="chap-tag">SÍNTESE</div></div></div>
+    <div class="chap-card c-synth"><div class="chap-num">8</div><div class="chap-body"><div class="chap-title">Conclusão — teoria iconocrática</div><div class="chap-tag">FECHAMENTO</div></div></div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">ARQUITETURA</span><span class="sf-brand">ICONOCRACIA</span><span>07 · 12</span></div>
+</div>
+
+<!-- 8 CRONOGRAMA -->
+<div class="slide" data-i="8">
+  <div class="kicker">07 · CRONOGRAMA</div>
+  <div class="title">Plano em cinco fases</div>
+  <div class="subtitle">De 2026.1 à defesa em 2028. Cada fase articula tese, aquisição de método e trajetória institucional.</div>
+  <div class="phase-timeline">
+    <div class="pt-card p1"><div class="pt-band"></div>
+      <div class="pt-label">FASE 01</div><div class="pt-when">abr–jul 2026</div>
+      <div class="pt-title">Fechar o semestre</div>
+      <div class="pt-beat">Encerrar disciplinas · trava do acordo de cotutela · Ch.1</div>
+    </div>
+    <div class="pt-card p2"><div class="pt-band"></div>
+      <div class="pt-label">FASE 02</div><div class="pt-when">ago–dez 2026</div>
+      <div class="pt-title">Capítulos-núcleo + verba</div>
+      <div class="pt-beat">Ch.2 e Ch.3 · CAPES-PrInt · 1 artigo BR</div>
+    </div>
+    <div class="pt-card p3"><div class="pt-band"></div>
+      <div class="pt-label">FASE 03</div><div class="pt-when">jan–jul 2027</div>
+      <div class="pt-title">Estágio Gent · qualificação</div>
+      <div class="pt-beat">Estadia UGent · Ch.4 e Ch.5 · exame de qualificação</div>
+    </div>
+    <div class="pt-card p4"><div class="pt-band"></div>
+      <div class="pt-label">FASE 04</div><div class="pt-when">ago–dez 2027</div>
+      <div class="pt-title">Síntese + tier-1</div>
+      <div class="pt-beat">Ch.6 e Ch.7 · rodada quantitativa final · artigo internacional</div>
+    </div>
+    <div class="pt-card p5"><div class="pt-band"></div>
+      <div class="pt-label">FASE 05</div><div class="pt-when">2028</div>
+      <div class="pt-title">Defesa · pós-doutorado</div>
+      <div class="pt-beat">Ch.8 · revisão integral · defesa UFSC+UGent · postdoc</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">CRONOGRAMA</span><span class="sf-brand">ICONOCRACIA</span><span>08 · 12</span></div>
+</div>
+
+<!-- 9 COTUTELA -->
+<div class="slide" data-i="9">
+  <div class="kicker">08 · ESTRUTURA INSTITUCIONAL</div>
+  <div class="title">Cotutela UFSC × UGent</div>
+  <div class="subtitle">Dupla titulação articulando a historiografia jurídica brasileira (linha Ius Gentium) à escola de Gent em iconologia jurídica.</div>
+  <div class="cotutela">
+    <div class="cot-card">
+      <div class="cot-kicker">UFSC · BRASIL</div>
+      <div class="cot-inst">Programa de Pós-Graduação em Direito</div>
+      <div class="cot-line">Linha Teoria, História e Filosofia do Direito — grupo Ius Gentium (CNPq).</div>
+      <div class="cot-divider"></div>
+      <div class="cot-role-label">Orientador</div>
+      <div class="cot-role-name">Prof. Dr. Arno Dal Ri Jr.</div>
+      <div class="cot-role-desc">Professor Titular. Historiador do direito internacional. Coordenador do Ius Commune.</div>
+    </div>
+    <div class="cot-mid"><div class="cot-cross">×</div></div>
+    <div class="cot-card">
+      <div class="cot-kicker">UGENT · BÉLGICA</div>
+      <div class="cot-inst">Instituut voor Rechtsgeschiedenis</div>
+      <div class="cot-line">Legal History Institute — escola de Gent em iconologia jurídica.</div>
+      <div class="cot-divider"></div>
+      <div class="cot-role-label">Co-orientador</div>
+      <div class="cot-role-name">Prof. Dr. Georges Martyn</div>
+      <div class="cot-role-desc">Editor do Art of Law (Springer). Referência em iconografia jurídica flamenga.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">INSTITUIÇÕES</span><span class="sf-brand">ICONOCRACIA</span><span>09 · 12</span></div>
+</div>
+
+<!-- 10 REDE INTELECTUAL -->
+<div class="slide" data-i="10">
+  <div class="kicker">09 · REDE INTELECTUAL</div>
+  <div class="title">Interlocutores e afiliações</div>
+  <div class="subtitle">A tese inscreve-se em conversa ativa com a historiografia jurídica brasileira, a escola de Gent e a tradição da iconologia warburguiana.</div>
+  <div class="net-grid">
+    <div class="net-card n1"><div class="net-top"></div>
+      <div class="net-title">UFSC / Brasil</div>
+      <div class="net-rule"></div>
+      <ul class="net-list">
+        <li>Arno Dal Ri Jr. — orientador (Ius Commune)</li>
+        <li>Ricardo Sontag — história do direito penal</li>
+        <li>Airton Cerqueira-Leite Seelaender</li>
+        <li>Grupo Ius Gentium (PPGD/UFSC)</li>
+      </ul>
+    </div>
+    <div class="net-card n2"><div class="net-top"></div>
+      <div class="net-title">UGent / Europa</div>
+      <div class="net-rule"></div>
+      <ul class="net-list">
+        <li>Georges Martyn — co-orientador</li>
+        <li>Stefan Huygebaert — iconologia jurídica</li>
+        <li>Vanessa Paumen — The Art of Law (Bruges)</li>
+        <li>Xavier Rousseaux (UCLouvain)</li>
+      </ul>
+    </div>
+    <div class="net-card n3"><div class="net-top"></div>
+      <div class="net-title">Tradição teórica</div>
+      <div class="net-rule"></div>
+      <ul class="net-list">
+        <li>Aby Warburg — herança iconológica</li>
+        <li>Marie-José Mondzain — economia icônica</li>
+        <li>Paolo Grossi · António M. Hespanha</li>
+        <li>Loren Hodson — The Totemic Judge</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">REDE</span><span class="sf-brand">ICONOCRACIA</span><span>10 · 12</span></div>
+</div>
+
+<!-- 11 PRODUTOS -->
+<div class="slide" data-i="11">
+  <div class="kicker">10 · ENTREGÁVEIS</div>
+  <div class="title">Produtos e financiamento</div>
+  <div class="subtitle">Além da tese, o projeto compromete-se com uma trilha pública de publicações, apresentações e um livro.</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val">08</div><div class="stat-lbl">CAPÍTULOS DE TESE</div></div>
+    <div class="stat-card"><div class="stat-val">03</div><div class="stat-lbl">ARTIGOS REVISADOS</div></div>
+    <div class="stat-card"><div class="stat-val">03</div><div class="stat-lbl">APRESENTAÇÕES INTL.</div></div>
+    <div class="stat-card"><div class="stat-val">01</div><div class="stat-lbl">LIVRO PROPOSTO</div></div>
+  </div>
+  <div class="funding-band">
+    <div class="funding-label">LINHAS DE FINANCIAMENTO ALVO</div>
+    <div class="funding-items"><b>CAPES-PrInt</b> estadia cotutela UGent &nbsp;·&nbsp; <b>CNPq GD/GM</b> bolsa doutorado &nbsp;·&nbsp; <b>FAPESC</b> auxílios pontuais &nbsp;·&nbsp; <b>Humboldt · Erasmus+</b> pós-defesa</div>
+  </div>
+  <div class="slide-foot"><span class="sf-kicker">ENTREGÁVEIS</span><span class="sf-brand">ICONOCRACIA</span><span>11 · 12</span></div>
+</div>
+
+<!-- 12 OBRIGADA -->
+<div class="slide s-close" data-i="12">
+  <div class="big-thank">Obrigada</div>
+  <div class="accent"></div>
+  <h3>O que busco nesta conversa</h3>
+  <ul>
+    <li>Feedback sobre a arquitetura dos capítulos antes de julho de 2026.</li>
+    <li>Fechamento do acordo de cotutela — datas, créditos, banca.</li>
+    <li>Co-escrita de um artigo durante a estadia em Gent (2027).</li>
+    <li>Mapeamento conjunto de veículos de publicação e eventos-alvo.</li>
+  </ul>
+  <div class="close-foot">
+    <div>
+      <div class="cf-name">ANA V. VANZIN</div>
+      <div class="cf-contact">PPGD/UFSC · iconocracia-companion.warholana.workers.dev</div>
+    </div>
+    <div class="cf-right">ICONOCRACIA</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn" id="prev">← Anterior</button>
+  <div class="nav-center" id="dots"></div>
+  <button class="nav-btn" id="next">Próximo →</button>
+</div>
+<div class="counter" style="text-align:center;margin-top:.75rem"><span id="counter">01 · 12</span></div>
+<div class="hint">← → TECLAS · clique nos pontos · espaço avança</div>
+
+</div>
+
+<script>
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap=document.getElementById('dots');
+  const counter=document.getElementById('counter');
+  const prev=document.getElementById('prev');
+  const next=document.getElementById('next');
+  let cur=0;
+
+  // build dots
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='nav-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>go(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots=Array.from(dotsWrap.children);
+
+  function go(i){
+    if(i<0||i>=slides.length)return;
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=i;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    counter.textContent=String(cur+1).padStart(2,'0')+' · '+String(slides.length).padStart(2,'0');
+    prev.disabled=cur===0;
+    next.disabled=cur===slides.length-1;
+    // scroll deck into view so slide is visible
+    slides[cur].scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  prev.addEventListener('click',()=>go(cur-1));
+  next.addEventListener('click',()=>go(cur+1));
+
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){e.preventDefault();go(0);}
+    else if(e.key==='End'){e.preventDefault();go(slides.length-1);}
+  });
+
+  go(0);
+})();
+</script>
+</body>
+</html>
