@@ -9,6 +9,7 @@
 <meta name="description" content="Aula e handout sobre o Malleus Maleficarum e a construção da bruxaria como categoria jurídico-penal no Atlântico colonial.">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
   :root{
     --paper:#EFE5CF; --paper-card:#F4ECD8; --ink:#211B16;
     --navy:#243049; --rubric:#9B2C1C; --gold:#B08D3C; --amethyst:#6E5A86;
@@ -16,8 +17,8 @@
     --hard:0 24px 64px -16px rgba(33,27,22,0.12);
     --hard-sm:0 12px 32px -8px rgba(33,27,22,0.08);
     --disp:'Cormorant Garamond','Times New Roman',serif;
-    --body:'Hanken Grotesk','Helvetica Neue',sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --body:'Geist',-apple-system,system-ui,sans-serif;
+    --mono:'Geist Mono',ui-monospace,monospace;
     --ease:cubic-bezier(0.32, 0.72, 0, 1);
   }
   *{box-sizing:border-box}
@@ -30,7 +31,7 @@
     inset: 0;
     z-index: 9999;
     pointer-events: none;
-    opacity: 0.024;
+    opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
@@ -168,12 +169,13 @@
     display:flex; justify-content:space-between; align-items:baseline;
     border-bottom:1px dashed var(--rule); padding-bottom:14px; margin-bottom:20px;
   }
-  .narrative-title{font-family:var(--disp); font-size:26px; font-weight:700; color:var(--rubric); margin:0}
+  .narrative-title{font-family:var(--disp); font-size:26px; font-weight:700; color:var(--rubric); margin:0; transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); transform-origin: left center;}
   .narrative-time{font-family:var(--mono); font-size:11px; background:var(--ink); color:var(--paper); padding:3px 9px; border-radius:99px}
   
   .narrative-body{
     font-family:var(--disp); font-size:clamp(18px, 1.9vw, 21px); line-height:1.52;
     color:var(--ink); min-height:240px; margin-bottom:24px; text-align:justify;
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
   }
   .narrative-body p{margin-top:0; margin-bottom:18px}
   .narrative-body blockquote{
@@ -194,23 +196,39 @@
     padding: 7px 7px 7px 18px; background: var(--paper-card);
     color: var(--ink); border: 1px solid var(--ink);
     border-radius: 9999px; box-shadow: 0 4px 12px rgba(33,27,22,0.06);
-    text-decoration: none; transition: all 0.5s var(--ease);
+    text-decoration: none; transition: all 0.6s var(--ease);
     background-color: var(--paper-card);
   }
   .btn-premium:hover {
-    background-color: #FFF; transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(33,27,22,0.1);
+    background-color: #FFF; transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(33,27,22,0.12);
   }
-  .btn-premium:active { transform: translateY(0) scale(0.98); }
+  .btn-premium:active { transform: translateY(0) scale(0.97); }
   .btn-premium .btn-icon-wrapper {
     width: 28px; height: 28px; border-radius: 50%;
     background: var(--ink); color: var(--paper);
     display: flex; align-items: center; justify-content: center;
     font-weight: bold; font-size: 12px;
-    transition: transform 0.5s var(--ease), background 0.5s var(--ease);
+    transition: transform 0.6s var(--ease), background 0.6s var(--ease);
   }
   .btn-premium:hover .btn-icon-wrapper {
-    transform: scale(1.05); background: var(--rubric);
+    background: var(--rubric);
+  }
+  
+  /* Translating Arrows */
+  .btn-premium:hover .btn-icon-wrapper {
+    transform: scale(1.08);
+  }
+  #btn-next:hover .btn-icon-wrapper {
+    transform: translateX(4px) scale(1.08);
+  }
+  #btn-prev:hover .btn-icon-wrapper {
+    transform: translateX(-4px) scale(1.08);
+  }
+  .btn-premium[href*="pdf"]:hover .btn-icon-wrapper,
+  .btn-premium[href*="docx"]:hover .btn-icon-wrapper,
+  .btn-premium[href*="canva"]:hover .btn-icon-wrapper {
+    transform: translate(2px, -2px) scale(1.08);
   }
   .btn-premium:disabled{opacity:0.35; cursor:not-allowed; transform:none; box-shadow:none}
 
@@ -316,6 +334,84 @@
     content:""; height:1px; width:100px; background:linear-gradient(90deg,transparent, var(--gold));
   }
   .handout-divider::after{transform:scaleX(-1)}
+  /* ---------- Bento Box de Downloads ---------- */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+  }
+  @media(max-width:768px) {
+    .bento-grid { grid-template-columns: 1fr; }
+  }
+  .bento-card {
+    background: var(--paper-card);
+    border: 1px solid rgba(33, 27, 22, 0.08);
+    border-radius: 20px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 8px 30px rgba(33, 27, 22, 0.03);
+    transition: all 0.6s var(--ease);
+    gap: 16px;
+  }
+  .bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 16px 40px rgba(33, 27, 22, 0.08);
+    border-color: rgba(33, 27, 22, 0.15);
+  }
+  .bento-card-large {
+    grid-column: span 2;
+  }
+  @media(max-width:768px) {
+    .bento-card-large {
+      grid-column: span 1;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+  }
+  .bento-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bento-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 99px;
+    width: fit-content;
+    color: var(--paper);
+  }
+  .bento-tag.rubric { background: var(--rubric); }
+  .bento-tag.gold { background: var(--gold); }
+  .bento-tag.amethyst { background: var(--amethyst); }
+  .bento-tag.navy { background: var(--navy); }
+  
+  .bento-card-title {
+    font-family: var(--disp);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin: 4px 0 0;
+  }
+  .bento-card-desc {
+    font-size: 13.5px;
+    color: color-mix(in srgb, var(--ink) 70%, var(--paper));
+    line-height: 1.45;
+  }
+  .bento-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+  }
   
   .handout-content{
     font-family:var(--disp); font-size:19px; color:var(--ink);
@@ -768,80 +864,74 @@
 
       </div>
 
-      <!-- Download Box Double Bezel -->
-      <div class="download-wrapper reveal">
-        <div class="double-bezel">
-          <div class="double-bezel-inner download-box" style="display: flex; flex-direction: column; gap: 20px; align-items: stretch;">
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%;">
-              <div class="download-info">
-                <div class="download-icon">🖎</div>
-                <div class="download-text">
-                  <h3>Processos Inquisitoriais da Bahia Quinhentista</h3>
-                  <p>PDF · Levantamento das Fontes Primárias do Arquivo Nacional da Torre do Tombo (Lisboa)</p>
-                </div>
-              </div>
-              <a href="/assets/malleus/processos_inquisitoriais_bahia_brasil.pdf" class="btn-premium" target="_blank">
+      <!-- Download Bento Box -->
+      <div class="download-wrapper reveal" style="margin-top: 40px;">
+        <div class="bento-grid">
+          
+          <!-- Card Grande: Artigo Acadêmico -->
+          <div class="bento-card bento-card-large">
+            <div class="bento-card-header">
+              <span class="bento-tag rubric">Artigo Oficial</span>
+              <h3 class="bento-card-title">Artigo — O Malleus e a Construção da Bruxaria</h3>
+              <p class="bento-card-desc">Short Paper científico completo (10 páginas) para entrega/publicação acadêmica, formatado rigorosamente sob as normas ABNT NBR 6023:2025 e livre de referências a termos experimentais ou metodologias internas da tese.</p>
+            </div>
+            <div class="bento-card-footer" style="flex-wrap: wrap; gap: 10px;">
+              <a href="/assets/malleus/Artigo_Malleus_Bruxaria_ABNT.pdf" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(155,44,28,0.12); background-color: #FFF;">
+                Artigo em PDF
+                <span class="btn-icon-wrapper" style="background: var(--rubric); color: var(--paper)">↗</span>
+              </a>
+              <a href="/assets/malleus/Artigo_Malleus_Bruxaria_ABNT.docx" class="btn-premium" target="_blank" style="background-color: #FFF;">
+                Editar em DOCX
+                <span class="btn-icon-wrapper">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card Médio 1: Flyer Completo -->
+          <div class="bento-card">
+            <div class="bento-card-header">
+              <span class="bento-tag gold">Guia de Aula &amp; Slides</span>
+              <h3 class="bento-card-title">Flyer &amp; Roteiro de Apresentação</h3>
+              <p class="bento-card-desc">PDF consolidado de 8 páginas contendo o Roteiro, a Tabela de Fontes processuais e todos os 7 Slides da apresentação formatados com a mesma identidade visual e prontos para impressão.</p>
+            </div>
+            <div class="bento-card-footer">
+              <a href="/assets/malleus/Flyer_Apresentacao_Malleus.pdf" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(176,141,60,0.12); background-color: #FFF; width: 100%; justify-content: space-between;">
+                Baixar PDF Único
+                <span class="btn-icon-wrapper" style="background: var(--gold); color: var(--paper)">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card Médio 2: Slideshow Canva -->
+          <div class="bento-card">
+            <div class="bento-card-header">
+              <span class="bento-tag amethyst">Slides Digitais</span>
+              <h3 class="bento-card-title">Slideshow — Como se inventa uma bruxa</h3>
+              <p class="bento-card-desc">Acesso à apresentação visual completa no Canva com suporte a animações, transições e layout adaptativo de aula utilizado na defesa do estudo de caso.</p>
+            </div>
+            <div class="bento-card-footer">
+              <a href="https://canva.link/comoseinventaumabruxa" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(110,90,134,0.12); background-color: #FFF; width: 100%; justify-content: space-between;">
+                Acessar Canva
+                <span class="btn-icon-wrapper" style="background: var(--amethyst); color: var(--paper)">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card Médio 3: Fontes da Bahia (Largura Total) -->
+          <div class="bento-card bento-card-large" style="grid-column: span 2; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px;">
+            <div class="bento-card-header" style="flex: 1;">
+              <span class="bento-tag navy">Fontes Primárias ANTT</span>
+              <h3 class="bento-card-title" style="font-size: 20px; margin-top: 6px;">Processos Inquisitoriais da Bahia Quinhentista</h3>
+              <p class="bento-card-desc" style="margin-top: 2px;">Levantamento completo das fontes primárias transcritas da Torre do Tombo referentes às visitações do Santo Ofício no Brasil.</p>
+            </div>
+            <div class="bento-card-footer" style="margin-top: 0;">
+              <a href="/assets/malleus/processos_inquisitoriais_bahia_brasil.pdf" class="btn-premium" target="_blank" style="background-color: #FFF;">
                 Download PDF
                 <span class="btn-icon-wrapper">↗</span>
               </a>
             </div>
-
-            <div style="height: 1px; background: var(--rule); width: 100%;"></div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%;">
-              <div class="download-info">
-                <div class="download-icon" style="color: var(--rubric)">🕮</div>
-                <div class="download-text">
-                  <h3>Artigo — O Malleus e a Construção da Bruxaria</h3>
-                  <p>PDF/DOCX · Short Paper completo (10 páginas) para entrega/publicação acadêmica</p>
-                </div>
-              </div>
-              <div style="display: flex; gap: 10px;">
-                <a href="/assets/malleus/Artigo_Malleus_Bruxaria_ABNT.pdf" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(155,44,28,0.15);">
-                  Artigo PDF
-                  <span class="btn-icon-wrapper" style="background: var(--rubric); color: var(--paper)">↗</span>
-                </a>
-                <a href="/assets/malleus/Artigo_Malleus_Bruxaria_ABNT.docx" class="btn-premium" target="_blank">
-                  Artigo DOCX
-                  <span class="btn-icon-wrapper">↗</span>
-                </a>
-              </div>
-            </div>
-
-            <div style="height: 1px; background: var(--rule); width: 100%;"></div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%;">
-              <div class="download-info">
-                <div class="download-icon" style="color: var(--gold)">🗎</div>
-                <div class="download-text">
-                  <h3>Flyer — Roteiro de Apresentação \& Fontes</h3>
-                  <p>PDF · Guia de Aula, Cronologia de Apresentação e Casos do Brasil Colonial (Pronto para Impressão)</p>
-                </div>
-              </div>
-              <a href="/assets/malleus/Flyer_Apresentacao_Malleus.pdf" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(176,141,60,0.15);">
-                Download Flyer
-                <span class="btn-icon-wrapper" style="background: var(--gold); color: var(--paper)">↗</span>
-              </a>
-            </div>
-
-            <div style="height: 1px; background: var(--rule); width: 100%;"></div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; width: 100%;">
-              <div class="download-info">
-                <div class="download-icon" style="color: var(--amethyst)">🖾</div>
-                <div class="download-text">
-                  <h3>Slideshow — Como se inventa uma bruxa</h3>
-                  <p>Canva · Apresentação Visual Completa Utilizada na Defesa do Estudo de Caso</p>
-                </div>
-              </div>
-              <a href="https://canva.link/comoseinventaumabruxa" class="btn-premium" target="_blank" style="box-shadow: 0 4px 12px rgba(110,90,134,0.15);">
-                Acessar Slides
-                <span class="btn-icon-wrapper" style="background: var(--amethyst); color: var(--paper)">↗</span>
-              </a>
-            </div>
-
           </div>
+
         </div>
       </div>
     </div>
@@ -942,27 +1032,38 @@
 
     function renderSlide() {
       const slide = slidesData[currentSlide];
-      document.getElementById('narrative-title').textContent = slide.title;
-      document.getElementById('narrative-time').textContent = slide.time;
-      document.getElementById('narrative-body').innerHTML = slide.text;
-      
+      const title = document.getElementById('narrative-title');
+      const body = document.getElementById('narrative-body');
       const img = document.getElementById('slide-img');
       
-      // Transição de Blur/Escala/Opacidade de Agência
+      // Fade-out inicial
+      title.style.opacity = 0;
+      title.style.transform = "translateY(4px)";
+      body.style.opacity = 0;
+      body.style.transform = "translateY(6px)";
       img.style.opacity = 0;
       img.style.transform = "scale(0.97) translateY(4px)";
       img.style.filter = "blur(8px)";
       
       setTimeout(() => {
+        // Atualizar textos e imagens após o fade-out
+        title.textContent = slide.title;
+        document.getElementById('narrative-time').textContent = slide.time;
+        body.innerHTML = slide.text;
         img.src = slide.image;
+        document.getElementById('slide-caption').textContent = slide.caption;
+        
         setTimeout(() => {
+          // Fade-in suave de agência
+          title.style.opacity = 1;
+          title.style.transform = "translateY(0)";
+          body.style.opacity = 1;
+          body.style.transform = "translateY(0)";
           img.style.opacity = 1;
           img.style.transform = "scale(1) translateY(0)";
           img.style.filter = "blur(0)";
         }, 80);
       }, 80);
-      
-      document.getElementById('slide-caption').textContent = slide.caption;
       
       // Botões
       document.getElementById('btn-prev').disabled = currentSlide === 0;
