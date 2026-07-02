@@ -649,6 +649,116 @@ main {
   border: 2px solid var(--ink); box-shadow: var(--shadow-woodcut); width: min(540px, 90vw);
 }
 
+/* ---------- Estilo dos Diagramas Acadêmicos (Modern ML Airy) ---------- */
+.diagram-canvas {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 36px 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.diagram-canvas, .diagram-canvas * {
+  color: #171717 !important; /* Força cores de papel para os elementos do diagrama */
+  font-family: 'Geist', -apple-system, sans-serif !important;
+}
+.diagram-title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border-bottom: 1.5px solid rgba(0,0,0,0.1);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  text-align: left;
+}
+.diagram-panels-grid {
+  display: grid;
+  gap: 16px;
+}
+.diagram-panel {
+  background: #FFFFFF !important;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+.diagram-panel-title {
+  font-family: 'Geist Mono', monospace !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+.diagram-panel-title.coral { color: #A83A32 !important; }
+.diagram-panel-title.teal { color: #1A9988 !important; }
+.diagram-panel-title.purple { color: #7C629F !important; }
+.diagram-panel-title.gold { color: #C6A350 !important; }
+
+.diagram-elements-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.diagram-token {
+  font-family: 'Geist Mono', monospace !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.diagram-token.blue { background: #BBDEFB !important; border-color: #90CAF9 !important; color: #1565C0 !important; }
+.diagram-token.green { background: #C8E6C9 !important; border-color: #A5D6A7 !important; color: #2E7D32 !important; }
+.diagram-token.purple { background: #E1BEE7 !important; border-color: #CE93D8 !important; color: #6A1B9A !important; }
+.diagram-token.amber { background: #FFF3C4 !important; border-color: #FFE082 !important; color: #827717 !important; }
+.diagram-token.pink { background: #FFD0D0 !important; border-color: #EF9A9A !important; color: #C62828 !important; }
+
+.diagram-pill {
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.02) !important;
+}
+.diagram-pill.red { background: rgba(168,58,50,0.05) !important; border-color: rgba(168,58,50,0.15) !important; color: #A83A32 !important; }
+.diagram-pill.gold { background: rgba(198,163,80,0.05) !important; border-color: rgba(198,163,80,0.15) !important; color: #C6A350 !important; }
+.diagram-pill.green { background: rgba(46,125,50,0.05) !important; border-color: rgba(46,125,50,0.15) !important; color: #2E7D32 !important; }
+
+.diagram-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+.diagram-flow-step {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.diagram-flow-arrow {
+  color: #888078 !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+
 /* ---------- footer ---------- */
 footer {
   max-width: 1100px; margin: 80px auto 0; padding: 30px 20px;
