@@ -241,10 +241,11 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }];
-const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
+const MENUS = ['sobre', 'mover-se', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
 const MENU_LABEL = {
   pt: {
     sobre: 'Sobre',
+    'mover-se': 'Mover-se',
     tese: 'Tese',
     conceitos: 'Conceitos',
     publicacoes: 'Perfis',
@@ -253,6 +254,7 @@ const MENU_LABEL = {
   },
   en: {
     sobre: 'About',
+    'mover-se': 'Move',
     tese: 'Thesis',
     conceitos: 'Concepts',
     publicacoes: 'Profiles',
@@ -670,6 +672,10 @@ function Desktop() {
   const open = id => {
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
+      return;
+    }
+    if (id === 'mover-se') {
+      window.location.href = '/mover-se.html';
       return;
     }
     if (id === 'conceitos') {

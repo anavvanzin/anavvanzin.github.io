@@ -173,7 +173,7 @@ a {
   transition: color var(--duration-ui) ease;
 }
 a:hover { color: var(--accent-hover); }
-a:focus-visible { outline: 1px solid var(--focus-ring); outline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 hr {
   border: 0;

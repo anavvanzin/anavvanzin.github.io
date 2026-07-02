@@ -69,6 +69,26 @@
   .menubar .clock{font-variant-numeric:tabular-nums; font-size:12px; min-width:44px; text-align:right}
   @media(max-width:760px){ .menubar nav{display:none} }
 
+  /* mobile menu toggle */
+  .mob-toggle{
+    display:none;
+    width:44px; height:44px;
+    padding:0;
+    background:transparent;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-size:16px;
+    cursor:pointer;
+  }
+  @media(max-width:760px){
+    .mob-toggle{ display:inline-flex; align-items:center; justify-content:center; }
+    .menubar nav.is-open{ display:flex; flex-direction:column; gap:0; position:absolute; top:100%; left:0; right:0;
+      background:var(--paper-card); border-bottom:1px solid var(--ink); padding:8px 16px; z-index:60; }
+    .menubar nav.is-open a { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+    .menubar nav.is-open a:last-child { border-bottom: none; }
+  }
+
   /* ---------- masthead (wordmark iluminado, integrado ao paper) ---------- */
   .masthead{display:flex; justify-content:center; align-items:flex-end;
     padding:clamp(16px,3.4vh,34px) 16px clamp(8px,1.4vh,14px); }
@@ -196,6 +216,22 @@
     .rv.in{opacity:1; transform:none; filter:none}
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "name": "ana vanzin · direito & iconografia",
+  "url": "https://anavanzin.com/",
+  "inLanguage": "pt-BR",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Ana Vanzin",
+    "url": "https://anavanzin.com/",
+    "email": "mailto:anavvanzin@outlook.com",
+    "jobTitle": "Advogada e historiadora do direito"
+  }
+}
+</script>
 </head>
 <body>
 <div class="pageframe" aria-hidden="true"></div>
@@ -220,6 +256,7 @@
     <a href="/manifesto/">Manifesto</a>
     <a href="mailto:anavvanzin@outlook.com" data-pt="Contato" data-en="Contact">Contato</a>
   </nav>
+  <button class="mob-toggle" id="mob-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
   <span class="sp"></span>
   <span class="langtog" role="group" aria-label="Idioma / Language">
     <button type="button" data-lang="pt" aria-pressed="true">PT</button>
@@ -313,6 +350,24 @@
       var iv=setInterval(function(){ p+=4+Math.round(p/12); if(p>=100){ p=100; clearInterval(iv); enter.classList.add('ready'); } bar.style.width=p+'%'; }, 60);
       var go=function(){ boot.classList.add('gone'); try{ sessionStorage.setItem('av_entered','1'); }catch(e){} setTimeout(function(){ if(boot) boot.remove(); }, 700); };
       enter.addEventListener('click', go);
+    }
+
+    // mobile menu
+    var mobBtn = document.getElementById('mob-toggle');
+    var mobNav = mobBtn && mobBtn.closest('header') && mobBtn.closest('header').querySelector('nav');
+    if(mobBtn && mobNav){
+      mobBtn.addEventListener('click', function(){
+        var open = mobNav.classList.toggle('is-open');
+        mobBtn.setAttribute('aria-expanded', String(open));
+        mobBtn.textContent = open ? '✕' : '☰';
+      });
+      mobNav.addEventListener('click', function(e){
+        if(e.target.closest('a') && mobNav.classList.contains('is-open')){
+          mobNav.classList.remove('is-open');
+          mobBtn.setAttribute('aria-expanded', 'false');
+          mobBtn.textContent = '☰';
+        }
+      });
     }
   })();
 </script>
