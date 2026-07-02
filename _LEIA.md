@@ -20,7 +20,7 @@ anteriores** e use só este pacote: ele tem o site inteiro e atual.
 Páginas: index · conceitos · trabalhos · perfil · readme · 404
 Scripts da mesa (pré-compilados, sem Babel): icons.js · desktop-app.js · window-contents.js
 Estilo + componentes: styles.css · _ds_bundle.js
-assets/ : pixel-justitia, sun-seal, **banner.png** (tese), **avo.png** (foto com a avó), **og-image.png** (preview social)
+assets/ : pixel-justitia, sun-seal, **banner.png** (tese), **avo.png** (foto com a avó), **mae.jpg** (foto com a mãe), **og-image.png** (preview social)
 slides/ : os 5 .pptx/.pdf das apresentações
 .nojekyll (essencial — sem ele o GitHub ignora _ds_bundle.js) · CNAME (anavanzin.com)
 
