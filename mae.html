@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suzane Beatriz Vanzin · mãe</title>
+<link rel="icon" href="/assets/avatar-pixel.png">
+<meta name="description" content="Uma página para Suzane Beatriz Vanzin, minha mãe: a mulher que tornou possível meu estudo, minha esperança e minha vida em Florianópolis.">
+<meta name="theme-color" content="#F2EAD9">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ana vanzin">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://anavanzin.com/mae.html">
+<meta property="og:title" content="Suzane Beatriz Vanzin · mãe">
+<meta property="og:description" content="Para a mulher que me ensinou, pela inteligência e pelo exemplo, que estudar também é um modo de permanecer esperançosa.">
+<meta property="og:image" content="https://anavanzin.com/assets/mae/mae-01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Suzane Beatriz Vanzin · mãe">
+<meta name="twitter:description" content="Para a mulher que tornou possível meu estudo, minha esperança e minha vida em Florianópolis.">
+<meta name="twitter:image" content="https://anavanzin.com/assets/mae/mae-01.jpg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="editorial.css">
+<style>
+  body.ed {
+    overflow-x: hidden;
+  }
+  .mae-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+    gap: clamp(34px, 6vw, 78px);
+    align-items: end;
+    margin-top: clamp(30px, 5vh, 58px);
+    max-width: 100%;
+  }
+  .mae-hero > div {
+    min-width: 0;
+  }
+  .mae-title {
+    text-transform: none;
+    letter-spacing: .005em;
+    max-width: 9ch;
+  }
+  .mae-hero .dek {
+    max-width: min(56ch, 100%);
+    overflow-wrap: break-word;
+  }
+  .mae-dedication {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.32rem, 2.4vw, 1.85rem);
+    line-height: 1.34;
+    color: var(--ink);
+    max-width: min(28ch, 100%);
+    overflow-wrap: break-word;
+  }
+  .mae-portrait {
+    margin: 0;
+    transform-style: preserve-3d;
+  }
+  .mae-portrait .frame,
+  .mae-photo .frame {
+    border: 1px solid var(--ink);
+    background: var(--paper-deep);
+    overflow: hidden;
+  }
+  .mae-portrait img,
+  .mae-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .mae-portrait img {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 50% 44%;
+  }
+  .mae-letter {
+    margin-top: clamp(46px, 7vh, 84px);
+    display: grid;
+    grid-template-columns: minmax(0, 66ch) minmax(190px, 250px);
+    gap: clamp(28px, 6vw, 76px);
+    align-items: start;
+  }
+  .mae-note {
+    border-left: 2px solid var(--rubric);
+    padding-left: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .mae-note .k {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: 10.5px;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+  .mae-gallery {
+    margin-top: clamp(52px, 8vh, 92px);
+    perspective: 1400px;
+  }
+  .mae-gallery .gh {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: 12px;
+    color: var(--text-faint);
+    margin: 0 0 18px;
+    padding-bottom: 9px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .mae-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(22px, 4vw, 42px);
+    transform-style: preserve-3d;
+  }
+  .mae-photo {
+    margin: 0;
+    transform-style: preserve-3d;
+  }
+  .mae-photo.wide {
+    grid-column: 1 / -1;
+  }
+  .mae-photo.wide .frame {
+    max-height: 760px;
+  }
+  .mae-photo.wide img {
+    aspect-ratio: 4 / 3;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 42%;
+  }
+  .mae-photo .cap {
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .mae-close {
+    margin-top: clamp(50px, 8vh, 92px);
+    max-width: 64ch;
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+  }
+  .mae-close p {
+    font-family: var(--font-display);
+    font-size: clamp(1.55rem, 3.4vw, 2.35rem);
+    line-height: 1.22;
+    color: var(--ink);
+    margin: 0;
+  }
+  .mae-close .sig {
+    display: block;
+    margin-top: 18px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-faint);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mae-portrait {
+      transform: perspective(1100px) rotateY(-5deg) translateZ(0);
+      transition: transform .7s var(--ease-page);
+    }
+    .mae-portrait:hover {
+      transform: perspective(1100px) rotateY(-1.5deg) translateY(-4px);
+    }
+    .mae-photo {
+      transition: transform .55s var(--ease-page);
+      will-change: transform;
+    }
+    .mae-photo.wide {
+      transform: rotateX(2deg) translateZ(14px);
+    }
+    .mae-photo:nth-of-type(2) {
+      transform: rotateY(4deg) translateZ(24px);
+      transform-origin: left center;
+    }
+    .mae-photo:nth-of-type(3) {
+      transform: rotateY(-4deg) translateZ(8px);
+      transform-origin: right center;
+    }
+    .mae-photo:hover {
+      transform: rotateX(0) rotateY(0) translateY(-4px) translateZ(34px);
+    }
+  }
+  @media (max-width: 860px) {
+    .mae-hero,
+    .mae-letter {
+      grid-template-columns: 1fr;
+    }
+    .mae-title {
+      max-width: 12ch;
+    }
+    .mae-portrait {
+      max-width: 520px;
+    }
+  }
+  @media (max-width: 680px) {
+    .mae-hero .dek,
+    .mae-dedication {
+      max-width: 18.5rem;
+    }
+    .mae-grid {
+      grid-template-columns: 1fr;
+    }
+    .mae-portrait,
+    .mae-photo,
+    .mae-photo.wide,
+    .mae-photo:nth-of-type(2),
+    .mae-photo:nth-of-type(3),
+    .mae-photo:hover {
+      transform: none;
+    }
+    .mae-photo.wide {
+      grid-column: auto;
+    }
+    .mae-photo.wide img {
+      aspect-ratio: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+</style>
+</head>
+<body class="ed" data-route="mae">
+  <header class="ed-bar">
+    <a class="brand" href="/" title="← ana vanzin">
+      <img src="assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl">mãe</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação principal">
+      <a href="iconocracia/" data-route="iconocracia">iconocracia</a>
+      <a href="marginalia/" data-route="marginalia">marginália</a>
+      <a href="publicacoes/" data-route="publicacoes">publicações</a>
+      <a href="sala-de-leitura/" data-route="leitura">sala de leitura</a>
+      <a href="advocacia.html" data-route="advocacia">advocacia</a>
+      <a href="sobre.html" data-route="sobre">sobre</a>
+      <a href="mae.html" data-route="mae">mãe</a>
+    </nav>
+  </header>
+
+  <main class="ed-page">
+    <a class="ed-back" href="/"><span class="ar">←</span><span>ana vanzin</span></a>
+
+    <section class="mae-hero" aria-labelledby="mae-title">
+      <div>
+        <p class="kicker rise">Para minha mãe</p>
+        <h1 class="ed-title mae-title rise" id="mae-title" style="--d:.06s">Suzane Beatriz Vanzin</h1>
+        <p class="dek rise" style="--d:.12s">Para a mulher que me ensinou, pela inteligência e pelo exemplo, que estudar também é um modo de permanecer esperançosa.</p>
+        <p class="mae-dedication rise" style="--d:.18s">Tudo que eu faço no doutorado começa antes de mim: começa nela, no trabalho dela, na coragem dela, no modo como ela nunca deixou a vida me convencer a desistir.</p>
+      </div>
+
+      <figure class="mae-portrait rise" style="--d:.2s">
+        <div class="frame"><img src="assets/mae/mae-04.jpg" alt="Suzane Beatriz Vanzin sorrindo em viagem" width="1350" height="1800" decoding="async" fetchpriority="high"></div>
+        <figcaption><span class="cap">Suzane Beatriz Vanzin, no mundo, inteira em seu próprio brilho.</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="mae-letter" aria-label="Carta para minha mãe">
+      <div class="prose" style="margin:0;max-width:none">
+        <p class="lede">Minha mãe é o motivo pelo qual eu faço doutorado.</p>
+        <p>Não porque o doutorado seja apenas um título, nem porque estudar seja uma linha reta. Eu estudo porque cresci vendo Suzane Beatriz Vanzin estudar. Vi a inteligência dela em movimento, a curiosidade dela, a disciplina silenciosa de quem trabalhava o dia todo e ainda fazia faculdade à noite. Vi, sobretudo, que esperança também se aprende: não como frase bonita, mas como prática diária.</p>
+        <p>Eu moro em Florianópolis e posso estudar porque ela fez sacrifícios que nem sempre cabem em uma biografia. Ela sustentou o que era necessário, abriu mão do que podia, carregou responsabilidades demais e, ainda assim, continuou me ensinando a olhar para frente. Foi mãe e pai a vida toda. Foi casa, impulso, proteção e caminho.</p>
+        <p class="pull">A minha vida intelectual tem a forma do amor dela.</p>
+        <p>Quando eu me entristeço, ela me mantém firme. Quando o mundo parece exigir dureza, ela me devolve alegria. Quando eu duvido, ela me lembra, pelo exemplo, que estudar é uma maneira de permanecer viva, lúcida e livre. Se hoje insisto na pesquisa, na escrita e no futuro, é porque ela insistiu primeiro em mim.</p>
+        <p>Esta página é pequena diante de tudo que ela fez. Mas é uma forma de dizer, publicamente, que nada disso nasceu sozinho. Há uma mulher por trás da minha possibilidade de estudar; há uma mãe por trás da minha coragem; há Suzane Beatriz Vanzin por trás da esperança que eu tento honrar.</p>
+      </div>
+
+      <aside class="mae-note" aria-label="Nota de gratidão">
+        <span class="k">gratidão</span>
+        <span>Por cada dia de trabalho. Por cada noite de estudo. Por ter sido muitas pessoas ao mesmo tempo para que eu pudesse me tornar quem sou.</span>
+      </aside>
+    </section>
+
+    <section class="mae-gallery" aria-labelledby="mae-gallery-title">
+      <h2 class="gh" id="mae-gallery-title">quatro imagens de uma vida inteira</h2>
+      <div class="mae-grid">
+        <figure class="mae-photo wide">
+          <div class="frame"><img src="assets/mae/mae-01.jpg" alt="Ana Vanzin e Suzane Beatriz Vanzin juntas em uma sala com bandeiras" width="1348" height="1800" loading="lazy" decoding="async"></div>
+          <figcaption><span class="cap">Ela comigo: a presença dela no lugar que o estudo abriu para mim.</span></figcaption>
+        </figure>
+
+        <figure class="mae-photo">
+          <div class="frame"><img src="assets/mae/mae-02.jpg" alt="Fotografia antiga de Ana criança no colo de Suzane Beatriz Vanzin, em um álbum de família" width="1012" height="1800" loading="lazy" decoding="async"></div>
+          <figcaption><span class="cap">No arquivo da família, a menina que fui no colo da mulher que nunca deixou de me sustentar.</span></figcaption>
+        </figure>
+
+        <figure class="mae-photo">
+          <div class="frame"><img src="assets/mae/mae-03.jpg" alt="Duas fotografias instantâneas de Suzane Beatriz Vanzin e Ana Vanzin usando camisetas vermelhas" width="1350" height="1800" loading="lazy" decoding="async"></div>
+          <figcaption><span class="cap">Duas fotografias, uma cor: alegria partilhada como forma de herança.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="mae-close" aria-label="Fecho">
+      <p>Mãe, tudo que sou carrega alguma coisa tua: a esperança, a inteligência, a teimosia boa de continuar, e a felicidade que tu me devolves quando eu esqueço onde deixei a minha.</p>
+      <span class="sig">com amor, Ana</span>
+    </section>
+  </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <div class="zone brand">
+        <a class="id" href="/"><img src="/assets/monogram-av-inverse.svg" alt=""> <b>ana vanzin</b></a>
+        <p class="desc">advogada · historiadora do direito · doutoranda PPGD/UFSC</p>
+      </div>
+      <nav class="zone nav" aria-label="Navegação do rodapé">
+        <span class="zt">navegação</span>
+        <a href="/">mesa</a>
+        <a href="/iconocracia/">iconocracia</a>
+        <a href="/publicacoes/">publicações</a>
+        <a href="/sala-de-leitura/">sala de leitura</a>
+        <a href="/sobre.html">sobre</a>
+        <a href="/mae.html">mãe</a>
+      </nav>
+      <div class="zone links">
+        <span class="zt">canais</span>
+        <a href="mailto:anavvanzin@outlook.com">e-mail</a>
+        <a href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener">Lattes ↗</a>
+        <a href="https://instagram.com/anavanzin" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="http://hookahr.tumblr.com/" target="_blank" rel="noopener">Tumblr ↗</a>
+      </div>
+    </div>
+    <div class="base">
+      <span class="cl">© 2026 ana vanzin · PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+      <a class="top" href="#">voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <script src="editorial.js"></script>
+</body>
+</html>
