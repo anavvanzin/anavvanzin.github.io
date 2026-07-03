@@ -347,46 +347,6 @@ function WVo({
     }
   }, L(lang, 'família · onde tudo começou', 'family · where it all began')))));
 }
-function WMae({
-  lang
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    style: stack(0)
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: 'var(--paper)',
-      border: '1px solid var(--ink)',
-      boxShadow: '3px 3px 0 0 var(--ink)',
-      padding: '12px 12px 0'
-    }
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "/assets/mae.jpg",
-    alt: L(lang, 'Ana com a mãe', 'Ana with her mother'),
-    style: {
-      display: 'block',
-      width: '100%',
-      border: '1px solid var(--ink-30)'
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: '13px 4px 16px',
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: 'var(--font-display)',
-      fontWeight: 600,
-      fontSize: 16
-    }
-  }, L(lang, 'com a minha mãe', 'with my mother')), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12.5,
-      color: 'var(--text-faint)',
-      marginTop: 3,
-      letterSpacing: '0.04em'
-    }
-  }, L(lang, 'família · a raiz de tudo', 'family · the root of it all')))));
-}
 function WAmpulheta() {
   return /*#__PURE__*/React.createElement("iframe", {
     src: "/ampulheta.html",
@@ -409,7 +369,6 @@ Object.assign(window.avapp = window.avapp || {}, {
   WJustitia,
   WCv,
   WVo,
-  WMae,
   WAmpulheta
 });
 })();
