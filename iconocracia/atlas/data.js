@@ -12,10 +12,10 @@ window.AtlasData = {
   },
 
   stats: [
-    { v: "247", l: "placas no corpus", s: "seis nações · 1789–2000" },
+    { v: "328", l: "placas no corpus", s: "seis nações · 1789–2000" },
     { v: "8",   l: "painéis do atlas", s: "disposição warburguiana" },
     { v: "10",  l: "indicadores", s: "iconometria do endurecimento" },
-    { v: "62%", l: "codificado", s: "Panofsky · três níveis" },
+    { v: "88%", l: "codificado", s: "Panofsky · três níveis" },
   ],
 
   argument: {
