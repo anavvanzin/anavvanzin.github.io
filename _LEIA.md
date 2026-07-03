@@ -20,7 +20,7 @@ anteriores** e use só este pacote: ele tem o site inteiro e atual.
 Páginas: index · conceitos · trabalhos · perfil · readme · 404
 Scripts da mesa (pré-compilados, sem Babel): icons.js · desktop-app.js · window-contents.js
 Estilo + componentes: styles.css · _ds_bundle.js
-assets/ : pixel-justitia, sun-seal, **banner.png** (tese), **mae.jpg** (foto da mãe), **og-image.png** (preview social)
+assets/ : pixel-justitia, sun-seal, **banner.png** (tese), **mae.jpg** (foto com a mãe), **og-image.png** (preview social)
 slides/ : os 5 .pptx/.pdf das apresentações
 .nojekyll (essencial — sem ele o GitHub ignora _ds_bundle.js) · CNAME (anavanzin.com)
 
@@ -29,7 +29,7 @@ slides/ : os 5 .pptx/.pdf das apresentações
 - **Open Graph** + favicon + página **404**.
 - **Menu** consistente (conceitos · trabalhos · perfil · contato).
 - **Perfil** com CV real do Lattes; **banner** do doutorado na janela “tese”;
-  **mãe.jpg** (foto da mãe) na mesa.
+  **mãe.jpg** (foto com a mãe) na mesa.
 - **Conceitos** repensada (índice + leitura, sem arrasto).
 - **Comunicações** unificadas na página Trabalhos.
 
