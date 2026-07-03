@@ -76,7 +76,7 @@ const REG = {
   mae: {
     title: {
       pt: 'mãe.jpg',
-      en: 'mother.jpg'
+      en: 'mom.jpg'
     },
     w: 360,
     Body: WMae
@@ -216,7 +216,7 @@ const DESK_ICONS = [{
   id: 'mae',
   label: {
     pt: 'mãe.jpg',
-    en: 'mother.jpg'
+    en: 'mom.jpg'
   },
   Icon: ImageIcon
 }, {
