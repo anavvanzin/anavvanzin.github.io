@@ -151,6 +151,15 @@ test.describe('Tier 1 - Feature Coverage', () => {
     await expect(posterIcon).toBeVisible();
   });
 
+  test('T1.F4.4b: Verify index.html does not reference the missing mother photo asset', async ({ page }) => {
+    await page.goto('/');
+    const enterBtn = page.locator('#bootenter');
+    if (await enterBtn.isVisible()) {
+      await enterBtn.click();
+    }
+    await expect(page.locator('a[href="/assets/mae.jpg"], img[src="/assets/mae.jpg"]')).toHaveCount(0);
+  });
+
   test('T1.F4.5: Verify double-clicking the poster icon on the desktop successfully creates a window container for poster', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
