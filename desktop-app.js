@@ -20,7 +20,7 @@ const {
   WIus,
   WContato,
   WJustitia,
-  WVo,
+  WMae,
   WAmpulheta,
   WPoster
 } = window.avapp;
@@ -73,13 +73,13 @@ const REG = {
     w: 360,
     Body: WJustitia
   },
-  vo: {
+  mae: {
     title: {
-      pt: 'vó.jpg',
-      en: 'grandma.jpg'
+      pt: 'mãe.jpg',
+      en: 'mother.jpg'
     },
     w: 360,
-    Body: WVo
+    Body: WMae
   },
   ampulheta: {
     title: {
@@ -213,10 +213,10 @@ const DESK_ICONS = [{
   },
   Icon: ImageIcon
 }, {
-  id: 'vo',
+  id: 'mae',
   label: {
-    pt: 'vó.jpg',
-    en: 'grandma.jpg'
+    pt: 'mãe.jpg',
+    en: 'mother.jpg'
   },
   Icon: ImageIcon
 }, {

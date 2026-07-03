@@ -307,7 +307,7 @@ function WJustitia({
     }
   }, /*#__PURE__*/React.createElement("span", null, "justitia.png"), /*#__PURE__*/React.createElement("span", null, "1086 \xD7 1448 \xB7 16-bit")));
 }
-function WVo({
+function WMae({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
@@ -320,8 +320,8 @@ function WVo({
       padding: '12px 12px 0'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: "/assets/avo.png",
-    alt: L(lang, 'Ana, ainda menina, com a avó e um troféu', 'Ana as a child, with her grandmother and a trophy'),
+    src: "/assets/mae.jpg",
+    alt: L(lang, 'Ana, ainda menina, com a mãe', 'Ana as a child, with her mother'),
     style: {
       display: 'block',
       width: '100%',
@@ -338,7 +338,7 @@ function WVo({
       fontWeight: 600,
       fontSize: 16
     }
-  }, L(lang, 'com a minha avó', 'with my grandmother')), /*#__PURE__*/React.createElement("div", {
+  }, L(lang, 'com a minha mãe', 'with my mother')), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12.5,
       color: 'var(--text-faint)',
@@ -368,7 +368,7 @@ Object.assign(window.avapp = window.avapp || {}, {
   WContato,
   WJustitia,
   WCv,
-  WVo,
+  WMae,
   WAmpulheta
 });
 })();
