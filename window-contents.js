@@ -321,7 +321,7 @@ function WMae({
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: "/assets/mae.jpg",
-    alt: L(lang, 'Ana, ainda menina, com a mãe', 'Ana as a child, with her mother'),
+    alt: L(lang, 'Ana, ainda menina, com a mãe', 'Ana, still a girl, with her mother'),
     style: {
       display: 'block',
       width: '100%',
