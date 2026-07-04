@@ -214,10 +214,8 @@
     padding-top: 4px;
   }
 
-  /* Responsividade tátil */
-  #canvas-container {
-    touch-action: none;
-  }
+  /* Responsividade tátil — só desktop (mouse/stylus), mobile libera scroll */
+  @media (hover:hover) and (pointer:fine){ #canvas-container{touch-action:none} }
 </style>
 </head>
 <body>

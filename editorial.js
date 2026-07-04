@@ -60,4 +60,13 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { paintText(); markActive(); });
   } else { paintText(); markActive(); }
+
+  // scroll-to-top: intercept .top[href="#"] links with smooth scroll
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.top');
+    if (a && a.getAttribute('href') === '#') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 })();

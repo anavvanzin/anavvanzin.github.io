@@ -49,7 +49,8 @@
 
   /* hero card */
   .card{position:absolute;left:calc(50% - 415px);top:84px;width:830px;background:var(--paper);border:1px solid var(--ink);box-shadow:7px 7px 0 0 var(--ink)}
-  .bar{display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-bottom:1px solid var(--ink);cursor:grab;touch-action:none;user-select:none}
+  .bar{display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;border-bottom:1px solid var(--ink);cursor:grab;user-select:none}
+  @media (hover:hover) and (pointer:fine){ .bar{touch-action:none} }
   .box{width:13px;height:13px;border:1.5px solid var(--ink);box-sizing:border-box}
   .stripe{flex:1;height:9px;background:repeating-linear-gradient(to bottom,var(--ink) 0 1px,transparent 1px 3px);opacity:.9}
   .bar .t{font-family:var(--font-display);font-weight:600;font-size:14px;white-space:nowrap}

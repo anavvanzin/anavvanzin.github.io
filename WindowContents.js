@@ -59,11 +59,11 @@ function WPublicacoes({ lang }) {
     <div style={stack(8)}>
       <Eyebrow>{L(lang, 'Publicações', 'Publications')}</Eyebrow>
       <div>
-        <PublicationEntry year="2025" title="A venda de Justitia: sátira e virtude no Narrenschiff" href="#" meta="Revista Sequência, n. 96, p. 1–28." />
-        <PublicationEntry year="2024" title="A República como mulher: alegoria e constituição" href="#" meta="Direito e Práxis, v. 15, n. 2." />
+        <PublicationEntry year="2025" title="A venda de Justitia: sátira e virtude no Narrenschiff" href="publicacoes/vrouwe-justitia.html" meta="Revista Sequência, n. 96, p. 1–28." />
+        <PublicationEntry year="2024" title="A República como mulher: alegoria e constituição" href="publicacoes/maria-marianne.html" meta="Direito e Práxis, v. 15, n. 2." />
         <PublicationEntry year="2023" title="Iconografia jurídica: um programa de pesquisa" meta={L(lang, 'Capítulo, Ed. UFSC.', 'Chapter, UFSC Press.')} note={L(lang, 'no prelo', 'in press')} />
       </div>
-      <div style={{ paddingTop: 6 }}><RubricLink href="#" external>{L(lang, 'Currículo Lattes', 'Lattes CV')}</RubricLink></div>
+      <div style={{ paddingTop: 6 }}><RubricLink href="http://lattes.cnpq.br/9079096818962275" external>{L(lang, 'Currículo Lattes', 'Lattes CV')}</RubricLink></div>
     </div>
   );
 }
@@ -132,7 +132,7 @@ function WCv({ lang }) {
           </div>
         ))}
       </div>
-      <div style={{ paddingTop: 2 }}><RubricLink href="#" external>{L(lang, 'Currículo Lattes', 'Lattes CV')}</RubricLink></div>
+      <div style={{ paddingTop: 2 }}><RubricLink href="http://lattes.cnpq.br/9079096818962275" external>{L(lang, 'Currículo Lattes', 'Lattes CV')}</RubricLink></div>
     </div>
   );
 }

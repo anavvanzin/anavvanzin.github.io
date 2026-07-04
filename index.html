@@ -196,7 +196,8 @@
   @keyframes dwinIn{from{opacity:0} to{opacity:1}}
   .dwin-bar{display:flex; align-items:center; justify-content:space-between; gap:12px;
     height:32px; padding:0 6px 0 10px; background:var(--paper); border-bottom:1px solid var(--ink);
-    cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none}
+    cursor:grab; user-select:none; -webkit-user-select:none}
+  @media (hover:hover) and (pointer:fine){ .dwin-bar{touch-action:none} }
   .dwin.dragging .dwin-bar{cursor:grabbing}
   .dwin-title{font-family:var(--mono); font-size:11px; letter-spacing:.04em;
     color:color-mix(in srgb,var(--ink) 82%,var(--paper)); white-space:nowrap}
