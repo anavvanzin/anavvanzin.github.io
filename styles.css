@@ -1,6 +1,23 @@
 @import url('fonts/fonts.css'); /* self-hosted webfonts — MUST stay first: an @import after any rule is ignored per CSS spec */
 
-/* Ana Vanzin — bundled tokens */
+/* Ana Vanzin — bundled tokens
+
+   TWO TOKEN SYSTEMS coexist on this site:
+
+   1. styles.css (this file) — the main marketing/research pages (index, sobre,
+      conceitos, perfil, publicações, etc.). Uses a 3-tint palette:
+        --ink (near-black) / --paper (warm vellum) / --rubric (vermilion).
+      Fonts: Cormorant Garamond + Hanken Grotesk. No shadows, no rounded
+      corners — incunabulum-page aesthetic. The only shadow exception is the
+      poster room (poster.html), which deliberately uses box-shadow on plates.
+
+   2. tokens/*.css (Instrument Serif / Crimson Pro / JetBrains Mono) — the
+      ICONOCRACIA research apps (atlas, radiografia, corpus pages). Full
+      archival palette with juridical accents, gold rules, cabinet chrome.
+      Imported by iconocracia/styles.css and linked by apresentacao/index.html.
+
+   Do not merge these systems. They serve different audiences and different
+   visual registers. The "tokens/" directory is NOT dead code. */
 
 /* ===== tokens/colors.css ===== */
 /* Ana Vanzin — color tokens
