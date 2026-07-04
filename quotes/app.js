@@ -126,7 +126,7 @@ async function loadData() {
         <p>Não foi possível carregar os dados.</p>
         <p style="font-size:0.8rem;margin-top:0.5rem">Erro: ${err.message}</p>
       </div>`;
-    console.error('Data load failed:', err);
+    console.warn('Data load failed:', err);
   }
 }
 
@@ -366,7 +366,7 @@ $('#copyBtn').addEventListener('click', async () => {
     const prev = btn.textContent;
     btn.textContent = 'Copiado';
     setTimeout(() => btn.textContent = prev, 1800);
-  } catch (e) { console.warn('Clipboard failed:', e); }
+  } catch (e) { /* clipboard unavailable */ }
 });
 
 /* Random nav */

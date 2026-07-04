@@ -231,7 +231,6 @@
         })
         .catch(err => {
           if (active) {
-            console.error(err);
             setError(err.message);
             setLoading(false);
           }
