@@ -156,7 +156,13 @@
                 </tr>
                 <tr class="highlight">
                   <td>Feitiçaria remunerada: amansar maridos, matar inimigos por encomenda</td>
-                           <p>As duas últimas linhas são o ponto decisivo. O <em>Malleus</em> não prevê uma feiticeira que reivindica autoridade paralela ao bispo, nem uma que cobra por seus serviços. São categorias que o tipo compósito europeu não captura. O tipo viajou pelo Atlântico e se deformou.</p>
+                  <td>Feitiçaria como serviço mercantil</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>As duas últimas linhas são o ponto decisivo. O <em>Malleus</em> não prevê uma feiticeira que reivindica autoridade paralela ao bispo, nem uma que cobra por seus serviços. São categorias que o tipo compósito europeu não captura. O tipo viajou pelo Atlântico e se deformou.</p>
           
           <h3>A confissão como negociação e seus limites institucionais</h3>
           <p>A confissão de Maria (fls. 40-43) revela uma estratégia processual sofisticada. Primeiro, ela alega que os feitiços "não funcionaram": nega o nexo causal de dano material do <em>maleficium</em>, embora admita a prática. Depois, chora e diz que tudo era engano para ganhar dinheiro e alimentos; os pós mágicos eram "fígados de galinha torrados" e os ossos de enforcados eram dentes de cavalo-marinho. Ela nega qualquer cópula ou pacto diabólico formal.</p>
@@ -657,6 +663,17 @@
           </div>
         `;
         grid.appendChild(detail);
+      });
+    }
+
+    function filterProcesses() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      processesData.forEach(p => {
+        const haystack = `${p.id} ${p.name} ${p.date} ${p.crime} ${p.status} ${p.sentence} ${p.obs}`.toLowerCase();
+        const match = haystack.includes(query);
+        document.getElementById(`row-${p.id}`).style.display = match ? '' : 'none';
+        const detail = document.getElementById(`detail-${p.id}`);
+        if (!match) detail.style.display = 'none';
       });
     }
 
