@@ -671,10 +671,18 @@
       processesData.forEach(p => {
         const haystack = `${p.id} ${p.name} ${p.date} ${p.crime} ${p.status} ${p.sentence} ${p.obs}`.toLowerCase();
         const match = haystack.includes(query);
-        document.getElementById(`row-${p.id}`).style.display = match ? '' : 'none';
-        const detail = document.getElementById(`detail-${p.id}`);
-        if (!match) detail.style.display = 'none';
+        const row = document.getElementById(`row-${p.id}`);
+        row.style.display = match ? '' : 'none';
+        if (!match) {
+          row.classList.remove('active-row');
+          document.getElementById(`detail-${p.id}`).style.display = 'none';
+        }
       });
+      // Restaura o destaque padrão de Cajada se nenhuma linha ficou ativa
+      const cajada = document.getElementById('row-10748');
+      if (cajada.style.display !== 'none' && !document.querySelector('.interactive-row.active-row')) {
+        cajada.classList.add('active-row');
+      }
     }
 
     function toggleDetail(id) {
