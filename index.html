@@ -148,6 +148,18 @@
   a.icon .lbl{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-align:center; line-height:1.25; color:color-mix(in srgb,var(--ink) 82%,var(--paper))}
   a.icon .lbl .ext{color:color-mix(in srgb,var(--ink) 45%,var(--paper))}
   a.icon.mae .cap img{object-position:50% 34%}
+  /* ícone especial da mãe ❤️ — moldura dourada afetuosa, coração-broche e halo quente */
+  a.icon.mae .cap{box-shadow:var(--hard-sm), 0 0 0 2px var(--gold)}
+  a.icon.mae .cap::after{box-shadow:inset 0 1px 0 rgba(244,236,216,.5), inset 0 0 0 1px rgba(176,141,60,.55)}
+  a.icon.mae:hover .cap{box-shadow:6px 7px 0 rgba(33,27,22,.20), 0 0 0 2px var(--gold), 0 0 20px rgba(176,141,60,.55)}
+  a.icon.mae .mae-heart{position:absolute; right:-7px; bottom:-7px; width:23px; height:23px;
+    filter:drop-shadow(1px 1px 0 rgba(33,27,22,.32)); transform-origin:center; z-index:2}
+  a.icon.mae .lbl{color:var(--rubric); font-weight:600}
+  @media (prefers-reduced-motion: no-preference){
+    a.icon.mae .mae-heart{animation:maeBeat 2s var(--ease) infinite}
+    a.icon.mae:hover .mae-heart{animation-duration:.85s}
+    @keyframes maeBeat{0%,100%{transform:scale(1)} 12%{transform:scale(1.2)} 24%{transform:scale(1)} 36%{transform:scale(1.12)} 50%{transform:scale(1)}}
+  }
 
   /* manuscript side panel (página de livro aberto) */
   .mspanel{position:relative; border-left:1.5px solid var(--ink);
@@ -289,7 +301,7 @@
         <a class="icon nv" href="/sobre.html"><span class="cap"><img src="/assets/icons/sobre.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
         <a class="icon rb" href="/perfil.html"><span class="cap"><img src="/assets/icons/perfil.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">perfil<span class="ext">.card</span></span></a>
         <a class="icon" href="/readme.html"><span class="cap"><img src="/assets/icons/curriculo.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
-        <a class="icon mae" href="/mae.html"><span class="cap"><img src="/assets/mae/mae-icon.jpg" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="mãe" data-en="mother">mãe</span></a>
+        <a class="icon mae" href="/mae.html" aria-label="Para minha mãe, Suzane Beatriz Vanzin"><span class="cap"><img src="/assets/mae/mae-icon.jpg" alt="" width="54" height="54" decoding="async"><svg class="mae-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.7S3.6 15.9 1.5 10.9C.1 7.6 2.1 4.4 5.4 4.4c2 0 3.4 1.1 4.6 2.7 1.2-1.6 2.6-2.7 4.6-2.7 3.3 0 5.3 3.2 3.9 6.5-2.1 5-10 10.3-10 10.3z" fill="#9B2C1C" stroke="#B08D3C" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 8.4c.9-.9 2-1 2.9-.3" fill="none" stroke="rgba(244,236,216,.85)" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="lbl" data-pt="mãe" data-en="mother">mãe</span></a>
       </div>
     </section>
 
