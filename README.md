@@ -31,11 +31,16 @@ atlas-lab/        Atlas Lab (index.html · data.js · app.jsx)
 .nojekyll         desativa o Jekyll no GitHub Pages
 ```
 
-## Publicação (GitHub Pages)
+## Publicação (Cloudflare Workers)
 
-1. Envie o conteúdo desta pasta para a raiz do repositório.
-2. **Settings → Pages → Source: _Deploy from a branch_ → `main` / `(root)`**.
-3. A URL aparece em ~1 min.
+O site é servido como **Cloudflare Worker** (`anavvanzin`) com a raiz do repositório
+publicada como *static assets* — ver `wrangler.jsonc`. Domínio: **anavanzin.com** (`CNAME`).
+
+- **Deploy automático:** um push para `main` é publicado em ~1 min, via Cloudflare
+  **Workers Builds** (integração Git no painel do Cloudflare).
+- **Deploy manual:** `npx wrangler deploy` a partir da raiz do repositório.
+- Roteamento de assets (404 customizado, trailing-slash) é explícito em `wrangler.jsonc`
+  — não é GitHub Pages. O `.nojekyll` é legado e inofensivo.
 
 Todos os caminhos são relativos — o site funciona em qualquer subdiretório, sem ajuste de caminho-base.
 
