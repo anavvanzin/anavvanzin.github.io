@@ -294,8 +294,8 @@
     }), /*#__PURE__*/React.createElement("a", {
       className: "m-ic m-essay",
       href: "impressa.html",
-      title: lang === "en" ? "Printed essay version" : "Versão impressa — ensaio",
-      "aria-label": lang === "en" ? "Printed essay version" : "Versão impressa"
+      title: lang === "en" ? "Essay — printed version" : "Ensaio — versão impressa",
+      "aria-label": lang === "en" ? "Essay — printed version" : "Ensaio — versão impressa"
     }, /*#__PURE__*/React.createElement("span", {
       "aria-hidden": "true"
     }, "\u2761"), /*#__PURE__*/React.createElement("span", {
