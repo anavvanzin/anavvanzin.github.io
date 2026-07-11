@@ -61,6 +61,7 @@
               <h2 className="m-name">{D.meta.author}</h2>
               <p className="m-role">{L(D.meta.role, lang)}</p>
             </div>
+            <a className="m-essay-cta" href="impressa.html">{lang === "en" ? "Read the printed manifesto →" : "Ler o manifesto impresso →"}</a>
           </>
         )}
       </section>
@@ -176,7 +177,7 @@
             <button className="m-ic" onClick={doPrint} title="Imprimir / PDF" aria-label="Imprimir">⎙</button>
             <button className={"m-ic" + (fs ? " on" : "")} onClick={toggleFs} title="Tela cheia (F)" aria-label="Tela cheia">⤢</button>
             <span className="m-sep" />
-            <a className="m-ic" href="impressa.html" title={lang === "en" ? "Printed essay version" : "Versão impressa — ensaio"} aria-label={lang === "en" ? "Printed essay version" : "Versão impressa"}>❡</a>
+            <a className="m-ic m-essay" href="impressa.html" title={lang === "en" ? "Essay — printed version" : "Ensaio — versão impressa"} aria-label={lang === "en" ? "Essay — printed version" : "Ensaio — versão impressa"}><span aria-hidden="true">❡</span><span className="m-essay-lbl">{lang === "en" ? "Essay" : "Ensaio"}</span></a>
           </span>
         </header>
 
