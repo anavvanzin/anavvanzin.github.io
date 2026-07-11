@@ -116,7 +116,10 @@
       className: "m-name"
     }, D.meta.author), /*#__PURE__*/React.createElement("p", {
       className: "m-role"
-    }, L(D.meta.role, lang)))));
+    }, L(D.meta.role, lang))), /*#__PURE__*/React.createElement("a", {
+      className: "m-essay-cta",
+      href: "impressa.html"
+    }, lang === "en" ? "Read the printed manifesto →" : "Ler o manifesto impresso →")));
   }
   const TWEAK_DEFAULTS = {
     tone: "claro",
@@ -289,11 +292,15 @@
     }, "\u2922"), /*#__PURE__*/React.createElement("span", {
       className: "m-sep"
     }), /*#__PURE__*/React.createElement("a", {
-      className: "m-ic",
+      className: "m-ic m-essay",
       href: "impressa.html",
       title: lang === "en" ? "Printed essay version" : "Versão impressa — ensaio",
       "aria-label": lang === "en" ? "Printed essay version" : "Versão impressa"
-    }, "\u2761"))), !printing && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true"
+    }, "\u2761"), /*#__PURE__*/React.createElement("span", {
+      className: "m-essay-lbl"
+    }, lang === "en" ? "Essay" : "Ensaio")))), !printing && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       className: "m-zone l",
       onClick: () => go(i - 1),
       "aria-hidden": "true"
