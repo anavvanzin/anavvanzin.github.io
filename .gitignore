@@ -15,6 +15,18 @@ node_modules/
 # preview/build artifacts (not part of the deployed site)
 .playwright-mcp/
 site/
+test-results/
+
+# internal agent-orchestration / dev artifacts — must NOT be published on the
+# public site (GitHub Pages serves dot-dirs because of .nojekyll)
+.agents/
+.ecc/
+docs/superpowers/
+ORIGINAL_REQUEST.md
+CLAUDE_CODE_HANDOFF.md
+TEST_INFRA.md
+TEST_READY.md
+_LEIA.md
 
 # local-only reference material (NOT deployed — kept off GH Pages)
 assets/anavanzin_site_asset_pack/
