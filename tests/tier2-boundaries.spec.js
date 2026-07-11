@@ -39,8 +39,9 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     // Accented glyphs must render intact (mid-paragraph words, unaffected by the drop-cap split)...
     expect(textContent).toContain('tradição');
     expect(textContent).toContain('coração');
-    // ...with no UTF-8-as-Latin1 mojibake sequences (e.g. "Ã§", "Ã£", "Ã©").
-    expect(textContent).not.toMatch(/Ã[-ÿ]/);
+    // ...with no UTF-8-as-Latin1 mojibake sequences (e.g. "Ã§", "Ã£", "Ã©"):
+    // "Ã" (U+00C3) followed by a UTF-8 continuation byte rendered as Latin1 (U+0080–U+00BF).
+    expect(textContent).not.toMatch(/Ã[\u0080-\u00bf]/);
   });
 
   test('T2.F1.5: Verify parser handles malformed Markdown gracefully without breaking the DOM tree', async ({ page }) => {
