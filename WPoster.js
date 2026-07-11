@@ -194,7 +194,7 @@
 
   // WPoster Component
   function WPoster({ lang, standalone }) {
-    const [selectedPoster, setSelectedPoster] = React.useState('workflow');
+    const [selectedPoster, setSelectedPoster] = React.useState('methodology');
     const [content, setContent] = React.useState('');
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
@@ -207,7 +207,6 @@
 
     // Map selected poster to file path
     const getPath = (id) => {
-      if (id === 'workflow') return '/docs/WORKFLOW.md';
       if (id === 'methodology') return '/docs/methodology.md';
       if (id === 'genealogia') return '/docs/genealogia-alegoria-feminina.md';
       return '';
@@ -472,10 +471,6 @@
       }
     },
       React.createElement("nav", { className: "poster-nav" },
-        React.createElement("button", {
-          className: "poster-tab " + (selectedPoster === 'workflow' ? 'active' : ''),
-          onClick: () => setSelectedPoster('workflow')
-        }, L(lang, "Workflow Operacional", "Operational Workflow")),
         React.createElement("button", {
           className: "poster-tab " + (selectedPoster === 'methodology' ? 'active' : ''),
           onClick: () => setSelectedPoster('methodology')

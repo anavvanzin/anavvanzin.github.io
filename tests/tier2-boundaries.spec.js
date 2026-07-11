@@ -8,7 +8,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
 
   // Feature 1: Dynamic Markdown Rendering (R1)
   test('T2.F1.1: Verify handling of empty Markdown files or empty content strings gracefully', async ({ page }) => {
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: '' }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: '' }));
     await page.goto('/poster.html');
     const root = page.locator('#root');
     await expect(root).toBeVisible();
@@ -17,7 +17,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
 
   test('T2.F1.2: Verify rendering of extremely large Markdown documents without breaking layout', async ({ page }) => {
     const largeMd = '# Large Title\n\n' + Array(500).fill('This is a test paragraph of a very large document to check for performance and layout breaking on the poster room.').join('\n\n');
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: largeMd }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: largeMd }));
     await page.goto('/poster.html');
     const pCount = await page.locator('.poster p, p.poster-p').count();
     expect(pCount).toBeGreaterThan(100);
@@ -25,23 +25,27 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
 
   test('T2.F1.3: Verify rendering of complex nested lists and code blocks', async ({ page }) => {
     const complexMd = '1. First item\n   - Nested item 1\n   - Nested item 2\n\n```javascript\nconst a = 1;\n```';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: complexMd }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: complexMd }));
     await page.goto('/poster.html');
     const code = page.locator('.poster pre, pre');
     await expect(code.first()).toBeVisible();
   });
 
   test('T2.F1.4: Verify handling of special/accented characters (Portuguese/Latin glyphs) without encoding corruption', async ({ page }) => {
+    const accentedMd = '# Ação e Coerção\n\nManutenção da tradição jurídica: São Paulo, coração, ícones não corrompidos.';
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, contentType: 'text/markdown; charset=utf-8', body: accentedMd }));
     await page.goto('/poster.html');
-    const tabs = page.locator('.poster-tab');
-    await tabs.nth(0).click();
-    const textContent = await page.locator('body').innerText();
-    expect(textContent).not.toContain('Ã');
+    const textContent = await page.locator('.poster').innerText();
+    // Accented glyphs must render intact (mid-paragraph words, unaffected by the drop-cap split)...
+    expect(textContent).toContain('tradição');
+    expect(textContent).toContain('coração');
+    // ...with no UTF-8-as-Latin1 mojibake sequences (e.g. "Ã§", "Ã£", "Ã©").
+    expect(textContent).not.toMatch(/Ã[-ÿ]/);
   });
 
   test('T2.F1.5: Verify parser handles malformed Markdown gracefully without breaking the DOM tree', async ({ page }) => {
     const malformedMd = '### Malformed # Header\n\n> Blockquote without closing or mixed *italic** and **bold*';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: malformedMd }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: malformedMd }));
     await page.goto('/poster.html');
     const h3 = page.locator('.poster h3, h3.poster-h3, h3');
     await expect(h3.first()).toBeVisible();
@@ -73,7 +77,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
 
   test('T2.F2.4: Verify drop caps are not applied to empty paragraphs or paragraphs starting with non-alphabetical characters', async ({ page }) => {
     const md = '123 Number paragraph\n\n- Bullet paragraph';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: md }));
     await page.goto('/poster.html');
     const dropCap = page.locator('.poster .drop-cap, .poster-drop-cap');
     await expect(dropCap).toHaveCount(0);
@@ -157,7 +161,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await posterIcon.dblclick();
     await posterIcon.dblclick();
     const posterTabs = page.locator('.poster-tab');
-    await expect(posterTabs).toHaveCount(3);
+    await expect(posterTabs).toHaveCount(2);
   });
 
   test('T2.F4.2: Verify the poster window can be dragged and repositioned within the desktop workspace boundary', async ({ page }) => {

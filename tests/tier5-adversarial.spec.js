@@ -14,7 +14,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     const maliciousMd = '# Safe Title\n\n<div id="injected-html-test">Malicious Element</div><script>window.injectedXss = true;</script>';
     
     // Intercept poster document fetch and return malicious markdown content
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
+    await page.route('**/docs/methodology.md', route => route.fulfill({
       status: 200,
       contentType: 'text/markdown',
       body: maliciousMd
@@ -41,7 +41,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     // normal accented Portuguese characters like Ç or Á should.
     const customMd = 'Çapata verde.\n\nÁgua mineral.\n\nДвадцать.\n\nعربي.\n\n📌 Emoji paragraph.';
     
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
+    await page.route('**/docs/methodology.md', route => route.fulfill({
       status: 200,
       contentType: 'text/markdown',
       body: customMd
@@ -73,7 +73,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
 
     await page.goto('/poster.html');
     const tabs = page.locator('.poster-tab');
-    await tabs.nth(2).click(); // Switch to the Genealogy poster (which loads JSON)
+    await tabs.nth(1).click(); // Switch to the Genealogy poster (which loads JSON)
 
     // Verify error UI is displayed (using auto-retry assertion)
     await expect(page.locator('.poster')).toContainText('Error parsing JSON');
@@ -95,7 +95,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     }));
 
     await page.goto('/poster.html');
-    await tabs.nth(2).click();
+    await tabs.nth(1).click();
 
     // Verify it still fails gracefully via the catch block rather than crashing the page (using auto-retry assertion)
     await expect(page.locator('.poster')).toContainText('Error parsing JSON');
@@ -106,7 +106,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     // Create markdown containing a checkbox list item and a markdown link
     const interactiveMd = '- [ ] Checkbox Item\n- Check out **[link](http://example.com)** here.';
     
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
+    await page.route('**/docs/methodology.md', route => route.fulfill({
       status: 200,
       contentType: 'text/markdown',
       body: interactiveMd
@@ -161,16 +161,14 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
 
   // Gap 6: Stale Fetch Race Conditions (Fast Tab Switching)
   test('T5.6: Verify race conditions in tab switching are prevented and active content is correctly preserved', async ({ page }) => {
-    // Intercept calls to return slow content for Workflow and fast content for Methodology
-    let slowFetchStarted = false;
-    await page.route('**/docs/WORKFLOW.md', async (route) => {
-      slowFetchStarted = true;
+    // Intercept calls to return slow content for Genealogia and fast content for Methodology
+    await page.route('**/docs/genealogia-alegoria-feminina.md', async (route) => {
       // Introduce a 800ms delay to simulate network latency
       await new Promise(resolve => setTimeout(resolve, 800));
       await route.fulfill({
         status: 200,
         contentType: 'text/markdown',
-        body: '# Slow Workflow Content'
+        body: '# Slow Genealogia Content'
       });
     });
 
@@ -185,25 +183,25 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     await page.goto('/poster.html');
     const tabs = page.locator('.poster-tab');
 
-    // Click tab 0 (starts slow fetch)
-    await tabs.nth(0).click();
-    
-    // Immediately click tab 1 (starts fast fetch)
+    // Click tab 1 (Genealogia — starts slow fetch)
     await tabs.nth(1).click();
+
+    // Immediately click tab 0 (Methodology — starts fast fetch)
+    await tabs.nth(0).click();
 
     // Wait for everything to resolve (1200ms)
     await page.waitForTimeout(1200);
 
-    // If there is a race condition, the slow workflow content resolving late might overwrite
+    // If there is a race condition, the slow genealogia content resolving late might overwrite
     // the methodology content even though methodology is the currently active tab.
-    const activeTab = tabs.nth(1);
+    const activeTab = tabs.nth(0);
     await expect(activeTab).toHaveClass(/active/);
 
     const bodyText = await page.locator('.poster').innerText();
-    
+
     // If it is broken, it will display the slow content instead of the fast content.
     expect(bodyText).toContain('Fast Methodology Content');
-    expect(bodyText).not.toContain('Slow Workflow Content');
+    expect(bodyText).not.toContain('Slow Genealogia Content');
   });
 
 });

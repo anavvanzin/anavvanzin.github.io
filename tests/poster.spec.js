@@ -6,32 +6,23 @@ test('standalone poster page loads and tabs function', async ({ page }) => {
   // Verify the page title
   await expect(page).toHaveTitle(/ana vanzin · sala de pôsteres/);
 
-  // Check that the three tabs are visible
+  // Check that the two tabs are visible
   const tabs = page.locator('.poster-tab');
-  await expect(tabs).toHaveCount(3);
-  await expect(tabs.nth(0)).toHaveText(/Workflow Operacional/);
-  await expect(tabs.nth(1)).toHaveText(/Metodologia/);
-  await expect(tabs.nth(2)).toHaveText(/Genealogia da Alegoria Feminina/);
+  await expect(tabs).toHaveCount(2);
+  await expect(tabs.nth(0)).toHaveText(/Metodologia/);
+  await expect(tabs.nth(1)).toHaveText(/Genealogia da Alegoria Feminina/);
 
-  // Verify default poster content (Workflow Operacional should be active)
+  // Verify default poster content (Metodologia should be active)
   await expect(tabs.nth(0)).toHaveClass(/active/);
   const loading = page.locator('.poster-loading');
   await expect(loading).not.toBeVisible();
-  
-  // Verify that workflow content renders (has headers or text)
-  const h2 = page.locator('.poster-h2');
-  await expect(h2.first()).toHaveText(/Regra-mestra/);
 
-  // Toggle to Metodologia tab
-  await tabs.nth(1).click();
-  await expect(tabs.nth(1)).toHaveClass(/active/);
-  
   // Verify that methodology content renders
   await expect(page.locator('.poster-h2').first()).toHaveText(/0. Pipeline metodológico/);
 
   // Toggle to Genealogia tab (JSON)
-  await tabs.nth(2).click();
-  await expect(tabs.nth(2)).toHaveClass(/active/);
+  await tabs.nth(1).click();
+  await expect(tabs.nth(1)).toHaveClass(/active/);
   // Verify banner title in Column layout (either Portuguese or English)
   const bannerTitle = page.locator('.poster-banner h1');
   await expect(bannerTitle).toHaveText(/(O contrato visual|The Visual Contract)/);
@@ -60,5 +51,5 @@ test('desktop app poster window integration', async ({ page }) => {
 
   // Check that the poster tabs are rendered inside the window
   const tabs = win.locator('.poster-tab');
-  await expect(tabs).toHaveCount(3);
+  await expect(tabs).toHaveCount(2);
 });

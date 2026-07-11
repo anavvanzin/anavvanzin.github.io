@@ -11,7 +11,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
     await page.goto('/poster.html');
     const h1 = page.locator('.poster h1, h1.poster-h1, h1');
     await expect(h1.first()).toBeVisible();
-    await expect(h1.first()).toHaveText(/Workflow/i);
+    await expect(h1.first()).toHaveText(/Metodologia/i);
   });
 
   test('T1.F1.2: Verify poster.html parses Markdown paragraphs and renders them inside p blocks', async ({ page }) => {

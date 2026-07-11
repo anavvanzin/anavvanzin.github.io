@@ -8,38 +8,35 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
 
   // Gap 1: Network Fetch Race Condition
   test('T5.1: Network Fetch Race Condition in Tab Switcher', async ({ page }) => {
-    // Delay WORKFLOW.md by 2000ms
-    await page.route('**/docs/WORKFLOW.md', async route => {
+    // Delay methodology.md by 2000ms
+    await page.route('**/docs/methodology.md', async route => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       await route.continue();
     });
-    // methodology.md resolves instantly
-    await page.route('**/docs/methodology.md', route => route.continue());
     // genealogia-alegoria-feminina.md resolves instantly
     await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.continue());
 
     await page.goto('/poster.html');
-    
+
     const tabs = page.locator('.poster-tab');
     await expect(tabs.nth(0)).toHaveClass(/active/);
 
-    // Rapidly switch tabs: click Methodology (instant), click Genealogia (instant), click Workflow (delayed), click Genealogia (instant)
-    await tabs.nth(1).click(); // Methodology
-    await tabs.nth(2).click(); // Genealogia
-    await tabs.nth(0).click(); // Workflow (triggers delayed fetch)
-    await tabs.nth(2).click(); // Genealogia (triggers instant fetch)
+    // Rapidly switch tabs: click Genealogia (instant), click Methodology (delayed), click Genealogia (instant)
+    await tabs.nth(1).click(); // Genealogia
+    await tabs.nth(0).click(); // Methodology (triggers delayed fetch)
+    await tabs.nth(1).click(); // Genealogia (triggers instant fetch)
 
     // Wait for delayed fetch to finish (2500ms)
     await page.waitForTimeout(2500);
 
-    // The active tab is Genealogia (index 2)
-    await expect(tabs.nth(2)).toHaveClass(/active/);
+    // The active tab is Genealogia (index 1)
+    await expect(tabs.nth(1)).toHaveClass(/active/);
 
-    // If race condition bug is present, the slow WORKFLOW.md response overwrites the content,
-    // causing a JSON parse error because it tries to parse Markdown as JSON.
+    // If race condition bug is present, the slow methodology.md (Markdown) response overwrites
+    // the content, causing a JSON parse error because it tries to parse Markdown as JSON.
     const errorBox = page.locator('text=/Error parsing JSON|Unexpected token/i');
     await expect(errorBox).not.toBeVisible();
-    
+
     // The banner title of Genealogia should be visible
     const bannerTitle = page.locator('.poster-banner h1');
     await expect(bannerTitle).toBeVisible();
@@ -119,7 +116,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
   // Gap 5: Single-line Code Block Parsing
   test('T5.5: Markdown Parser - Single-line Code Block Handling', async ({ page }) => {
     const md = '```js const val = 42; ```';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: md }));
     await page.goto('/poster.html');
     
     const code = page.locator('.poster code, code');
@@ -130,7 +127,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
   // Gap 6: Unmatched Formatting Characters Rendering
   test('T5.6: Markdown Parser - Unmatched Single Formatting Character Handling', async ({ page }) => {
     const md = 'This is *italic but unmatched text';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: md }));
     await page.goto('/poster.html');
     
     const em = page.locator('.poster em, em');
@@ -141,7 +138,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
   // Gap 7: Drop Cap Formatting Suppression
   test('T5.7: Drop Cap rendering on Formatted Starting Paragraphs', async ({ page }) => {
     const md = '**T**his starts with bold text.';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+    await page.route('**/docs/methodology.md', route => route.fulfill({ status: 200, body: md }));
     await page.goto('/poster.html');
     
     const dropCap = page.locator('.poster-drop-cap, .drop-cap');
