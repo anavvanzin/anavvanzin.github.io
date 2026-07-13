@@ -387,19 +387,19 @@ function WMae({
     }
   }, L(lang, 'família · a raiz de tudo', 'family · the root of it all')))));
 }
-function WAmpulheta() {
+const WAmpulheta = React.memo(function WAmpulheta() {
   return /*#__PURE__*/React.createElement("iframe", {
     src: "/ampulheta.html",
     style: {
       width: '100%',
-      height: '70vh',
-      maxHeight: '540px',
+      height: 'min(75vh, 620px)',
+      minHeight: '420px',
       border: 'none',
       display: 'block'
     },
     title: "Ampulheta Caótica"
   });
-}
+});
 Object.assign(window.avapp = window.avapp || {}, {
   WSobre,
   WTese,
