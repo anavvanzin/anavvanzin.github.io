@@ -15,13 +15,16 @@ node_modules/
 # preview/build artifacts (not part of the deployed site)
 .playwright-mcp/
 site/
+.worker-assets/
+_site/
 test-results/
 
-# internal agent-orchestration / dev artifacts — must NOT be published on the
-# public site (GitHub Pages serves dot-dirs because of .nojekyll)
+# internal operational/dev artifacts — never track or publish
 .agents/
 .ecc/
 docs/superpowers/
+AGENTS.md
+CLAUDE.md
 ORIGINAL_REQUEST.md
 CLAUDE_CODE_HANDOFF.md
 TEST_INFRA.md

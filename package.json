@@ -4,7 +4,9 @@
   "description": "Iconocracia E2E Tests",
   "main": "index.html",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "stage:assets": "bash scripts/stage-worker-assets.sh",
+    "deploy:worker": "npm run stage:assets && npx wrangler deploy"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1"
