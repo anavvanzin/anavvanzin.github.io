@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ampulheta Caótica</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
   :root {
     --ink: #211B16;
@@ -13,15 +14,12 @@
     --gold: #9C7C3D;
     --gold-2: #B7934C;
     --gold-soft: color-mix(in srgb, var(--gold) 12%, var(--paper));
-    --amethyst: #6E5A86;
-    --amethyst-light: #B49AD4;
-    
+
     --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
     --font-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
-  /* Textura de papel artesanal usando SVG noise filter */
   body::before {
     content: "";
     position: fixed;
@@ -30,20 +28,20 @@
     pointer-events: none;
     background: transparent;
     filter: url(#paper-noise);
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   body {
     margin: 0;
-    padding: clamp(12px, 3.5vh, 24px);
+    padding: clamp(10px, 2.5vh, 20px);
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-body);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
     box-sizing: border-box;
     overflow: hidden;
     user-select: none;
@@ -55,15 +53,24 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 440px;
-    height: 100%;
-    gap: clamp(8px, 2vh, 16px);
+    max-width: 420px;
+    gap: clamp(6px, 1.5vh, 12px);
   }
 
-  /* Toolbar Premium: System 7 metódico mas refinado */
+  .allegory-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0;
+    text-align: center;
+  }
+
   .toolbar {
     display: flex;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
     width: 100%;
     justify-content: center;
     z-index: 10;
@@ -73,66 +80,66 @@
     background: var(--ink);
     color: var(--paper);
     border: 1px solid var(--ink);
-    padding: 8px 18px;
+    padding: 6px 14px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     border-radius: 9999px;
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(33,27,22,0.16);
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 4px rgba(33,27,22,0.12);
+    transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     outline: none;
   }
 
   .btn:hover {
     background: var(--rubric);
     border-color: var(--rubric);
-    box-shadow: 0 5px 12px rgba(155,44,28,0.3);
-    transform: translateY(-1.5px);
+    box-shadow: 0 4px 8px rgba(155,44,28,0.25);
   }
 
-  .btn:active {
-    transform: translateY(0.5px);
-    box-shadow: 0 2px 4px rgba(33,27,22,0.12);
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: none;
+  }
+
+  .btn-ghost:hover {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+    color: var(--ink);
+    box-shadow: none;
   }
 
   .btn-arrow {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: rgba(242,234,217,0.16);
-    font-size: 8px;
+    font-size: 7px;
     line-height: 1;
-    font-weight: bold;
     transform: rotate(90deg);
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .btn:hover .btn-arrow {
-    transform: rotate(270deg);
-  }
-
-  /* Moldura Double-Bezel (Doppelrand) */
   .double-bezel-outer {
     background: var(--paper-card);
     border: 1.5px solid var(--ink);
-    padding: 6px;
-    box-shadow: 4px 4px 0 rgba(33,27,22,0.12);
+    padding: 5px;
+    box-shadow: 3px 3px 0 rgba(33,27,22,0.1);
     width: 100%;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     aspect-ratio: 3 / 4;
-    max-height: 52vh;
+    max-height: min(58vh, 480px);
     transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -153,37 +160,39 @@
     background: transparent;
   }
 
-  /* Pergaminho de Citações com Drop Cap */
   .scroll-container {
     width: 100%;
     background: var(--paper-card);
     border: 1.5px solid var(--ink);
-    box-shadow: 3px 3px 0 rgba(33,27,22,0.12);
-    padding: 16px 20px;
+    box-shadow: 2px 2px 0 rgba(33,27,22,0.1);
+    padding: 14px 18px;
     box-sizing: border-box;
-    min-height: 110px;
-    max-height: 22vh;
+    max-height: 18vh;
     overflow-y: auto;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 4px;
     position: relative;
   }
 
+  .scroll-container.is-open {
+    display: flex;
+  }
+
   .scroll-container::before {
     content: "❧";
     position: absolute;
-    top: 8px;
-    right: 14px;
+    top: 6px;
+    right: 12px;
     color: var(--gold-2);
-    font-size: 15px;
-    opacity: 0.7;
+    font-size: 13px;
+    opacity: 0.6;
   }
 
   .quote-body {
     margin: 0;
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.45;
     color: var(--ink);
     text-align: justify;
@@ -192,37 +201,38 @@
 
   .drop-cap {
     font-family: var(--font-display);
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 600;
     float: left;
     line-height: 0.8;
     margin-top: 3px;
     margin-right: 6px;
     color: var(--rubric);
-    text-shadow: 1px 1px 0 rgba(33,27,22,0.08);
   }
 
   .quote-author {
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 8px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--gold);
     margin: 6px 0 0;
-    margin-top: auto;
     border-top: 1px solid color-mix(in srgb, var(--gold) 25%, transparent);
     padding-top: 4px;
   }
 
-  /* Responsividade tátil */
-  #canvas-container {
-    touch-action: none;
+  @media (prefers-reduced-motion: reduce) {
+    .double-bezel-outer {
+      transition: none;
+    }
+    .btn {
+      transition: none;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- SVG Noise Filter para textura física de papel de prensa -->
 <svg style="display:none;" aria-hidden="true">
   <filter id="paper-noise">
     <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" stitchTiles="stitch" />
@@ -231,14 +241,15 @@
 </svg>
 
 <div id="app-container">
+  <p class="allegory-label" id="allegory-label">❧ IUSTITIA ❧</p>
+
   <div class="toolbar">
-    <button class="btn" id="btn-flip">
-      <span>GIRAR AMPULHETA</span>
-      <span class="btn-arrow">➔</span>
+    <button class="btn" id="btn-flip" type="button">
+      <span>Girar</span>
+      <span class="btn-arrow" aria-hidden="true">➔</span>
     </button>
-    <button class="btn" id="btn-reset" style="background:transparent; color:var(--ink); box-shadow:none;">
-      <span>REINICIAR</span>
-    </button>
+    <button class="btn btn-ghost" id="btn-reset" type="button">Reiniciar</button>
+    <button class="btn btn-ghost" id="btn-quote" type="button" aria-expanded="false">Ver citação</button>
   </div>
 
   <div class="double-bezel-outer" id="frame-outer">
@@ -247,7 +258,7 @@
     </div>
   </div>
 
-  <div class="scroll-container">
+  <div class="scroll-container" id="quote-panel">
     <p class="quote-body" id="quote-body">
       <span class="drop-cap">A</span> primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.
     </p>
@@ -259,104 +270,100 @@
 (function() {
   const canvas = document.getElementById('physics-canvas');
   const ctx = canvas.getContext('2d');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Paleta literal — Canvas 2D não resolve var(--…) do CSS (string inválida = ignorada,
-  // cai pro preto). Espelha o :root local. gold-soft e os ink-transparentes já
-  // pré-computados (gold-soft = color-mix gold 12% + paper; ink a 12% / 25% alpha).
   const C = {
-    ink:      '#211B16',
-    rubric:   '#9B2C1C',
-    gold:     '#9C7C3D',
-    gold2:    '#B7934C',
-    goldSoft: '#E8DDC6',
-    amethyst: '#6E5A86',
-    inkFaint: 'rgba(33,27,22,0.12)',
-    inkSoft:  'rgba(33,27,22,0.25)'
+    ink: '#211B16',
+    rubric: '#9B2C1C',
+    gold: '#9C7C3D',
+    gold2: '#B7934C'
   };
 
-  // Citações da Tese com capitulares implícitas
   const ALLEGORIES = [
     {
-      name: "IUSTITIA",
-      imagePath: "images/justitia.jpg",
+      name: 'IUSTITIA',
       quotes: [
-        { text: "A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.", author: "Sebastian Brant, Das Narrenschiff (Basel, 1494)" },
-        { text: "A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.", author: "Ana Vanzin, Iconocracia" },
-        { text: "A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.", author: "Ana Vanzin, Iconocracia" }
+        { text: 'A primeira Justitia vendada não nasceu como virtude — nasceu como sátira, na xilogravura de 1494 do Narrenschiff.', author: 'Sebastian Brant, Das Narrenschiff (Basel, 1494)' },
+        { text: 'A venda que hoje cega a Justiça contra a parcialidade nasceu para cegá-la à verdade dos fatos: a sátira contra os juízes tolos.', author: 'Ana Vanzin, Iconocracia' },
+        { text: 'A espada pune, a balança equilibra, a venda protege. A normalização de um erro satírico tornou-se o maior emblema do direito moderno.', author: 'Ana Vanzin, Iconocracia' }
       ]
     },
     {
-      name: "MARIANNE",
-      imagePath: "images/marianne.jpg",
+      name: 'MARIANNE',
       quotes: [
-        { text: "O barrete frígio e a lança tornam o corpo feminino o receptáculo da própria liberdade revolucionária e da soberania nacional.", author: "Maurice Agulhon, Marianne au Combat" },
-        { text: "A República não é neutra: ela se reveste de carne e sangue na imagem de Marianne para disputar a devoção popular com as imagens religiosas.", author: "Ana Vanzin, Iconocracia" }
+        { text: 'O barrete frígio e a lança tornam o corpo feminino o receptáculo da própria liberdade revolucionária e da soberania nacional.', author: 'Maurice Agulhon, Marianne au Combat' },
+        { text: 'A República não é neutra: ela se reveste de carne e sangue na imagem de Marianne para disputar a devoção popular com as imagens religiosas.', author: 'Ana Vanzin, Iconocracia' }
       ]
     },
     {
-      name: "BRITANNIA",
-      imagePath: "images/britannia.jpg",
+      name: 'BRITANNIA',
       quotes: [
-        { text: "Britannia governa as águas: a fusão heráldica entre o império marítimo e o escudo de lei civil consagra a divindade insular.", author: "Madge Dresser, The Britannia Iconography" },
-        { text: "Com o tridente em punho e o escudo romano, a soberania britânica contrapõe a fluidez do mar à rigidez da lei constitucional.", author: "Ana Vanzin, Iconocracia" }
+        { text: 'Britannia governa as águas: a fusão heráldica entre o império marítimo e o escudo de lei civil consagra a divindade insular.', author: 'Madge Dresser, The Britannia Iconography' },
+        { text: 'Com o tridente em punho e o escudo romano, a soberania britânica contrapõe a fluidez do mar à rigidez da lei constitucional.', author: 'Ana Vanzin, Iconocracia' }
       ]
     },
     {
-      name: "GERMANIA",
-      imagePath: "images/germania.jpg",
+      name: 'GERMANIA',
       quotes: [
-        { text: "Germania empunha a espada imperial deitada sob o carvalho: o corpo da mulher se confunde com as fronteiras do solo e da floresta.", author: "Heinrich Heine, Lieder" },
-        { text: "A alegoria territorializada: a Germania de 1848 estabiliza o espírito nacional em uma pose monumental de proteção armada.", author: "Ana Vanzin, Iconocracia" }
+        { text: 'Germania empunha a espada imperial deitada sob o carvalho: o corpo da mulher se confunde com as fronteiras do solo e da floresta.', author: 'Heinrich Heine, Lieder' },
+        { text: 'A alegoria territorializada: a Germania de 1848 estabiliza o espírito nacional em uma pose monumental de proteção armada.', author: 'Ana Vanzin, Iconocracia' }
       ]
     },
     {
-      name: "HELVETIA",
-      imagePath: "images/helvetia.jpg",
+      name: 'HELVETIA',
       quotes: [
-        { text: "Nas montanhas, Helvetia guarda os passos alpinos com lança e escudo da confederação, personificando a neutralidade armada.", author: "François de Capitani, Helvetia" },
-        { text: "O isolamento virtuoso em pose clássica: Helvetia é a sentinela que traduz a geografia alpina em soberania jurídica pacificada.", author: "Ana Vanzin, Iconocracia" }
+        { text: 'Nas montanhas, Helvetia guarda os passos alpinos com lança e escudo da confederação, personificando a neutralidade armada.', author: 'François de Capitani, Helvetia' },
+        { text: 'O isolamento virtuoso em pose clássica: Helvetia é a sentinela que traduz a geografia alpina em soberania jurídica pacificada.', author: 'Ana Vanzin, Iconocracia' }
       ]
     }
   ];
-  
-  // Preload das imagens de xilogravura
-  const images = {};
-  ALLEGORIES.forEach((allegory, index) => {
-    const img = new Image();
-    img.src = allegory.imagePath;
-    images[index] = img;
-  });
+
   let activeAllegoryIndex = 0;
   let currentQuoteIndex = 0;
+  let pendingAllegoryAdvance = false;
+
+  function updateAllegoryLabel() {
+    document.getElementById('allegory-label').textContent = '❧ ' + ALLEGORIES[activeAllegoryIndex].name + ' ❧';
+  }
+
+  function showQuote(index) {
+    const active = ALLEGORIES[activeAllegoryIndex];
+    const q = active.quotes[index];
+    const firstChar = q.text.charAt(0);
+    const remainingText = q.text.slice(1);
+    document.getElementById('quote-body').innerHTML = '<span class="drop-cap">' + firstChar + '</span>' + remainingText;
+    document.getElementById('quote-author').textContent = q.author;
+  }
 
   function showNextQuote() {
     const active = ALLEGORIES[activeAllegoryIndex];
     currentQuoteIndex = (currentQuoteIndex + 1) % active.quotes.length;
-    const q = active.quotes[currentQuoteIndex];
-    const firstChar = q.text.charAt(0);
-    const remainingText = q.text.slice(1);
-    
-    document.getElementById('quote-body').innerHTML = `<span class="drop-cap">${firstChar}</span>${remainingText}`;
-    document.getElementById('quote-author').textContent = q.author;
+    showQuote(currentQuoteIndex);
   }
 
-  // Dimensões Físicas
+  function advanceAllegory() {
+    activeAllegoryIndex = (activeAllegoryIndex + 1) % ALLEGORIES.length;
+    currentQuoteIndex = 0;
+    updateAllegoryLabel();
+    showQuote(0);
+  }
+
   const WIDTH = 300;
   const HEIGHT = 400;
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
 
   const GRAVITY = 0.18;
-  const PARTICLE_COUNT = 180;
+  const PARTICLE_COUNT = 80;
   const PARTICLE_RADIUS = 3.5;
-  const RESTITUTION = 0.16; // Muito inelástico, simula grãos de rocha
+  const RESTITUTION = 0.16;
   const FRICTION = 0.96;
 
   let angle = 0;
   let targetAngle = 0;
   let isFlipping = false;
+  let isRunning = !document.hidden;
 
-  // Partículas de Areia
   class Particle {
     constructor(x, y) {
       this.x = x;
@@ -364,28 +371,17 @@
       this.vx = (Math.random() - 0.5) * 0.4;
       this.vy = 0;
       this.r = PARTICLE_RADIUS + (Math.random() - 0.5) * 0.8;
-      
-      // Amostragem de cores premium da tese
       const rand = Math.random();
-      if (rand > 0.6) {
-        this.color = C.rubric;
-      } else if (rand > 0.25) {
-        this.color = C.gold2;
-      } else {
-        this.color = C.amethyst;
-      }
+      this.color = rand > 0.55 ? C.rubric : C.gold2;
     }
 
     update() {
       const gx = Math.sin(angle) * GRAVITY;
       const gy = Math.cos(angle) * GRAVITY;
-      
       this.vx += gx;
       this.vy += gy;
-      
       this.vx *= FRICTION;
       this.vy *= FRICTION;
-      
       this.x += this.vx;
       this.y += this.vy;
     }
@@ -409,7 +405,6 @@
     }
   }
 
-  // Segmentos de Parede da Ampulheta
   class Wall {
     constructor(x1, y1, x2, y2) {
       this.x1 = x1;
@@ -436,587 +431,23 @@
 
   function initWalls() {
     walls.length = 0;
-    
-    // Funil Superior
     walls.push(new Wall(12, cy - 135, cx - neckWidth, cy - neckHeight));
     walls.push(new Wall(WIDTH - 12, cy - 135, cx + neckWidth, cy - neckHeight));
-    
-    // Pescoço
     walls.push(new Wall(cx - neckWidth, cy - neckHeight, cx - neckWidth, cy + neckHeight));
     walls.push(new Wall(cx + neckWidth, cy - neckHeight, cx + neckWidth, cy + neckHeight));
-    
-    // Funil Inferior
     walls.push(new Wall(cx - neckWidth, cy + neckHeight, 12, cy + 135));
     walls.push(new Wall(cx + neckWidth, cy + neckHeight, WIDTH - 12, cy + 135));
-
-    // Bordas Externas
     walls.push(new Wall(12, cy - 135, 12, cy + 135));
     walls.push(new Wall(WIDTH - 12, cy - 135, WIDTH - 12, cy + 135));
     walls.push(new Wall(12, cy - 135, WIDTH - 12, cy - 135));
     walls.push(new Wall(12, cy + 135, WIDTH - 12, cy + 135));
   }
 
-  // Silhuetas e Segmentos Físicos para o Ciclo das Soberanias
-  const activeSegments = [];
-
-  function drawHatching(leftBound, rightBound, startY, endY, step) {
-    ctx.strokeStyle = C.inkFaint;
-    ctx.lineWidth = 0.8;
-    for (let l = startY; l < endY; l += step) {
-      ctx.beginPath();
-      ctx.moveTo(leftBound(l), l);
-      ctx.lineTo(rightBound(l), l);
-      ctx.stroke();
-    }
-  }
-
-  function drawIustitia() {
-    ctx.save();
-    // Silhueta Dourada
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
-    ctx.moveTo(cx - 10, cy + 80);
-    ctx.lineTo(cx - 28, cy + 92);
-    ctx.lineTo(cx - 32, cy + 135);
-    ctx.lineTo(cx + 32, cy + 135);
-    ctx.lineTo(cx + 28, cy + 92);
-    ctx.lineTo(cx + 10, cy + 80);
-    ctx.fill();
-
-    // Hachuras
-    drawHatching(
-      (l) => cx - 18 - ((l - (cy + 86)) / 49) * 14,
-      (l) => cx + 18 + ((l - (cy + 86)) / 49) * 14,
-      cy + 86, cy + 135, 3.5
-    );
-
-    // Contorno Ink
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 74, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 80); ctx.lineTo(cx - 28, cy + 92); ctx.lineTo(cx - 32, cy + 135);
-    ctx.moveTo(cx + 10, cy + 80); ctx.lineTo(cx + 28, cy + 92); ctx.lineTo(cx + 32, cy + 135);
-    ctx.stroke();
-
-    // Espada
-    ctx.beginPath();
-    ctx.moveTo(cx + 44, cy + 64); ctx.lineTo(cx + 44, cy + 104);
-    ctx.moveTo(cx + 39, cy + 96); ctx.lineTo(cx + 49, cy + 96);
-    ctx.stroke();
-
-    // Balança
-    ctx.beginPath();
-    ctx.moveTo(cx - 28, cy + 92); ctx.lineTo(cx - 48, cy + 92);
-    ctx.moveTo(cx - 48, cy + 92); ctx.lineTo(cx - 56, cy + 108); ctx.lineTo(cx - 40, cy + 108);
-    ctx.closePath();
-    ctx.moveTo(cx - 58, cy + 108); ctx.lineTo(cx - 38, cy + 108);
-    ctx.stroke();
-
-    // Venda Rubrica
-    ctx.fillStyle = C.rubric;
-    ctx.fillRect(cx - 7, cy + 72, 14, 3.5);
-    ctx.restore();
-  }
-
-  function drawMarianne() {
-    ctx.save();
-    // Silhueta Dourada
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
-    // Barrete frígio
-    ctx.moveTo(cx - 9, cy + 71);
-    ctx.quadraticCurveTo(cx - 14, cy + 62, cx - 2, cy + 58);
-    ctx.quadraticCurveTo(cx + 8, cy + 60, cx + 7, cy + 70);
-    // Corpo
-    ctx.moveTo(cx - 10, cy + 82);
-    ctx.lineTo(cx - 25, cy + 94);
-    ctx.lineTo(cx - 30, cy + 135);
-    ctx.lineTo(cx + 30, cy + 135);
-    ctx.lineTo(cx + 25, cy + 94);
-    ctx.lineTo(cx + 10, cy + 82);
-    ctx.fill();
-
-    // Hachuras
-    drawHatching(
-      (l) => cx - 16 - ((l - (cy + 86)) / 49) * 14,
-      (l) => cx + 16 + ((l - (cy + 86)) / 49) * 14,
-      cy + 86, cy + 135, 3.5
-    );
-
-    // Contornos Ink
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Barrete
-    ctx.beginPath();
-    ctx.moveTo(cx - 9, cy + 71);
-    ctx.quadraticCurveTo(cx - 14, cy + 62, cx - 2, cy + 58);
-    ctx.quadraticCurveTo(cx + 8, cy + 60, cx + 7, cy + 70);
-    ctx.stroke();
-
-    // Ombros
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 25, cy + 94); ctx.lineTo(cx - 30, cy + 135);
-    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 25, cy + 94); ctx.lineTo(cx + 30, cy + 135);
-    ctx.stroke();
-
-    // Lança com Bandeira
-    ctx.beginPath();
-    ctx.moveTo(cx - 44, cy + 56); ctx.lineTo(cx - 44, cy + 135); // Mastro
-    ctx.stroke();
-    // Bandeira ondulando
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.moveTo(cx - 44, cy + 58);
-    ctx.bezierCurveTo(cx - 58, cy + 54, cx - 52, cy + 72, cx - 68, cy + 68);
-    ctx.lineTo(cx - 68, cy + 84);
-    ctx.bezierCurveTo(cx - 52, cy + 88, cx - 58, cy + 70, cx - 44, cy + 74);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    // Detalhe Rubrica na Bandeira
-    ctx.fillStyle = C.rubric;
-    ctx.beginPath();
-    ctx.moveTo(cx - 44, cy + 58);
-    ctx.bezierCurveTo(cx - 49, cy + 56, cx - 48, cy + 62, cx - 52, cy + 61);
-    ctx.lineTo(cx - 52, cy + 76);
-    ctx.bezierCurveTo(cx - 48, cy + 77, cx - 49, cy + 72, cx - 44, cy + 74);
-    ctx.closePath();
-    ctx.fill();
-
-    // Barrete Cocarde rubrica
-    ctx.fillStyle = C.rubric;
-    ctx.beginPath();
-    ctx.arc(cx + 4, cy + 67, 3, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function drawBritannia() {
-    ctx.save();
-    // Silhueta Dourada
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
-    // Elmo crista
-    ctx.moveTo(cx - 5, cy + 67);
-    ctx.quadraticCurveTo(cx, cy + 56, cx + 5, cy + 67);
-    // Corpo
-    ctx.moveTo(cx - 10, cy + 82);
-    ctx.lineTo(cx - 24, cy + 94);
-    ctx.lineTo(cx - 28, cy + 135);
-    ctx.lineTo(cx + 28, cy + 135);
-    ctx.lineTo(cx + 24, cy + 94);
-    ctx.lineTo(cx + 10, cy + 82);
-    ctx.fill();
-
-    // Hachuras
-    drawHatching(
-      (l) => cx - 16 - ((l - (cy + 86)) / 49) * 12,
-      (l) => cx + 16 + ((l - (cy + 86)) / 49) * 12,
-      cy + 86, cy + 135, 3.5
-    );
-
-    // Contorno Ink
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Crista do Elmo
-    ctx.fillStyle = C.rubric;
-    ctx.beginPath();
-    ctx.moveTo(cx - 4, cy + 67);
-    ctx.bezierCurveTo(cx - 8, cy + 54, cx + 8, cy + 54, cx + 4, cy + 67);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    // Ombros
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 24, cy + 94); ctx.lineTo(cx - 28, cy + 135);
-    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 24, cy + 94); ctx.lineTo(cx + 30, cy + 135);
-    ctx.stroke();
-
-    // Tridente
-    ctx.beginPath();
-    ctx.moveTo(cx + 42, cy + 52); ctx.lineTo(cx + 42, cy + 135); // Haste
-    ctx.moveTo(cx + 35, cy + 56); ctx.lineTo(cx + 49, cy + 56); // Travessa
-    ctx.moveTo(cx + 35, cy + 44); ctx.lineTo(cx + 35, cy + 56);
-    ctx.moveTo(cx + 49, cy + 44); ctx.lineTo(cx + 49, cy + 56);
-    ctx.moveTo(cx + 42, cy + 40); ctx.lineTo(cx + 42, cy + 56);
-    ctx.stroke();
-
-    // Escudo circular no braço esquerdo
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx - 42, cy + 110, 20, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-
-    // Detalhes da bandeira Union Jack no escudo (Rubric)
-    ctx.strokeStyle = C.rubric;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(cx - 42, cy + 90); ctx.lineTo(cx - 42, cy + 130);
-    ctx.moveTo(cx - 62, cy + 110); ctx.lineTo(cx - 22, cy + 110);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function drawGermania() {
-    ctx.save();
-    // Silhueta Dourada
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
-    // Ombros e Tronco
-    ctx.moveTo(cx - 10, cy + 82);
-    ctx.lineTo(cx - 28, cy + 94);
-    ctx.lineTo(cx - 32, cy + 135);
-    ctx.lineTo(cx + 32, cy + 135);
-    ctx.lineTo(cx + 28, cy + 94);
-    ctx.lineTo(cx + 10, cy + 82);
-    ctx.fill();
-
-    // Hachuras
-    drawHatching(
-      (l) => cx - 18 - ((l - (cy + 86)) / 49) * 14,
-      (l) => cx + 18 + ((l - (cy + 86)) / 49) * 14,
-      cy + 86, cy + 135, 3.5
-    );
-
-    // Contorno Ink
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 28, cy + 94); ctx.lineTo(cx - 32, cy + 135);
-    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 28, cy + 94); ctx.lineTo(cx + 32, cy + 135);
-    ctx.stroke();
-
-    // Coroa de Carvalho (Rubric)
-    ctx.strokeStyle = C.rubric;
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 71, 10, Math.PI, Math.PI * 2);
-    ctx.stroke();
-
-    // Espada imperial apoiada no colo
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.moveTo(cx - 40, cy + 120); ctx.lineTo(cx + 40, cy + 120); // Lâmina horizontal
-    ctx.moveTo(cx - 32, cy + 115); ctx.lineTo(cx - 32, cy + 125); // Guarda
-    ctx.moveTo(cx - 40, cy + 120); ctx.lineTo(cx - 46, cy + 120); // Cabo
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function drawHelvetia() {
-    ctx.save();
-    // Silhueta Dourada
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2); // Cabeça
-    // Corpo
-    ctx.moveTo(cx - 10, cy + 82);
-    ctx.lineTo(cx - 26, cy + 94);
-    ctx.lineTo(cx - 30, cy + 135);
-    ctx.lineTo(cx + 30, cy + 135);
-    ctx.lineTo(cx + 26, cy + 94);
-    ctx.lineTo(cx + 10, cy + 82);
-    ctx.fill();
-
-    // Hachuras
-    drawHatching(
-      (l) => cx - 17 - ((l - (cy + 86)) / 49) * 13,
-      (l) => cx + 17 + ((l - (cy + 86)) / 49) * 13,
-      cy + 86, cy + 135, 3.5
-    );
-
-    // Contorno Ink
-    ctx.strokeStyle = C.inkSoft;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.arc(cx, cy + 76, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy + 82); ctx.lineTo(cx - 26, cy + 94); ctx.lineTo(cx - 30, cy + 135);
-    ctx.moveTo(cx + 10, cy + 82); ctx.lineTo(cx + 26, cy + 94); ctx.lineTo(cx + 30, cy + 135);
-    ctx.stroke();
-
-    // Lança vertical
-    ctx.beginPath();
-    ctx.moveTo(cx + 42, cy + 48); ctx.lineTo(cx + 42, cy + 135);
-    ctx.stroke();
-
-    // Escudo triangular da confederação no braço esquerdo
-    ctx.fillStyle = C.goldSoft;
-    ctx.beginPath();
-    ctx.moveTo(cx - 48, cy + 92);
-    ctx.lineTo(cx - 28, cy + 92);
-    ctx.lineTo(cx - 38, cy + 122);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-
-    // Cruz Suíça no escudo (Rubric)
-    ctx.fillStyle = C.rubric;
-    ctx.fillRect(cx - 40, cy + 101, 4, 12);
-    ctx.fillRect(cx - 44, cy + 105, 12, 4);
-
-    ctx.restore();
-  }
-
-  function drawActiveAllegory() {
-    const img = images[activeAllegoryIndex];
-    if (img && img.complete) {
-      ctx.save();
-      // Aplica blend mode multiply para misturar o fundo da imagem com a pauta de papel
-      ctx.globalCompositeOperation = 'multiply';
-      
-      const w = 110;
-      const h = 110;
-      ctx.drawImage(img, cx - w / 2, cy + 25, w, h);
-      ctx.restore();
-    }
-  }
-
-  function initActiveSegments() {
-    activeSegments.length = 0;
-    const jy = cy + 90;
-
-    // Segmentos básicos compartilhados do corpo
-    activeSegments.push(new Wall(cx - 10, jy - 22, cx + 10, jy - 22));
-    activeSegments.push(new Wall(cx - 10, jy - 22, cx - 10, jy - 10));
-    activeSegments.push(new Wall(cx + 10, jy - 22, cx + 10, jy - 10));
-    activeSegments.push(new Wall(cx - 10, jy - 10, cx - 28, jy + 2));
-    activeSegments.push(new Wall(cx + 10, jy - 10, cx + 28, jy + 2));
-
-    // Barreiras específicas de colisão por alegoria
-    if (activeAllegoryIndex === 0) {
-      // Justitia
-      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 48, jy + 2));
-      activeSegments.push(new Wall(cx - 58, jy + 18, cx - 38, jy + 18));
-      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 48, jy + 2));
-      activeSegments.push(new Wall(cx + 44, jy - 26, cx + 44, jy + 14));
-      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 32, cy + 135));
-      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 32, cy + 135));
-    } else if (activeAllegoryIndex === 1) {
-      // Marianne
-      activeSegments.push(new Wall(cx - 44, cy + 56, cx - 44, cy + 135));
-      activeSegments.push(new Wall(cx - 25, jy + 2, cx - 30, cy + 135));
-      activeSegments.push(new Wall(cx + 25, jy + 2, cx + 30, cy + 135));
-    } else if (activeAllegoryIndex === 2) {
-      // Britannia
-      activeSegments.push(new Wall(cx + 42, cy + 52, cx + 42, cy + 135));
-      // Escudo circular colisor (aproximado por 2 segmentos retos na borda superior)
-      activeSegments.push(new Wall(cx - 62, cy + 110, cx - 42, cy + 90));
-      activeSegments.push(new Wall(cx - 42, cy + 90, cx - 22, cy + 110));
-      activeSegments.push(new Wall(cx - 24, jy + 2, cx - 28, cy + 135));
-      activeSegments.push(new Wall(cx + 24, jy + 2, cx + 30, cy + 135));
-    } else if (activeAllegoryIndex === 3) {
-      // Germania
-      activeSegments.push(new Wall(cx - 40, cy + 120, cx + 40, cy + 120)); // Espada colisor
-      activeSegments.push(new Wall(cx - 28, jy + 2, cx - 32, cy + 135));
-      activeSegments.push(new Wall(cx + 28, jy + 2, cx + 32, cy + 135));
-    } else if (activeAllegoryIndex === 4) {
-      // Helvetia
-      activeSegments.push(new Wall(cx + 42, cy + 48, cx + 42, cy + 135)); // Lança
-      activeSegments.push(new Wall(cx - 48, cy + 92, cx - 28, cy + 92)); // Escudo topo
-      activeSegments.push(new Wall(cx - 26, jy + 2, cx - 30, cy + 135));
-      activeSegments.push(new Wall(cx + 26, jy + 2, cx + 30, cy + 135));
-    }
-  }
-
-  // Pêndulo Duplo Caótico
-  class DoublePendulum {
-    constructor(x, y) {
-      this.x0 = x;
-      this.y0 = y;
-      this.l1 = 56;
-      this.l2 = 50;
-      
-      this.x1 = x;
-      this.y1 = y + this.l1;
-      this.x2 = x;
-      this.y2 = y + this.l1 + this.l2;
-      
-      this.px1 = this.x1;
-      this.py1 = this.y1;
-      this.px2 = this.x2;
-      this.py2 = this.y2;
-      
-      this.r1 = 4.5;
-      this.r2 = 8.5;
-      
-      this.trail = [];
-      this.maxTrail = 40;
-    }
-
-    update() {
-      const gx = Math.sin(angle) * GRAVITY * 1.25;
-      const gy = Math.cos(angle) * GRAVITY * 1.25;
-      
-      if (!draggedPoint) {
-        let tempX1 = this.x1;
-        let tempY1 = this.y1;
-        this.x1 += (this.x1 - this.px1) * 0.993 + gx;
-        this.y1 += (this.y1 - this.py1) * 0.993 + gy;
-        this.px1 = tempX1;
-        this.py1 = tempY1;
-
-        let tempX2 = this.x2;
-        let tempY2 = this.y2;
-        this.x2 += (this.x2 - this.px2) * 0.993 + gx;
-        this.y2 += (this.y2 - this.py2) * 0.993 + gy;
-        this.px2 = tempX2;
-        this.py2 = tempY2;
-      } else {
-        if (draggedPoint === 1) {
-          this.px1 = this.x1 = mouse.x;
-          this.py1 = this.y1 = mouse.y;
-          
-          let tempX2 = this.x2;
-          let tempY2 = this.y2;
-          this.x2 += (this.x2 - this.px2) * 0.95 + gx;
-          this.y2 += (this.y2 - this.py2) * 0.95 + gy;
-          this.px2 = tempX2;
-          this.py2 = tempY2;
-        } else if (draggedPoint === 2) {
-          this.px2 = this.x2 = mouse.x;
-          this.py2 = this.y2 = mouse.y;
-          
-          let tempX1 = this.x1;
-          let tempY1 = this.y1;
-          this.x1 += (this.x1 - this.px1) * 0.95 + gx;
-          this.y1 += (this.y1 - this.py1) * 0.95 + gy;
-          this.px1 = tempX1;
-          this.py1 = tempY1;
-        }
-      }
-
-      // 5 iterações de relaxamento de distâncias
-      for (let i = 0; i < 5; i++) {
-        let dx1 = this.x1 - this.x0;
-        let dy1 = this.y1 - this.y0;
-        let d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-        let diff1 = this.l1 - d1;
-        let percent1 = (diff1 / d1) * 0.5;
-        let offsetX1 = dx1 * percent1;
-        let offsetY1 = dy1 * percent1;
-        
-        if (draggedPoint !== 1) {
-          this.x1 += offsetX1 * 2;
-          this.y1 += offsetY1 * 2;
-        }
-
-        let dx2 = this.x2 - this.x1;
-        let dy2 = this.y2 - this.y1;
-        let d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-        let diff2 = this.l2 - d2;
-        let percent2 = (diff2 / d2) * 0.5;
-        let offsetX2 = dx2 * percent2;
-        let offsetY2 = dy2 * percent2;
-        
-        if (draggedPoint === 1) {
-          this.x2 += offsetX2 * 2;
-          this.y2 += offsetY2 * 2;
-        } else if (draggedPoint === 2) {
-          this.x1 -= offsetX2 * 2;
-          this.y1 -= offsetY2 * 2;
-        } else {
-          this.x1 -= offsetX2;
-          this.y1 -= offsetY2;
-          this.x2 += offsetX2;
-          this.y2 += offsetY2;
-        }
-      }
-
-      this.trail.push({ x: this.x2, y: this.y2 });
-      if (this.trail.length > this.maxTrail) {
-        this.trail.shift();
-      }
-    }
-
-    draw() {
-      // 1. Rastro caótico brilhante com gradiente
-      if (this.trail.length > 1) {
-        ctx.save();
-        for (let i = 1; i < this.trail.length; i++) {
-          const ratio = i / this.trail.length;
-          ctx.beginPath();
-          ctx.moveTo(this.trail[i-1].x, this.trail[i-1].y);
-          ctx.lineTo(this.trail[i].x, this.trail[i].y);
-          ctx.strokeStyle = `rgba(110, 90, 134, ${ratio * 0.7})`;
-          ctx.lineWidth = 1 + ratio * 3;
-          ctx.stroke();
-        }
-        ctx.restore();
-      }
-
-      // 2. Hastes douradas
-      ctx.beginPath();
-      ctx.moveTo(this.x0, this.y0);
-      ctx.lineTo(this.x1, this.y1);
-      ctx.lineTo(this.x2, this.y2);
-      ctx.strokeStyle = C.gold;
-      ctx.lineWidth = 2.2;
-      ctx.stroke();
-
-      // 3. Articulações
-      ctx.beginPath();
-      ctx.arc(this.x1, this.y1, this.r1, 0, Math.PI * 2);
-      ctx.fillStyle = C.ink;
-      ctx.fill();
-      ctx.stroke();
-
-      // Bob vermelho-rubrica com brilho aura
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(this.x2, this.y2, this.r2, 0, Math.PI * 2);
-      ctx.shadowColor = C.rubric;
-      ctx.shadowBlur = 8;
-      ctx.fillStyle = C.rubric;
-      ctx.strokeStyle = C.ink;
-      ctx.lineWidth = 1.5;
-      ctx.fill();
-      ctx.stroke();
-      ctx.restore();
-    }
-  }
-
-  let pendulum;
-
-  function initPendulum() {
-    pendulum = new DoublePendulum(cx, cy - 2);
-  }
-
-  function checkCircleLineCollision(circle, line, isStaticSegment = false) {
+  function checkCircleLineCollision(circle, line) {
     const abx = line.x2 - line.x1;
     const aby = line.y2 - line.y1;
     const acx = circle.x - line.x1;
     const acy = circle.y - line.y1;
-
     const ab2 = abx * abx + aby * aby;
     if (ab2 === 0) return;
 
@@ -1025,7 +456,6 @@
 
     const closestX = line.x1 + t * abx;
     const closestY = line.y1 + t * aby;
-
     const dx = circle.x - closestX;
     const dy = circle.y - closestY;
     const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1033,30 +463,21 @@
     if (dist < circle.r) {
       const normalX = dx / dist;
       const normalY = dy / dist;
-
       circle.x = closestX + normalX * circle.r;
       circle.y = closestY + normalY * circle.r;
-
       const speedAlongNormal = circle.vx * normalX + circle.vy * normalY;
-      
-      // Impede bounce excessivo para simular areia verdadeira
-      circle.vx = (circle.vx - 2 * speedAlongNormal * normalX) * (isStaticSegment ? RESTITUTION : 0.45);
-      circle.vy = (circle.vy - 2 * speedAlongNormal * normalY) * (isStaticSegment ? RESTITUTION : 0.45);
+      circle.vx = (circle.vx - 2 * speedAlongNormal * normalX) * RESTITUTION;
+      circle.vy = (circle.vy - 2 * speedAlongNormal * normalY) * RESTITUTION;
     }
   }
 
   function resolveCollisions() {
-    // Colisão Partícula-Muros
     for (let p of particles) {
       for (let w of walls) {
-        checkCircleLineCollision(p, w, true);
-      }
-      for (let seg of activeSegments) {
-        checkCircleLineCollision(p, seg, true);
+        checkCircleLineCollision(p, w);
       }
     }
 
-    // Colisão Partícula-Partícula
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
       for (let j = i + 1; j < particles.length; j++) {
@@ -1070,17 +491,13 @@
           const overlap = minDist - dist;
           const nx = dx / dist;
           const ny = dy / dist;
-
-          // Afasta
           p1.x -= nx * overlap * 0.5;
           p1.y -= ny * overlap * 0.5;
           p2.x += nx * overlap * 0.5;
           p2.y += ny * overlap * 0.5;
-
           const kx = p1.vx - p2.vx;
           const ky = p1.vy - p2.vy;
           const p = 2 * (kx * nx + ky * ny) / 2;
-
           p1.vx = (p1.vx - p * nx) * RESTITUTION;
           p1.vy = (p1.vy - p * ny) * RESTITUTION;
           p2.vx = (p2.vx + p * nx) * RESTITUTION;
@@ -1088,83 +505,10 @@
         }
       }
     }
-
-    // Colisão Partícula-Pêndulo
-    const segment1 = { x1: pendulum.x0, y1: pendulum.y0, x2: pendulum.x1, y2: pendulum.y1 };
-    const segment2 = { x1: pendulum.x1, y1: pendulum.y1, x2: pendulum.x2, y2: pendulum.y2 };
-
-    for (let p of particles) {
-      checkCircleLineCollision(p, segment1, false);
-      checkCircleLineCollision(p, segment2, false);
-      
-      const dx = p.x - pendulum.x2;
-      const dy = p.y - pendulum.y2;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const minDist = p.r + pendulum.r2;
-      
-      if (dist < minDist) {
-        const overlap = minDist - dist;
-        const nx = dx / dist;
-        const ny = dy / dist;
-
-        p.x += nx * overlap;
-        p.y += ny * overlap;
-
-        const pSpeed = Math.sqrt(
-          (pendulum.x2 - pendulum.px2) * (pendulum.x2 - pendulum.px2) +
-          (pendulum.y2 - pendulum.py2) * (pendulum.y2 - pendulum.py2)
-        );
-        p.vx = (p.vx + nx * (pSpeed + 1.4)) * 0.55;
-        p.vy = (p.vy + ny * (pSpeed + 1.4)) * 0.55;
-      }
-    }
   }
-
-  const mouse = { x: 0, y: 0, down: false };
-  let draggedPoint = null;
-
-  function getMousePos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = WIDTH / rect.width;
-    const scaleY = HEIGHT / rect.height;
-    return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY
-    };
-  }
-
-  canvas.addEventListener('pointerdown', function(e) {
-    const pos = getMousePos(e);
-    mouse.x = pos.x;
-    mouse.y = pos.y;
-    mouse.down = true;
-
-    const d2 = Math.hypot(mouse.x - pendulum.x2, mouse.y - pendulum.y2);
-    if (d2 < pendulum.r2 + 12) {
-      draggedPoint = 2;
-      return;
-    }
-
-    const d1 = Math.hypot(mouse.x - pendulum.x1, mouse.y - pendulum.y1);
-    if (d1 < pendulum.r1 + 12) {
-      draggedPoint = 1;
-    }
-  });
-
-  window.addEventListener('pointermove', function(e) {
-    if (!mouse.down) return;
-    const pos = getMousePos(e);
-    mouse.x = pos.x;
-    mouse.y = pos.y;
-  });
-
-  window.addEventListener('pointerup', function() {
-    mouse.down = false;
-    draggedPoint = null;
-  });
 
   let flipProgress = 1;
-  const flipDuration = 48; // Frames de rotação cinemática
+  const flipDuration = prefersReducedMotion ? 1 : 48;
   let flipStartAngle = 0;
 
   function update() {
@@ -1174,35 +518,43 @@
         flipProgress = 1;
         angle = targetAngle;
         isFlipping = false;
-        showNextQuote();
-      } else {
+        if (pendingAllegoryAdvance) {
+          pendingAllegoryAdvance = false;
+          advanceAllegory();
+        } else {
+          showNextQuote();
+        }
+      } else if (!prefersReducedMotion) {
         const t = flipProgress;
-        // Easing desaceleração pesada
         const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         angle = flipStartAngle + (targetAngle - flipStartAngle) * ease;
+      } else {
+        angle = targetAngle;
       }
     }
-
-    pendulum.update();
 
     for (let p of particles) {
       p.update();
     }
-
     resolveCollisions();
   }
 
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-    // Efeito sutil de linhas de pauta de pergaminho
-    ctx.strokeStyle = 'rgba(33,27,22,0.015)';
+    ctx.strokeStyle = 'rgba(33,27,22,0.012)';
     ctx.lineWidth = 0.5;
-    for (let x = 0; x < WIDTH; x += 10) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, HEIGHT); ctx.stroke();
+    for (let x = 0; x < WIDTH; x += 12) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, HEIGHT);
+      ctx.stroke();
     }
-    for (let y = 0; y < HEIGHT; y += 10) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(WIDTH, y); ctx.stroke();
+    for (let y = 0; y < HEIGHT; y += 12) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(WIDTH, y);
+      ctx.stroke();
     }
 
     ctx.save();
@@ -1210,52 +562,48 @@
     ctx.rotate(-angle);
     ctx.translate(-cx, -cy);
 
-    drawActiveAllegory();
-
     for (let w of walls) {
       w.draw();
     }
-
-    pendulum.draw();
 
     for (let p of particles) {
       p.draw();
     }
 
-    // Draw allegory banner name
-    ctx.save();
-    ctx.fillStyle = C.gold;
-    ctx.font = 'bold 9px "JetBrains Mono", monospace';
-    ctx.textAlign = 'center';
-    ctx.letterSpacing = '0.12em';
-    ctx.fillText('❧ ' + ALLEGORIES[activeAllegoryIndex].name + ' ❧', cx, HEIGHT - 18);
-    ctx.restore();
-
     ctx.restore();
   }
 
   function loop() {
-    update();
-    draw();
+    if (isRunning) {
+      update();
+      draw();
+    }
     requestAnimationFrame(loop);
   }
 
-  // Rotação visual cinemática tridimensional (com encolhimento de escala)
   const outerFrame = document.getElementById('frame-outer');
-  
+  const quotePanel = document.getElementById('quote-panel');
+  const btnQuote = document.getElementById('btn-quote');
+
+  btnQuote.addEventListener('click', function() {
+    const open = quotePanel.classList.toggle('is-open');
+    btnQuote.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btnQuote.textContent = open ? 'Ocultar citação' : 'Ver citação';
+  });
+
   document.getElementById('btn-flip').addEventListener('click', function() {
     if (isFlipping) return;
     isFlipping = true;
     flipProgress = 0;
     flipStartAngle = angle;
     targetAngle = angle + Math.PI;
-    
-    // Cycle allegory
-    activeAllegoryIndex = (activeAllegoryIndex + 1) % ALLEGORIES.length;
-    currentQuoteIndex = -1; // Reset quote index for the new allegory
-    initActiveSegments();   // Load new collision segments
+    pendingAllegoryAdvance = true;
 
-    outerFrame.style.transform = 'scale(0.94) rotate(' + (targetAngle * 180 / Math.PI) + 'deg)';
+    if (prefersReducedMotion) {
+      outerFrame.style.transform = 'rotate(' + (targetAngle * 180 / Math.PI) + 'deg)';
+    } else {
+      outerFrame.style.transform = 'scale(0.94) rotate(' + (targetAngle * 180 / Math.PI) + 'deg)';
+    }
   });
 
   document.getElementById('btn-reset').addEventListener('click', function() {
@@ -1263,15 +611,26 @@
     targetAngle = 0;
     flipProgress = 1;
     isFlipping = false;
+    pendingAllegoryAdvance = false;
+    activeAllegoryIndex = 0;
+    currentQuoteIndex = 0;
+    updateAllegoryLabel();
+    showQuote(0);
     outerFrame.style.transform = 'scale(1) rotate(0deg)';
     initParticles();
-    initPendulum();
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    isRunning = !document.hidden;
+    if (isRunning) {
+      draw();
+    }
   });
 
   initWalls();
-  initActiveSegments();
   initParticles();
-  initPendulum();
+  updateAllegoryLabel();
+  showQuote(0);
   loop();
 })();
 </script>
