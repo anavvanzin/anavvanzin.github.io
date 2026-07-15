@@ -31,16 +31,36 @@ atlas-lab/        Atlas Lab (index.html · data.js · app.jsx)
 .nojekyll         desativa o Jekyll no GitHub Pages
 ```
 
-## Publicação (Cloudflare Workers)
+## Publicação
 
-O site é servido como **Cloudflare Worker** (`anavvanzin`) com a raiz do repositório
-publicada como *static assets* — ver `wrangler.jsonc`. Domínio: **anavanzin.com** (`CNAME`).
+Domínio canônico: **anavanzin.com**.
 
-- **Deploy automático:** um push para `main` é publicado em ~1 min, via Cloudflare
-  **Workers Builds** (integração Git no painel do Cloudflare).
-- **Deploy manual:** `npx wrangler deploy` a partir da raiz do repositório.
-- Roteamento de assets (404 customizado, trailing-slash) é explícito em `wrangler.jsonc`
-  — não é GitHub Pages. O `.nojekyll` é legado e inofensivo.
+### O que serve o domínio hoje
+
+`anavanzin.com` aponta para **GitHub Pages** (atrás do proxy Cloudflare). Um push
+em `main` dispara [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+
+### Cloudflare Workers (`anavvanzin`)
+
+Há também um Worker com a mesma árvore estática (`wrangler.jsonc`). Workers Builds
+estava quebrado desde 2026-06-24 porque o deploy tentava uploadar `.git/`
+(pack ≈ 52 MiB; limite por asset = 25 MiB) e mídia pesada.
+
+O deploy agora usa uma árvore limpa em `.worker-assets/` (gerada por
+[`scripts/stage-worker-assets.sh`](scripts/stage-worker-assets.sh)).
+
+- **Deploy manual:** `npm run deploy:worker`
+- **Workers Builds (painel Cloudflare):**
+  - **Build command:** `npm run stage:assets`
+  - **Deploy command:** `npx wrangler deploy`
+- Exclusões também em [`.assetsignore`](.assetsignore).
+
+### Vercel
+
+O projeto `anavvanzin-github-io` faz preview/produção na Vercel a partir do GitHub.
+Os aliases `*-git-*` podem pedir **SSO da Vercel**; o alias público
+`anavvanzin-github-io.vercel.app` não. O domínio `anavanzin.com` **não** está no
+projeto Vercel — previews da Vercel não atualizam o site público.
 
 Todos os caminhos são relativos — o site funciona em qualquer subdiretório, sem ajuste de caminho-base.
 

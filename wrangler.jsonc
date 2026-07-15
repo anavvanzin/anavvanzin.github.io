@@ -6,7 +6,10 @@
     "enabled": true
   },
   "assets": {
-    "directory": ".",
+    // Staged by `npm run stage:assets` / scripts/stage-worker-assets.sh.
+    // Do NOT point at repo root: Wrangler would upload `.git` packs (>25 MiB)
+    // and oversized local media, which broke Workers Builds on 2026-06-24.
+    "directory": "./.worker-assets",
     // Serve directory pages (e.g. /iconocracia/index.html) at both /iconocracia
     // and /iconocracia/ without forcing a redirect — matches the site's mix of
     // /dir/ links and /file.html links. This is the Workers default, set
