@@ -466,9 +466,9 @@ function WindowFrame({
     isPoster: win.id === 'poster'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      padding: win.id === 'ampulheta' ? 0 : (win.id === 'justitia' ? 12 : 22),
+      padding: win.id === 'justitia' ? 12 : (win.id === 'ampulheta' ? 16 : 22),
       maxHeight: isMobile ? '64vh' : '58vh',
-      overflow: win.id === 'ampulheta' ? 'hidden' : 'auto'
+      overflow: 'auto'
     }
   }, /*#__PURE__*/React.createElement(Body, {
     lang: lang
