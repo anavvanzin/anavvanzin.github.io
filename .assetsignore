@@ -1,0 +1,23 @@
+# Applied inside staged worker assets AND at repo root.
+# Same syntax as .gitignore. Ref:
+# https://developers.cloudflare.com/workers/static-assets/binding/#ignoring-assets
+
+**/.git
+**/.git/**
+**/node_modules
+**/node_modules/**
+**/.wrangler
+**/.playwright-mcp
+**/.cursor
+**/.agents
+**/FOTOSSSS
+**/site
+
+# Never upload this ignore file as a site asset (optional)
+.assetsignore
+
+# Oversize media (> 25 MiB Workers limit)
+assets/wallpaper-engine-ukiyo-e-flowing-topography-1779795277375 (1).mp4
+assets/tropical_iconocracy_conference.mp4
+assets/tropical_iconocracy_conference_v2.mp4
+assets/tropical_iconocracy_vertical_v2.mp4
