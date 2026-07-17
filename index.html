@@ -117,6 +117,10 @@
   .lemma-mark .hed{color:var(--gold)}
   .lemma-mark .gloss{margin:1px 0 0; font-family:var(--mono); font-size:10.5px; letter-spacing:.03em;
     color:color-mix(in srgb,var(--ink) 46%,var(--paper))}
+  .intro{max-width:680px; margin:0 auto; padding:0 24px clamp(24px,4vh,44px); text-align:center}
+  .intro p{margin:0; font-family:var(--disp); font-size:clamp(18px,2.2vw,25px); line-height:1.45;
+    color:color-mix(in srgb,var(--ink) 76%,var(--paper)); text-wrap:balance}
+  .intro p::first-letter{color:var(--rubric); font-size:1.35em; font-weight:600}
   @media (prefers-reduced-motion:no-preference){
     .lemma-mark .motto::after{content:""; position:absolute; inset:-2px 0; pointer-events:none;
       background:linear-gradient(105deg,transparent 40%,color-mix(in srgb,var(--gold) 60%,transparent) 50%,transparent 60%);
@@ -127,14 +131,22 @@
   }
 
   /* ---------- mesa: icon grid + manuscript panel ---------- */
-  .mesa{display:grid; grid-template-columns:1fr minmax(280px,360px); gap:0; min-height:calc(100dvh - 46px - 150px)}
+  .mesa{display:grid; grid-template-columns:1fr minmax(300px,390px); gap:0; min-height:calc(100dvh - 46px - 150px);
+    border-top:1px solid color-mix(in srgb,var(--ink) 18%,transparent)}
   @media(max-width:900px){ .mesa{grid-template-columns:1fr} }
-  .zones{padding:clamp(20px,3vw,38px) clamp(16px,3vw,40px); display:flex; flex-direction:column; gap:clamp(22px,3vh,34px)}
+  .zones{padding:clamp(24px,4vw,52px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+    align-content:start; gap:clamp(18px,2.4vw,30px)}
+  .group{position:relative; padding:clamp(18px,2.2vw,28px); background:color-mix(in srgb,var(--paper-card) 74%,transparent);
+    border:1px solid color-mix(in srgb,var(--ink) 18%,transparent); box-shadow:0 12px 30px rgba(33,27,22,.055)}
+  .group::before{content:""; position:absolute; inset:4px; border:1px solid color-mix(in srgb,var(--gold) 22%,transparent); pointer-events:none}
   .group .glabel{font-family:var(--disp); font-weight:600; text-transform:uppercase; letter-spacing:.26em;
     font-size:12px; color:var(--rubric); margin:0 0 12px; display:flex; align-items:center; gap:14px}
   .group .glabel::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, color-mix(in srgb,var(--gold) 55%, transparent), transparent)}
-  .icons{display:grid; grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:clamp(10px,1.4vw,18px)}
-  a.icon{display:flex; flex-direction:column; align-items:center; gap:7px; text-decoration:none; color:var(--ink); padding:4px 2px}
+  .icons{display:grid; grid-template-columns:repeat(auto-fill, minmax(82px,1fr)); gap:clamp(12px,1.4vw,20px)}
+  a.icon{display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; color:var(--ink); padding:8px 3px;
+    border:1px solid transparent; transition:background .25s ease,border-color .25s ease}
+  a.icon:hover{background:color-mix(in srgb,var(--paper) 58%,transparent); border-color:color-mix(in srgb,var(--gold) 25%,transparent)}
+  a.icon:focus-visible{outline:2px solid var(--rubric); outline-offset:3px}
   /* tile iluminado (double-bezel: moldura chunky 16-bit + núcleo com brilho concêntrico) */
   a.icon .cap{width:54px; height:54px; display:block; position:relative;
     box-shadow:var(--hard-sm); transition:transform .42s var(--ease), box-shadow .42s var(--ease)}
@@ -164,7 +176,17 @@
   /* manuscript side panel (página de livro aberto) */
   .mspanel{position:relative; border-left:1.5px solid var(--ink);
     background:var(--navy) url("/assets/landing/bg-justitia.jpg") center top/cover no-repeat;
-    min-height:100%}
+    min-height:100%; background-attachment:fixed; isolation:isolate}
+  .mspanel .panel-copy{position:sticky; top:clamp(90px,14vh,150px); z-index:2; margin:clamp(24px,4vw,44px);
+    padding:clamp(22px,3vw,34px); color:var(--paper-card); background:rgba(24,29,43,.84);
+    border:1px solid rgba(216,180,90,.62); box-shadow:0 18px 50px rgba(0,0,0,.32); backdrop-filter:blur(8px)}
+  .panel-kicker{margin:0 0 12px; font-family:var(--mono); color:#D8B45A; font-size:10px; letter-spacing:.22em; text-transform:uppercase}
+  .panel-copy h2{margin:0 0 12px; font-family:var(--disp); font-size:clamp(28px,3.3vw,42px); font-weight:500; line-height:.98}
+  .panel-copy p{margin:0 0 22px; font-family:var(--disp); font-size:17px; line-height:1.45; color:rgba(244,236,216,.82)}
+  .panel-link{display:inline-flex; align-items:center; gap:12px; padding:10px 14px; border:1px solid rgba(216,180,90,.75);
+    color:var(--paper-card); font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none}
+  .panel-link::after{content:"→"; color:#D8B45A; font-size:16px; transition:transform .2s ease}
+  .panel-link:hover::after{transform:translateX(4px)}
   .mspanel::before{content:""; position:absolute; inset:0; pointer-events:none;
     box-shadow:inset 6px 0 16px rgba(33,27,22,.28), inset 0 0 0 6px color-mix(in srgb,var(--paper) 0%, transparent)}
   .mspanel::after{content:""; position:absolute; inset:10px; pointer-events:none;
@@ -176,8 +198,11 @@
     letter-spacing:.16em; text-transform:uppercase; white-space:nowrap}
   @media(max-width:900px){ .mspanel{min-height:320px; border-left:0; border-top:1.5px solid var(--ink)} }
 
-  .hint{font-family:var(--mono); font-size:11px; color:color-mix(in srgb,var(--ink) 50%,var(--paper));
+  .hint{grid-column:1/-1; font-family:var(--mono); font-size:11px; color:color-mix(in srgb,var(--ink) 50%,var(--paper));
     text-align:center; padding:10px; border-top:1px solid var(--rule)}
+  @media(max-width:1120px){.zones{grid-template-columns:1fr}}
+  @media(max-width:900px){.mspanel .panel-copy{position:relative; top:auto; max-width:520px; margin:42px auto}.mspanel{background-attachment:scroll}}
+  @media(max-width:560px){.zones{padding:16px}.group{padding:18px 12px}.mspanel .panel-copy{margin:28px 18px}}
 
   /* ---------- page frame ---------- */
   .pageframe{position:fixed; inset:9px; pointer-events:none; z-index:40;
@@ -292,6 +317,11 @@
   <p class="gloss" data-pt="truth in law and in wine · liberty in life and in writing" data-en="truth in law and in wine · liberty in life and in writing">truth in law and in wine · liberty in life and in writing</p>
 </div>
 
+<div class="intro">
+  <p data-pt="Um arquivo vivo sobre direito, imagem e memória — entre a pesquisa histórica, a escrita e os gestos cotidianos."
+     data-en="A living archive of law, image and memory — spanning historical research, writing and everyday gestures.">Um arquivo vivo sobre direito, imagem e memória — entre a pesquisa histórica, a escrita e os gestos cotidianos.</p>
+</div>
+
 <main class="mesa">
   <div class="zones">
 
@@ -348,6 +378,13 @@
   </div>
 
   <aside class="mspanel" aria-label="Justitia — manuscrito iluminado">
+    <div class="panel-copy">
+      <p class="panel-kicker" data-pt="Pesquisa em destaque" data-en="Featured research">Pesquisa em destaque</p>
+      <h2>Iconocracia</h2>
+      <p data-pt="Alegorias femininas, poder e imaginação jurídica: um atlas crítico das imagens que ensinaram o direito a se representar."
+         data-en="Female allegories, power and legal imagination: a critical atlas of the images through which law learned to represent itself.">Alegorias femininas, poder e imaginação jurídica: um atlas crítico das imagens que ensinaram o direito a se representar.</p>
+      <a class="panel-link" href="/iconocracia/" data-pt="Explorar a tese" data-en="Explore the thesis">Explorar a tese</a>
+    </div>
     <p class="lemma" data-pt="Iustitia · iluminura" data-en="Justitia · illumination">Iustitia · iluminura</p>
   </aside>
 </main>
