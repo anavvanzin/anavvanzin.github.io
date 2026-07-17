@@ -1,9 +1,26 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "anavvanzin",
-  "compatibility_date": "2026-06-23",
+  // Keep current per Workers best practices:
+  // https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
+  "compatibility_date": "2026-07-17",
+  "compatibility_flags": [
+    // Enables Node.js built-ins for any future Worker script / library use.
+    "nodejs_compat"
+  ],
+  // Logs + traces before production debugging is needed.
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "logs": {
+      // Academic/static traffic is low — capture all logs.
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": true,
+      // Sample traces lightly; raise if diagnosing latency.
+      "head_sampling_rate": 0.01
+    }
   },
   "assets": {
     // Staged by `npm run stage:assets` / scripts/stage-worker-assets.sh.
@@ -18,8 +35,5 @@
     // Serve the custom 404.html on unknown routes. Without this the default is a
     // bare 404 and 404.html (with its "← ana vanzin" backlink) is never reached.
     "not_found_handling": "404-page"
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  }
 }

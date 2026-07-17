@@ -9,7 +9,8 @@
     "deploy:worker": "npm run stage:assets && npx wrangler deploy"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1"
+    "@playwright/test": "^1.61.1",
+    "wrangler": "^4.112.0"
   },
   "dependencies": {
     "http-server": "^14.1.1"
