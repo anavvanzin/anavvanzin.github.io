@@ -578,3 +578,55 @@ hr {
 
 
 
+
+/* ===== Tabula — single academic plate (replaces the old poster room) ===== */
+.tabula{
+  --amethyst:#7A5C93; --indigo:#1B2B4A;
+  font-family:'Crimson Pro', Georgia, serif; font-size:16px; line-height:1.55; color:var(--ink);
+}
+.tabula-eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rubric)}
+.tabula-banner{border-bottom:3px double var(--ink);padding-bottom:22px;margin-bottom:8px;text-align:left}
+.tabula-banner h1{font-family:var(--font-display);font-weight:600;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.03;letter-spacing:-.01em;margin:.12em 0 .1em;color:var(--rubric)}
+.tabula-alt{font-family:var(--font-display);font-size:1.45rem;color:var(--ink-70);line-height:1.15}
+.tabula-alt em{font-style:italic}
+.tabula-meta{display:flex;flex-wrap:wrap;gap:5px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-70);margin-top:16px}
+.tabula-meta b, .tabula-meta strong{color:var(--ink)}
+.tabula-kws{margin-top:13px;display:flex;flex-wrap:wrap;gap:8px}
+.tabula-kw{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule-hairline);padding:3px 9px;color:var(--ink-70)}
+.tabula-abstract{margin:26px 0 8px;font-size:1.16rem;line-height:1.62;max-width:74ch}
+.tabula-h2{font-family:var(--font-display);font-weight:600;font-size:1.85rem;border-bottom:2px solid var(--ink);padding-bottom:.1em;margin:2.3em 0 1em;display:flex;align-items:baseline;gap:12px;color:var(--ink)}
+.tabula-num{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:600}
+.tabula-abnt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-50);margin-left:auto}
+.tabula-grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tabula-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.tabula-grid2,.tabula-grid3{grid-template-columns:1fr}}
+.tabula-card{border:1.5px solid var(--ink);background:var(--paper-card,#F4ECD8);padding:18px 18px 20px;box-shadow:4px 4px 0 rgba(33,27,22,.12)}
+.tabula-tid{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--rubric)}
+.tabula-card h3{font-family:var(--font-display);font-weight:600;font-size:1.5rem;line-height:1.05;margin:2px 0 2px;color:var(--ink)}
+.tabula-sub{color:var(--ink-70);font-size:.95rem;margin-bottom:9px}
+.tabula-sub em{font-style:italic}
+.tabula-card p{font-size:.98rem;margin-bottom:8px}
+.tabula-arg{font-size:.95rem}
+.tabula-lbl{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600}
+.tabula-fase,.tabula-regime{border-left:3px solid var(--gold);padding:2px 0 2px 16px;margin-bottom:18px}
+.tabula-fase h4,.tabula-regime h4{font-family:var(--font-display);font-weight:600;font-size:1.3rem;color:var(--rubric)}
+.tabula-per{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70)}
+.tabula-fase p,.tabula-regime p{font-size:.97rem;margin-top:4px}
+.tabula-paradox{background:var(--indigo);color:#EFE6D2;padding:34px clamp(22px,4vw,46px);margin:1.4em 0}
+.tabula-paradox .tabula-eyebrow{color:var(--gold)}
+.tabula-paradox h3{font-family:var(--font-display);font-weight:600;font-size:2rem;margin:.1em 0 .3em;color:#F4ECDA}
+.tabula-enun{font-family:var(--font-display);font-style:italic;font-size:1.5rem;line-height:1.28;max-width:54ch;color:#F4ECDA;border:0;margin:0;padding:0}
+.tabula-warner{margin-top:16px;font-size:1rem;color:#D8CDBA;max-width:66ch;border-top:1px solid rgba(184,146,74,.4);padding-top:12px}
+.tabula-table{font-size:.92rem}
+.tabula-table td.tabula-fig{font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--rubric);white-space:nowrap}
+.tabula-table th{background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70)}
+.tabula-no{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--rule-hairline)}
+.tabula-no strong{color:var(--amethyst);font-weight:600}
+.tabula-tipo{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70);margin-left:8px}
+.tabula-no p{font-size:.92rem;margin-top:3px}
+.tabula-refs{columns:2;column-gap:34px;font-size:.84rem;line-height:1.42;color:var(--ink-70);padding:0;margin-top:8px}
+.tabula-refs li{break-inside:avoid;margin-bottom:8px;list-style:none;text-indent:-14px;padding-left:14px}
+@media(max-width:820px){.tabula-refs{columns:1}}
+.tabula-footer{border-top:3px double var(--ink);margin-top:40px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink-70)}
+.tabula-footer a{color:var(--rubric)}
+.tabula-date{color:var(--ink-50)}

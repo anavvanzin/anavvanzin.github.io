@@ -9,126 +9,90 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     });
   });
 
-  // Gap 1: HTML Injections / XSS in Markdown
-  test('T5.1: Verify markdown parser escapes HTML injections and prevents XSS execution', async ({ page }) => {
-    const maliciousMd = '# Safe Title\n\n<div id="injected-html-test">Malicious Element</div><script>window.injectedXss = true;</script>';
-    
-    // Intercept poster document fetch and return malicious markdown content
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
-      status: 200,
-      contentType: 'text/markdown',
-      body: maliciousMd
+  // Gap 1: HTML Injections / XSS in the JSON source
+  test('T5.1: Verify the tabula escapes HTML injections in source fields and prevents XSS execution', async ({ page }) => {
+    const maliciousJson = JSON.stringify({
+      _meta: {
+        titulo_principal: 'SafeTitle<img src=x onerror="window.injectedXss=true"><script>window.injectedXss=true</script>',
+        titulo_alternativo: 'Alt',
+        autora: 'A', afiliacao: 'B', grupo_pesquisa: 'C',
+        resumo: 'Resumo de teste.', palavras_chave: ['x']
+      }
+    });
+
+    await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({
+      status: 200, contentType: 'application/json', body: maliciousJson
     }));
 
     await page.goto('/poster.html');
+    await page.waitForSelector('.poster-banner h1');
 
-    // Verify the HTML tag itself is NOT parsed as a DOM element
-    const injectedDiv = page.locator('#injected-html-test');
-    await expect(injectedDiv).not.toBeVisible();
-
-    // Verify that script did NOT execute and set window variable
+    // The injected <script> must not execute
     const xssTriggered = await page.evaluate(() => typeof window.injectedXss !== 'undefined');
     expect(xssTriggered).toBe(false);
 
-    // Verify the raw HTML string is rendered as plain text in the paragraph block
-    const pContent = page.locator('.poster p, p.poster-p').first();
-    await expect(pContent).toContainText('<div id="injected-html-test">');
+    // The markup must be rendered as inert text, not as real DOM nodes
+    await expect(page.locator('.poster-banner h1')).toContainText('<script>');
+    await expect(page.locator('.poster-banner img')).toHaveCount(0);
   });
 
-  // Gap 2: Unicode character ranges and Drop Cap logic boundaries
-  test('T5.2: Verify drop cap logic against Latin and non-Latin character sets', async ({ page }) => {
-    // Cyrillic (Д) and Arabic (ع) should NOT get drop caps.
-    // normal accented Portuguese characters like Ç or Á should.
-    const customMd = 'Çapata verde.\n\nÁgua mineral.\n\nДвадцать.\n\nعربي.\n\n📌 Emoji paragraph.';
-    
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
-      status: 200,
-      contentType: 'text/markdown',
-      body: customMd
-    }));
-
-    await page.goto('/poster.html');
-
-    const dropCaps = page.locator('.poster-drop-cap');
-    const dropCapTexts = await dropCaps.allInnerTexts();
-
-    // Accented Latin characters Ç and Á should be drop capped
-    expect(dropCapTexts).toContain('Ç');
-    expect(dropCapTexts).toContain('Á');
-
-    // Non-Latin characters (Д, ع) and emojis (📌) should NOT be drop capped
-    expect(dropCapTexts).not.toContain('Д');
-    expect(dropCapTexts).not.toContain('ع');
-    expect(dropCapTexts).not.toContain('📌');
-  });
-
-  // Gap 3: Graceful error UI for invalid or incomplete JSON configuration
-  test('T5.3: Verify poster room handles invalid and incomplete JSON content gracefully', async ({ page }) => {
-    // 1. Syntactically invalid JSON
+  // Gap 2: Drop-cap logic against Latin and non-Latin character sets
+  test('T5.2: Verify drop cap applies to accented Latin initials but not non-Latin scripts', async ({ page }) => {
+    const withAccent = JSON.stringify({ _meta: { titulo_principal: 'T', resumo: 'Água mineral corrente.' } });
     await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({
-      status: 200,
-      contentType: 'text/markdown',
-      body: '{ invalid: json }'
+      status: 200, contentType: 'application/json', body: withAccent
     }));
-
     await page.goto('/poster.html');
-    const tabs = page.locator('.poster-tab');
-    await tabs.nth(2).click(); // Switch to the Genealogy poster (which loads JSON)
+    const dropCap = page.locator('.poster-drop-cap');
+    await expect(dropCap).toHaveCount(1);
+    await expect(dropCap.first()).toHaveText('Á');
 
-    // Verify error UI is displayed (using auto-retry assertion)
+    // Cyrillic initial must NOT be drop-capped
+    const nonLatin = JSON.stringify({ _meta: { titulo_principal: 'T', resumo: 'Двадцать линий.' } });
+    await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({
+      status: 200, contentType: 'application/json', body: nonLatin
+    }));
+    await page.goto('/poster.html');
+    await page.waitForSelector('.poster-banner h1');
+    await expect(page.locator('.poster-drop-cap')).toHaveCount(0);
+  });
+
+  // Gap 3: Graceful handling of invalid or incomplete JSON
+  test('T5.3: Verify the tabula handles invalid and incomplete JSON gracefully', async ({ page }) => {
+    // 1. Syntactically invalid JSON -> explicit error UI
+    await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({
+      status: 200, contentType: 'text/markdown', body: '{ invalid: json }'
+    }));
+    await page.goto('/poster.html');
     await expect(page.locator('.poster')).toContainText('Error parsing JSON');
 
-    // 2. Syntactically valid but incomplete JSON (missing required nested properties like theses, concepts_network)
+    // 2. Valid but incomplete JSON (missing sections) -> degrades gracefully, no crash
     await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
-        _meta: {
-          titulo_principal: "Test Title",
-          titulo_alternativo: "Alt Title",
-          autora: "Test Author",
-          afiliacao: "Test Affiliation",
-          palavras_chave: ["test"]
-        }
-        // missing theses, concepts_network, genealogy_timeline, regimes_iconocraticos, iconographic_mapping, political_paradox, references_abnt
-      })
+      status: 200, contentType: 'application/json',
+      body: JSON.stringify({ _meta: { titulo_principal: 'Test Title', autora: 'A', resumo: 'R' } })
     }));
-
     await page.goto('/poster.html');
-    await tabs.nth(2).click();
-
-    // Verify it still fails gracefully via the catch block rather than crashing the page (using auto-retry assertion)
-    await expect(page.locator('.poster')).toContainText('Error parsing JSON');
+    // The banner still renders, no "Error parsing JSON", no page crash
+    await expect(page.locator('.poster-banner h1')).toContainText('Test Title');
+    await expect(page.locator('.poster')).not.toContainText('Error parsing JSON');
   });
 
-  // Gap 4: Keyboard Event Bubbling and PreventDefault Interception
-  test('T5.4: Verify keydown Enter intercepts and prevents default actions on interactive elements inside poster', async ({ page }) => {
-    // Create markdown containing a checkbox list item and a markdown link
-    const interactiveMd = '- [ ] Checkbox Item\n- Check out **[link](http://example.com)** here.';
-    
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({
-      status: 200,
-      contentType: 'text/markdown',
-      body: interactiveMd
-    }));
-
+  // Gap 4: Keyboard Event Interception on the plate
+  test('T5.4: Verify keyboard Enter/Escape drive the zoom state on the plate', async ({ page }) => {
     await page.goto('/poster.html');
     const poster = page.locator('.poster, .poster-bezel-outer').first();
 
-    // Focus the poster and press Enter to zoom in
     await poster.focus();
     await page.keyboard.press('Enter');
     await expect(poster).toHaveClass(/zoomed|zoom-active/i);
 
-    // Verify that clicking or focusing and pressing Enter on a checkbox inside the zoomed poster
-    // bubbles keydown and calls preventDefault, blocking standard browser behavior.
-    const checkbox = page.locator('input[type="checkbox"]').first();
-    await checkbox.focus();
-    
-    // Pressing Enter when checkbox is focused
-    await page.keyboard.press('Enter');
-    
-    // The poster should stay zoomed (the event bubbles and is caught as poster-level Enter)
+    // Escape closes it back down
+    await page.keyboard.press('Escape');
+    await expect(poster).not.toHaveClass(/zoomed|zoom-active/i);
+
+    // Space also opens the zoom
+    await poster.focus();
+    await page.keyboard.press(' ');
     await expect(poster).toHaveClass(/zoomed|zoom-active/i);
   });
 
@@ -142,7 +106,7 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
 
     // Focus via keyboard, which may trigger browser-level auto-scroll into view
     await poster.focus();
-    
+
     // Capture the baseline scroll position AFTER focus-induced auto-scroll, but BEFORE zoom
     const scrollTopBefore = await page.evaluate(() => window.scrollY);
 
@@ -159,51 +123,13 @@ test.describe('Tier 5 - Adversarial Coverage Hardening', () => {
     expect(scrollTopAfter).toBe(scrollTopBefore);
   });
 
-  // Gap 6: Stale Fetch Race Conditions (Fast Tab Switching)
-  test('T5.6: Verify race conditions in tab switching are prevented and active content is correctly preserved', async ({ page }) => {
-    // Intercept calls to return slow content for Workflow and fast content for Methodology
-    let slowFetchStarted = false;
-    await page.route('**/docs/WORKFLOW.md', async (route) => {
-      slowFetchStarted = true;
-      // Introduce a 800ms delay to simulate network latency
-      await new Promise(resolve => setTimeout(resolve, 800));
-      await route.fulfill({
-        status: 200,
-        contentType: 'text/markdown',
-        body: '# Slow Workflow Content'
-      });
-    });
-
-    await page.route('**/docs/methodology.md', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'text/markdown',
-        body: '# Fast Methodology Content'
-      });
-    });
-
+  // Gap 6: Single source loads cleanly with no leftover loading state
+  test('T5.6: Verify the single tabula source loads cleanly with no stale loading state', async ({ page }) => {
     await page.goto('/poster.html');
-    const tabs = page.locator('.poster-tab');
-
-    // Click tab 0 (starts slow fetch)
-    await tabs.nth(0).click();
-    
-    // Immediately click tab 1 (starts fast fetch)
-    await tabs.nth(1).click();
-
-    // Wait for everything to resolve (1200ms)
-    await page.waitForTimeout(1200);
-
-    // If there is a race condition, the slow workflow content resolving late might overwrite
-    // the methodology content even though methodology is the currently active tab.
-    const activeTab = tabs.nth(1);
-    await expect(activeTab).toHaveClass(/active/);
-
-    const bodyText = await page.locator('.poster').innerText();
-    
-    // If it is broken, it will display the slow content instead of the fast content.
-    expect(bodyText).toContain('Fast Methodology Content');
-    expect(bodyText).not.toContain('Slow Workflow Content');
+    await expect(page.locator('.poster-banner h1')).toBeVisible();
+    await expect(page.locator('.poster-loading')).toHaveCount(0);
+    // Only the single plate is present — no document switcher
+    await expect(page.locator('.poster-tab')).toHaveCount(0);
   });
 
 });

@@ -6,52 +6,56 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await page.addInitScript(() => { localStorage.setItem('av_booted', '1'); });
   });
 
-  // Feature 1: Dynamic Markdown Rendering (R1)
-  test('T2.F1.1: Verify handling of empty Markdown files or empty content strings gracefully', async ({ page }) => {
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: '' }));
+  // Feature 1: Tabula plate rendering (R1)
+  test('T2.F1.1: Verify handling of empty source content gracefully (no crash)', async ({ page }) => {
+    await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({ status: 200, body: '' }));
     await page.goto('/poster.html');
     const root = page.locator('#root');
     await expect(root).toBeVisible();
     await expect(page.locator('text=/Failed to fetch/i')).not.toBeVisible();
   });
 
-  test('T2.F1.2: Verify rendering of extremely large Markdown documents without breaking layout', async ({ page }) => {
-    const largeMd = '# Large Title\n\n' + Array(500).fill('This is a test paragraph of a very large document to check for performance and layout breaking on the poster room.').join('\n\n');
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: largeMd }));
+  test('T2.F1.2: Verify the plate renders without horizontal overflow / broken layout', async ({ page }) => {
     await page.goto('/poster.html');
-    const pCount = await page.locator('.poster p, p.poster-p').count();
-    expect(pCount).toBeGreaterThan(100);
+    await page.waitForSelector('.tabula-refs li');
+    const noOverflow = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2);
+    expect(noOverflow).toBeTruthy();
+    const cards = await page.locator('.tabula-card').count();
+    expect(cards).toBeGreaterThanOrEqual(4);
   });
 
-  test('T2.F1.3: Verify rendering of complex nested lists and code blocks', async ({ page }) => {
-    const complexMd = '1. First item\n   - Nested item 1\n   - Nested item 2\n\n```javascript\nconst a = 1;\n```';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: complexMd }));
+  test('T2.F1.3: Verify complex structured content (the iconographic table) renders', async ({ page }) => {
     await page.goto('/poster.html');
-    const code = page.locator('.poster pre, pre');
-    await expect(code.first()).toBeVisible();
+    const table = page.locator('.tabula-table');
+    await expect(table).toBeVisible();
+    const rows = await page.locator('.tabula-table tbody tr').count();
+    expect(rows).toBeGreaterThan(3);
   });
 
   test('T2.F1.4: Verify handling of special/accented characters (Portuguese/Latin glyphs) without encoding corruption', async ({ page }) => {
     await page.goto('/poster.html');
-    const tabs = page.locator('.poster-tab');
-    await tabs.nth(0).click();
+    await page.waitForSelector('.poster-banner h1');
     const textContent = await page.locator('body').innerText();
-    expect(textContent).not.toContain('Ã');
+    // Correctly-decoded UTF-8 accents are present…
+    expect(textContent).toContain('jurídica');
+    // …and no classic UTF-8→Latin-1 mojibake sequences leaked in
+    expect(textContent).not.toContain('Ã©');
+    expect(textContent).not.toContain('Ã£');
+    expect(textContent).not.toContain('Ã§');
   });
 
-  test('T2.F1.5: Verify parser handles malformed Markdown gracefully without breaking the DOM tree', async ({ page }) => {
-    const malformedMd = '### Malformed # Header\n\n> Blockquote without closing or mixed *italic** and **bold*';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: malformedMd }));
+  test('T2.F1.5: Verify malformed JSON source is handled gracefully without breaking the DOM tree', async ({ page }) => {
+    await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.fulfill({ status: 200, body: '{ not: valid json ' }));
     await page.goto('/poster.html');
-    const h3 = page.locator('.poster h3, h3.poster-h3, h3');
-    await expect(h3.first()).toBeVisible();
+    await expect(page.locator('.poster')).toContainText(/Error parsing JSON/);
+    await expect(page.locator('#root')).toBeVisible();
   });
 
   // Feature 2: Editorial Aesthetic & Vanguard Protocol (R2)
   test('T2.F2.1: Verify text styling when font sizes are changed or scaled (no overlapping text)', async ({ page }) => {
     await page.goto('/poster.html');
     await page.setViewportSize({ width: 800, height: 1000 });
-    const h1 = page.locator('.poster h1, h1.poster-h1, h1').first();
+    const h1 = page.locator('.poster h1, .poster-banner h1, h1').first();
     const box = await h1.boundingBox();
     expect(box.height).toBeGreaterThan(10);
   });
@@ -71,12 +75,11 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await expect(innerBezel).toHaveCSS('border-color', 'rgb(156, 124, 61)');
   });
 
-  test('T2.F2.4: Verify drop caps are not applied to empty paragraphs or paragraphs starting with non-alphabetical characters', async ({ page }) => {
-    const md = '123 Number paragraph\n\n- Bullet paragraph';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+  test('T2.F2.4: Verify a single drop cap is applied to the abstract on an alphabetic first letter', async ({ page }) => {
     await page.goto('/poster.html');
-    const dropCap = page.locator('.poster .drop-cap, .poster-drop-cap');
-    await expect(dropCap).toHaveCount(0);
+    const dropCap = page.locator('.poster-drop-cap');
+    await expect(dropCap).toHaveCount(1);
+    await expect(dropCap.first()).toHaveText(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
   });
 
   test('T2.F2.5: Verify the contrast ratio of the ink color (#211B16) on the paper color (#F2EAD9) meets readable standards', async ({ page }) => {
@@ -147,55 +150,57 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
   });
 
   // Feature 4: Desktop & Home Page Integration (R4)
-  test('T2.F4.1: Verify behavior when the poster window is opened multiple times (should focus existing or open a single instance cleanly)', async ({ page }) => {
+  test('T2.F4.1: Verify behavior when the tabula window is opened multiple times (opens cleanly)', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    // The desktop icon and the open window title bar both read "tabula";
+    // scope to the first match (the desktop icon).
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i }).first();
     await posterIcon.dblclick();
     await posterIcon.dblclick();
-    const posterTabs = page.locator('.poster-tab');
-    await expect(posterTabs).toHaveCount(3);
+    await expect(page.locator('.poster-banner h1').first()).toBeVisible();
   });
 
-  test('T2.F4.2: Verify the poster window can be dragged and repositioned within the desktop workspace boundary', async ({ page }) => {
+  test('T2.F4.2: Verify the tabula window can be dragged and repositioned within the desktop workspace boundary', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     const titleBar = page.locator('button[aria-label="Fechar"]').locator('xpath=..');
     const boxBefore = await titleBar.boundingBox();
-    
+
     await titleBar.hover();
     await page.mouse.down();
     await page.mouse.move(boxBefore.x + 100, boxBefore.y + 50);
     await page.mouse.up();
-    
+
     const boxAfter = await titleBar.boundingBox();
     expect(boxAfter.x).not.toBe(boxBefore.x);
   });
 
-  test('T2.F4.3: Verify window minimize, maximize, and close buttons on the poster window work correctly', async ({ page }) => {
+  test('T2.F4.3: Verify window close button on the tabula window works correctly', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+    await expect(page.locator('.poster-banner h1')).toBeVisible();
+
     const closeBtn = page.locator('button[aria-label="Fechar"]').first();
     await closeBtn.click();
-    await expect(page.locator('.poster-tab')).toHaveCount(0);
+    await expect(page.locator('.dwin', { hasText: /tabula/i })).toHaveCount(0);
   });
 
-  test('T2.F4.4: Verify opening the poster window does not close or interfere with other open desktop windows', async ({ page }) => {
+  test('T2.F4.4: Verify opening the tabula window does not close or interfere with other open desktop windows', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
@@ -203,10 +208,10 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     }
     const teseTabs = page.locator('button', { hasText: /tese/i });
     await expect(teseTabs.first()).toBeVisible();
-    
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     await expect(page.locator('button', { hasText: /tese/i }).first()).toBeVisible();
   });
 
@@ -216,9 +221,9 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     await page.setViewportSize({ width: 400, height: 600 });
     const win = page.locator('.poster-root-wrapper').or(page.locator('.poster-bezel-outer')).first();
     const box = await win.boundingBox();

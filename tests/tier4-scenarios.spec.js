@@ -12,9 +12,9 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.hover();
     await poster.click();
@@ -37,20 +37,13 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
     await expect(poster).not.toHaveClass(/zoomed|zoom-active/i);
   });
 
-  test('T4.3: Scenario 3 (Dynamic Markdown Document Switcher): Toggle between different posters -> dynamic parsing -> layout refresh', async ({ page }) => {
+  test('T4.3: Scenario 3 (Single-plate tabula): renders as one academic plate with no document switcher', async ({ page }) => {
     await page.goto('/poster.html');
-    const tabs = page.locator('.poster-tab');
-    
-    await expect(tabs.nth(0)).toHaveClass(/active/);
-    await expect(page.locator('.poster h2, h2.poster-h2, .poster-block h2').first()).toHaveText(/Regra-mestra/i);
-    
-    await tabs.nth(1).click();
-    await expect(tabs.nth(1)).toHaveClass(/active/);
-    await expect(page.locator('.poster h2, h2.poster-h2, .poster-block h2').first()).toHaveText(/0. Pipeline metodológico/i);
-    
-    await tabs.nth(2).click();
-    await expect(tabs.nth(2)).toHaveClass(/active/);
+    // No tabs / document switcher anymore — it is a single plate
+    await expect(page.locator('.poster-tab')).toHaveCount(0);
     await expect(page.locator('.poster-banner h1, h1').first()).toContainText(/Visual Contract|O contrato visual/i);
+    await expect(page.locator('.tabula-card').first()).toBeVisible();
+    await expect(page.locator('.tabula-refs li').first()).toBeVisible();
   });
 
   test('T4.4: Scenario 4 (Multi-Window Interaction): Open multiple windows, verify z-index focus layering and interaction separation', async ({ page }) => {
@@ -60,14 +53,14 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
       await enterBtn.click();
     }
     
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     const teseTitle = page.locator('button', { hasText: /tese/i }).first();
     await teseTitle.click();
-    
-    const posterTabs = page.locator('.poster-tab');
-    await expect(posterTabs.first()).toBeVisible();
+
+    // The tabula plate stays mounted alongside the other window
+    await expect(page.locator('.poster-banner h1').first()).toBeVisible();
   });
 
   test('T4.5: Scenario 5 (Mobile / Small Screen Responsiveness): Simulating small screen, verify grid reflows to single column, drop caps remain readable, no horizontal overflow', async ({ page }) => {
