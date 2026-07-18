@@ -91,14 +91,14 @@
 
   /* ---------- masthead (wordmark iluminado, integrado ao paper) ---------- */
   .masthead{display:flex; justify-content:center; align-items:flex-end;
-    padding:clamp(16px,3.4vh,34px) 16px clamp(8px,1.4vh,14px); }
-  .masthead img{display:block; width:min(560px,82vw); height:auto;
+    padding:clamp(8px,1.8vh,18px) 16px clamp(4px,0.8vh,8px); }
+  .masthead img{display:block; width:min(380px,66vw); height:auto;
     filter:drop-shadow(0 1px 0 color-mix(in srgb,var(--ink) 10%, transparent))}
   @media(max-width:760px){ .masthead{padding-top:clamp(12px,2.6vh,20px)} }
 
   /* ---------- lema autoral: colofão iluminado (tipografia nossa) ---------- */
-  .lemma-mark{display:flex; flex-direction:column; align-items:center; gap:5px;
-    padding:0 16px clamp(16px,2.8vh,30px); text-align:center}
+  .lemma-mark{display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding:0 16px clamp(8px,1.6vh,16px); text-align:center}
   .lemma-mark .frieze{display:flex; align-items:center; gap:13px; color:var(--gold);
     font-size:13px; line-height:1}
   .lemma-mark .frieze::before,.lemma-mark .frieze::after{content:""; width:clamp(40px,9vw,86px);
@@ -117,8 +117,8 @@
   .lemma-mark .hed{color:var(--gold)}
   .lemma-mark .gloss{margin:1px 0 0; font-family:var(--mono); font-size:10.5px; letter-spacing:.03em;
     color:color-mix(in srgb,var(--ink) 46%,var(--paper))}
-  .intro{max-width:680px; margin:0 auto; padding:0 24px clamp(24px,4vh,44px); text-align:center}
-  .intro p{margin:0; font-family:var(--disp); font-size:clamp(18px,2.2vw,25px); line-height:1.45;
+  .intro{max-width:640px; margin:0 auto; padding:0 24px clamp(10px,2vh,22px); text-align:center}
+  .intro p{margin:0; font-family:var(--disp); font-size:clamp(15px,1.7vw,20px); line-height:1.4;
     color:color-mix(in srgb,var(--ink) 76%,var(--paper)); text-wrap:balance}
   .intro p::first-letter{color:var(--rubric); font-size:1.35em; font-weight:600}
   @media (prefers-reduced-motion:no-preference){
@@ -174,12 +174,16 @@
   }
 
   /* manuscript side panel (página de livro aberto) */
-  .mspanel{position:relative; border-left:1.5px solid var(--ink);
-    background:var(--navy) url("/assets/landing/bg-justitia.jpg") center top/cover no-repeat;
-    min-height:100%; background-attachment:fixed; isolation:isolate}
-  .mspanel .panel-copy{position:sticky; top:clamp(90px,14vh,150px); z-index:2; margin:clamp(24px,4vw,44px);
-    padding:clamp(22px,3vw,34px); color:var(--paper-card); background:rgba(24,29,43,.84);
-    border:1px solid rgba(216,180,90,.62); box-shadow:0 18px 50px rgba(0,0,0,.32); backdrop-filter:blur(8px)}
+  .mspanel{position:relative; border-left:1.5px solid var(--ink); background:var(--navy);
+    min-height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding:clamp(26px,3vw,46px) clamp(16px,2vw,28px); isolation:isolate}
+  /* the illumination shown whole, as a framed plate */
+  .ms-figure{margin:0; position:relative; width:100%; max-width:360px;
+    box-shadow:0 20px 54px rgba(0,0,0,.42)}
+  .ms-figure img{display:block; width:100%; height:auto; border:1px solid rgba(216,180,90,.6)}
+  .mspanel .panel-copy{position:relative; z-index:2; width:100%; max-width:360px; margin:14px 0 0;
+    padding:clamp(18px,2.2vw,26px); color:var(--paper-card); background:rgba(24,29,43,.86);
+    border:1px solid rgba(216,180,90,.55); box-shadow:0 14px 40px rgba(0,0,0,.30); text-align:left}
   .panel-kicker{margin:0 0 12px; font-family:var(--mono); color:#D8B45A; font-size:10px; letter-spacing:.22em; text-transform:uppercase}
   .panel-copy h2{margin:0 0 12px; font-family:var(--disp); font-size:clamp(28px,3.3vw,42px); font-weight:500; line-height:.98}
   .panel-copy p{margin:0 0 22px; font-family:var(--disp); font-size:17px; line-height:1.45; color:rgba(244,236,216,.82)}
@@ -367,7 +371,6 @@
       <h2 class="glabel" data-pt="Novos" data-en="New">Novos</h2>
       <div class="icons">
         <a class="icon rb" href="/manifesto/"><span class="cap"><img src="/assets/icons/manifesto.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl">manifesto</span></a>
-        <a class="icon rb" href="/manifesto/impressa.html"><span class="cap"><img src="/assets/icons/manifesto.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="manifesto · ensaio" data-en="manifesto · essay">manifesto · ensaio</span></a>
         <a class="icon nv" href="/apresentacao/"><span class="cap"><img src="/assets/icons/apresentacao.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="apresentação" data-en="deck">apresentação</span></a>
         <a class="icon rb" href="/video/"><span class="cap"><img src="/assets/icons/video.webp" alt="" width="54" height="54" decoding="async"></span><span class="lbl" data-pt="vídeo" data-en="video">vídeo</span></a>
       </div>
@@ -378,6 +381,9 @@
   </div>
 
   <aside class="mspanel" aria-label="Justitia — manuscrito iluminado">
+    <figure class="ms-figure">
+      <img src="/assets/landing/bg-justitia.jpg" alt="Justitia — manuscrito iluminado" width="1119" height="1500" loading="lazy" decoding="async">
+    </figure>
     <div class="panel-copy">
       <p class="panel-kicker" data-pt="Pesquisa em destaque" data-en="Featured research">Pesquisa em destaque</p>
       <h2>Iconocracia</h2>
