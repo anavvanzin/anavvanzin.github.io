@@ -10,6 +10,8 @@
 **/.playwright-mcp
 **/.cursor
 **/.agents
+**/.claude
+**/.claude/**
 **/FOTOSSSS
 **/site
 

@@ -1,0 +1,6 @@
+# Keep committed tooling out of the published site.
+# Both deploy paths build the site from `git archive HEAD` (GitHub Pages workflow
+# and scripts/stage-worker-assets.sh), which honors these export-ignore rules —
+# so .claude/ (agent skills, plans) is tracked for persistence but never deployed.
+.claude export-ignore
+.claude/** export-ignore
