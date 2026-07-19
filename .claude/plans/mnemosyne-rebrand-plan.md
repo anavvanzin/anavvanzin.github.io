@@ -3,9 +3,12 @@
 ## Pre-work — Skills install (curated · persistent) — DO FIRST, then pause for confirmation before the rebrand build
 
 **Where:** copy selected skill folders into the repo's **`.claude/skills/`** (project-scoped
-→ loads in every future session on this repo = persistent) and **commit**. Add `.claude/` to
-the deploy strip lists (`scripts/stage-worker-assets.sh` + `.github/workflows/deploy-pages.yml`)
-so the skills are **not** published to anavanzin.com (both deploys stage all tracked files).
+→ loads in every future session on this repo = persistent) and **commit**. Keep `.claude/`
+out of the published site via **`.gitattributes`** (`.claude export-ignore` +
+`.claude/** export-ignore`) — both deploy paths build from `git archive HEAD`, which
+honors `export-ignore`. ✅ Already in place and verified. *(Not done in
+`scripts/stage-worker-assets.sh` or `.github/workflows/deploy-pages.yml`; don't look
+for it there, and don't add a redundant `rm -rf`. See "Verified corrections" § A.)*
 Method: clone each source repo to `/tmp`, `cp -R` the chosen skill dirs, commit. (New skills
 load at session start — they won't appear in *this* session's listing until reload.)
 
@@ -81,27 +84,69 @@ Run `python3 fonts/fetch_fonts.py` (keeps existing families so nothing breaks
 mid-migration) → downloads woff2 + regenerates `fonts/fonts.css`. Self-hosted,
 no runtime CDN (matches the existing pipeline).
 
-**Phase 1 — Canonical tokens.** Set Mnemosyne values as the single source in
-`tokens/colors.css` + `tokens/typography.css` and the root `styles.css` `:root`,
-and reconcile the `iconocracia/tokens/` duplicate to match. Map the semantic
-aliases so consumers follow automatically: `--rubric/--accent → --sienna`,
-`--gold → --ochre`, `--amethyst/--lilac → --aged`, `--navy/--deep-blue → --night`,
-`--paper/--ink/--cream` as above; add `--sienna-dark`, `--soft`, radii, stroke.
-`--font-display: 'Playfair Display', …`; `--font-body: 'DM Sans', …`.
+**Phase 1 — Canonical tokens.** ⚠️ *Corrected 2026-07-19 — see "Verified corrections".*
+There is **no single source**. Root `styles.css` does **not** import `tokens/*.css`
+(line 1 imports only `fonts/fonts.css`; the `/* ===== tokens/colors.css ===== */`
+lines are section *comments* over an independent palette). Three palettes must be
+edited separately:
 
-**Phase 2 — Propagate (automatic).** `editorial.css`, `_ds_bundle.js` (pure token
-consumer), every `styles.css`-linked page, and the **Tabula** (`WPoster.js` +
-`.tabula` CSS, which already use tokens) inherit the new palette/type with no edit.
-Change `.tabula` body font-family from `'Crimson Pro'` → `var(--font-body)` (DM Sans).
+1. Root `styles.css` `:root` — the one that reaches the **main site** (home, `/mesa/`,
+   `poster.html`, and every `styles.css`-linked page). ink `#211B16`, paper `#F2EAD9`,
+   `--rubric #9B2C1C`, gold `#9C7C3D`/`--gold-2 #B7934C`, `--lilac #B49AD4`.
+2. `tokens/*.css` — consumed **only** by `apresentacao/index.html` (+ one
+   `assets/*.dc.html` mockup). ink `#1A1612`, paper `#EFE5CF`, `--terracotta #A04030`,
+   `--brand-amethyst #8A5FA8`, `--deep-blue #1D2548`.
+3. `iconocracia/tokens/*.css` — **byte-identical copy** of `tokens/*` (diff clean on
+   all 4 files), imported by `iconocracia/styles.css`. "Reconcile" = apply the same
+   edit twice. Consider deduping to one source in a follow-up, not mid-rebrand.
 
-**Phase 3 — Manual edits** (sources that hardcode hex, won't inherit):
+Map the semantic aliases in each: `--rubric/--accent/--terracotta → --sienna`,
+`--gold/--gold-2/--gold-bright → --ochre`, `--amethyst/--lilac/--brand-amethyst → --aged`,
+`--navy/--deep-blue/--cabinet-* → --night`, `--paper/--ink/--cream` as above; add
+`--sienna-dark`, `--soft`, radii (2/4/8 — currently `--radius-sm:4px`, `--radius:10px`),
+stroke. `--font-display: 'Playfair Display', …`; `--font-body: 'DM Sans', …`
+(the supplied CSS calls it `--font-text`; **keep the repo's `--font-body`**).
+
+**Phase 2 — Propagate (partial, NOT automatic).** Only `styles.css` consumers inherit
+from the Phase 1 step 1 edit. `editorial.css` and `_ds_bundle.js` follow. Editing
+`tokens/*` propagates **only to `apresentacao/`** — not the main site.
+
+**Tabula:** `WPoster.js` contains zero hex and zero font-family (2 `var(--rubric)` uses
+only) — nothing to change there. `.tabula` CSS lives in root `styles.css` **lines
+583–625**, not a separate file. Change `styles.css:585` `font-family:'Crimson Pro',
+Georgia, serif` → `var(--font-body)`. ⚠️ `.tabula` also has **hardcoded escapes that
+will orphan the poster page** unless changed: local overrides `--amethyst:#7A5C93` and
+`--indigo:#1B2B4A` (line 584), plus literals `#F4ECD8` (603), `#EFE6D2` (615),
+`#F4ECDA` (617–618), `#D8CDBA` (619), `rgba(33,27,22,.12)` (603),
+`rgba(184,146,74,.4)` (619).
+
+**Phase 3 — Manual edits** (sources that hardcode hex, won't inherit).
+⚠️ *The original list missed ~35 files.* Full verified inventory:
+
 - Inline `<style>` palettes: `index.html`, `landing/index.html`, `video/index.html`,
   `manifesto/index.html`, `manifesto/impressa.html`, `manifesto/manifesto/index.html`,
   `ampulheta.html`.
-- Pixel-art **cursor** hexes in `index.html` (two `data:` SVGs).
+- **`styles.css` itself** — has `#F2EAD9 #211B16 #9B2C1C #9C7C3D #EFE5CF` *outside* `:root`.
+- Pixel-art **cursor** hexes in `index.html` — `index.html:45` and `:50`, two `data:` SVGs
+  (`%23D8B45A %23211B16 %23B08D3C %23C98424 %23F4ECD8` / `%239B2C1C %23D8B45A %23211B16 %23F4ECD8`).
 - JS palettes: `iconocracia/atlas/parts.js`, `manifesto/manifesto.app.js`,
   `iconocracia/radiografia/app.js`, `ampulheta-native.js`.
-- Cross-system leak `iconocracia/sysbar.css`; stray `#5a514a` in both `corpus/ficha.css`.
+- **JSX twins — must move in lockstep or they silently drift:**
+  `iconocracia/atlas/parts.jsx`, `iconocracia/radiografia/app.jsx`,
+  `manifesto/app.jsx`, `manifesto/manifesto/app.jsx`, `assets/IconocraciaVideo.jsx`.
+- Cross-system leak `iconocracia/sysbar.css` (`#9B2C1C ×3, #211B16 ×2, #F2EAD9, #7D2316`).
+- `#5a514a` at **both** `corpus/ficha.css:58` **and** `iconocracia/corpus/ficha.css:58`
+  (the second was not named in the original list).
+- **Root pages missed:** `advocacia.html`, `conceitos.html`, `mae.html`, `mover-se.html`,
+  `perfil.html`, `readme.html`, `sobre.html`, `trabalhos.html`.
+- **Sections missed:** `mesa/index.html`, `mesa/index 2.html`, `metodologia/index.html`,
+  `sala-de-leitura/index.html`, `grupoiusgentium/index.html`,
+  `publicacoes/{index,contrato-visual,maria-marianne,vrouwe-justitia}.html`,
+  `atlas/{index,britannia,justitia,marianne,republica}.html`,
+  `marginalia/{index,balanca,fachada,justica-nao-nasceu-cega}.html`.
+- **Iconocracia missed:** `iconocracia/index.html`, `iconocracia/atlas/index.html`,
+  `iconocracia/radiografia/index.html`, `iconocracia/atlas-lab/{index.html,app.js,app.jsx}`,
+  `iconocracia/tokens/colors.css`.
 
 **Phase 4 — Wordmark & imagery.**
 - Replace the masthead: swap `assets/wordmark.{png,webp}` for a new Playfair/woodcut
@@ -116,13 +161,27 @@ Change `.tabula` body font-family from `'Crimson Pro'` → `var(--font-body)` (D
 "Mnemosyne Viva" as the acervo/atlas house label (e.g., a kicker on `iconocracia/`
 or an acervo landing). Low priority; confirm placement with Ana.
 
-**Phase 6 — Tests in lockstep** (assert literal hexes/fonts — must update together):
-- `tests/tier1-coverage.spec.js` T1.F2.1 paper `rgb(245,240,230)`, T1.F2.2 ink
-  `rgb(17,17,17)` + banner accent `rgb(139,58,26)`.
-- `tests/tier2-boundaries.spec.js` T2.F2.3 inner bezel ochre `rgb(212,175,55)`;
-  T2.F2.5 contrast literals (ink `#111` on paper `#F5F0E6`).
-- `tests/tier3-combinations.spec.js` T3.1 h1 `/Playfair Display|serif/`, p `/DM Sans|sans-serif/`.
-- Re-run the whole suite; the Tabula specs key off classes/structure and should hold.
+**Phase 6 — Tests in lockstep** (assert literal hexes/fonts — must update together).
+Run with `npm test` (→ `playwright test`).
+- `tests/tier1-coverage.spec.js:46-58` — T1.F2.1 paper `rgb(242,234,217)` →
+  `rgb(245,240,230)`; T1.F2.2 ink `rgb(33,27,22)` → `rgb(17,17,17)` and h1
+  `rgb(155,44,28)` → `rgb(139,58,26)`. Test **titles** embed the old hexes too.
+- `tests/tier2-boundaries.spec.js:72-76` — T2.F2.3 bezel `rgb(156,124,61)` →
+  `rgb(212,175,55)`. `:85-103` — T2.F2.5 contrast literals.
+  ⚠️ T2.F2.5 re-derives contrast from two literals it defines itself; it never reads
+  the page, so it passes whatever you type. New values compute ≈17.6:1 vs threshold
+  `>7.0` — passes, but the test proves nothing. Consider making it read live CSS.
+- `tests/tier3-combinations.spec.js:9-16` — h1 `/Cormorant Garamond|serif/` →
+  `/Playfair Display|serif/`; p `/Crimson Pro|serif/` → `/DM Sans|sans-serif/`.
+  ⚠️ **Silent-pass trap:** the current `/Crimson Pro|serif/i` already matches
+  `"DM Sans", Arial, sans-serif` — because `serif` is a substring of `sans-serif`.
+  This test cannot fail the way it looks like it can. Anchor the regex.
+  Also: the p assertion only passes once the Phase 2 `.tabula` font change lands.
+- Re-run the whole suite; Tabula specs key off classes/structure and should hold.
+  ⚠️ "known-flaky T5.5" is ambiguous — there are **two**:
+  `tier5-adversarial.spec.js:100` (scroll preservation) and
+  `tier5-adversarial-challenger2.spec.js:96` (workflow-leak regression).
+  Identify which before waiving it.
 
 **Phase 7 — Design-system rules.** Rewrite the **CLAUDE.md "Design system"** section
 to the single Mnemosyne Viva system (retire the two-token-set description; update the
@@ -151,3 +210,64 @@ specs; `CLAUDE.md`.
 ## Deliverable
 Continue on `claude/full-rebranding-b8uqck` (PR #68), staged commits: fonts → tokens →
 manual/JS → wordmark/imagery → tests → CLAUDE.md.
+
+---
+
+## Verified corrections (2026-07-19)
+
+Every claim in this plan was checked against the repo before execution. Eight
+discrepancies found; Phases 1, 2, 3 and 6 above were rewritten accordingly. The
+remaining four are new work items not in the original plan:
+
+**A. `.claude/` is correctly excluded — but by a mechanism the plan text misdescribes.**
+*(An earlier draft of this section claimed `.claude/` would leak to production. That was
+wrong. Verified and retracted 2026-07-19 — recorded here so nobody "fixes" it twice.)*
+
+The pre-work section says `.claude/` was added to the two deploy strip lists
+(`scripts/stage-worker-assets.sh`, `.github/workflows/deploy-pages.yml`). Neither file
+mentions `.claude`. The exclusion is real, just implemented elsewhere:
+
+- **`.gitattributes`** holds `.claude export-ignore` and `.claude/** export-ignore`.
+- **Both** deploy paths build from `git archive HEAD`, which honors `export-ignore`.
+
+Verified empirically: 295 files are tracked under `.claude/`, and
+`git archive HEAD | tar -x` extracts **0** of them. `git check-attr export-ignore
+.claude/plans/mnemosyne-rebrand-plan.md` → `export-ignore: set`.
+
+→ **No code change needed.** Do not add `rm -rf _site/.claude` to the workflow; it is
+redundant. The only defect is documentation: update the pre-work paragraph to say
+`.gitattributes`, not the two strip lists. Grepping the workflow/script for `.claude`
+will always look like a leak — check `.gitattributes` first.
+
+(`.assetsignore` *also* lists `**/.claude`, giving the Worker path a second layer.)
+
+**B. Token source files are outside the repo, under different names.**
+Plan references `mnemosynevivadesigntokens.json` / `mnemosynevivasitetokens.css`.
+Actual: `/Users/ana/Downloads/mnemosyne-viva-design-tokens.json` and
+`mnemosyne-viva-site-tokens.css` (hyphenated). Values match this plan's table exactly.
+→ **Vendor both into the repo** (e.g. `tokens/source/`) before starting, so the brand
+spec is version-controlled and not dependent on `~/Downloads`.
+Note `--soft: #E8DDC8` exists in the JSON but is **absent** from the CSS.
+
+**C. Phase 0 is genuinely pending.** `fonts/fetch_fonts.py` `FAMILIES` currently holds 5:
+Instrument Serif, Crimson Pro, JetBrains Mono, Cormorant Garamond, Hanken Grotesk.
+Playfair Display and DM Sans are absent. `fonts/fonts.css` defines the same 5.
+
+**D. One file already violates Verification step 3.**
+`aula_di_avancado (1).html:11` loads Playfair Display + DM Sans from
+`fonts.googleapis.com` at runtime. Unmentioned in the plan. Either migrate it to the
+self-hosted pipeline or explicitly scope it out.
+
+**Confirmed accurate:** the token value table; all 13 originally-listed Phase 3 files
+exist and hardcode hex; both cursor SVGs; all Phase 4 assets exist (`monogram-av.svg`,
+`monogram-av-inverse.svg`) and all SVG marks hardcode the old palette; `malleus/*` has
+**no** old-palette hexes (out-of-scope note holds); `quotes/style.css`,
+`future?/mockup-manifesto.html` and `assets/Iconocracia - Manifesto.dc.html` do hit,
+so the Verification step-2 grep will not be clean repo-wide.
+
+**Also true but unrelated to the rebrand:** old-palette hexes and Cormorant/Hanken are
+hardcoded as *constraints* in 15 doc files — `docs/superpowers/plans/2026-06-27-ciclo-das-soberanias.md`,
+`docs/superpowers/specs/2026-06-27-ampulheta-caotica-design.md`,
+`docs/superpowers/specs/2026-06-23-manifesto-design.md`, and 10 files under `.agents/`.
+Phase 7 only rewrites `CLAUDE.md`. These other docs will keep instructing future agents
+to use the retired palette. Worth a sweep once the rebrand lands.
