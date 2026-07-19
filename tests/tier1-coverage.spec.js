@@ -43,18 +43,18 @@ test.describe('Tier 1 - Feature Coverage', () => {
   });
 
   // Feature 2: Editorial Aesthetic & Vanguard Protocol (R2)
-  test('T1.F2.1: Verify background color of the poster container matches the Vanguard Protocol paper color (#F2EAD9)', async ({ page }) => {
+  test('T1.F2.1: Verify background color of the poster container matches the Mnemosyne Viva paper color (#F5F0E6)', async ({ page }) => {
     await page.goto('/poster.html');
     const poster = page.locator('.poster, .poster-bezel-outer');
-    await expect(poster).toHaveCSS('background-color', 'rgb(242, 234, 217)');
+    await expect(poster).toHaveCSS('background-color', 'rgb(245, 240, 230)');
   });
 
-  test('T1.F2.2: Verify text colors use the ink color (#211B16) and highlight/titles use the rubrica (#9B2C1C) or gold (#9C7C3D)', async ({ page }) => {
+  test('T1.F2.2: Verify text colors use the ink color (#111111) and highlight/titles use the sienna (#8B3A1A) or ochre (#D4AF37)', async ({ page }) => {
     await page.goto('/poster.html');
     const poster = page.locator('.poster, .poster-bezel-outer');
-    await expect(poster).toHaveCSS('color', 'rgb(33, 27, 22)');
+    await expect(poster).toHaveCSS('color', 'rgb(17, 17, 17)');
     const h1 = page.locator('.poster h1, .poster-block h1, h1.poster-h1');
-    await expect(h1.first()).toHaveCSS('color', 'rgb(155, 44, 28)');
+    await expect(h1.first()).toHaveCSS('color', 'rgb(139, 58, 26)');
   });
 
   test('T1.F2.3: Verify the nested Double-Bezel (Doppelrand) border style exists on posters (two layers of borders)', async ({ page }) => {

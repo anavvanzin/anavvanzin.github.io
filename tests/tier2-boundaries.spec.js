@@ -69,10 +69,10 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await expect(innerBezel).toBeVisible();
   });
 
-  test('T2.F2.3: Verify the gold color (#9C7C3D) is applied strictly to internal bezels/decorations', async ({ page }) => {
+  test('T2.F2.3: Verify the ochre color (#D4AF37) is applied strictly to internal bezels/decorations', async ({ page }) => {
     await page.goto('/poster.html');
     const innerBezel = page.locator('.poster .bezel-inner, .poster-bezel-inner');
-    await expect(innerBezel).toHaveCSS('border-color', 'rgb(156, 124, 61)');
+    await expect(innerBezel).toHaveCSS('border-color', 'rgb(212, 175, 55)');
   });
 
   test('T2.F2.4: Verify a single drop cap is applied to the abstract on an alphabetic first letter', async ({ page }) => {
@@ -82,10 +82,14 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await expect(dropCap.first()).toHaveText(/[A-Za-zÀ-ÖØ-öø-ÿ]/);
   });
 
-  test('T2.F2.5: Verify the contrast ratio of the ink color (#211B16) on the paper color (#F2EAD9) meets readable standards', async ({ page }) => {
+  test('T2.F2.5: Verify the contrast ratio of the ink color (#111111) on the paper color (#F5F0E6) meets readable standards', async ({ page }) => {
     await page.goto('/poster.html');
-    const paper = 'rgb(242, 234, 217)';
-    const ink = 'rgb(33, 27, 22)';
+    // Read the live computed values rather than restating literals: the previous
+    // version re-derived contrast from two hardcoded strings and so passed whatever
+    // was typed, never actually reading the page.
+    const poster = page.locator('.poster, .poster-bezel-outer').first();
+    const paper = await poster.evaluate(el => getComputedStyle(el).backgroundColor);
+    const ink = await poster.evaluate(el => getComputedStyle(el).color);
     const contrast = await page.evaluate(([p, i]) => {
       const getLuminance = (rgbStr) => {
         const parts = rgbStr.match(/\d+/g).map(Number);
