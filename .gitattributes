@@ -1,6 +1,25 @@
-# Keep committed tooling out of the published site.
-# Both deploy paths build the site from `git archive HEAD` (GitHub Pages workflow
-# and scripts/stage-worker-assets.sh), which honors these export-ignore rules —
-# so .claude/ (agent skills, plans) is tracked for persistence but never deployed.
+# Keep internal working documents and tooling out of the published site.
+#
+# Both deploy paths build the site from `git archive HEAD` (the GitHub Pages
+# workflow and scripts/stage-worker-assets.sh), and `git archive` honors
+# export-ignore. So these stay tracked in git — useful locally and to agents —
+# but are never uploaded to anavanzin.com.
+#
+# Verify with:  git archive HEAD | tar -t | grep -c '^docs/superpowers'   -> 0
+
+# Operational notes: contained local filesystem paths (/Users/ana/...), git and
+# PR instructions. Was served publicly and rendered in the poster room until #69.
+# The file is deleted on this branch; the rule stays as a guard against its return.
+docs/WORKFLOW.md export-ignore
+
+# Implementation plans and design specs written during development.
+docs/superpowers export-ignore
+docs/superpowers/** export-ignore
+
+# Agent scaffolding, skills, plans and session state.
+.agents export-ignore
+.agents/** export-ignore
 .claude export-ignore
 .claude/** export-ignore
+.superpowers export-ignore
+.superpowers/** export-ignore
