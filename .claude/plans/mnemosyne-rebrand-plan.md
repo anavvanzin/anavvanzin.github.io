@@ -149,9 +149,18 @@ will orphan the poster page** unless changed: local overrides `--amethyst:#7A5C9
   `iconocracia/tokens/colors.css`.
 
 **Phase 4 — Wordmark & imagery.**
-- Replace the masthead: swap `assets/wordmark.{png,webp}` for a new Playfair/woodcut
-  wordmark **or** a CSS text wordmark ("ana vanzin" Playfair + "ler é método…" DM Sans).
-  Simplest robust path: CSS/`<h1>` text wordmark in the new type (no raster dependency).
+- **DECIDED 2026-07-20 (Ana, from live mockups): direction A — clean typographic.**
+  A CSS/`<h1>` text wordmark: "ana vanzin" in Playfair Display, "ler é método" in
+  DM Sans small-caps with letter-spacing, an ochre hairline between them. Live text,
+  no raster dependency, scales and themes perfectly. Retires
+  `assets/wordmark.{png,webp}` (the illuminated cross-stitch mark) from the masthead
+  at `index.html:313`, its only reference.
+- The rejected directions are **kept as reusable motifs elsewhere**, not discarded:
+  - **B — illuminated initial** (decorated capital in sienna/ochre/aged): candidate for
+    section openers, chapter/verbete headers, or the acervo landing.
+  - **D — seal + small-caps**: candidate for the footer, favicon, or print/OG imagery.
+  Placement is not specified here; treat as a palette of available devices, and confirm
+  with Ana before introducing one on a given page.
 - Recolor SVG marks to the Mnemosyne palette: `assets/seal.svg`, `sun-seal.svg`,
   `monogram-av*.svg`, `lockup.svg`, `justitia-mark.svg`, `laurel.svg`.
 - Regenerate rasters (need image generation): `assets/og-image.png`,
