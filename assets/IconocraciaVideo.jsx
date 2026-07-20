@@ -6,8 +6,8 @@ const PAPER = '#F5F0E6';
 const RUBRIC = '#8B3A1A';
 const GOLD = '#D4AF37';
 const REDDEEP = '#8B3A1A';
-const SERIF = "'Cormorant Garamond', Georgia, serif";
-const SANS = "'Hanken Grotesk', system-ui, sans-serif";
+const SERIF = "'Playfair Display','Cormorant Garamond',Georgia,serif";
+const SANS = "'DM Sans',Arial,sans-serif";
 const MONO = "'JetBrains Mono', ui-monospace, monospace";
 
 // ── Caption: texto rico (aceita JSX) com entrada/saída tipo TextSprite ───────

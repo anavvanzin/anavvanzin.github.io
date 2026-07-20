@@ -16,8 +16,8 @@ const REG = { fundacional:"#7E62C8", normativo:"#2E8A66", militar:"#C04242", con
 
 const VBH = 133.333;                 // viewBox height for uniform 3:4 geometry
 const Y = (y) => +(y * VBH / 100).toFixed(2);
-const FONT_D = '"Instrument Serif", Georgia, serif';
-const FONT_B = '"Crimson Pro", Georgia, serif';
+const FONT_D = '"Playfair Display", Georgia, serif';
+const FONT_B = '"DM Sans", Arial, sans-serif';
 const FONT_M = '"JetBrains Mono", ui-monospace, monospace';
 
 // ── Atoms ────────────────────────────────────────────────────────
