@@ -15,8 +15,8 @@
     const A = ACCENTS[accent] || accent || ACCENTS.rubric;
     const light = {
       ground: "#F5F0E6", paper: "#F5F0E6", panel: "#FFF9EF",
-      ink: "#111111", ink70: "#2A211A", ink50: "#756451", ink15: "rgba(33,27,22,.14)",
-      hair: "rgba(33,27,22,.22)", dot: "rgba(33,27,22,.13)",
+      ink: "#111111", ink70: "#2A211A", ink50: "#756451", ink15: "rgba(17,17,17,.14)",
+      hair: "rgba(17,17,17,.22)", dot: "rgba(17,17,17,.13)",
     };
     const cabinet = {
       ground: "#15110E", paper: "#15110E", panel: "#221B15",

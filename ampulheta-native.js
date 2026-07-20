@@ -173,7 +173,7 @@
     function draw() {
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-      ctx.strokeStyle = 'rgba(33,27,22,0.012)';
+      ctx.strokeStyle = 'rgba(17,17,17,0.012)';
       ctx.lineWidth = 0.5;
       for (let x = 0; x < WIDTH; x += 12) {
         ctx.beginPath();

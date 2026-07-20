@@ -88,7 +88,7 @@
     text-transform: uppercase;
     border-radius: 9999px;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(33,27,22,0.12);
+    box-shadow: 0 2px 4px rgba(17,17,17,0.12);
     transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
     display: inline-flex;
     align-items: center;
@@ -99,7 +99,7 @@
   .btn:hover {
     background: var(--rubric);
     border-color: var(--rubric);
-    box-shadow: 0 4px 8px rgba(155,44,28,0.25);
+    box-shadow: 0 4px 8px rgba(139,58,26,0.25);
   }
 
   .btn-ghost {
@@ -132,7 +132,7 @@
     background: var(--paper-card);
     border: 1.5px solid var(--ink);
     padding: 5px;
-    box-shadow: 3px 3px 0 rgba(33,27,22,0.1);
+    box-shadow: 3px 3px 0 rgba(17,17,17,0.1);
     width: 100%;
     box-sizing: border-box;
     display: flex;
@@ -164,7 +164,7 @@
     width: 100%;
     background: var(--paper-card);
     border: 1.5px solid var(--ink);
-    box-shadow: 2px 2px 0 rgba(33,27,22,0.1);
+    box-shadow: 2px 2px 0 rgba(17,17,17,0.1);
     padding: 14px 18px;
     box-sizing: border-box;
     max-height: 18vh;
@@ -542,7 +542,7 @@
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-    ctx.strokeStyle = 'rgba(33,27,22,0.012)';
+    ctx.strokeStyle = 'rgba(17,17,17,0.012)';
     ctx.lineWidth = 0.5;
     for (let x = 0; x < WIDTH; x += 12) {
       ctx.beginPath();
