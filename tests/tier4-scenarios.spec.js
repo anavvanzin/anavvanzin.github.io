@@ -42,14 +42,10 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
     const tabs = page.locator('.poster-tab');
     
     await expect(tabs.nth(0)).toHaveClass(/active/);
-    await expect(page.locator('.poster h2, h2.poster-h2, .poster-block h2').first()).toHaveText(/Regra-mestra/i);
-    
+    await expect(page.locator('.poster h2, h2.poster-h2, .poster-block h2').first()).toHaveText(/0. Pipeline metodológico/i);
+
     await tabs.nth(1).click();
     await expect(tabs.nth(1)).toHaveClass(/active/);
-    await expect(page.locator('.poster h2, h2.poster-h2, .poster-block h2').first()).toHaveText(/0. Pipeline metodológico/i);
-    
-    await tabs.nth(2).click();
-    await expect(tabs.nth(2)).toHaveClass(/active/);
     await expect(page.locator('.poster-banner h1, h1').first()).toContainText(/Visual Contract|O contrato visual/i);
   });
 

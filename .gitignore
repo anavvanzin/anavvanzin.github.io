@@ -17,6 +17,19 @@ node_modules/
 site/
 .worker-assets/
 _site/
+test-results/
+
+# internal operational/dev artifacts — never track or publish
+.agents/
+.ecc/
+docs/superpowers/
+AGENTS.md
+CLAUDE.md
+ORIGINAL_REQUEST.md
+CLAUDE_CODE_HANDOFF.md
+TEST_INFRA.md
+TEST_READY.md
+_LEIA.md
 
 # local-only reference material (NOT deployed — kept off GH Pages)
 assets/anavanzin_site_asset_pack/
