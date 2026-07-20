@@ -55,7 +55,7 @@ body { margin: 0; background: var(--paper); background-image: var(--grain); back
 .lbl { font-family: var(--font-mono); font-size: var(--text-mono-sm); letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 0 0 9px; }
 .prose { font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body); color: var(--warm-gray); margin: 0; }
 .crit { border-left: var(--margin-bar); padding: 4px 0 4px 18px; margin-top: 20px; }
-.crit .prose { color: #5a514a; }
+.crit .prose { color: #756451; }
 .notes textarea { width: 100%; box-sizing: border-box; resize: vertical; border: 1px solid var(--light-border); border-radius: var(--radius-sm); background: var(--surface-card); padding: 12px 14px; font-family: var(--font-body); font-size: 15px; color: var(--ink); line-height: 1.55; outline: none; }
 .notes textarea:focus { border-color: var(--brand-amethyst); }
 

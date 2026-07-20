@@ -39,9 +39,9 @@
   ];
 
   const C = {
-    ink: '#211B16',
-    rubric: '#9B2C1C',
-    gold2: '#B7934C'
+    ink: '#111111',
+    rubric: '#8B3A1A',
+    gold2: '#D4AF37'
   };
 
   const WIDTH = 300;

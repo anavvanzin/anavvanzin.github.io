@@ -1,11 +1,11 @@
 // IconocraciaVideo.jsx — cenas do explicador (motor: animations.jsx via window globals)
 // Mantido fora do .dc.html porque .jsx é transpilado sob demanda pelo x-import.
 
-const INK = '#211B16';
-const PAPER = '#F2EAD9';
-const RUBRIC = '#9B2C1C';
-const GOLD = '#9C7C3D';
-const REDDEEP = '#A23B2E';
+const INK = '#111111';
+const PAPER = '#F5F0E6';
+const RUBRIC = '#8B3A1A';
+const GOLD = '#D4AF37';
+const REDDEEP = '#8B3A1A';
 const SERIF = "'Cormorant Garamond', Georgia, serif";
 const SANS = "'Hanken Grotesk', system-ui, sans-serif";
 const MONO = "'JetBrains Mono', ui-monospace, monospace";
@@ -275,7 +275,7 @@ function IconocraciaVideo() {
         </Sprite>
         <Sprite start={55} end={62}>
           <Caption x={960} y={120} w={1300} align="center" italic size={78} color={PAPER}>
-            Na lei, ela <span style={{ color: '#E2786A' }}>desaparece</span>.
+            Na lei, ela <span style={{ color: '#B5583A' }}>desaparece</span>.
           </Caption>
         </Sprite>
         <Sprite start={62.6} end={75}>
@@ -567,7 +567,7 @@ function IconocraciaVideoVertical() {
         </Sprite>
         <Sprite start={55} end={62}>
           <Caption x={CX} y={300} w={1000} align="center" italic size={84} color={PAPER}>
-            Na lei, ela <span style={{ color: '#E2786A' }}>desaparece</span>.
+            Na lei, ela <span style={{ color: '#B5583A' }}>desaparece</span>.
           </Caption>
         </Sprite>
         <Sprite start={62.6} end={75}>

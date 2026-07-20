@@ -10,18 +10,18 @@
 
   // ── Cabinet palette (dark tier) ──────────────────────────────────
   const C = {
-    ground: "#141A33",
-    panel: "#1B2342",
+    ground: "#1E1811",
+    panel: "#221B15",
     panel2: "rgba(255,255,255,.035)",
-    ink: "#EFE6D2",
-    ink2: "#C7BCA6",
-    ink3: "#8E8770",
-    gold: "#D4A85E",
+    ink: "#FFF9EF",
+    ink2: "#E8DDC8",
+    ink3: "#756451",
+    gold: "#D4AF37",
     goldDim: "rgba(212,168,94,.42)",
     hair: "rgba(184,146,74,.30)",
-    plate: "#0C1226",
-    lacre: "#A8281F",
-    amethyst: "#9A6DBC"
+    plate: "#15110E",
+    lacre: "#8B3A1A",
+    amethyst: "#7B5E3C"
   };
   const REG = {
     fundacional: "#7E62C8",
@@ -944,7 +944,7 @@
   // ── App ──────────────────────────────────────────────────────────
   function RadiografiaApp(props) {
     props = props || {};
-    const accent = props.accent || "#A04030";
+    const accent = props.accent || "#8B3A1A";
     const scale = parseFloat(props.scale) || 1;
     const [aId, setA] = React.useState(props.defaultA || D.DEFAULT_A);
     const [bId, setB] = React.useState(props.defaultB || D.DEFAULT_B);
@@ -994,7 +994,7 @@
       };
     }, []);
     const cabinetBG = {
-      background: `radial-gradient(120% 80% at 50% 0%, #1A2140 0%, #11162E 55%, #0C1124 100%)`
+      background: `radial-gradient(120% 80% at 50% 0%, #221B15 0%, #1A1410 55%, #15110E 100%)`
     };
     return /*#__PURE__*/React.createElement("div", {
       style: {

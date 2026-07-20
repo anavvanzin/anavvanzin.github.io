@@ -28,8 +28,8 @@
   min-height: 54px;
   padding: 8px clamp(14px, 3vw, 30px);
   box-sizing: border-box;
-  background: #F2EAD9;               /* editorial --paper */
-  border-bottom: 1px solid #211B16; /* editorial --ink   */
+  background: #F5F0E6;               /* editorial --paper */
+  border-bottom: 1px solid #111111; /* editorial --ink   */
   font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
 }
 
@@ -38,7 +38,7 @@
   align-items: center;
   gap: 9px;
   text-decoration: none;
-  color: #211B16;
+  color: #111111;
 }
 .ico-bar .brand img {
   width: 22px;
@@ -64,10 +64,10 @@
   text-transform: lowercase;
   letter-spacing: .18em;
   font-size: 11px;
-  color: #9B2C1C;                   /* editorial --rubric */
+  color: #8B3A1A;                   /* editorial --rubric */
 }
 .ico-bar .brand:hover .lbl {
-  color: #7D2316;                   /* ~ --accent-hover (rubric darkened) */
+  color: #632713;                   /* ~ --accent-hover (rubric darkened) */
 }
 
 .ico-bar .sp {
@@ -85,8 +85,8 @@
   white-space: nowrap;
 }
 .ico-bar .back:hover {
-  color: #9B2C1C;
+  color: #8B3A1A;
 }
 .ico-bar .back .ar {
-  color: #9B2C1C;
+  color: #8B3A1A;
 }

@@ -18,31 +18,31 @@
   // ── Theme → CSS custom properties ───────────────────────────────
   function atlasTheme(t) {
     const light = {
-      "--c-ground": "#EFE5CF",
-      "--c-panel": "#F8F5EE",
+      "--c-ground": "#F5F0E6",
+      "--c-panel": "#FFF9EF",
       "--c-panel-2": "rgba(255,255,255,.42)",
-      "--c-ink": "#1A1612",
-      "--c-ink-2": "#6F665C",
-      "--c-ink-3": "#8D8377",
-      "--c-border": "#D4C19A",
+      "--c-ink": "#111111",
+      "--c-ink-2": "#756451",
+      "--c-ink-3": "#9C8D79",
+      "--c-border": "#E8DDC8",
       "--c-hair": "rgba(184,146,74,.5)",
-      "--c-gold": "#B8924A",
-      "--c-plate": "#1D2548",
-      "--c-on-accent": "#F8F5EE",
+      "--c-gold": "#D4AF37",
+      "--c-plate": "#15110E",
+      "--c-on-accent": "#FFF9EF",
       "--c-grain": "var(--grain)"
     };
     const dark = {
-      "--c-ground": "#171D38",
-      "--c-panel": "#1F274A",
+      "--c-ground": "#15110E",
+      "--c-panel": "#221B15",
       "--c-panel-2": "rgba(255,255,255,.05)",
-      "--c-ink": "#EFE6D2",
-      "--c-ink-2": "#C7BCA6",
-      "--c-ink-3": "#9A9276",
+      "--c-ink": "#FFF9EF",
+      "--c-ink-2": "#E8DDC8",
+      "--c-ink-3": "#A8967E",
       "--c-border": "rgba(184,146,74,.34)",
       "--c-hair": "rgba(184,146,74,.4)",
-      "--c-gold": "#D4A85E",
-      "--c-plate": "#0E142C",
-      "--c-on-accent": "#0E142C",
+      "--c-gold": "#D4AF37",
+      "--c-plate": "#15110E",
+      "--c-on-accent": "#15110E",
       "--c-grain": "none"
     };
     const base = t.tone === "cabinet" ? dark : light;
@@ -53,7 +53,7 @@
     }[t.density] || ["88px", "22px"];
     return {
       ...base,
-      "--c-accent": t.accent || "#A04030",
+      "--c-accent": t.accent || "#8B3A1A",
       "--c-fund": "#6B52B0",
       "--c-norm": "#2A7A5A",
       "--c-mil": "#B23636",
@@ -152,7 +152,7 @@
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: "calc(13px * var(--scale))",
-        color: "#E8DCC4",
+        color: "#E8DDC8",
         marginTop: 2,
         lineHeight: 1.15
       }
@@ -590,14 +590,14 @@
         height: 27,
         borderRadius: "50%",
         background: "var(--brand-amethyst)",
-        border: "1.5px solid #E8DCC4",
+        border: "1.5px solid #E8DDC8",
         boxShadow: "0 0 0 4px rgba(138,95,168,.3), var(--shadow-plate)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "var(--font-mono)",
         fontSize: 11,
-        color: "#F4F0E8"
+        color: "#FFF9EF"
       }
     }, p.n)), /*#__PURE__*/React.createElement("figcaption", {
       className: "mono",
@@ -769,28 +769,28 @@
       id: "atlas",
       style: {
         padding: "var(--pad-sec) 40px",
-        backgroundColor: "#1A2143",
-        backgroundImage: "linear-gradient(rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(160deg,#1A2143,#2A3360)",
+        backgroundColor: "#221B15",
+        backgroundImage: "linear-gradient(rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(160deg,#221B15,#2E2419)",
         backgroundSize: "24px 24px, 24px 24px, cover",
         position: "relative"
       }
     }, /*#__PURE__*/React.createElement(Cap, {
       style: {
-        color: "#D4A85E"
+        color: "#D4AF37"
       }
     }, "O Atlas Iconocr\xE1tico \xB7 oito pain\xE9is \xB7 Warburg"), /*#__PURE__*/React.createElement("h2", {
       style: {
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: "var(--t-h1)",
-        color: "#EFE6D2",
+        color: "#FFF9EF",
         margin: "8px 0 0",
         maxWidth: "20ch"
       }
     }, "Uma montagem que n\xE3o resolve a tens\xE3o \u2014 a habita"), /*#__PURE__*/React.createElement("div", {
       style: {
-        borderTop: "1px solid #B8924A",
-        borderBottom: "1px solid #B8924A",
+        borderTop: "1px solid #D4AF37",
+        borderBottom: "1px solid #D4AF37",
         height: 4,
         margin: "24px 0 32px"
       }
@@ -808,9 +808,9 @@
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         aspectRatio: "4/5",
-        border: "1px solid #B8924A",
+        border: "1px solid #D4AF37",
         overflow: "hidden",
-        background: "#0E142C"
+        background: "#15110E"
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: RES(D.panelImg[i]),
@@ -834,7 +834,7 @@
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: "calc(26px * var(--scale))",
-        color: "#D4A85E",
+        color: "#D4AF37",
         lineHeight: 1
       }
     }, p.n), /*#__PURE__*/React.createElement("span", {
@@ -842,13 +842,13 @@
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: "calc(18px * var(--scale))",
-        color: "#EFE6D2"
+        color: "#FFF9EF"
       }
     }, p.name)), /*#__PURE__*/React.createElement("p", {
       style: {
         fontFamily: "var(--font-body)",
         fontSize: "calc(13px * var(--scale))",
-        color: "#C7BCA6",
+        color: "#E8DDC8",
         lineHeight: 1.45,
         margin: "4px 0 0"
       }
@@ -857,7 +857,7 @@
       style: {
         fontSize: 8,
         letterSpacing: "1.5px",
-        color: "#9A9276",
+        color: "#A8967E",
         marginTop: 4
       }
     }, p.period)))));
