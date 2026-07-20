@@ -1,0 +1,24 @@
+# Keep internal working documents out of the published site.
+#
+# Both deploy paths build the site from `git archive HEAD` (the GitHub Pages
+# workflow and scripts/stage-worker-assets.sh), and `git archive` honors
+# export-ignore. So these stay tracked in git — useful locally and to agents —
+# but are never uploaded to anavanzin.com.
+#
+# Verify with:  git archive HEAD | tar -t | grep -c '^docs/superpowers'   -> 0
+
+# Operational notes: contains local filesystem paths (/Users/ana/...), git and
+# PR instructions. Was being served publicly and rendered in the poster room.
+docs/WORKFLOW.md export-ignore
+
+# Implementation plans and design specs written during development.
+docs/superpowers export-ignore
+docs/superpowers/** export-ignore
+
+# Agent scaffolding and session state.
+.agents export-ignore
+.agents/** export-ignore
+.claude export-ignore
+.claude/** export-ignore
+.superpowers export-ignore
+.superpowers/** export-ignore
