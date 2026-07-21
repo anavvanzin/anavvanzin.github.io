@@ -3,198 +3,181 @@
   // Helper to translate/choose lang
   const L = (lang, pt, en) => lang === 'en' ? en : pt;
 
-  // Render text with drop-cap and inline markdown helper
-  function renderTextWithDropCap(text) {
-    if (!text) return null;
-    let cleaned = text.trim();
-    if (cleaned.length === 0) return null;
-    
-    const match = cleaned.match(/^([*_"]*)([A-Za-zÀ-ÖØ-öø-ÿ])([*_"]*)/);
-    if (!match) {
-      return parseInlineMarkdown(cleaned);
+  // Normalize typographic dashes coming from the source markdown/JSON:
+  // `---` → em dash, numeric `--` (page ranges) → en dash.
+  const T = (s) => (s == null ? '' : String(s))
+    .replace(/\s---\s/g, ' — ')
+    .replace(/---/g, '—')
+    .replace(/(\d)\s*--\s*(\d)/g, '$1–$2');
+
+  // Render a paragraph opening with an illuminated drop-cap on its first letter.
+  function renderDropCapParagraph(text, className) {
+    const cleaned = T(text).trim();
+    if (!cleaned) return null;
+    const m = cleaned.match(/^([A-Za-zÀ-ÖØ-öø-ÿ])([\s\S]*)$/);
+    if (!m) {
+      return React.createElement("p", { className: className }, cleaned);
     }
-    
-    const letter = match[2];
-    let after = cleaned.substring(match[0].length);
-    
-    if (match[1] && match[1] !== match[3]) {
-      after = match[1] + after;
-    }
-    
-    return React.createElement(React.Fragment, null,
-      React.createElement("span", { className: "poster-drop-cap" }, letter),
-      parseInlineMarkdown(after)
+    return React.createElement("p", { className: className },
+      React.createElement("span", { className: "poster-drop-cap" }, m[1]),
+      m[2]
     );
   }
 
-  function adjustParts(parts, delimiter) {
-    if (parts.length % 2 === 0) {
-      const last = parts.pop();
-      const secondToLast = parts.pop();
-      parts.push(secondToLast + delimiter + last);
-    }
-    return parts;
-  }
+  // ── Tabula: a single academic plate rendered from the thesis JSON ──
+  function renderTabula(rawText, lang) {
+    try {
+      const cleanJson = rawText.replace(/\\_/g, '_').replace(/\\\[/g, '[').replace(/\\\]/g, ']');
+      const d = JSON.parse(cleanJson);
+      const m = d._meta || {};
+      const el = React.createElement;
 
-  // Parse inline markdown (bold/italics)
-  function parseInlineMarkdown(text) {
-    if (!text) return '';
-    
-    let boldParts = text.split('**');
-    boldParts = adjustParts(boldParts, '**');
-    
-    const elements = boldParts.map((part, idx) => {
-      const isBold = idx % 2 !== 0;
-      
-      let italicParts = part.split('*');
-      italicParts = adjustParts(italicParts, '*');
-      
-      const subElements = italicParts.map((subPart, subIdx) => {
-        const isItalic = subIdx % 2 !== 0;
-        
-        let underscoreParts = subPart.split('_');
-        underscoreParts = adjustParts(underscoreParts, '_');
-        
-        const finalParts = underscoreParts.map((uPart, uIdx) => {
-          const isItalicUnderscore = uIdx % 2 !== 0;
-          if (isItalicUnderscore) {
-            return React.createElement("em", { key: uIdx }, uPart);
-          }
-          return uPart;
-        });
-        
-        if (isItalic) {
-          return React.createElement("em", { key: subIdx }, finalParts);
-        }
-        return finalParts;
-      });
-      
-      if (isBold) {
-        return React.createElement("strong", { key: idx }, subElements);
-      }
-      return subElements;
-    });
-    
-    return elements;
-  }
+      const tituloEn = "The Visual Contract: female allegory and sexual contract in the history of legal culture";
+      const abstract = lang === 'en' ? (m.abstract_en || m.resumo) : m.resumo;
 
-  // Parse markdown content blocks
-  function parseMarkdown(rawText, lang) {
-    const blocks = rawText.split(/\r?\n\r?\n/).map(b => b.trim()).filter(b => b.length > 0);
-    
-    return blocks.map((block, blockIdx) => {
-      // 1. Headers
-      if (block.startsWith('#')) {
-        const match = block.match(/^(#+)\s+(.*)$/);
-        if (match) {
-          const level = match[1].length;
-          const text = match[2];
-          return React.createElement("h" + Math.min(level, 4), { key: blockIdx, className: "poster-h" + level }, parseInlineMarkdown(text));
-        }
-      }
-      
-      // 2. Monospace code block
-      if (block.startsWith('```') && block.endsWith('```')) {
-        let inner = block.slice(3, -3);
-        const lines = block.split('\n');
-        let codeLines = '';
-        if (lines.length > 2) {
-          codeLines = lines.slice(1, lines.length - 1).join('\n');
-        } else {
-          inner = inner.replace(/^[a-zA-Z0-9_-]+\s+/, '');
-          codeLines = inner.trim();
-        }
-        return React.createElement("div", { key: blockIdx, className: "terminal-box" },
-          React.createElement("pre", null, React.createElement("code", null, codeLines))
-        );
-      }
-      
-      // 3. Blockquote
-      if (block.startsWith('>')) {
-        const lines = block.split('\n').map(l => l.replace(/^>\s?/, '').trim()).join('\n');
-        return React.createElement("blockquote", { key: blockIdx }, renderTextWithDropCap(lines));
-      }
-      
-      // 4. List blocks (Unordered, Ordered, Checkbox)
-      const lines = block.split('\n');
-      if (lines.length > 0 && (lines[0].trim().startsWith('- ') || lines[0].trim().startsWith('* ') || /^\d+\.\s/.test(lines[0].trim()))) {
-        const isOrdered = /^\d+\.\s/.test(lines[0].trim());
-        const listItems = lines.map((line, lineIdx) => {
-          let cleaned = line.trim();
-          let isCheckbox = false;
-          let checked = false;
-          
-          if (cleaned.startsWith('- ') || cleaned.startsWith('* ')) {
-            cleaned = cleaned.substring(2);
-          } else {
-            cleaned = cleaned.replace(/^\d+\.\s+/, '');
-          }
-          
-          if (cleaned.startsWith('[ ] ')) {
-            isCheckbox = true;
-            checked = false;
-            cleaned = cleaned.substring(4);
-          } else if (cleaned.startsWith('[x] ') || cleaned.startsWith('[X] ')) {
-            isCheckbox = true;
-            checked = true;
-            cleaned = cleaned.substring(4);
-          }
-          
-          if (isCheckbox) {
-            return React.createElement("li", { key: lineIdx, style: { listStyleType: 'none', display: 'flex', alignItems: 'center', gap: '8px' } },
-              React.createElement("input", { type: "checkbox", checked: checked, readOnly: true }),
-              React.createElement("span", null, parseInlineMarkdown(cleaned))
-            );
-          } else {
-            return React.createElement("li", { key: lineIdx }, parseInlineMarkdown(cleaned));
-          }
-        });
-        
-        return React.createElement(isOrdered ? "ol" : "ul", { key: blockIdx, className: isOrdered ? "poster-ol" : "poster-ul" }, listItems);
-      }
-      
-      // 5. Table
-      if (lines.length > 0 && lines[0].includes('|')) {
-        const rows = lines.map(line => {
-          return line.split('|').map(cell => cell.trim()).filter((cell, idx, arr) => {
-            if (idx === 0 && cell === '') return false;
-            if (idx === arr.length - 1 && cell === '') return false;
-            return true;
-          });
-        }).filter(r => r.length > 0);
-        
-        if (rows.length > 0) {
-          let headerRow = rows[0];
-          let bodyRows = rows.slice(1);
-          if (bodyRows.length > 0 && bodyRows[0].every(cell => cell.startsWith('-') || cell === '')) {
-            bodyRows = bodyRows.slice(1);
-          }
-          
-          return React.createElement("div", { key: blockIdx, className: "poster-table-container" },
-            React.createElement("table", { className: "poster-table" },
-              React.createElement("thead", null,
-                React.createElement("tr", null,
-                  headerRow.map((cell, idx) => React.createElement("th", { key: idx }, parseInlineMarkdown(cell)))
-                )
-              ),
-              React.createElement("tbody", null,
-                bodyRows.map((row, rowIdx) => React.createElement("tr", { key: rowIdx },
-                  row.map((cell, cellIdx) => React.createElement("td", { key: cellIdx }, parseInlineMarkdown(cell)))
-                ))
-              )
+      const sectionHead = (num, pt, en) => el("h2", { className: "tabula-h2" },
+        el("span", { className: "tabula-num" }, num),
+        L(lang, pt, en)
+      );
+
+      // Banner
+      const banner = el("header", { className: "poster-banner tabula-banner" },
+        el("div", { className: "tabula-eyebrow" }, "Iuris Memoria · Tabula · PPGD/UFSC · MMXXVI"),
+        el("h1", null, lang === 'en' ? tituloEn : T(m.titulo_principal)),
+        el("div", { className: "tabula-alt" }, el("em", null, T(m.titulo_alternativo))),
+        el("div", { className: "poster-meta tabula-meta" },
+          el("span", null, el("strong", null, T(m.autora))),
+          el("span", null, T(m.afiliacao)),
+          el("span", null, L(lang, "Grupo ", "Group ") + T(m.grupo_pesquisa)),
+          m.versao ? el("span", null, T(m.versao)) : null
+        ),
+        Array.isArray(m.palavras_chave) ? el("div", { className: "tabula-kws" },
+          m.palavras_chave.slice(0, 8).map((k, i) => el("span", { className: "tabula-kw", key: i }, T(k)))
+        ) : null
+      );
+
+      // Abstract with drop-cap
+      const abstractEl = renderDropCapParagraph(abstract, "tabula-abstract");
+
+      // I · Theses
+      const theses = el("section", null,
+        sectionHead("I", "Teses principais", "Main theses"),
+        el("div", { className: "tabula-grid2" },
+          (d.theses || []).map((t) => el("article", { className: "tabula-card", key: t.id },
+            el("div", { className: "tabula-tid" }, T(t.id)),
+            el("h3", null, T(t.titulo)),
+            el("div", { className: "tabula-sub" }, el("em", null, T(t.subtitulo))),
+            el("p", null, T(t.resumo)),
+            el("p", { className: "tabula-arg" },
+              el("strong", { className: "tabula-lbl" }, L(lang, "Argumento central", "Central argument")),
+              T(t.argumento_central)
             )
-          );
-        }
-      }
-      
-      // Default: Paragraph with drop cap
-      return React.createElement("p", { key: blockIdx, className: "poster-p" }, renderTextWithDropCap(block));
-    });
+          ))
+        )
+      );
+
+      // II · Timeline + Regimes
+      const tl = (d.genealogy_timeline && d.genealogy_timeline.fases) || [];
+      const regimes = (d.regimes_iconocraticos && d.regimes_iconocraticos.regimes) || [];
+      const timeline = el("section", null,
+        sectionHead("II", "Linha do tempo genealógica & regimes", "Genealogical timeline & regimes"),
+        el("div", { className: "tabula-grid2" },
+          el("div", null,
+            tl.map((f, i) => el("div", { className: "tabula-fase", key: i },
+              el("h4", null, T(f.nome)),
+              el("span", { className: "tabula-per" }, T(f.periodo)),
+              el("div", { className: "tabula-sub" }, el("em", null, T(f.subtitulo))),
+              el("p", null, T(f.descricao_geral))
+            ))
+          ),
+          el("div", null,
+            regimes.map((r, i) => el("div", { className: "tabula-regime", key: i },
+              el("h4", null, T(r.nome)),
+              r.subtitulo ? el("span", { className: "tabula-per" }, T(r.subtitulo)) : null,
+              el("p", null, T(r.descricao))
+            ))
+          )
+        )
+      );
+
+      // Paradox feature (blockquote lives here)
+      const pp = d.political_paradox || {};
+      const paradox = el("section", { className: "tabula-paradox" },
+        el("div", { className: "tabula-eyebrow" }, T(pp.id) + L(lang, " · O paradoxo", " · The paradox")),
+        el("h3", null, T(pp.nome)),
+        el("blockquote", { className: "tabula-enun" }, T(pp.enunciado)),
+        pp.formulacao_warner ? el("div", { className: "tabula-warner" }, T(pp.formulacao_warner)) : null
+      );
+
+      // III · Iconographic mapping (table)
+      const icon = el("section", null,
+        sectionHead("III", "Mapeamento iconográfico", "Iconographic mapping"),
+        el("div", { className: "poster-table-container" },
+          el("table", { className: "poster-table tabula-table" },
+            el("thead", null, el("tr", null,
+              el("th", null, L(lang, "Figura", "Figure")),
+              el("th", null, L(lang, "Atributo convencional", "Conventional attribute")),
+              el("th", null, L(lang, "Significado político", "Political meaning"))
+            )),
+            el("tbody", null,
+              (d.iconographic_mapping || []).map((ic, i) => el("tr", { key: i },
+                el("td", { className: "tabula-fig" }, T(ic.figura)),
+                el("td", null, T(ic.atributo_convencional)),
+                el("td", null, T(ic.significado_politico || ic.contrato_visual))
+              ))
+            )
+          )
+        )
+      );
+
+      // IV · Concepts network
+      const nos = (d.concepts_network && d.concepts_network.nos) || [];
+      const concepts = el("section", null,
+        sectionHead("IV", "Rede de conceitos", "Concept network"),
+        el("div", { className: "tabula-grid3" },
+          nos.map((n, i) => el("div", { className: "tabula-no", key: i },
+            el("strong", null, T(n.conceito)),
+            el("span", { className: "tabula-tipo" }, T(n.tipo)),
+            el("p", null, T(n.definicao))
+          ))
+        )
+      );
+
+      // V · References (ABNT) — ul/li
+      const refs = (d.references_abnt && d.references_abnt.references) || [];
+      const references = el("section", null,
+        el("h2", { className: "tabula-h2" },
+          el("span", { className: "tabula-num" }, "V"),
+          L(lang, "Referências", "References"),
+          el("span", { className: "tabula-abnt" }, "ABNT NBR 6023:2025")
+        ),
+        el("ul", { className: "poster-references tabula-refs" },
+          refs.map((r, i) => el("li", { key: i }, T(typeof r === 'string' ? r : (r.citacao || r.referencia || ''))))
+        )
+      );
+
+      // Footer with the ecosystem link + methodology
+      const footer = el("footer", { className: "poster-footer tabula-footer" },
+        el("span", null, "ana vanzin · ",
+          el("a", { href: "/" }, "anavanzin.com")),
+        el("span", null, L(lang, "Projeto Iconocracia · ", "Iconocracia project · "),
+          el("a", { href: "https://iconocracia.com", target: "_blank", rel: "noopener" }, "iconocracia.com ↗")),
+        el("span", null, el("a", { href: "/metodologia/" }, L(lang, "ver metodologia", "view methodology"))),
+        el("span", { className: "tabula-date" }, T(m.data_publicacao) + " · " + T(m.status))
+      );
+
+      return el("div", { className: "tabula" },
+        banner, abstractEl, theses, timeline, paradox, icon, concepts, references, footer
+      );
+    } catch (err) {
+      return React.createElement("div", { style: { color: 'var(--rubric)', padding: '16px' } },
+        "Error parsing JSON: " + err.message
+      );
+    }
   }
 
-  // WPoster Component
+  // WPoster Component — renders the single Tabula plate
   function WPoster({ lang, standalone }) {
-    const [selectedPoster, setSelectedPoster] = React.useState('workflow');
     const [content, setContent] = React.useState('');
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
@@ -205,69 +188,48 @@
     const rootRef = React.useRef(null);
     const isZooming = React.useRef(false);
 
-    // Map selected poster to file path
-    const getPath = (id) => {
-      if (id === 'workflow') return '/docs/WORKFLOW.md';
-      if (id === 'methodology') return '/docs/methodology.md';
-      if (id === 'genealogia') return '/docs/genealogia-alegoria-feminina.md';
-      return '';
-    };
+    const SOURCE = '/docs/genealogia-alegoria-feminina.md';
 
     React.useEffect(() => {
       let active = true;
       setLoading(true);
       setError(null);
-      const path = getPath(selectedPoster);
-      fetch(path)
+      fetch(SOURCE)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch poster content');
           return res.text();
         })
         .then(text => {
-          if (active) {
-            setContent(text);
-            setLoading(false);
-          }
+          if (active) { setContent(text); setLoading(false); }
         })
         .catch(err => {
-          if (active) {
-            console.error(err);
-            setError(err.message);
-            setLoading(false);
-          }
+          if (active) { console.error(err); setError(err.message); setLoading(false); }
         });
-      return () => {
-        active = false;
-      };
-    }, [selectedPoster]);
+      return () => { active = false; };
+    }, []);
 
     React.useEffect(() => {
       const handleDocKeyDown = (e) => {
-        if (e.key === 'Escape') {
-          isZooming.current = false;
-          setZoomed(false);
-        }
+        if (e.key === 'Escape') { isZooming.current = false; setZoomed(false); }
       };
       window.addEventListener('keydown', handleDocKeyDown);
       return () => window.removeEventListener('keydown', handleDocKeyDown);
     }, []);
 
-    // Listen to non-zero scroll events to capture target position before browser auto-focus scrolls to 0
+    // Capture non-zero scroll position before browser auto-focus scrolls to 0
     React.useEffect(() => {
       const target = (rootRef.current && !standalone) ? rootRef.current : window;
       const handleScroll = () => {
         if (!zoomed && !isZooming.current) {
           const val = target === window ? window.scrollY : target.scrollTop;
-          if (val !== 0) {
-            lastScrollY.current = val;
-          }
+          if (val !== 0) { lastScrollY.current = val; }
         }
       };
       target.addEventListener('scroll', handleScroll);
       return () => target.removeEventListener('scroll', handleScroll);
     }, [zoomed, standalone]);
 
-    // Scroll preservation effect to prevent layout shrinkage from resetting scrollY
+    // Preserve scroll across zoom to prevent layout shrinkage from resetting scrollY
     React.useEffect(() => {
       const target = (rootRef.current && !standalone) ? rootRef.current : window;
       if (zoomed) {
@@ -277,165 +239,14 @@
       } else {
         const saved = scrollPos.current;
         if (saved !== undefined && saved !== null && saved !== 0) {
-          if (target === window) {
-            window.scrollTo(0, saved);
-          } else {
-            target.scrollTop = saved;
-          }
+          if (target === window) { window.scrollTo(0, saved); } else { target.scrollTop = saved; }
           scrollPos.current = 0;
         }
       }
     }, [zoomed, standalone]);
 
-    // Render visual gauge for score
-    function renderGauge(scoreText) {
-      let percent = 50;
-      let label = scoreText;
-      if (/extremo/i.test(scoreText)) percent = 100;
-      else if (/alto/i.test(scoreText)) percent = 75;
-      else if (/médio/i.test(scoreText)) percent = 50;
-      else if (/baixo/i.test(scoreText)) percent = 25;
-      else if (/0\.8--1\.2/.test(scoreText)) percent = 25;
-      else if (/2\.0--2\.5/.test(scoreText)) percent = 55;
-      else if (/3\.0--3\.5/.test(scoreText)) percent = 80;
-      
-      return React.createElement("div", { style: { marginTop: '6px' } },
-        React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' } },
-          React.createElement("span", null, L(lang, 'Nível de endurecimento', 'endurecimento level')),
-          React.createElement("span", { style: { fontWeight: '600' } }, label)
-        ),
-        React.createElement("div", { style: { height: '8px', background: 'var(--ink-15)', border: '1px solid var(--ink-30)', marginTop: '4px', position: 'relative' } },
-          React.createElement("div", { style: { height: '100%', width: percent + '%', background: 'var(--rubric)', transition: 'width 0.3s ease' } })
-        )
-      );
-    }
-
-    // Render parsed JSON content
-    function renderJsonContent(rawText) {
-      try {
-        const cleanJson = rawText.replace(/\\_/g, '_').replace(/\\\[/g, '[').replace(/\\\]/g, ']');
-        const data = JSON.parse(cleanJson);
-
-        return React.createElement("div", { className: "poster-layout-json" },
-          React.createElement("header", { className: "poster-banner" },
-            React.createElement("h1", null, lang === 'en' ? "The Visual Contract: female allegory and sexual contract in the history of legal culture" : data._meta.titulo_principal),
-            React.createElement("h2", null, data._meta.titulo_alternativo),
-            React.createElement("div", { className: "poster-meta" },
-              React.createElement("span", null, React.createElement("strong", null, L(lang, "Autora: ", "Author: ")), data._meta.autora),
-              React.createElement("span", null, React.createElement("strong", null, L(lang, "Afiliação: ", "Affiliation: ")), data._meta.afiliacao)
-            )
-          ),
-          React.createElement("div", { className: "poster-columns-three" },
-            // Column 1
-            React.createElement("div", { className: "poster-column" },
-              React.createElement("h3", { className: "column-header" }, L(lang, "Teses Principais", "Main Theses")),
-              data.theses.map((thesis, idx) => React.createElement("div", { key: thesis.id, className: "poster-block card-style" },
-                React.createElement("h4", null, thesis.id + ": " + thesis.titulo),
-                React.createElement("h5", null, thesis.subtitulo),
-                React.createElement("p", null, thesis.resumo),
-                React.createElement("p", { style: { marginTop: '8px', fontSize: '13px', lineHeight: '1.4' } },
-                  React.createElement("strong", null, L(lang, "Argumento Central: ", "Central Argument: ")),
-                  thesis.argumento_central
-                )
-              )),
-              React.createElement("h3", { className: "column-header" }, L(lang, "Rede de Conceitos", "Concepts Network")),
-              React.createElement("div", { className: "poster-block card-style" },
-                React.createElement("p", { style: { fontStyle: 'italic', marginBottom: '8px', fontSize: '13px' } }, data.concepts_network.descricao),
-                data.concepts_network.nos.map(node => React.createElement("div", { key: node.id, style: { marginBottom: '12px', borderBottom: '1px solid var(--rule-hairline)', paddingBottom: '8px' } },
-                  React.createElement("strong", { style: { color: 'var(--rubric)' } }, node.conceito),
-                  React.createElement("span", { style: { fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', marginLeft: '8px', color: 'var(--text-faint)' } }, node.tipo),
-                  React.createElement("p", { style: { fontSize: '13px', marginTop: '4px', lineHeight: '1.4' } }, node.definicao)
-                ))
-              )
-            ),
-            // Column 2
-            React.createElement("div", { className: "poster-column" },
-              React.createElement("h3", { className: "column-header" }, L(lang, "Linha do Tempo Genealógica", "Genealogical Timeline")),
-              data.genealogy_timeline.fases.map(fase => React.createElement("div", { key: fase.id, className: "poster-block card-style" },
-                React.createElement("h4", { style: { color: 'var(--rubric)' } }, fase.nome),
-                React.createElement("span", { className: "period" }, fase.periodo),
-                React.createElement("p", { style: { fontWeight: '600', marginTop: '4px', fontSize: '13.5px' } }, fase.subtitulo),
-                React.createElement("p", { style: { fontSize: '13px', lineHeight: '1.4' } }, fase.descricao_geral),
-                React.createElement("div", { style: { marginTop: '8px' } },
-                  (fase.figuras || []).map(fig => React.createElement("div", { key: fig.nome, style: { marginTop: '8px', paddingLeft: '8px', borderLeft: '2px solid var(--gold)' } },
-                    React.createElement("strong", null, fig.nome),
-                    React.createElement("span", { style: { fontSize: '12px', color: 'var(--text-muted)', marginLeft: '8px' } }, fig.origem_geografica + " (" + fig.periodo + ")"),
-                    React.createElement("p", { style: { fontSize: '13px', marginTop: '2px', lineHeight: '1.4' } }, fig.funcao_juridico_politica)
-                  )),
-                  (fase.subfases || []).map(sub => React.createElement("div", { key: sub.id || sub.nome, style: { marginTop: '8px', paddingLeft: '8px', borderLeft: '2px solid var(--rubric)' } },
-                    React.createElement("strong", null, sub.nome),
-                    React.createElement("span", { style: { fontSize: '12px', color: 'var(--text-muted)', marginLeft: '8px' } }, sub.periodo),
-                    React.createElement("p", { style: { fontSize: '13px', marginTop: '2px', lineHeight: '1.4' } }, sub.descricao)
-                  ))
-                )
-              )),
-              React.createElement("h3", { className: "column-header" }, L(lang, "Regimes de Iconocracia", "Regimes of Iconocracy")),
-              data.regimes_iconocraticos.regimes.map(regime => React.createElement("div", { key: regime.id, className: "poster-block card-style" },
-                React.createElement("h4", null, regime.nome),
-                React.createElement("span", { style: { fontStyle: 'italic', fontSize: '13px', color: 'var(--text-muted)' } }, regime.subtitulo),
-                React.createElement("p", { style: { fontSize: '13px', marginTop: '4px', lineHeight: '1.4' } }, regime.descricao),
-                React.createElement("div", { style: { marginTop: '6px', fontSize: '12px' } },
-                  React.createElement("strong", null, L(lang, "Marcadores Visuais: ", "Visual Markers: ")),
-                  regime.marcadores_visuais.join(", ")
-                ),
-                React.createElement("div", { style: { marginTop: '4px', fontSize: '12px' } },
-                  React.createElement("strong", null, L(lang, "Score endurecimento típico: ", "Typical endurecimento score: ")),
-                  regime.endurecimento_score_tipico
-                )
-              ))
-            ),
-            // Column 3
-            React.createElement("div", { className: "poster-column" },
-              React.createElement("h3", { className: "column-header" }, L(lang, "Mapeamento Iconográfico", "Iconographic Mapping")),
-              data.iconographic_mapping.map(mapping => React.createElement("div", { key: mapping.id, className: "poster-block card-style" },
-                React.createElement("h4", null, mapping.figura),
-                React.createElement("span", { style: { fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-faint)' } }, mapping.tipo),
-                React.createElement("p", { style: { fontSize: '13px', marginTop: '4px', lineHeight: '1.4' } }, mapping.significado_politico),
-                renderGauge(mapping.endurecimento_contribuicao || mapping.trajetoria_de_endurecimento?.[2]?.score_endurecimento_estimado || "Médio")
-              )),
-              React.createElement("h3", { className: "column-header" }, L(lang, "Análise do Paradoxo Político", "Political Paradox Analysis")),
-              React.createElement("div", { className: "poster-block card-style", style: { borderLeft: '3px solid var(--rubric)' } },
-                React.createElement("h4", null, data.political_paradox.nome),
-                React.createElement("h5", null, data.political_paradox.subtitulo),
-                React.createElement("p", { style: { fontWeight: '600', fontSize: '13.5px' } }, data.political_paradox.enunciado),
-                React.createElement("blockquote", { style: { margin: '8px 0', paddingLeft: '8px', borderLeft: '2px solid var(--ink-30)', fontStyle: 'italic', fontSize: '13px' } }, data.political_paradox.formulacao_warner),
-                React.createElement("div", { style: { marginTop: '8px' } },
-                  React.createElement("strong", { style: { fontSize: '13px' } }, data.political_paradox.estrutura_do_paradoxo.polo_a.nome),
-                  React.createElement("p", { style: { fontSize: '13px', marginTop: '2px', lineHeight: '1.4' } }, data.political_paradox.estrutura_do_paradoxo.polo_a.descricao)
-                ),
-                React.createElement("div", { style: { marginTop: '8px' } },
-                  React.createElement("strong", { style: { fontSize: '13px' } }, data.political_paradox.estrutura_do_paradoxo.polo_b.nome),
-                  React.createElement("p", { style: { fontSize: '13px', marginTop: '2px', lineHeight: '1.4' } }, data.political_paradox.estrutura_do_paradoxo.polo_b.descricao)
-                )
-              )
-            )
-          ),
-          React.createElement("footer", { className: "poster-footer" },
-            React.createElement("div", { className: "poster-keywords" },
-              React.createElement("strong", null, L(lang, "Palavras-chave: ", "Keywords: ")),
-              data._meta.palavras_chave.join(", ")
-            ),
-            React.createElement("div", { className: "poster-references" },
-              React.createElement("strong", null, L(lang, "Referências: ", "References: ")),
-              React.createElement("ul", null,
-                data.references_abnt.references.map(ref => React.createElement("li", { key: ref.id }, ref.citacao))
-              )
-            )
-          )
-        );
-      } catch (err) {
-        return React.createElement("div", { style: { color: 'var(--rubric)', padding: '16px' } },
-          "Error parsing JSON: " + err.message
-        );
-      }
-    }
-
-    const isJson = selectedPoster === 'genealogia';
-
     const handlePosterClick = (e) => {
-      if (e.target.closest('.poster-tab') || e.target.closest('a') || e.target.closest('button') || e.target.closest('input')) {
-        return;
-      }
+      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('input')) return;
       const target = (rootRef.current && !standalone) ? rootRef.current : window;
       scrollPos.current = lastScrollY.current || (target === window ? window.scrollY : target.scrollTop);
       isZooming.current = true;
@@ -443,9 +254,7 @@
     };
 
     const handleKeyDown = (e) => {
-      if (e.target.closest('.poster-tab') || e.target.closest('a') || e.target.closest('button') || e.target.closest('input')) {
-        return;
-      }
+      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('input')) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         const target = (rootRef.current && !standalone) ? rootRef.current : window;
@@ -453,44 +262,23 @@
         isZooming.current = true;
         setZoomed(true);
       }
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        isZooming.current = false;
-        setZoomed(false);
-      }
+      if (e.key === 'Escape') { e.preventDefault(); isZooming.current = false; setZoomed(false); }
     };
 
     return React.createElement("div", {
       ref: rootRef,
-      className: "poster-root-container" + (standalone ? " standalone" : ""),
+      className: "poster-root-container tabula-root" + (standalone ? " standalone" : ""),
       style: {
         padding: standalone ? '40px 24px' : '0',
-        maxWidth: standalone ? '1200px' : '100%',
+        maxWidth: standalone ? '1180px' : '100%',
         margin: '0 auto',
         height: standalone ? 'auto' : '100%',
         overflow: standalone ? 'visible' : 'auto'
       }
     },
-      React.createElement("nav", { className: "poster-nav" },
-        React.createElement("button", {
-          className: "poster-tab " + (selectedPoster === 'workflow' ? 'active' : ''),
-          onClick: () => setSelectedPoster('workflow')
-        }, L(lang, "Workflow Operacional", "Operational Workflow")),
-        React.createElement("button", {
-          className: "poster-tab " + (selectedPoster === 'methodology' ? 'active' : ''),
-          onClick: () => setSelectedPoster('methodology')
-        }, L(lang, "Metodologia", "Methodology")),
-        React.createElement("button", {
-          className: "poster-tab " + (selectedPoster === 'genealogia' ? 'active' : ''),
-          onClick: () => setSelectedPoster('genealogia')
-        }, L(lang, "Genealogia da Alegoria Feminina", "Genealogy of Female Allegory"))
-      ),
       zoomed && React.createElement("div", {
         className: "zoom-backdrop poster-backdrop",
-        onClick: (e) => {
-          e.stopPropagation();
-          setZoomed(false);
-        }
+        onClick: (e) => { e.stopPropagation(); setZoomed(false); }
       }),
       React.createElement("div", {
         className: "poster poster-bezel-outer poster-window-zoom" + (zoomed ? " zoomed" : ""),
@@ -514,10 +302,9 @@
       },
         React.createElement("div", { className: "poster-grain" }),
         React.createElement("div", { className: "poster-bezel-inner" },
-          loading ? React.createElement("div", { className: "poster-loading" }, L(lang, "Carregando pôster...", "Loading poster...")) :
+          loading ? React.createElement("div", { className: "poster-loading" }, L(lang, "Carregando tabula…", "Loading tabula…")) :
           error ? React.createElement("div", { style: { color: 'var(--rubric)', padding: '24px', textAlign: 'center' } }, error) :
-          isJson ? renderJsonContent(content) :
-          React.createElement("div", { className: "poster-columns" }, parseMarkdown(content, lang))
+          renderTabula(content, lang)
         )
       )
     );

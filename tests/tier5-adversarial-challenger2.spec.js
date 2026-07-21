@@ -6,43 +6,19 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     await page.addInitScript(() => { localStorage.setItem('av_booted', '1'); });
   });
 
-  // Gap 1: Network Fetch Race Condition
-  test('T5.1: Network Fetch Race Condition in Tab Switcher', async ({ page }) => {
-    // Delay WORKFLOW.md by 2000ms
-    await page.route('**/docs/WORKFLOW.md', async route => {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      await route.continue();
-    });
-    // methodology.md resolves instantly
-    await page.route('**/docs/methodology.md', route => route.continue());
-    // genealogia-alegoria-feminina.md resolves instantly
+  // Gap 1: The plate loads from a single source with no switcher race
+  test('T5.1: Single-source load resolves to the plate with no parse error', async ({ page }) => {
     await page.route('**/docs/genealogia-alegoria-feminina.md', route => route.continue());
 
     await page.goto('/poster.html');
-    
-    const tabs = page.locator('.poster-tab');
-    await expect(tabs.nth(0)).toHaveClass(/active/);
 
-    // Rapidly switch tabs: click Methodology (instant), click Genealogia (instant), click Workflow (delayed), click Genealogia (instant)
-    await tabs.nth(1).click(); // Methodology
-    await tabs.nth(2).click(); // Genealogia
-    await tabs.nth(0).click(); // Workflow (triggers delayed fetch)
-    await tabs.nth(2).click(); // Genealogia (triggers instant fetch)
+    // No tabs / document switcher
+    await expect(page.locator('.poster-tab')).toHaveCount(0);
 
-    // Wait for delayed fetch to finish (2500ms)
-    await page.waitForTimeout(2500);
-
-    // The active tab is Genealogia (index 2)
-    await expect(tabs.nth(2)).toHaveClass(/active/);
-
-    // If race condition bug is present, the slow WORKFLOW.md response overwrites the content,
-    // causing a JSON parse error because it tries to parse Markdown as JSON.
+    // No parse error, banner visible
     const errorBox = page.locator('text=/Error parsing JSON|Unexpected token/i');
     await expect(errorBox).not.toBeVisible();
-    
-    // The banner title of Genealogia should be visible
-    const bannerTitle = page.locator('.poster-banner h1');
-    await expect(bannerTitle).toBeVisible();
+    await expect(page.locator('.poster-banner h1')).toBeVisible();
   });
 
   // Gap 2: Container Scroll Position Preservation inside Desktop App Window
@@ -52,7 +28,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
     // The poster-root-container is the element with overflow-y/scroll inside the desktop window wrapper
@@ -69,7 +45,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     await rootContainer.evaluate(el => el.scrollTop = 100);
     const scrollTopBefore = await rootContainer.evaluate(el => el.scrollTop);
     expect(scrollTopBefore).toBeGreaterThan(0);
-    
+
     // Zoom the poster
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.click({ position: { x: 10, y: 10 } });
@@ -90,7 +66,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.focus();
     await expect(poster).toBeFocused();
-    
+
     // Press Space bar to trigger zoom
     await page.keyboard.press('Space');
     await expect(poster).toHaveClass(/zoomed|zoom-active/i);
@@ -107,47 +83,39 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
 
     const posterBox = await poster.boundingBox();
     const viewportWidth = 375;
-    
+
     const leftMargin = posterBox.x;
     const rightMargin = viewportWidth - (posterBox.x + posterBox.width);
-    
+
     // Touch targets should have a width/height of at least 44px for accessibility
     expect(leftMargin).toBeGreaterThanOrEqual(44);
     expect(rightMargin).toBeGreaterThanOrEqual(44);
   });
 
-  // Gap 5: Single-line Code Block Parsing
-  test('T5.5: Markdown Parser - Single-line Code Block Handling', async ({ page }) => {
-    const md = '```js const val = 42; ```';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+  // Gap 5: The removed operational workflow must not resurface as code blocks
+  test('T5.5: The plate publishes no terminal/code content (workflow leak regression)', async ({ page }) => {
     await page.goto('/poster.html');
-    
-    const code = page.locator('.poster code, code');
-    await expect(code).toBeVisible();
-    await expect(code).toHaveText(/const val = 42/);
+    await page.waitForSelector('.poster-banner h1');
+    await expect(page.locator('.poster pre, .poster code')).toHaveCount(0);
+    const body = await page.locator('body').innerText();
+    expect(body).not.toContain('conda activate');
+    expect(body).not.toContain('/Users/');
   });
 
-  // Gap 6: Unmatched Formatting Characters Rendering
-  test('T5.6: Markdown Parser - Unmatched Single Formatting Character Handling', async ({ page }) => {
-    const md = 'This is *italic but unmatched text';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+  // Gap 6: Typographic dashes are normalized (no raw triple hyphen)
+  test('T5.6: Source em-dashes are normalized in the rendered plate', async ({ page }) => {
     await page.goto('/poster.html');
-    
-    const em = page.locator('.poster em, em');
-    // Unmatched asterisks should be rendered as literal text, not wrapped in em tags
-    await expect(em).not.toBeVisible();
+    await page.waitForSelector('.tabula-card');
+    const body = await page.locator('.tabula').innerText();
+    expect(body).not.toContain('---');
   });
 
-  // Gap 7: Drop Cap Formatting Suppression
-  test('T5.7: Drop Cap rendering on Formatted Starting Paragraphs', async ({ page }) => {
-    const md = '**T**his starts with bold text.';
-    await page.route('**/docs/WORKFLOW.md', route => route.fulfill({ status: 200, body: md }));
+  // Gap 7: Drop Cap rendering on the abstract's first letter
+  test('T5.7: Drop cap renders on the abstract first letter', async ({ page }) => {
     await page.goto('/poster.html');
-    
     const dropCap = page.locator('.poster-drop-cap, .drop-cap');
-    // Drop cap should find the starting letter even if wrapped in bold/italic tags
-    await expect(dropCap).toBeVisible();
-    await expect(dropCap).toHaveText('T');
+    await expect(dropCap.first()).toBeVisible();
+    await expect(dropCap.first()).toHaveText(/^[A-Za-zÀ-ÖØ-öø-ÿ]$/);
   });
 
 });

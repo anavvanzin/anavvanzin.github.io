@@ -5,8 +5,8 @@
    · JetBrains Mono    — classification labels, small-caps designation, meta */
 
 :root {
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-body:    "Crimson Pro", Georgia, serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-body:    "DM Sans", Arial, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
   /* ── Type scale ─────────────────────────────── */

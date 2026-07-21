@@ -1,43 +1,34 @@
 const { test, expect } = require('@playwright/test');
 
-test('standalone poster page loads and tabs function', async ({ page }) => {
+test('standalone tabula page loads as a single academic plate', async ({ page }) => {
   await page.goto('/poster.html');
 
   // Verify the page title
-  await expect(page).toHaveTitle(/ana vanzin · sala de pôsteres/);
+  await expect(page).toHaveTitle(/ana vanzin · tabula/);
 
-  // Check that the three tabs are visible
-  const tabs = page.locator('.poster-tab');
-  await expect(tabs).toHaveCount(3);
-  await expect(tabs.nth(0)).toHaveText(/Workflow Operacional/);
-  await expect(tabs.nth(1)).toHaveText(/Metodologia/);
-  await expect(tabs.nth(2)).toHaveText(/Genealogia da Alegoria Feminina/);
+  // The tabula is a single plate — there are no navigation tabs anymore
+  await expect(page.locator('.poster-tab')).toHaveCount(0);
 
-  // Verify default poster content (Workflow Operacional should be active)
-  await expect(tabs.nth(0)).toHaveClass(/active/);
   const loading = page.locator('.poster-loading');
   await expect(loading).not.toBeVisible();
-  
-  // Verify that workflow content renders (has headers or text)
-  const h2 = page.locator('.poster-h2');
-  await expect(h2.first()).toHaveText(/Regra-mestra/);
 
-  // Toggle to Metodologia tab
-  await tabs.nth(1).click();
-  await expect(tabs.nth(1)).toHaveClass(/active/);
-  
-  // Verify that methodology content renders
-  await expect(page.locator('.poster-h2').first()).toHaveText(/0. Pipeline metodológico/);
-
-  // Toggle to Genealogia tab (JSON)
-  await tabs.nth(2).click();
-  await expect(tabs.nth(2)).toHaveClass(/active/);
-  // Verify banner title in Column layout (either Portuguese or English)
+  // Banner title of the plate (Portuguese or English)
   const bannerTitle = page.locator('.poster-banner h1');
   await expect(bannerTitle).toHaveText(/(O contrato visual|The Visual Contract)/);
+
+  // Core sections render from the JSON
+  await expect(page.locator('.tabula-card').first()).toBeVisible();      // theses
+  await expect(page.locator('.tabula-table')).toBeVisible();             // iconographic mapping
+  await expect(page.locator('.tabula-refs li').first()).toBeVisible();   // references
+
+  // The internal operational workflow must NOT be published here
+  const body = await page.locator('body').innerText();
+  expect(body).not.toContain('Research/hub');
+  expect(body).not.toContain('conda activate');
+  expect(body).not.toMatch(/Regra-mestra/);
 });
 
-test('desktop app poster window integration', async ({ page }) => {
+test('desktop app tabula window integration', async ({ page }) => {
   await page.addInitScript(() => { localStorage.setItem('av_booted', '1'); });
   await page.goto('/mesa/');
 
@@ -47,18 +38,17 @@ test('desktop app poster window integration', async ({ page }) => {
     await enterBtn.click();
   }
 
-  // Find the posters icon on desktop (could be "pôsteres" or "posters")
-  const posterIcon = page.locator('button', { hasText: /^(pôsteres|posters)$/i });
+  // Find the tabula icon on desktop
+  const posterIcon = page.locator('button', { hasText: /^tabula$/i });
   await expect(posterIcon).toBeVisible();
 
-  // Double click the posters icon to open window
+  // Double click the icon to open the window
   await posterIcon.dblclick();
 
-  // Verify that the window is open (could be "sala de pôsteres" or "poster room")
-  const win = page.locator('.dwin', { hasText: /(sala de pôsteres|poster room)/i });
+  // Verify the window is open
+  const win = page.locator('.dwin', { hasText: /tabula/i });
   await expect(win).toBeVisible();
 
-  // Check that the poster tabs are rendered inside the window
-  const tabs = win.locator('.poster-tab');
-  await expect(tabs).toHaveCount(3);
+  // Check that the tabula plate renders inside the window
+  await expect(win.locator('.poster-banner h1')).toBeVisible();
 });

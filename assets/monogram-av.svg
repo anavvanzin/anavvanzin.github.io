@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" role="img" aria-label="AV monogram standing on a balance beam">
   
-  <g fill="none" stroke="#211B16" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#111111" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 47 196 L 95 52"></path>
     <path d="M 95 52 L 143 196"></path>
     <path d="M 143 196 L 191 52"></path>
     
     <path d="M 69 132 L 121 132"></path>
   </g>
-  <g stroke="#9B2C1C" fill="none" stroke-linecap="round">
+  <g stroke="#8B3A1A" fill="none" stroke-linecap="round">
     
     <path d="M 28 210 L 212 210" stroke-width="9"></path>
     
     <path d="M 28 210 L 28 226" stroke-width="3.5"></path>
     <path d="M 212 210 L 212 226" stroke-width="3.5"></path>
   </g>
-  <g fill="#9B2C1C" stroke="none">
+  <g fill="#8B3A1A" stroke="none">
     <path d="M 8 227 Q 28 249 48 227 Z"></path>
     <path d="M 192 227 Q 212 249 232 227 Z"></path>
   </g>
-  <circle cx="28" cy="210" r="6.5" fill="#9B2C1C"></circle>
-  <circle cx="212" cy="210" r="6.5" fill="#9B2C1C"></circle>
+  <circle cx="28" cy="210" r="6.5" fill="#8B3A1A"></circle>
+  <circle cx="212" cy="210" r="6.5" fill="#8B3A1A"></circle>
 </svg>

@@ -6,7 +6,7 @@
    Consumers link THIS file. It is a manifest of @imports only.
    ════════════════════════════════════════════════════════════ */
 
-@import url("/fonts/fonts.css");      /* Instrument Serif · Crimson Pro · JetBrains Mono */
+@import url("/fonts/fonts.css");      /* Playfair Display · DM Sans · JetBrains Mono */
 
 @import url("./tokens/colors.css");     /* grounds, inks, juridical accents, regimes */
 @import url("./tokens/typography.css");  /* three voices + scale + tracking */

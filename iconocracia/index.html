@@ -6,7 +6,7 @@
 <title>ICONOCRACIA · Iuris Memoria</title>
 <meta name="description" content="A alegoria feminina como tecnologia visual do Estado — Atlas e laboratório de inquérito iconocrático. Ana Vanzin · PPGD/UFSC." />
 <meta name="author" content="Ana Vanzin" />
-<meta name="theme-color" content="#1A2342" />
+<meta name="theme-color" content="#221B15" />
 <link rel="canonical" href="https://anavanzin.com/iconocracia/" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/avatar-pixel.png" />
 <link rel="icon" type="image/png" sizes="64x64" href="/assets/avatar-pixel.png" />
@@ -33,7 +33,7 @@
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; min-height: 100vh;
-    background-color: var(--surface-page, #EFE5CF);
+    background-color: var(--surface-page, #F5F0E6);
     background-image: var(--grain);
     background-size: 200px;
     color: var(--ink);
@@ -46,7 +46,7 @@
   .rule::after { content: ""; position: absolute; left: 0; top: -3px; width: 70px; height: 1px; background: var(--brand-amethyst); }
   .kick { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--brand-amethyst); margin: 20px 0 0; }
   h1 { font-family: var(--font-display); font-style: italic; font-size: clamp(48px, 9vw, 96px); line-height: .98; letter-spacing: -.01em; color: var(--ink); margin: 12px 0 0; }
-  .lede { font-family: var(--font-body); font-size: clamp(16px, 2.2vw, 20px); line-height: 1.6; color: #4a443c; max-width: 60ch; margin: 22px 0 0; text-wrap: pretty; }
+  .lede { font-family: var(--font-body); font-size: clamp(16px, 2.2vw, 20px); line-height: 1.6; color: #2A211A; max-width: 60ch; margin: 22px 0 0; text-wrap: pretty; }
   .lede em { font-style: italic; color: var(--terracotta); }
 
   /* entry cards */
@@ -54,18 +54,18 @@
   a.card {
     display: flex; flex-direction: column; text-decoration: none;
     border: 1px solid var(--light-border); border-radius: var(--radius);
-    background: var(--surface-card, #FBF7EE); overflow: hidden;
+    background: var(--surface-card, #FFF9EF); overflow: hidden;
     box-shadow: var(--shadow-card); transition: transform .18s var(--ease-out), box-shadow .18s var(--ease-out), border-color .18s;
   }
   a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
-  .thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--navy-mid, #1D2548); border-bottom: 1px solid var(--gold); }
+  .thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--navy-mid, #15110E); border-bottom: 1px solid var(--gold); }
   .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   a.card:hover .thumb img { transform: scale(1.03); }
   .thumb img { transition: transform .4s var(--ease-out); }
-  .num { position: absolute; top: 12px; left: 12px; white-space: nowrap; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--ivory-light, #F4ECD8); background: rgba(13,16,30,.6); border: 1px solid var(--gold); border-radius: 3px; padding: 3px 8px; }
+  .num { position: absolute; top: 12px; left: 12px; white-space: nowrap; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--ivory-light, #FFF9EF); background: rgba(13,16,30,.6); border: 1px solid var(--gold); border-radius: 3px; padding: 3px 8px; }
   .body { padding: 20px 22px 22px; }
   .body h2 { font-family: var(--font-display); font-style: italic; font-size: 27px; color: var(--ink); margin: 0; line-height: 1.05; }
-  .body p { font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: #4a443c; margin: 9px 0 0; }
+  .body p { font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: #2A211A; margin: 9px 0 0; }
   .go { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--terracotta); margin-top: 16px; }
   .go svg { transition: transform .18s var(--ease-out); }
   a.card:hover .go svg { transform: translateX(3px); }
@@ -73,7 +73,7 @@
   footer { border-top: 3px double var(--gold); }
   .foot-in { max-width: 1080px; margin: 0 auto; padding: 22px 40px 30px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .foot-in img { width: 40px; height: 40px; object-fit: cover; border: 1px solid var(--gold); border-radius: 4px; }
-  .foot-in .col { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #6a6258; line-height: 1.8; }
+  .foot-in .col { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #756451; line-height: 1.8; }
   .foot-in .col b { font-family: var(--font-display); font-style: italic; font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--ink); display: block; }
 
   @media (max-width: 720px) {

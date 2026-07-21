@@ -100,11 +100,11 @@ const REG = {
   },
   poster: {
     title: {
-      pt: 'sala de pôsteres',
-      en: 'poster room'
+      pt: 'tabula',
+      en: 'tabula'
     },
-    w: 800,
-    h: 600,
+    w: 860,
+    h: 640,
     Body: WPoster
   }
 };
@@ -252,8 +252,8 @@ const DESK_ICONS = [{
 }, {
   id: 'poster',
   label: {
-    pt: 'pôsteres',
-    en: 'pôsteres'
+    pt: 'tabula',
+    en: 'tabula'
   },
   Icon: AtlasIcon
 }];

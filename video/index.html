@@ -9,16 +9,16 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
   :root{
-    --paper:#EFE5CF;--paper2:#F2EAD9;--ink:#211B16;--rubric:#9B2C1C;
-    --gold:#B08D3C;--navy:#243049;
-    --disp:'Cormorant Garamond',serif;--body:'Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+    --paper:#F5F0E6;--paper2:#F5F0E6;--ink:#111111;--rubric:#8B3A1A;
+    --gold:#D4AF37;--navy:#15110E;
+    --disp:'Playfair Display','Cormorant Garamond',serif;--body:'DM Sans',Arial,sans-serif;--mono:'JetBrains Mono',monospace;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
     background:var(--paper);color:var(--ink);font-family:var(--body);
     min-height:100dvh;display:flex;flex-direction:column;
-    background-image:radial-gradient(rgba(33,27,22,.04) .5px,transparent .5px);
+    background-image:radial-gradient(rgba(17,17,17,.04) .5px,transparent .5px);
     background-size:4px 4px;
   }
   /* losango rubricado — só em elementos interativos (preserva I-beam no texto) */
@@ -47,7 +47,7 @@
   .stage{margin:clamp(28px,5vh,52px) auto 0;background:var(--paper2);
     border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
     border-radius:20px;padding:10px;
-    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 18px 40px -28px rgba(33,27,22,.55);}
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 18px 40px -28px rgba(17,17,17,.55);}
   .screen{background:var(--navy);border-radius:12px;overflow:hidden;
     box-shadow:0 1px 1px rgba(255,255,255,.10) inset;}
   video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--navy)}
