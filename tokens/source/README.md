@@ -36,5 +36,5 @@ lines inside it are section comments, not imports.
 
 ## Related
 
-Migration plan and its verified corrections: `.claude/plans/mnemosyne-rebrand-plan.md`.
+Close-out plan (phases 0–4/6/7 done; Phase 5 + OG/favicon waived — Option A): `.claude/plans/mnemosyne-rebrand-plan.md`.
 Fonts are self-hosted via `fonts/fetch_fonts.py` — no runtime Google Fonts CDN.
