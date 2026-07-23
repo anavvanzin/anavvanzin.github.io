@@ -17,7 +17,7 @@ This document is the execution record + merge gate. Historical phase detail rema
 | 2 — Propagate (`.tabula`, editorial, DS) | **Done** | Bundled in `e50e01d` (`.tabula` font + orphan hexes in `styles.css`). |
 | 3 — Manual / JS / JSX / section pages | **Done** | `dc6ea23` → `8830ae3` → `18b6302` → `b141c23` → `873f3af` (3a–3e). |
 | 4 — Wordmark + SVG marks | **Done** (partial by design) | `4faae04` + decision note `078be7d`. Direction A typographic wordmark; SVG seals/monograms recoloured. |
-| 4b — OG / favicon raster regen | **Waived** | Option A. Live site keeps existing `assets/og-image.png` / `assets/avatar-pixel.png` (and related favicons) as-is. |
+| 4b — OG / favicon raster regen | **Done (post-merge)** | OG via `b700ec3`. Favicons/apple-touch regenerated from Motif D `seal.svg` (2026-07-22). `avatar-pixel.png` kept for mesa window chrome only. |
 | 5 — House label "Mnemosyne Viva" | **Waived** | Option A. Site name stays **ana vanzin**; no acervo/atlas kicker required for merge. |
 | 6 — Playwright assertions | **Done** | Lockstep in `e50e01d` (tier1–3 colour/font literals + anchored regexes). |
 | 7 — `CLAUDE.md` design-system rules | **Done** | `e64f020`. |
@@ -99,8 +99,8 @@ Expect **0** hex hits that are live brand values on in-scope pages. Hits only as
 | Wordmark = direction **A** (typographic Playfair + "ler é método") | **Locked** (`078be7d`, shipped `4faae04`) |
 | Phase 5 — house label "Mnemosyne Viva" on acervo/atlas | **Waived** (Option A) — may revisit post-merge |
 | OG / favicon raster regen | **Waived** (Option A) — keep existing rasters |
-| Motif **B** (illuminated initial) — section/chapter use | **Open · post-merge** — confirm with Ana before introducing |
-| Motif **D** (seal + small-caps) — footer / print / future OG | **Open · post-merge** — confirm with Ana; not required for merge |
+| Motif **B** (illuminated initial) — section/chapter use | **Placed** | Home intro lede + `/iconocracia/` hub lede (framed sienna/ochre capital). Reusable `.illuminated` in `styles.css`. |
+| Motif **D** (seal + small-caps) — footer / print / future OG | **Placed** | Favicons from `seal.svg`; home `.site-colophon`; iconocracia footer + sysbar brand mark. |
 | PR #68 title/body still describe Tabula only | **Remaining close-out task** — rewrite before merge |
 | Agent-doc / `.agents` / `docs/superpowers` palette language | **Post-merge** — Phase 7 covered `CLAUDE.md` only |
 | Dedupe `tokens/` ↔ `iconocracia/tokens/` to one source | **Follow-up** — not mid-rebrand |
