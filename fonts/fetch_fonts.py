@@ -25,7 +25,11 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
 
 # family display name -> (slug, CSS2 query). Order = brand display, brand body, dev mono.
 FAMILIES = {
-    # Vanguard "Three Voices" — what the live styles.css actually calls for
+    # Mnemosyne Viva — the canonical brand pair (display + text)
+    "Playfair Display":   ("playfair-display",   "Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600"),
+    "DM Sans":            ("dm-sans",            "DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400"),
+    # Vanguard "Three Voices" — retained until the token migration lands, so nothing
+    # breaks mid-rebrand. Drop Instrument Serif / Crimson Pro once no source calls them.
     "Instrument Serif":   ("instrument-serif",   "Instrument+Serif:ital@0;1"),
     "Crimson Pro":        ("crimson-pro",        "Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400"),
     "JetBrains Mono":     ("jetbrains-mono",     "JetBrains+Mono:wght@400;500;700"),
@@ -115,7 +119,9 @@ def main():
 
     header = (
         "/* anavanzin.com - self-hosted webfonts (latin + latin-ext).\n"
-        "   Cormorant Garamond (display) + Hanken Grotesk (body/UI) + JetBrains Mono (dev/readme).\n"
+        "   Mnemosyne Viva: Playfair Display (display) + DM Sans (text) + JetBrains Mono (dev/readme).\n"
+        "   Legacy faces (Cormorant Garamond, Hanken Grotesk, Instrument Serif, Crimson Pro)\n"
+        "   are retained until the token migration completes.\n"
         "   Variable fonts: one file per family/style/subset, weight given as a range.\n"
         "   No Google Fonts CDN at runtime. Regenerate via fonts/fetch_fonts.py. */\n\n"
     )

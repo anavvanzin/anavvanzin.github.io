@@ -9,18 +9,18 @@
 
   // ── theme engine ──────────────────────────────────────────────────────
   const ACCENTS = {
-    rubric: "#9B2C1C", amethyst: "#8A5FA8", gold: "#9C7C3D", green: "#2A7A5A", plate: "#1D2548",
+    rubric: "#8B3A1A", amethyst: "#7B5E3C", gold: "#D4AF37", green: "#2A7A5A", plate: "#15110E",
   };
   function themeVars(tone, accent, scale) {
     const A = ACCENTS[accent] || accent || ACCENTS.rubric;
     const light = {
-      ground: "#F2EAD9", paper: "#F2EAD9", panel: "#F8F2E4",
-      ink: "#211B16", ink70: "#4A413A", ink50: "#7A6E62", ink15: "rgba(33,27,22,.14)",
-      hair: "rgba(33,27,22,.22)", dot: "rgba(33,27,22,.13)",
+      ground: "#F5F0E6", paper: "#F5F0E6", panel: "#FFF9EF",
+      ink: "#111111", ink70: "#2A211A", ink50: "#756451", ink15: "rgba(17,17,17,.14)",
+      hair: "rgba(17,17,17,.22)", dot: "rgba(17,17,17,.13)",
     };
     const cabinet = {
-      ground: "#171D38", paper: "#171D38", panel: "#1F274A",
-      ink: "#EFE6D2", ink70: "#C7BCA6", ink50: "#8E866F", ink15: "rgba(239,230,210,.14)",
+      ground: "#15110E", paper: "#15110E", panel: "#221B15",
+      ink: "#FFF9EF", ink70: "#E8DDC8", ink50: "#756451", ink15: "rgba(239,230,210,.14)",
       hair: "rgba(212,168,94,.34)", dot: "rgba(239,230,210,.16)",
     };
     const t = tone === "cabinet" ? cabinet : light;

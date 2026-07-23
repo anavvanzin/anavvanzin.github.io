@@ -149,7 +149,7 @@
         height: h,
         overflow: "hidden",
         cursor: onClick ? "pointer" : "default",
-        background: "var(--navy-mid, #1D2548)",
+        background: "var(--navy-mid, #15110E)",
         border: `1px solid ${selected ? "var(--brand-amethyst)" : "var(--gold)"}`,
         outline: selected ? "1px solid var(--brand-amethyst)" : "none",
         outlineOffset: 3,
@@ -180,7 +180,7 @@
         gap: 8,
         padding: 16,
         textAlign: "center",
-        background: `linear-gradient(160deg, ${r.color}22, #0E142C)`
+        background: `linear-gradient(160deg, ${r.color}22, #15110E)`
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
@@ -191,14 +191,14 @@
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: 15,
-        color: "var(--ivory-light, #F4ECD8)"
+        color: "var(--ivory-light, #FFF9EF)"
       }
     }, it.title), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: "var(--font-mono)",
         fontSize: 7.5,
         letterSpacing: "1.5px",
-        color: "var(--faded-on-dark, #9A9AB0)",
+        color: "var(--faded-on-dark, #9C8D79)",
         textTransform: "uppercase"
       }
     }, it.archive)), /*#__PURE__*/React.createElement("span", {
@@ -226,7 +226,7 @@
         fontFamily: "var(--font-mono)",
         fontSize: 7.5,
         letterSpacing: "1.5px",
-        color: "var(--gold-bright, #D4A85E)",
+        color: "var(--gold-bright, #D4AF37)",
         textTransform: "uppercase"
       }
     }, it.country, " \xB7 ", it.date, " \xB7 ", it.medium), /*#__PURE__*/React.createElement("div", {
@@ -234,7 +234,7 @@
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: 14,
-        color: "#F4ECD8",
+        color: "#FFF9EF",
         marginTop: 1,
         lineHeight: 1.15
       }
@@ -268,7 +268,7 @@
         style: {
           fontFamily: "var(--font-mono)",
           fontSize: 8,
-          color: "var(--warm-gray, #6F665C)",
+          color: "var(--warm-gray, #756451)",
           width: compact ? 30 : 118,
           textAlign: "right",
           letterSpacing: ".3px",
@@ -295,7 +295,7 @@
         style: {
           fontFamily: "var(--font-mono)",
           fontSize: 8,
-          color: "var(--ink-3, #8D8377)",
+          color: "var(--ink-3, #9C8D79)",
           width: 8
         }
       }, v));
@@ -327,7 +327,7 @@
       key: ring,
       points: IND.map((_, i) => pt(i, ring / 3 * R).join(",")).join(" "),
       fill: "none",
-      stroke: "var(--light-border,#D4C19A)",
+      stroke: "var(--light-border,#E8DDC8)",
       strokeWidth: "1",
       opacity: ring === 3 ? .8 : .4
     })), IND.map((ind, i) => {
@@ -340,7 +340,7 @@
         y1: cy,
         x2: x,
         y2: y,
-        stroke: "var(--light-border,#D4C19A)",
+        stroke: "var(--light-border,#E8DDC8)",
         strokeWidth: "1",
         opacity: ".4"
       }), /*#__PURE__*/React.createElement("text", {
@@ -351,7 +351,7 @@
         style: {
           fontFamily: "var(--font-mono)",
           fontSize: 8,
-          fill: "var(--warm-gray,#6F665C)",
+          fill: "var(--warm-gray,#756451)",
           letterSpacing: ".3px"
         }
       }, ind.id));
@@ -517,7 +517,7 @@
           padding: "9px 14px",
           cursor: "pointer",
           border: `1px solid ${active ? "var(--brand-amethyst)" : "var(--light-border)"}`,
-          background: active ? "rgba(138,95,168,.08)" : "var(--surface-card,#FBF7EE)",
+          background: active ? "rgba(138,95,168,.08)" : "var(--surface-card,#FFF9EF)",
           borderRadius: "var(--radius-sm)"
         }
       }, /*#__PURE__*/React.createElement("span", {
@@ -535,7 +535,7 @@
           fontFamily: "var(--font-mono)",
           fontSize: 9,
           letterSpacing: "1px",
-          color: "var(--ink-3,#8D8377)"
+          color: "var(--ink-3,#9C8D79)"
         }
       }, s.n), /*#__PURE__*/React.createElement("span", {
         style: {
@@ -560,14 +560,14 @@
         fontFamily: "var(--font-mono)",
         fontSize: 9,
         letterSpacing: "1px",
-        color: "var(--ink-3,#8D8377)"
+        color: "var(--ink-3,#9C8D79)"
       }
     }, "04"), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: "var(--font-display)",
         fontStyle: "italic",
         fontSize: 16,
-        color: "var(--ink-2,#6F665C)"
+        color: "var(--ink-2,#756451)"
       }
     }, "IA"), /*#__PURE__*/React.createElement("span", {
       style: {
@@ -579,7 +579,7 @@
       }
     }, "em breve"))), /*#__PURE__*/React.createElement("div", {
       style: {
-        background: "var(--surface-folio,#F3ECDB)",
+        background: "var(--surface-folio,#F5F0E6)",
         border: "1px solid var(--light-border)",
         borderLeft: "3px solid var(--brand-amethyst)",
         borderRadius: "var(--radius-sm)",
@@ -590,7 +590,7 @@
         fontFamily: "var(--font-body)",
         fontSize: 14.5,
         lineHeight: 1.6,
-        color: "var(--ink-2,#6F665C)",
+        color: "var(--ink-2,#756451)",
         margin: "0 0 12px"
       }
     }, STEPS[step].prompt), /*#__PURE__*/React.createElement("textarea", {
@@ -605,7 +605,7 @@
         resize: "vertical",
         border: "1px solid var(--light-border)",
         borderRadius: "var(--radius-sm)",
-        background: "var(--surface-card,#FBF7EE)",
+        background: "var(--surface-card,#FFF9EF)",
         padding: "11px 13px",
         fontFamily: "var(--font-body)",
         fontSize: 14,
@@ -649,7 +649,7 @@
         fontFamily: "var(--font-mono)",
         fontSize: 9,
         letterSpacing: "1px",
-        color: "var(--ink-3,#8D8377)"
+        color: "var(--ink-3,#9C8D79)"
       }
     }, done, "/3 etapas anotadas \xB7 salvo localmente"), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -677,7 +677,7 @@
     opacity: disabled ? .4 : 1,
     border: `1px solid ${primary ? "var(--terracotta)" : "var(--light-border)"}`,
     background: primary ? "var(--terracotta)" : "transparent",
-    color: primary ? "var(--cream,#F3ECDB)" : "var(--ink-2,#6F665C)"
+    color: primary ? "var(--cream,#F5F0E6)" : "var(--ink-2,#756451)"
   });
 
   // ── RESEARCH MODE ─────────────────────────────────────────────
@@ -729,7 +729,7 @@
       size: stack ? 280 : 300
     }), /*#__PURE__*/React.createElement("div", {
       style: {
-        background: "var(--surface-folio,#F3ECDB)",
+        background: "var(--surface-folio,#F5F0E6)",
         border: "1px solid var(--light-border)",
         borderLeft: "3px solid var(--terracotta)",
         borderRadius: "var(--radius-sm)",
@@ -780,7 +780,7 @@
         resize: "vertical",
         border: "1px solid var(--light-border)",
         borderRadius: "var(--radius-sm)",
-        background: "var(--surface-card,#FBF7EE)",
+        background: "var(--surface-card,#FFF9EF)",
         padding: "11px 13px",
         fontFamily: "var(--font-body)",
         fontSize: 14,
@@ -877,7 +877,7 @@
         fontFamily: "var(--font-body)",
         fontSize: 12.5,
         lineHeight: 1.55,
-        color: "var(--ink-2,#6F665C)",
+        color: "var(--ink-2,#756451)",
         marginTop: 12,
         paddingTop: 10,
         borderTop: "1px solid var(--light-border)"
@@ -915,7 +915,7 @@
     return /*#__PURE__*/React.createElement("div", {
       style: {
         minHeight: "100vh",
-        background: "var(--surface-page,#EFE5CF)",
+        background: "var(--surface-page,#F5F0E6)",
         backgroundImage: "var(--grain)",
         backgroundSize: "200px"
       }
@@ -941,11 +941,11 @@
         fontSize: 9,
         letterSpacing: "2px",
         textTransform: "uppercase",
-        color: "var(--faded-on-dark,#9A9AB0)",
+        color: "var(--faded-on-dark,#9C8D79)",
         textDecoration: "none"
       },
-      onMouseEnter: e => e.currentTarget.style.color = "var(--gold-bright,#D4A85E)",
-      onMouseLeave: e => e.currentTarget.style.color = "var(--faded-on-dark,#9A9AB0)"
+      onMouseEnter: e => e.currentTarget.style.color = "var(--gold-bright,#D4AF37)",
+      onMouseLeave: e => e.currentTarget.style.color = "var(--faded-on-dark,#9C8D79)"
     }, /*#__PURE__*/React.createElement("svg", {
       width: "14",
       height: "10",
@@ -977,14 +977,14 @@
         fontFamily: "var(--font-display)",
         fontSize: tight ? 18 : 22,
         letterSpacing: "3px",
-        color: "var(--ivory-light,#F4ECD8)"
+        color: "var(--ivory-light,#FFF9EF)"
       }
     }, "ICONOCRACIA"), /*#__PURE__*/React.createElement("span", {
       style: {
         fontFamily: "var(--font-mono)",
         fontSize: 8,
         letterSpacing: "2.5px",
-        color: "var(--gold-bright,#D4A85E)",
+        color: "var(--gold-bright,#D4AF37)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
       }
@@ -1011,7 +1011,7 @@
         border: "1px solid var(--hairline-dark)",
         borderRadius: 999,
         background: "transparent",
-        color: "var(--gold-bright,#D4A85E)",
+        color: "var(--gold-bright,#D4AF37)",
         fontFamily: "var(--font-mono)",
         fontSize: 10,
         letterSpacing: "1.5px",
@@ -1032,7 +1032,7 @@
     })), tight ? "" : "Exportar", nNotes ? /*#__PURE__*/React.createElement("span", {
       style: {
         background: "var(--brand-amethyst)",
-        color: "#F4ECD8",
+        color: "#FFF9EF",
         borderRadius: 999,
         padding: "1px 6px",
         fontSize: 8.5
@@ -1058,7 +1058,7 @@
         cursor: "pointer",
         border: "none",
         background: mode === m ? "var(--brand-amethyst)" : "transparent",
-        color: mode === m ? "#F4ECD8" : "#CDC8DA",
+        color: mode === m ? "#FFF9EF" : "#E8DDC8",
         fontFamily: "var(--font-mono)",
         fontSize: 10,
         letterSpacing: "1.5px",
@@ -1075,7 +1075,7 @@
         fontFamily: "var(--font-body)",
         fontStyle: "italic",
         fontSize: 13.5,
-        color: "var(--ink-2,#6F665C)"
+        color: "var(--ink-2,#756451)"
       }
     }, L.platform.uiNote)), narrow ?
     /*#__PURE__*/
@@ -1130,7 +1130,7 @@
         fontStyle: "italic",
         fontSize: 15,
         whiteSpace: "nowrap",
-        color: active ? "var(--ivory-light,#F4ECD8)" : "var(--faded-on-dark,#9A9AB0)"
+        color: active ? "var(--ivory-light,#FFF9EF)" : "var(--faded-on-dark,#9C8D79)"
       }
     }, p.label)))), /*#__PURE__*/React.createElement(PanelMain, {
       panel: panel,
@@ -1170,7 +1170,7 @@
         fontFamily: "var(--font-mono)",
         fontSize: 8,
         letterSpacing: "2.5px",
-        color: "var(--gold-bright,#D4A85E)",
+        color: "var(--gold-bright,#D4AF37)",
         textTransform: "uppercase",
         padding: "0 18px 10px 44px"
       }
@@ -1217,7 +1217,7 @@
         fontStyle: "italic",
         fontSize: 15.5,
         lineHeight: 1.1,
-        color: active ? "var(--ivory-light,#F4ECD8)" : "var(--faded-on-dark,#9A9AB0)"
+        color: active ? "var(--ivory-light,#FFF9EF)" : "var(--faded-on-dark,#9C8D79)"
       }
     }, p.label))), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -1229,7 +1229,7 @@
         fontFamily: "var(--font-mono)",
         fontSize: 7,
         letterSpacing: "2px",
-        color: "var(--faded-on-dark,#9A9AB0)",
+        color: "var(--faded-on-dark,#9C8D79)",
         opacity: .6,
         lineHeight: 1.8,
         textTransform: "uppercase"
@@ -1273,7 +1273,7 @@
         fontFamily: "var(--font-body)",
         fontSize: 14.5,
         lineHeight: 1.6,
-        color: "var(--ink-2,#6F665C)",
+        color: "var(--ink-2,#756451)",
         margin: 0,
         maxWidth: "70ch"
       }
@@ -1282,7 +1282,7 @@
         fontFamily: "var(--font-mono)",
         fontSize: 9,
         letterSpacing: "1.5px",
-        color: "var(--ink-3,#8D8377)",
+        color: "var(--ink-3,#9C8D79)",
         textTransform: "uppercase",
         whiteSpace: "nowrap"
       }

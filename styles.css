@@ -3,9 +3,12 @@
 /* Ana Vanzin — bundled tokens */
 
 /* ===== tokens/colors.css ===== */
-/* Ana Vanzin — color tokens
-   Three inks only, like an incunabulum page: black ink, laid paper, rubric red.
-   Never introduce new hues. Tints are derived with color-mix for rules/borders. */
+/* Ana Vanzin — color tokens · MNEMOSYNE VIVA
+   Editorial house for the archive, atlas and ICONOCRACIA research.
+   Print black on cream paper, sienna as the single accent, old gold for
+   ornament. No corporate gradients, no dashboard metaphors.
+   Canonical source: tokens/source/mnemosyne-viva-design-tokens.json
+   Tints are derived with color-mix so they follow the base automatically. */
 :root {
   /* Force the warm-paper palette regardless of OS appearance: the whole site
      is an illuminated-manuscript aesthetic and the home (index.html) has no
@@ -13,25 +16,36 @@
      light also renders native controls/scrollbars on-palette. */
   color-scheme: light;
 
-  /* base */
-  --ink: #211B16;
-  --paper: #F2EAD9;
-  --rubric: #9B2C1C;
+  /* ---- Mnemosyne Viva canonical palette ---- */
+  --ink: #111111;          /* preto de impressão — text, rules */
+  --paper: #F5F0E6;        /* papel creme — page ground */
+  --cream: #FFF9EF;        /* card / panel surface */
+  --sienna: #8B3A1A;       /* primary accent */
+  --sienna-dark: #632713;  /* hover / deep accent */
+  --ochre: #D4AF37;        /* ouro antigo — ornament, frames */
+  --aged: #7B5E3C;         /* tinta envelhecida — secondary */
+  --soft: #E8DDC8;         /* soft fill / hairline ground */
+  --line: #2A211A;         /* rule ink */
+  --muted: #756451;        /* meta text */
+  --night: #15110E;        /* dark ground — footer, cabinet, featured panel */
 
   /* Texture · fine paper grain (overlay) */
   --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
 
-  /* secondary accent — gold of the pixel-academic / desktop variant.
-     Ornament, frames, retro-OS chrome. Never replaces rubric for links. */
-  --gold: #9C7C3D;
-  --gold-2: #B7934C;
+  /* ---- Legacy alias layer ----
+     The pre-rebrand names are kept so the ~55 pages, editorial.css and
+     _ds_bundle.js that consume them follow the new palette with no edit.
+     Prefer the canonical names above in new work. */
+  --rubric: var(--sienna);            /* was #9B2C1C */
+  --gold: var(--ochre);               /* was #9C7C3D */
+  --gold-2: color-mix(in srgb, var(--ochre) 82%, var(--paper));
   --gold-soft: color-mix(in srgb, var(--gold) 45%, var(--paper));
 
-  /* tertiary accent — lilac of the "notas" (personal/lifestyle) variant.
-     Soft surface + accent for the notes-app theme; never on the scholarly core. */
-  --lilac: #B49AD4;
-  --lilac-2: #9579C0;
-  --lilac-bg: #ECE6F4;
+  /* tertiary accent — was the lilac of the "notas" variant; the Mnemosyne
+     system replaces it with aged ink so the site reads as one house. */
+  --lilac: var(--aged);               /* was #B49AD4 */
+  --lilac-2: var(--sienna-dark);      /* was #9579C0 */
+  --lilac-bg: var(--soft);            /* was #ECE6F4 */
 
   /* derived tints (ink on paper at reduced strength) */
   --ink-70: color-mix(in srgb, var(--ink) 70%, var(--paper));
@@ -65,18 +79,19 @@
 
 
 /* ===== tokens/typography.css ===== */
-/* Ana Vanzin — type tokens
+/* Ana Vanzin — type tokens · MNEMOSYNE VIVA
    Two families only:
-   - Cormorant Garamond 500/600 — display, headings, tracked-out small caps
-   - Hanken Grotesk 400/600 — body and UI
-   No italics for emphasis in UI; use rubric small caps instead. */
+   - Playfair Display 400–800 — display, headings, tracked-out small caps
+   - DM Sans 400–700 — body and UI
+   Cormorant Garamond / Arial remain only as fallbacks in the stack.
+   No italics for emphasis in UI; use sienna small caps instead. */
 /* Webfonts moved to a self-hosted @import at the top of this file.
    An @import here (after :root) was being ignored by browsers, so the
    site had silently fallen back to Times New Roman / Helvetica Neue. */
 
 :root {
-  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-body: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', Arial, sans-serif;
 
   /* scale (rem) — generous display, restrained body */
   --text-hero: clamp(4rem, 11vw, 9rem);     /* the name */
@@ -106,9 +121,11 @@
 
 
 /* ===== tokens/spacing.css ===== */
-/* Ana Vanzin — spacing, layout, borders, motion
+/* Ana Vanzin — spacing, layout, borders, motion · MNEMOSYNE VIVA
    The page is a single strong text column with generous margins.
-   No cards, no shadows, no gradients, no rounded corners — ever. */
+   No shadows, no gradients — ever. Corners are near-square: the Mnemosyne
+   system allows a 2/4/8 radius scale (2 is the default), not the previous
+   hard 0. Strokes are 1 / 1.5 / 2. */
 :root {
   /* spacing scale (4px base) */
   --space-1: 0.25rem;
@@ -127,10 +144,16 @@
   --page-max: 1080px;         /* outer page incl. marginalia */
   --page-pad: clamp(24px, 6vw, 72px);
 
-  /* rules & borders — square corners only */
+  /* rules & borders — Mnemosyne stroke scale 1 / 1.5 / 2 */
   --rule-w-hairline: 1px;
+  --rule-w-mid: 1.5px;
   --rule-w-strong: 2px;
-  --radius: 0;                /* fixed: no rounded corners */
+
+  /* radius scale 2 / 4 / 8 — near-square, never pill-shaped */
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 8px;
+  --radius: var(--radius-1);  /* default */
   --shadow: none;             /* fixed: no shadows */
 
   /* motion — one restrained reveal, nothing else */
@@ -578,3 +601,57 @@ hr {
 
 
 
+
+/* ===== Tabula — single academic plate (replaces the old poster room) ===== */
+.tabula{
+  /* Mnemosyne: these were hardcoded local overrides that escaped the token
+     system and would have orphaned the plate after the rebrand. */
+  --amethyst:var(--aged); --indigo:var(--night);
+  font-family:var(--font-body); font-size:16px; line-height:1.55; color:var(--ink);
+}
+.tabula-eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rubric)}
+.tabula-banner{border-bottom:3px double var(--ink);padding-bottom:22px;margin-bottom:8px;text-align:left}
+.tabula-banner h1{font-family:var(--font-display);font-weight:600;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.03;letter-spacing:-.01em;margin:.12em 0 .1em;color:var(--rubric)}
+.tabula-alt{font-family:var(--font-display);font-size:1.45rem;color:var(--ink-70);line-height:1.15}
+.tabula-alt em{font-style:italic}
+.tabula-meta{display:flex;flex-wrap:wrap;gap:5px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-70);margin-top:16px}
+.tabula-meta b, .tabula-meta strong{color:var(--ink)}
+.tabula-kws{margin-top:13px;display:flex;flex-wrap:wrap;gap:8px}
+.tabula-kw{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule-hairline);padding:3px 9px;color:var(--ink-70)}
+.tabula-abstract{margin:26px 0 8px;font-size:1.16rem;line-height:1.62;max-width:74ch}
+.tabula-h2{font-family:var(--font-display);font-weight:600;font-size:1.85rem;border-bottom:2px solid var(--ink);padding-bottom:.1em;margin:2.3em 0 1em;display:flex;align-items:baseline;gap:12px;color:var(--ink)}
+.tabula-num{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:600}
+.tabula-abnt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-50);margin-left:auto}
+.tabula-grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.tabula-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:820px){.tabula-grid2,.tabula-grid3{grid-template-columns:1fr}}
+.tabula-card{border:1.5px solid var(--ink);background:var(--cream);padding:18px 18px 20px;box-shadow:4px 4px 0 color-mix(in srgb, var(--ink) 12%, transparent)}
+.tabula-tid{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--rubric)}
+.tabula-card h3{font-family:var(--font-display);font-weight:600;font-size:1.5rem;line-height:1.05;margin:2px 0 2px;color:var(--ink)}
+.tabula-sub{color:var(--ink-70);font-size:.95rem;margin-bottom:9px}
+.tabula-sub em{font-style:italic}
+.tabula-card p{font-size:.98rem;margin-bottom:8px}
+.tabula-arg{font-size:.95rem}
+.tabula-lbl{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;font-weight:600}
+.tabula-fase,.tabula-regime{border-left:3px solid var(--gold);padding:2px 0 2px 16px;margin-bottom:18px}
+.tabula-fase h4,.tabula-regime h4{font-family:var(--font-display);font-weight:600;font-size:1.3rem;color:var(--rubric)}
+.tabula-per{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70)}
+.tabula-fase p,.tabula-regime p{font-size:.97rem;margin-top:4px}
+.tabula-paradox{background:var(--indigo);color:var(--cream);padding:34px clamp(22px,4vw,46px);margin:1.4em 0}
+.tabula-paradox .tabula-eyebrow{color:var(--gold)}
+.tabula-paradox h3{font-family:var(--font-display);font-weight:600;font-size:2rem;margin:.1em 0 .3em;color:var(--cream)}
+.tabula-enun{font-family:var(--font-display);font-style:italic;font-size:1.5rem;line-height:1.28;max-width:54ch;color:var(--cream);border:0;margin:0;padding:0}
+.tabula-warner{margin-top:16px;font-size:1rem;color:var(--soft);max-width:66ch;border-top:1px solid color-mix(in srgb, var(--ochre) 40%, transparent);padding-top:12px}
+.tabula-table{font-size:.92rem}
+.tabula-table td.tabula-fig{font-family:var(--font-display);font-weight:600;font-size:1.1rem;color:var(--rubric);white-space:nowrap}
+.tabula-table th{background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70)}
+.tabula-no{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--rule-hairline)}
+.tabula-no strong{color:var(--amethyst);font-weight:600}
+.tabula-tipo{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70);margin-left:8px}
+.tabula-no p{font-size:.92rem;margin-top:3px}
+.tabula-refs{columns:2;column-gap:34px;font-size:.84rem;line-height:1.42;color:var(--ink-70);padding:0;margin-top:8px}
+.tabula-refs li{break-inside:avoid;margin-bottom:8px;list-style:none;text-indent:-14px;padding-left:14px}
+@media(max-width:820px){.tabula-refs{columns:1}}
+.tabula-footer{border-top:3px double var(--ink);margin-top:40px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink-70)}
+.tabula-footer a{color:var(--rubric)}
+.tabula-date{color:var(--ink-50)}

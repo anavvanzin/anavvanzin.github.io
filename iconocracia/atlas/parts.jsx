@@ -11,24 +11,24 @@ const RES = (p) => { const f = String(p).split("/").pop(); return (window.__reso
 // ── Theme → CSS custom properties ───────────────────────────────
 function atlasTheme(t) {
   const light = {
-    "--c-ground":"#EFE5CF", "--c-panel":"#F8F5EE", "--c-panel-2":"rgba(255,255,255,.42)",
-    "--c-ink":"#1A1612", "--c-ink-2":"#6F665C", "--c-ink-3":"#8D8377",
-    "--c-border":"#D4C19A", "--c-hair":"rgba(184,146,74,.5)",
-    "--c-gold":"#B8924A", "--c-plate":"#1D2548", "--c-on-accent":"#F8F5EE",
+    "--c-ground":"#F5F0E6", "--c-panel":"#FFF9EF", "--c-panel-2":"rgba(255,255,255,.42)",
+    "--c-ink":"#111111", "--c-ink-2":"#756451", "--c-ink-3":"#9C8D79",
+    "--c-border":"#E8DDC8", "--c-hair":"rgba(184,146,74,.5)",
+    "--c-gold":"#D4AF37", "--c-plate":"#15110E", "--c-on-accent":"#FFF9EF",
     "--c-grain":"var(--grain)",
   };
   const dark = {
-    "--c-ground":"#171D38", "--c-panel":"#1F274A", "--c-panel-2":"rgba(255,255,255,.05)",
-    "--c-ink":"#EFE6D2", "--c-ink-2":"#C7BCA6", "--c-ink-3":"#9A9276",
+    "--c-ground":"#15110E", "--c-panel":"#221B15", "--c-panel-2":"rgba(255,255,255,.05)",
+    "--c-ink":"#FFF9EF", "--c-ink-2":"#E8DDC8", "--c-ink-3":"#A8967E",
     "--c-border":"rgba(184,146,74,.34)", "--c-hair":"rgba(184,146,74,.4)",
-    "--c-gold":"#D4A85E", "--c-plate":"#0E142C", "--c-on-accent":"#0E142C",
+    "--c-gold":"#D4AF37", "--c-plate":"#15110E", "--c-on-accent":"#15110E",
     "--c-grain":"none",
   };
   const base = t.tone === "cabinet" ? dark : light;
   const dens = { compacto:["56px","16px"], regular:["88px","22px"], amplo:["124px","32px"] }[t.density] || ["88px","22px"];
   return {
     ...base,
-    "--c-accent": t.accent || "#A04030",
+    "--c-accent": t.accent || "#8B3A1A",
     "--c-fund":"#6B52B0", "--c-norm":"#2A7A5A", "--c-mil":"#B23636",
     "--scale": t.scale || 1,
     "--t-hero": "calc(62px * var(--scale))",
@@ -54,7 +54,7 @@ function Plate({ it, label }) {
       {label !== false && (
         <figcaption style={{ position:"absolute", left:0, right:0, bottom:0, background:"linear-gradient(180deg,transparent,rgba(13,16,30,.92))", borderTop:"1px solid var(--c-gold)", padding:"18px 9px 7px" }}>
           <div className="mono" style={{ fontSize:7, letterSpacing:"2px", color:"var(--c-gold)", textTransform:"uppercase" }}>{it.country} · {it.year} · {it.support}</div>
-          <div style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(13px * var(--scale))", color:"#E8DCC4", marginTop:2, lineHeight:1.15 }}>{it.title}</div>
+          <div style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(13px * var(--scale))", color:"#E8DDC8", marginTop:2, lineHeight:1.15 }}>{it.title}</div>
         </figcaption>
       )}
     </figure>
@@ -165,7 +165,7 @@ function Anatomia() {
           {/* plumb line down the central axis of the figure */}
           <div style={{ position:"absolute", left:"50%", top:"11%", bottom:"7%", width:1, background:"linear-gradient(180deg,var(--c-gold),rgba(184,146,74,.18))", transform:"translateX(-.5px)" }} />
           {a.parts.map(p => (
-            <div key={p.n} style={{ position:"absolute", left:p.x, top:p.y, transform:"translate(-50%,-50%)", width:27, height:27, borderRadius:"50%", background:"var(--brand-amethyst)", border:"1.5px solid #E8DCC4", boxShadow:"0 0 0 4px rgba(138,95,168,.3), var(--shadow-plate)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontSize:11, color:"#F4F0E8" }}>{p.n}</div>
+            <div key={p.n} style={{ position:"absolute", left:p.x, top:p.y, transform:"translate(-50%,-50%)", width:27, height:27, borderRadius:"50%", background:"var(--brand-amethyst)", border:"1.5px solid #E8DDC8", boxShadow:"0 0 0 4px rgba(138,95,168,.3), var(--shadow-plate)", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--font-mono)", fontSize:11, color:"#FFF9EF" }}>{p.n}</div>
           ))}
           <figcaption className="mono" style={{ position:"absolute", left:0, right:0, bottom:0, background:"linear-gradient(180deg,transparent,rgba(13,16,30,.92))", borderTop:"1px solid var(--c-gold)", padding:"24px 12px 9px", fontSize:8, letterSpacing:"2px", color:"var(--c-gold)", textTransform:"uppercase" }}>{a.figCap}</figcaption>
         </figure>
@@ -221,22 +221,22 @@ function CorpusWall({ t }) {
 
 function AtlasBand() {
   return (
-    <section id="atlas" style={{ padding:"var(--pad-sec) 40px", backgroundColor:"#1A2143", backgroundImage:"linear-gradient(rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(160deg,#1A2143,#2A3360)", backgroundSize:"24px 24px, 24px 24px, cover", position:"relative" }}>
-      <Cap style={{ color:"#D4A85E" }}>O Atlas Iconocrático · oito painéis · Warburg</Cap>
-      <h2 style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"var(--t-h1)", color:"#EFE6D2", margin:"8px 0 0", maxWidth:"20ch" }}>Uma montagem que não resolve a tensão — a habita</h2>
-      <div style={{ borderTop:"1px solid #B8924A", borderBottom:"1px solid #B8924A", height:4, margin:"24px 0 32px" }} />
+    <section id="atlas" style={{ padding:"var(--pad-sec) 40px", backgroundColor:"#221B15", backgroundImage:"linear-gradient(rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(184,146,74,.06) 1px, transparent 1px), linear-gradient(160deg,#221B15,#2E2419)", backgroundSize:"24px 24px, 24px 24px, cover", position:"relative" }}>
+      <Cap style={{ color:"#D4AF37" }}>O Atlas Iconocrático · oito painéis · Warburg</Cap>
+      <h2 style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"var(--t-h1)", color:"#FFF9EF", margin:"8px 0 0", maxWidth:"20ch" }}>Uma montagem que não resolve a tensão — a habita</h2>
+      <div style={{ borderTop:"1px solid #D4AF37", borderBottom:"1px solid #D4AF37", height:4, margin:"24px 0 32px" }} />
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"var(--gap)" }}>
         {D.panels.map((p,i) => (
           <article key={p.n} style={{ position:"relative" }}>
-            <div style={{ aspectRatio:"4/5", border:"1px solid #B8924A", overflow:"hidden", background:"#0E142C" }}>
+            <div style={{ aspectRatio:"4/5", border:"1px solid #D4AF37", overflow:"hidden", background:"#15110E" }}>
               <img src={RES(D.panelImg[i])} alt={p.name} loading="lazy" style={{ width:"100%", height:"100%", objectFit:"cover", opacity:.92 }} />
             </div>
             <div style={{ display:"flex", alignItems:"baseline", gap:8, marginTop:10 }}>
-              <span style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(26px * var(--scale))", color:"#D4A85E", lineHeight:1 }}>{p.n}</span>
-              <span style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(18px * var(--scale))", color:"#EFE6D2" }}>{p.name}</span>
+              <span style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(26px * var(--scale))", color:"#D4AF37", lineHeight:1 }}>{p.n}</span>
+              <span style={{ fontFamily:"var(--font-display)", fontStyle:"italic", fontSize:"calc(18px * var(--scale))", color:"#FFF9EF" }}>{p.name}</span>
             </div>
-            <p style={{ fontFamily:"var(--font-body)", fontSize:"calc(13px * var(--scale))", color:"#C7BCA6", lineHeight:1.45, margin:"4px 0 0" }}>{p.desc}</p>
-            <div className="mono" style={{ fontSize:8, letterSpacing:"1.5px", color:"#9A9276", marginTop:4 }}>{p.period}</div>
+            <p style={{ fontFamily:"var(--font-body)", fontSize:"calc(13px * var(--scale))", color:"#E8DDC8", lineHeight:1.45, margin:"4px 0 0" }}>{p.desc}</p>
+            <div className="mono" style={{ fontSize:8, letterSpacing:"1.5px", color:"#A8967E", marginTop:4 }}>{p.period}</div>
           </article>
         ))}
       </div>

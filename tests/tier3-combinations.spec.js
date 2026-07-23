@@ -10,8 +10,10 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     await page.goto('/poster.html');
     const h1 = page.locator('.poster h1, h1.poster-h1, h1').first();
     const p = page.locator('.poster p, p.poster-p').first();
-    await expect(h1).toHaveCSS('font-family', /Cormorant Garamond|serif/i);
-    await expect(p).toHaveCSS('font-family', /Hanken Grotesk|sans-serif/i);
+    await expect(h1).toHaveCSS('font-family', /^["']?Playfair Display["']?/i);
+    // The tabula reading body is DM Sans. Anchored deliberately: an unanchored
+    // /serif/ also matches "sans-serif", so the old regex could not fail.
+    await expect(p).toHaveCSS('font-family', /^["']?DM Sans["']?/i);
   });
 
   test('T3.2: F1 + F3 (Markdown + Zoom): Verify that the full dynamic content layout rearranges or transitions smoothly to detailed reading layout when zoomed', async ({ page }) => {
@@ -38,12 +40,12 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^pôsteres$/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
-    
+
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.click();
-    
+
     const titleBar = page.locator('button[aria-label="Fechar"]').locator('xpath=..');
     const boxBefore = await titleBar.boundingBox();
     

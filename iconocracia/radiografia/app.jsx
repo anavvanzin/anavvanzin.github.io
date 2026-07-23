@@ -7,17 +7,17 @@ const RES = (p) => { const f = String(p).split("/").pop(); return (window.__reso
 
 // ── Cabinet palette (dark tier) ──────────────────────────────────
 const C = {
-  ground:"#141A33", panel:"#1B2342", panel2:"rgba(255,255,255,.035)",
-  ink:"#EFE6D2", ink2:"#C7BCA6", ink3:"#8E8770",
-  gold:"#D4A85E", goldDim:"rgba(212,168,94,.42)", hair:"rgba(184,146,74,.30)",
-  plate:"#0C1226", lacre:"#A8281F", amethyst:"#9A6DBC",
+  ground:"#1E1811", panel:"#221B15", panel2:"rgba(255,255,255,.035)",
+  ink:"#FFF9EF", ink2:"#E8DDC8", ink3:"#756451",
+  gold:"#D4AF37", goldDim:"rgba(212,168,94,.42)", hair:"rgba(184,146,74,.30)",
+  plate:"#15110E", lacre:"#8B3A1A", amethyst:"#7B5E3C",
 };
 const REG = { fundacional:"#7E62C8", normativo:"#2E8A66", militar:"#C04242", contra:"#B65440" };
 
 const VBH = 133.333;                 // viewBox height for uniform 3:4 geometry
 const Y = (y) => +(y * VBH / 100).toFixed(2);
-const FONT_D = '"Instrument Serif", Georgia, serif';
-const FONT_B = '"Crimson Pro", Georgia, serif';
+const FONT_D = '"Playfair Display", Georgia, serif';
+const FONT_B = '"DM Sans", Arial, sans-serif';
 const FONT_M = '"JetBrains Mono", ui-monospace, monospace';
 
 // ── Atoms ────────────────────────────────────────────────────────
@@ -245,7 +245,7 @@ function Chip({ on, label, onClick, color }) {
 // ── App ──────────────────────────────────────────────────────────
 function RadiografiaApp(props) {
   props = props || {};
-  const accent = props.accent || "#A04030";
+  const accent = props.accent || "#8B3A1A";
   const scale = parseFloat(props.scale) || 1;
   const [aId, setA] = React.useState(props.defaultA || D.DEFAULT_A);
   const [bId, setB] = React.useState(props.defaultB || D.DEFAULT_B);
@@ -264,7 +264,7 @@ function RadiografiaApp(props) {
   React.useEffect(()=>{ document.body.style.background = C.ground; return ()=>{ document.body.style.background=""; }; },[]);
 
   const cabinetBG = {
-    background:`radial-gradient(120% 80% at 50% 0%, #1A2140 0%, #11162E 55%, #0C1124 100%)`,
+    background:`radial-gradient(120% 80% at 50% 0%, #221B15 0%, #1A1410 55%, #15110E 100%)`,
   };
 
   return (

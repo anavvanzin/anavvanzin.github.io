@@ -3,7 +3,6 @@
   "name": "anavvanzin",
   // Keep current per Workers best practices:
   // https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
-  "compatibility_date": "2026-07-20",
   "compatibility_flags": [
     // Enables Node.js built-ins for any future Worker script / library use.
     "nodejs_compat"
