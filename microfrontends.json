@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/microfrontends.json",
+  "applications": {
+    "anavvanzin-github-io": {
+      "development": {
+        "fallback": "anavvanzin-github-io.vercel.app"
+      }
+    }
+  }
+}

@@ -655,3 +655,50 @@ hr {
 .tabula-footer{border-top:3px double var(--ink);margin-top:40px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--ink-70)}
 .tabula-footer a{color:var(--rubric)}
 .tabula-date{color:var(--ink-50)}
+
+/* ===== Motif B — illuminated initial (section / chapter openers) =====
+   Decorated capital in sienna with ochre hairline frame. Use on ledes and
+   verbete openers; prefer ::first-letter so copy stays plain text. */
+.illuminated::first-letter{
+  font-family:var(--font-display), 'Playfair Display', Georgia, serif;
+  font-weight:700;
+  font-size:3.05em;
+  line-height:.82;
+  float:left;
+  margin:.06em .14em .02em 0;
+  padding:.06em .1em .04em;
+  color:var(--sienna, var(--rubric, #8B3A1A));
+  background:
+    linear-gradient(var(--paper, #F5F0E6), var(--paper, #F5F0E6)) padding-box,
+    linear-gradient(135deg, var(--ochre, var(--gold, #D4AF37)), color-mix(in srgb, var(--sienna, #8B3A1A) 55%, var(--ochre, #D4AF37)), var(--aged, #7B5E3C)) border-box;
+  border:1.5px solid transparent;
+  border-radius:2px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+@media (max-width:560px){
+  .illuminated::first-letter{font-size:2.45em; margin:.04em .1em 0 0}
+}
+
+/* ===== Motif D — seal + small-caps colophon (footer / print chrome) ===== */
+.site-colophon{
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  margin:clamp(28px,5vh,56px) auto 0; padding:22px 16px 36px;
+  border-top:1px solid color-mix(in srgb, var(--ochre, var(--gold, #D4AF37)) 55%, transparent);
+  max-width:720px; text-align:center;
+}
+.site-colophon .seal{
+  width:48px; height:48px; display:block;
+}
+.site-colophon .mark{
+  margin:0;
+  font-family:var(--font-body), 'DM Sans', Arial, sans-serif;
+  font-size:11px;
+  font-variant:small-caps;
+  letter-spacing:.18em;
+  text-transform:lowercase;
+  color:var(--muted, #756451);
+}
+.site-colophon .mark b{
+  font-weight:600; color:var(--ink, #111111); letter-spacing:.14em;
+}
