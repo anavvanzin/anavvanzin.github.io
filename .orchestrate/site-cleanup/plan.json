@@ -1,0 +1,147 @@
+{
+  "$schema": "/home/ubuntu/.cursor/plugins/cache/cursor-public/9333/02c03a9deddad3aef581da053cecf9603b8caba1/skills/orchestrate/schemas/plan.schema.json",
+  "goal": "Please all: organize repos, declutter site root, clean Research",
+  "summary": "smoke test of the new orchestrate substrate: organize repos, declutter site root, clean Research",
+  "dispatcher": { "firstName": "Ana" },
+  "selfAgentId": "bc-c2092cf8-e60d-447a-afe4-85a15a9fb39a",
+  "rootSlug": "site-cleanup",
+  "baseBranch": "main",
+  "repoUrl": "https://github.com/anavvanzin/anavvanzin.github.io",
+  "syncStateToGit": true,
+  "tasks": [
+    {
+      "name": "declutter-site-root",
+      "type": "worker",
+      "openPR": true,
+      "scopedGoal": "Declutter the repository root of anavvanzin.github.io. The root currently mixes deployed site files with stray artifacts. Discover which root-level files are actually part of the deployed static site (referenced by index.html, the /mesa/ desktop shell, poster.html, or the Playwright suite) versus one-off scratch that should be removed or relocated. Remove or relocate the clutter WITHOUT breaking any deployed page or test. Known clutter to handle: loose screenshots at root (apresentacao-slide1.png, malleus_index_screenshot.png ~1.4MB), one-off scripts (take_screenshots.py, test-dropcap.js), stale working-notes markdown (ORIGINAL_REQUEST.md, CLAUDE_CODE_HANDOFF.md, _LEIA.md, TEST_INFRA.md, TEST_READY.md), a stray page 'aula_di_avancado (1).html', the OBSOLETE duplicate 'WindowContents.js' (the live file is the lowercase 'window-contents.js'; _LEIA.md explicitly says to delete the old capitalized twins), stale prior-agent scratch under '.agents/', and the malformed top-level directory literally named with a leading double-quote ('\"assets') which is an upload artifact whose PNGs duplicate real assets. Keep AGENTS.md, CLAUDE.md, README.md, and all files the site or tests reference. If any file's status is ambiguous, prefer git mv into a clearly-named 'archive/' or 'docs/' subfolder over deletion, and explain each decision in your handoff. Do NOT touch sub-site directories (iconocracia/, malleus/, manifesto/, mesa/, etc.) or research content (corpus/, data/, docs/) — those are owned by sibling tasks.",
+      "pathsAllowed": [
+        "*.png",
+        "*.py",
+        "*.js",
+        "*.html",
+        "*.md",
+        ".agents/**",
+        "\"assets/**",
+        "archive/**"
+      ],
+      "pathsForbidden": [
+        "index.html",
+        "poster.html",
+        "styles.css",
+        "editorial.css",
+        "editorial.js",
+        "desktop-app.js",
+        "window-contents.js",
+        "_ds_bundle.js",
+        "icons.js",
+        "content.js",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md",
+        "corpus/**",
+        "data/**",
+        "docs/**",
+        "iconocracia/**",
+        "malleus/**",
+        "manifesto/**",
+        "mesa/**",
+        "atlas/**"
+      ],
+      "acceptance": [
+        "No stray root-level screenshots, one-off scripts, or stale agent handoff notes remain at the repo root (removed or relocated into a clearly-named folder).",
+        "The obsolete capitalized 'WindowContents.js' is gone and the live 'window-contents.js' is untouched.",
+        "The malformed top-level '\"assets' directory is removed and no real asset is lost.",
+        "index.html, /mesa/, poster.html and every other deployed page still load with no new console errors.",
+        "`npx playwright test` passes the same 65/66 baseline (T5.5 is known-flaky) with no NEW failures introduced by the cleanup.",
+        "The handoff lists every file removed/relocated with a one-line rationale."
+      ],
+      "verify": "Serve the site with `npx http-server . -p 8080` and load /, /poster.html, /mesa/, /atlas/ — confirm no new console errors and no 404s for assets. Run `npx playwright test` and confirm no new failures beyond the known-flaky T5.5. Run `git status`/`git diff --stat` to confirm only intended files changed."
+    },
+    {
+      "name": "organize-repos",
+      "type": "worker",
+      "openPR": true,
+      "scopedGoal": "Organize the repository's structure and its constellation of micro-frontend sub-sites so the tree is legible and self-consistent. This is a single GitHub Pages repo that hosts many independent static sub-apps (landing/, apresentacao/, grupoiusgentium/, malleus/, manifesto/, marginalia/, mesa/, sala-de-leitura/, publicacoes/, metodologia/, slides/, video/, iconocracia/ with its atlas + atlas-lab) wired via microfrontends.json. Discover the current structure, then: (1) triage the experimental top-level directory literally named 'future?' (the '?' in the name is fragile on some filesystems and it holds docker/, huggingface/ and iconocracia-companion/ scratch not part of the deployed site) — rename it to a filesystem-safe name like 'experiments/' (git mv) or relocate it under an ignored/archive location, updating any references; (2) ensure microfrontends.json and each sub-site's entry point are coherent and that no sub-site references dead paths; (3) consolidate obviously duplicated top-level config or docs where safe. Do NOT delete deployed sub-site content and do NOT touch the repo root loose files (owned by declutter-site-root) or research corpus/data/docs (owned by clean-research). Explain every move in your handoff.",
+      "pathsAllowed": [
+        "future?/**",
+        "experiments/**",
+        "microfrontends.json",
+        "wrangler.jsonc",
+        "_headers",
+        "robots.txt",
+        "sitemap.xml",
+        "landing/**",
+        "apresentacao/**",
+        "grupoiusgentium/**",
+        "marginalia/**",
+        "slides/**",
+        "video/**"
+      ],
+      "pathsForbidden": [
+        "index.html",
+        "corpus/**",
+        "data/**",
+        "docs/**",
+        "iconocracia/**",
+        "atlas/**"
+      ],
+      "acceptance": [
+        "The filesystem-fragile 'future?' directory no longer exists under that name; its contents are preserved under a safe name (e.g. experiments/) or archived, with references updated.",
+        "microfrontends.json is valid and each declared/served sub-site still resolves.",
+        "No deployed sub-site page 404s or regresses; the home page still links to every sub-site it linked before.",
+        "`npx playwright test` shows no new failures beyond the known-flaky T5.5.",
+        "The handoff documents the new structure and every git mv/rename performed."
+      ],
+      "verify": "Load each sub-site entry (landing/, apresentacao/, malleus/, manifesto/, marginalia/, mesa/, sala-de-leitura/, iconocracia/atlas/, iconocracia/atlas-lab/) via `npx http-server . -p 8080` and confirm they load. Validate microfrontends.json parses. Run `npx playwright test` for regressions."
+    },
+    {
+      "name": "clean-research",
+      "type": "worker",
+      "openPR": true,
+      "scopedGoal": "Clean the research portal content — the scholarly heart of the ICONOCRACIA / Iuris Memoria site. Scope: the corpus/ specimen pages, data/ datasets, docs/ (methodology.md, genealogia-alegoria-feminina.md and the superpowers/ plans+specs), and the iconocracia atlas research data. Discover the current state, then clean: (1) remove scratch/eval material not meant to ship (note assets/_eval and the asset pack are already gitignored — verify nothing scratch is tracked); (2) normalize the corpus/ specimen files for consistency (naming, provenance captions, dead links, encoding); (3) tidy docs/ so the methodology and genealogy read cleanly and the docs/superpowers/ planning scratch is either archived or clearly separated from published methodology; (4) ensure research datasets under data/ are consistent with what the atlas/atlas-lab consume. Do NOT change the visual design system, do NOT touch repo-root loose files (owned by declutter-site-root) or sub-site structure/config (owned by organize-repos). Preserve all genuine research content and provenance; when in doubt, keep and annotate rather than delete. Explain every change in your handoff.",
+      "pathsAllowed": [
+        "corpus/**",
+        "data/**",
+        "docs/**",
+        "schema/**",
+        "quotes/**",
+        "iconocracia/atlas/data*",
+        "iconocracia/atlas-lab/data*"
+      ],
+      "pathsForbidden": [
+        "index.html",
+        "styles.css",
+        "tokens/**",
+        "future?/**",
+        ".agents/**"
+      ],
+      "acceptance": [
+        "No scratch/eval material is tracked in the research areas; corpus/ and data/ contain only genuine research content.",
+        "corpus/ specimen files are consistent in naming and provenance and contain no dead internal links.",
+        "docs/ methodology and genealogy read cleanly; docs/superpowers planning scratch is archived or clearly separated from published methodology.",
+        "data/ research datasets remain consistent with what atlas/ and atlas-lab consume (those pages still render their data).",
+        "`npx playwright test` shows no new failures beyond the known-flaky T5.5.",
+        "The handoff enumerates every research file changed, moved, or removed with rationale and confirms no provenance was lost."
+      ],
+      "verify": "Load iconocracia/atlas/ and iconocracia/atlas-lab/ via `npx http-server . -p 8080` and confirm the corpus wall and data-driven panels still render with the cleaned data. Spot-check several corpus/ pages for valid provenance and no broken links. Run `npx playwright test` for regressions."
+    },
+    {
+      "name": "verify-declutter-site-root",
+      "type": "verifier",
+      "verifies": "declutter-site-root",
+      "scopedGoal": "Independently verify the declutter-site-root task against its acceptance criteria: confirm the repo root no longer holds stray screenshots, one-off scripts, or stale agent notes; the obsolete WindowContents.js is gone while window-contents.js remains; the malformed '\"assets' directory is gone with no real asset lost; and every deployed page still loads. Serve the site and load /, /poster.html, /mesa/, /atlas/ checking for new console errors or 404s, run `npx playwright test`, and return a clear PASS/FAIL verdict with evidence."
+    },
+    {
+      "name": "verify-organize-repos",
+      "type": "verifier",
+      "verifies": "organize-repos",
+      "scopedGoal": "Independently verify the organize-repos task against its acceptance criteria: the 'future?' directory is renamed to a filesystem-safe name (or archived) with references updated, microfrontends.json is valid, and every sub-site still resolves with no regression. Load each sub-site entry point via a local server, validate microfrontends.json, run `npx playwright test`, and return a clear PASS/FAIL verdict with evidence."
+    },
+    {
+      "name": "verify-clean-research",
+      "type": "verifier",
+      "verifies": "clean-research",
+      "scopedGoal": "Independently verify the clean-research task against its acceptance criteria: no scratch/eval material is tracked, corpus/ and docs/ are consistent with valid provenance and no dead links, and atlas/atlas-lab still render their cleaned data with no provenance lost. Load iconocracia/atlas/ and iconocracia/atlas-lab/ via a local server, spot-check corpus/ pages, run `npx playwright test`, and return a clear PASS/FAIL verdict with evidence."
+    }
+  ]
+}
