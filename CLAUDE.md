@@ -26,7 +26,7 @@ npm run deploy:worker              # stage clean tree + deploy Cloudflare Worker
 - **Cloudflare Worker (`anavvanzin`)**: `wrangler.jsonc` serves `.worker-assets/`, a clean tree staged by `scripts/stage-worker-assets.sh` (`npm run stage:assets`). Never point wrangler at the repo root — `.git` packs and large media exceed the **25 MiB per-asset Workers limit** (this broke Workers Builds before). New media over 25 MiB must be added to the strip lists in both `stage-worker-assets.sh` and `deploy-pages.yml`.
 - Vercel previews exist (`anavvanzin-github-io.vercel.app`) but do not serve the public domain.
 - `.nojekyll` is essential (GitHub Pages would otherwise ignore `_ds_bundle.js`); `CNAME` holds the custom domain. Pages use **root-absolute URLs** (`/styles.css`, `/vendor/react/…`, `/atlas/`), so the site assumes it is served at the domain root — hosting under a path prefix would require base-path work.
-- Both deploy paths stage **all tracked files** (`git archive HEAD`), so `.agents/`, the root handoff `.md` files, and this file are published to the live site. Don't put private or draft-only material in tracked files.
+- Both deploy paths stage via `git archive HEAD`, then **strip** agent/tooling trees (`.agents/`, `.claude/`, `CLAUDE.md`, `AGENTS.md`, `tests/`, `scripts/`, `future?/`, …) so they do not ship to `anavanzin.com`. Still: don't put secrets in tracked files.
 
 ## Architecture
 
