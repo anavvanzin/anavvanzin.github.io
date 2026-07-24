@@ -26,3 +26,13 @@ FOTOSSSS/
 
 # scratch: images for Claude to evaluate (never deploy)
 assets/_eval/
+
+# Playwright local artifacts (never deploy)
+test-results/
+test-results/**
+
+# Root screenshots / macOS Finder duplicates (never re-commit)
+malleus_index_screenshot.png
+apresentacao-slide1.png
+**/index 2.html
+WindowContents.js

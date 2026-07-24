@@ -10,11 +10,22 @@
 **/.playwright-mcp
 **/.cursor
 **/.agents
+**/.agents/**
 **/.claude
 **/.claude/**
+**/.ecc
 **/FOTOSSSS
 **/site
-
+**/future?
+CLAUDE.md
+AGENTS.md
+package.json
+package-lock.json
+playwright.config.js
+wrangler.jsonc
+microfrontends.json
+tests/**
+scripts/**
 # Never upload this ignore file as a site asset (optional)
 .assetsignore
 

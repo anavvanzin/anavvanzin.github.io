@@ -110,7 +110,7 @@ Depois das edições: as três se alcançam mutuamente pela tira "perfis".
 
 ## Scope & workflow
 
-- **Scope:** PROJECT — clone canônico `~/Documents/GitHub/anavvanzin` (verificado: sincronizado com `origin/main`, divergência `0 0`).
+- **Scope:** PROJECT — clone canônico `~/Projects/anavvanzin.github.io` (único repo do site; `anavanzin.com` / ICONOCRACIA).
 - **Entrega:** branch → PR → merge → ff-sync (push direto no `main` é negado). Sem force-push, sem `Co-Authored-By`.
 - **Render gate:** Playwright in-browser (desktop + mobile) nas três páginas antes do merge — confirmar que a tira renderiza, links resolvem, item corrente em destaque, sem overflow horizontal, console limpo.
 

@@ -13,6 +13,29 @@ mkdir -p "${DEST}"
 # Tracked files only — never .git objects, node_modules, or local junk.
 git -C "${ROOT}" archive HEAD | tar -x -C "${DEST}"
 
+# Agent / editor / experiment trees — tracked for local work, not public site.
+# (.assetsignore also lists some of these; remove after archive so Pages parity
+# is explicit and Workers never depends on ignore-file alone.)
+rm -rf \
+  "${DEST}/.agents" \
+  "${DEST}/.claude" \
+  "${DEST}/.ecc" \
+  "${DEST}/.github" \
+  "${DEST}/future?" \
+  "${DEST}/tests" \
+  "${DEST}/scripts"
+rm -f \
+  "${DEST}/CLAUDE.md" \
+  "${DEST}/AGENTS.md" \
+  "${DEST}/package.json" \
+  "${DEST}/package-lock.json" \
+  "${DEST}/playwright.config.js" \
+  "${DEST}/wrangler.jsonc" \
+  "${DEST}/.assetsignore" \
+  "${DEST}/.gitattributes" \
+  "${DEST}/.gitignore" \
+  "${DEST}/microfrontends.json"
+
 # Drop oversize media that exceeds the Workers 25 MiB per-asset limit
 OVERSIZE=(
   "assets/wallpaper-engine-ukiyo-e-flowing-topography-1779795277375 (1).mp4"

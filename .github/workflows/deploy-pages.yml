@@ -27,16 +27,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Stage site tree (tracked files, drop oversize media)
+      - name: Stage site tree (tracked files, drop tooling + oversize media)
         run: |
           set -euo pipefail
           mkdir -p _site
           git archive HEAD | tar -x -C _site
+          # Agent / editor trees are tracked for local work but must not ship to
+          # anavanzin.com (Pages stages every tracked file via git archive).
+          rm -rf \
+            _site/.agents \
+            _site/.claude \
+            _site/.ecc \
+            _site/.github \
+            "_site/future?"
           rm -f \
             "_site/assets/wallpaper-engine-ukiyo-e-flowing-topography-1779795277375 (1).mp4" \
             _site/assets/tropical_iconocracy_conference.mp4 \
             _site/assets/tropical_iconocracy_conference_v2.mp4 \
-            _site/assets/tropical_iconocracy_vertical_v2.mp4
+            _site/assets/tropical_iconocracy_vertical_v2.mp4 \
+            _site/CLAUDE.md \
+            _site/AGENTS.md \
+            _site/package.json \
+            _site/package-lock.json \
+            _site/playwright.config.js \
+            _site/wrangler.jsonc \
+            _site/.assetsignore \
+            _site/.gitattributes \
+            _site/.gitignore \
+            _site/microfrontends.json
+          rm -rf _site/tests _site/scripts _site/node_modules
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
