@@ -134,8 +134,7 @@
     <div class="stage">
       <div class="screen">
         <button class="facade" id="ytFacade" type="button"
-          aria-label="Reproduzir a defesa no player do YouTube / Play the defense in the YouTube player"
-          data-id="abbUWwb3-As">
+          aria-label="Reproduzir a defesa no player do YouTube / Play the defense in the YouTube player">
           <img src="https://i.ytimg.com/vi/abbUWwb3-As/maxresdefault.jpg" alt="" loading="lazy" decoding="async"
                onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/abbUWwb3-As/hqdefault.jpg'">
           <span class="play">
@@ -210,12 +209,13 @@
   <script>
     // Clique-para-tocar: o YouTube (e seus cookies) só carrega quando o público decide assistir.
     (function () {
+      // ID fixo do vídeo da defesa — literal, nunca vem do DOM nem de entrada do usuário.
+      var VIDEO_ID = 'abbUWwb3-As';
       var f = document.getElementById('ytFacade');
       if (!f) return;
       f.addEventListener('click', function () {
-        var id = f.getAttribute('data-id');
         var ifr = document.createElement('iframe');
-        ifr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+        ifr.src = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0&modestbranding=1';
         ifr.title = 'Defesa da dissertação — Ana Vitória Vanzin Mendes';
         ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
         ifr.setAttribute('allowfullscreen', '');
