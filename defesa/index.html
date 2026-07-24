@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defesa da dissertação · ana vanzin</title>
+<meta name="description" content="Defesa pública da dissertação de mestrado de Ana Vitória Vanzin Mendes (PPGD/UFSC, 2024): “United by marriage, chained by nationality” — a condição jurídica feminina e a nacionalidade no início do século XX.">
+<link rel="canonical" href="https://anavanzin.com/defesa/">
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="Defesa da dissertação · Ana Vitória Vanzin Mendes">
+<meta property="og:description" content="“United by marriage, chained by nationality” — a condição jurídica feminina e a nacionalidade no início do século XX. Mestrado em Direito, PPGD/UFSC, 2024.">
+<meta property="og:url" content="https://anavanzin.com/defesa/">
+<meta property="og:image" content="https://i.ytimg.com/vi/abbUWwb3-As/maxresdefault.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/assets/favicon-32.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+  :root{
+    --paper:#F5F0E6;--paper2:#FFF9EF;--ink:#111111;--rubric:#8B3A1A;--rubric-dark:#632713;
+    --gold:#D4AF37;--aged:#7B5E3C;--navy:#15110E;--soft:#E8DDC8;
+    --disp:'Playfair Display','Cormorant Garamond',serif;--body:'DM Sans',Arial,sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper);color:var(--ink);font-family:var(--body);
+    min-height:100dvh;display:flex;flex-direction:column;
+    background-image:radial-gradient(rgba(17,17,17,.04) .5px,transparent .5px);
+    background-size:4px 4px;
+  }
+  a,button,[role=button]{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 2 L20 11 L11 20 L2 11 Z' fill='%239B2C1C' stroke='%23F2EAD9' stroke-width='1.6'/%3E%3C/svg%3E") 11 11, pointer;
+  }
+  .bar{
+    position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;
+    border-bottom:1.5px solid var(--ink);padding:8px clamp(14px,3vw,28px);
+    font-family:var(--mono);font-size:12px;background:var(--paper2);
+  }
+  .bar a{color:var(--ink);text-decoration:none}
+  .bar a:hover{color:var(--rubric)}
+  .bar .sp{margin-left:auto}
+  .langtog{display:inline-flex;border:1px solid var(--ink)}
+  .langtog button{font-family:var(--mono);font-size:11px;border:0;background:var(--paper2);color:var(--ink);padding:2px 9px;cursor:pointer}
+  .langtog button[aria-pressed="true"]{background:var(--ink);color:var(--paper2)}
+
+  main{flex:1;width:100%;max-width:980px;margin:0 auto;padding:clamp(34px,7vh,80px) clamp(18px,4vw,28px) 90px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rubric);margin:0;text-align:center}
+  h1{font-family:var(--disp);font-weight:600;font-size:clamp(38px,7.5vw,74px);margin:6px 0 0;line-height:.98;text-align:center;letter-spacing:.5px}
+  .subtitle{font-family:var(--disp);font-style:italic;font-size:clamp(19px,3vw,27px);line-height:1.3;
+    color:var(--rubric);max-width:26ch;margin:14px auto 0;text-align:center}
+  .lede{font-family:var(--disp);font-style:italic;font-size:clamp(17px,2.4vw,22px);line-height:1.5;
+    color:color-mix(in srgb,var(--ink) 82%,var(--paper));max-width:62ch;margin:18px auto 0;text-align:center}
+
+  /* moldura dupla (paper tray + núcleo navy) em volta do vídeo */
+  .stage{margin:clamp(28px,5vh,52px) auto 0;background:var(--paper2);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    border-radius:20px;padding:10px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset, 0 18px 40px -28px rgba(17,17,17,.55);}
+  .screen{position:relative;background:var(--navy);border-radius:12px;overflow:hidden;aspect-ratio:16/9;
+    box-shadow:0 1px 1px rgba(255,255,255,.10) inset;}
+  .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+  /* fachada clique-para-tocar: só carrega o YouTube quando o público decide */
+  .facade{position:absolute;inset:0;border:0;padding:0;margin:0;width:100%;height:100%;
+    background:var(--navy) center/cover no-repeat;cursor:pointer;display:grid;place-items:center}
+  .facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62}
+  .facade::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 46%,transparent,rgba(21,17,14,.55))}
+  .play{position:relative;z-index:2;display:grid;place-items:center;gap:12px;text-align:center;color:var(--paper);padding:18px}
+  .play .disc{width:76px;height:76px;border-radius:50%;background:var(--rubric);
+    display:grid;place-items:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.7),0 0 0 2px var(--gold);
+    transition:transform .25s cubic-bezier(.22,1,.36,1),background .2s}
+  .facade:hover .disc{transform:scale(1.06);background:var(--rubric-dark)}
+  .play .disc svg{width:30px;height:30px;margin-left:5px;fill:var(--paper)}
+  .play .cta{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+
+  .meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;
+    margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:color-mix(in srgb,var(--ink) 62%,var(--paper))}
+  .meta .dot{opacity:.4}
+  .meta a{color:var(--rubric);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--rubric) 40%,transparent)}
+  .meta a:hover{color:var(--ink)}
+
+  /* ficha da defesa */
+  .ficha{max-width:640px;margin:clamp(30px,5vh,54px) auto 0;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);
+    background:var(--paper2);border-radius:8px;padding:clamp(20px,3vw,30px)}
+  .ficha dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
+  .ficha dt{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--aged);padding-top:3px;white-space:nowrap}
+  .ficha dd{margin:0;font-family:var(--body);font-size:15px;line-height:1.45;color:var(--ink)}
+  .ficha dd em{font-family:var(--disp);font-style:italic}
+
+  /* eixos / highlights */
+  .eixos{max-width:720px;margin:clamp(46px,8vh,86px) auto 0}
+  .eixos h2{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--rubric);text-align:center;margin:0 0 6px}
+  .eixos .rule{height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 70%,transparent),transparent);margin:0 auto 34px;max-width:120px}
+  .eixos ol{list-style:none;counter-reset:eixo;margin:0;padding:0;display:flex;flex-direction:column;gap:26px}
+  .eixos li{counter-increment:eixo;position:relative;padding-left:52px}
+  .eixos li::before{content:counter(eixo,decimal-leading-zero);position:absolute;left:0;top:2px;
+    font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--gold)}
+  .eixos h3{font-family:var(--disp);font-weight:600;font-size:clamp(20px,3vw,26px);line-height:1.2;margin:0 0 6px;color:var(--ink)}
+  .eixos p{margin:0;font-size:15.5px;line-height:1.6;color:color-mix(in srgb,var(--ink) 88%,var(--paper))}
+
+  .flr{color:var(--gold);font-family:var(--disp);font-size:28px;text-align:center;margin-top:56px}
+  footer{border-top:1px solid color-mix(in srgb,var(--ink) 15%,transparent);padding:20px;text-align:center;
+    font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--aged)}
+
+  @media (max-width:560px){
+    .eixos li{padding-left:40px}
+    .ficha dl{grid-template-columns:1fr;gap:4px 0}
+    .ficha dd{margin-bottom:10px}
+    main{padding-bottom:64px}
+  }
+</style>
+</head>
+<body>
+  <nav class="bar">
+    <a href="/">← <span>ana vanzin</span></a>
+    <a href="/apresentacao/" data-pt="apresentação" data-en="deck">apresentação</a>
+    <a href="/video/" data-pt="vídeo" data-en="video">vídeo</a>
+    <span class="sp"></span>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </nav>
+
+  <main>
+    <p class="kick" data-pt="Defesa · Mestrado em Direito · PPGD/UFSC" data-en="Defense · Master in Law · PPGD/UFSC">Defesa · Mestrado em Direito · PPGD/UFSC</p>
+    <h1 data-pt="Defesa da dissertação" data-en="Dissertation defense">Defesa da dissertação</h1>
+    <p class="subtitle">“United by marriage, chained by nationality”</p>
+    <p class="lede"
+       data-pt="A condição jurídica feminina e a nacionalidade no início do século XX. A defesa pública, na íntegra — onde começa o fio que hoje atravessa a tese de doutorado sobre as alegorias femininas do direito."
+       data-en="Women’s legal status and nationality in the early twentieth century. The full public defense — where the thread now running through the doctoral thesis on the female allegories of law first begins.">A condição jurídica feminina e a nacionalidade no início do século XX. A defesa pública, na íntegra — onde começa o fio que hoje atravessa a tese de doutorado sobre as alegorias femininas do direito.</p>
+
+    <div class="stage">
+      <div class="screen">
+        <button class="facade" id="ytFacade" type="button"
+          aria-label="Reproduzir a defesa no player do YouTube / Play the defense in the YouTube player">
+          <img src="https://i.ytimg.com/vi/abbUWwb3-As/maxresdefault.jpg" alt="" loading="lazy" decoding="async"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/abbUWwb3-As/hqdefault.jpg'">
+          <span class="play">
+            <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="cta" data-pt="Assistir à defesa · 1h31" data-en="Watch the defense · 1h31">Assistir à defesa · 1h31</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <p class="meta">
+      <span>1:31:07</span><span class="dot">·</span>
+      <span data-pt="15 de setembro de 2024" data-en="15 September 2024">15 de setembro de 2024</span><span class="dot">·</span>
+      <a href="https://www.youtube.com/watch?v=abbUWwb3-As" target="_blank" rel="noopener"
+         data-pt="abrir no YouTube" data-en="open on YouTube">abrir no YouTube</a>
+    </p>
+
+    <section class="ficha" aria-label="Ficha da defesa">
+      <dl>
+        <dt data-pt="Título" data-en="Title">Título</dt>
+        <dd><em>“United by marriage, chained by nationality”: a condição jurídica feminina e a nacionalidade no início do século XX</em></dd>
+        <dt data-pt="Autora" data-en="Author">Autora</dt>
+        <dd>Ana Vitória Vanzin Mendes</dd>
+        <dt data-pt="Grau" data-en="Degree">Grau</dt>
+        <dd data-pt="Mestrado em Direito · Direito Internacional · linha Direito dos Grupos Vulneráveis" data-en="Master in Law · International Law · Vulnerable Groups research line">Mestrado em Direito · Direito Internacional · linha Direito dos Grupos Vulneráveis</dd>
+        <dt data-pt="Programa" data-en="Program">Programa</dt>
+        <dd>PPGD/UFSC — Universidade Federal de Santa Catarina</dd>
+        <dt data-pt="Orientação" data-en="Advisor">Orientação</dt>
+        <dd>Arno Dal Ri Júnior</dd>
+        <dt data-pt="Data" data-en="Date">Data</dt>
+        <dd data-pt="15 de setembro de 2024 · Florianópolis" data-en="15 September 2024 · Florianópolis">15 de setembro de 2024 · Florianópolis</dd>
+      </dl>
+    </section>
+
+    <section class="eixos" aria-label="Eixos da defesa">
+      <h2 data-pt="Eixos da defesa" data-en="Threads of the defense">Eixos da defesa</h2>
+      <div class="rule"></div>
+      <ol>
+        <li>
+          <h3 data-pt="A tese central" data-en="The central claim">A tese central</h3>
+          <p data-pt="Unidas pelo casamento, acorrentadas pela nacionalidade: por mais de um século, em quase todo o Ocidente, a mulher casada perdia a nacionalidade de origem e adquiria automaticamente a do marido."
+             data-en="United by marriage, chained by nationality: for over a century, across most of the West, a married woman lost her nationality of origin and automatically acquired her husband’s.">Unidas pelo casamento, acorrentadas pela nacionalidade: por mais de um século, em quase todo o Ocidente, a mulher casada perdia a nacionalidade de origem e adquiria automaticamente a do marido.</p>
+        </li>
+        <li>
+          <h3 data-pt="Ius sanguinis a patre" data-en="Ius sanguinis a patre">Ius sanguinis a patre</h3>
+          <p data-pt="O sangue que transmite a pertença nacional é o do pai. A nacionalidade da mulher não era um direito próprio — era um reflexo do vínculo conjugal."
+             data-en="The blood that transmits national belonging is the father’s. A woman’s nationality was never a right of her own — it was a reflection of the marital bond.">O sangue que transmite a pertença nacional é o do pai. A nacionalidade da mulher não era um direito próprio — era um reflexo do vínculo conjugal.</p>
+        </li>
+        <li>
+          <h3 data-pt="O corpus jurídico" data-en="The legal corpus">O corpus jurídico</h3>
+          <p data-pt="Códigos e constituições de meia dúzia de países no alvorecer do século XX, lidos lado a lado para expor uma estrutura brutal em sua frieza: a mulher como apêndice legal do marido."
+             data-en="Codes and constitutions of half a dozen countries at the dawn of the twentieth century, read side by side to expose a structure brutal in its coldness: the woman as a legal appendage of her husband.">Códigos e constituições de meia dúzia de países no alvorecer do século XX, lidos lado a lado para expor uma estrutura brutal em sua frieza: a mulher como apêndice legal do marido.</p>
+        </li>
+        <li>
+          <h3 data-pt="O vazio onde deveria haver um nome" data-en="The void where a name should be">O vazio onde deveria haver um nome</h3>
+          <p data-pt="Perante a lei, não havia sujeito ali. A dissertação nomeia esse apagamento e recusa tratá-lo como detalhe técnico do direito de nacionalidade."
+             data-en="Before the law, there was no subject there. The dissertation names that erasure and refuses to treat it as a technical footnote of nationality law.">Perante a lei, não havia sujeito ali. A dissertação nomeia esse apagamento e recusa tratá-lo como detalhe técnico do direito de nacionalidade.</p>
+        </li>
+        <li>
+          <h3 data-pt="Da norma à imagem" data-en="From norm to image">Da norma à imagem</h3>
+          <p data-pt="É aqui que nasce a pergunta que hoje move o doutorado: por que o mesmo poder que subordina a mulher na lei a glorifica na imagem? A defesa é o ponto de partida da iconocracia."
+             data-en="This is where the question that now drives the doctorate is born: why does the same power that subordinates women in law glorify them in images? The defense is the starting point of the iconocracy project.">É aqui que nasce a pergunta que hoje move o doutorado: por que o mesmo poder que subordina a mulher na lei a glorifica na imagem? A defesa é o ponto de partida da iconocracia.</p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="flr">❧</div>
+  </main>
+
+  <footer>© 2026 ana vanzin · PPGD/UFSC · Ius Gentium · anavanzin.com</footer>
+
+  <script src="/editorial.js"></script>
+  <script>
+    // Clique-para-tocar: o YouTube (e seus cookies) só carrega quando o público decide assistir.
+    (function () {
+      // ID fixo do vídeo da defesa — literal, nunca vem do DOM nem de entrada do usuário.
+      var VIDEO_ID = 'abbUWwb3-As';
+      var f = document.getElementById('ytFacade');
+      if (!f) return;
+      f.addEventListener('click', function () {
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0&modestbranding=1';
+        ifr.title = 'Defesa da dissertação — Ana Vitória Vanzin Mendes';
+        ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        ifr.setAttribute('allowfullscreen', '');
+        f.replaceWith(ifr);
+      });
+    })();
+  </script>
+</body>
+</html>
