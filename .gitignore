@@ -26,3 +26,10 @@ FOTOSSSS/
 
 # scratch: images for Claude to evaluate (never deploy)
 assets/_eval/
+
+# agent session working notes — tracked files are deployed (see CLAUDE.md
+# "Deployment"), so these must never re-enter the tree
+.agents/
+.ecc/
+*_HANDOFF.md
+ORIGINAL_REQUEST.md
