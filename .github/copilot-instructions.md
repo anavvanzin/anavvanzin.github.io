@@ -36,8 +36,8 @@ Notes
   - Expose UI elements as properties of window.avapp; do not switch to ES modules unless you also adjust script tags and tests
 - Bilingual content
   - Use the L(lang, pt, en) helper pattern across window components; components accept { lang: 'pt' | 'en' }
-- Design constraints (see CLAUDE_CODE_HANDOFF.md)
-  - Colors: paper #F2EAD9, ink #211B16, rubric #9B2C1C (tests assert these)
+- Design constraints (see CLAUDE.md → "Design system (Mnemosyne Viva)" for the canonical palette and type pairing; do not copy hex values here, they drift)
+  - Tests assert literal colours and font names — a palette change must update tests/*.spec.js in the same commit
   - Motion: transitions limited to transform/opacity with custom cubic‑bezier timing; honor prefers-reduced-motion
   - Avoid introducing external icon sets or generic system fonts; rely on existing tokens and components
 - Test‑sensitive selectors/behaviors
@@ -52,5 +52,5 @@ Notes
 
 ## Related docs to consult
 - README.md — repo purpose, static architecture notes
-- CLAUDE_CODE_HANDOFF.md — Vanguard Protocol rules, anti‑patterns, and priorities
+- CLAUDE.md — architecture, deployment, and the Mnemosyne Viva design system (canonical)
 - TEST_INFRA.md and TEST_READY.md — test philosophy, tiers, and coverage catalog
