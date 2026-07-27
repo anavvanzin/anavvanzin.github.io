@@ -26,7 +26,7 @@ npm run deploy:worker              # stage clean tree + deploy Cloudflare Worker
 - **Cloudflare Worker (`anavvanzin`)**: `wrangler.jsonc` serves `.worker-assets/`, a clean tree staged by `scripts/stage-worker-assets.sh` (`npm run stage:assets`). Never point wrangler at the repo root — `.git` packs and large media exceed the **25 MiB per-asset Workers limit** (this broke Workers Builds before). New media over 25 MiB must be added to the strip lists in both `stage-worker-assets.sh` and `deploy-pages.yml`.
 - Vercel previews exist (`anavvanzin-github-io.vercel.app`) but do not serve the public domain.
 - `.nojekyll` is essential (GitHub Pages would otherwise ignore `_ds_bundle.js`); `CNAME` holds the custom domain. Pages use **root-absolute URLs** (`/styles.css`, `/vendor/react/…`, `/atlas/`), so the site assumes it is served at the domain root — hosting under a path prefix would require base-path work.
-- Both deploy paths stage **all tracked files** (`git archive HEAD`), so anything tracked — including this file — is published to the live site. Don't put private or draft-only material in tracked files. Agent session notes (`.agents/`, `*_HANDOFF.md`, `ORIGINAL_REQUEST.md`, `.ecc/`) are gitignored for exactly this reason; keep them untracked.
+- Both deploy paths stage **all tracked files** (`git archive HEAD`), so anything tracked — including this file — is published to the live site. Don't put private or draft-only material in tracked files. Agent session notes (`.agents/`, `*_HANDOFF.md`, `.ecc/`) are gitignored for exactly this reason; keep them untracked.
 
 ## Architecture
 
@@ -46,7 +46,7 @@ The repo-root `index.html` is the home page — a **static editorial "mesa" page
 
 Self-contained sections with their own entry points, largely independent of the desktop shell: `iconocracia/` (thesis atlas + atlas-lab, own `styles.css`/`tokens/`), `manifesto/`, `mesa/`, `malleus/`, `marginalia/`, `atlas/`, plus single pages like `poster.html`, `ampulheta.html`, `conceitos.html`, `trabalhos.html`, `perfil.html`, `mae.html`. Sub-sites may contain `.jsx` loaded via CDN Babel — the no-Babel rule applies to the root desktop shell only.
 
-Agent session notes (`.agents/`, `*_HANDOFF.md`, `ORIGINAL_REQUEST.md`) are not site content and are no longer tracked — they were removed and gitignored because tracked files get deployed (see Deployment). `CLAUDE.md`, `AGENTS.md` and `TEST_INFRA.md` stay tracked: they document how the repo works, not what a past session did.
+Agent session notes (`.agents/`, `*_HANDOFF.md`, `.ecc/`) are not site content and are no longer tracked — they were removed and gitignored because tracked files get deployed (see Deployment). What stays tracked is documentation about the repo rather than about a past session: `CLAUDE.md`, `AGENTS.md`, `TEST_INFRA.md`, and `ORIGINAL_REQUEST.md` (the requirements baseline `TEST_INFRA.md` traces to at §R1–R4).
 
 ## Design system ("Mnemosyne Viva")
 
