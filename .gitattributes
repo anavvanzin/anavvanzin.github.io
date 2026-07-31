@@ -23,3 +23,16 @@ docs/superpowers/** export-ignore
 .claude/** export-ignore
 .superpowers export-ignore
 .superpowers/** export-ignore
+
+# Root working notes and dev scripts left over from prior agent sessions. Some
+# still contain local /Users/ana paths and were being served publicly. Kept
+# tracked for local reference, but excluded from the deployed site (same policy
+# as .agents/ above).
+ORIGINAL_REQUEST.md export-ignore
+CLAUDE_CODE_HANDOFF.md export-ignore
+TEST_INFRA.md export-ignore
+TEST_READY.md export-ignore
+_LEIA.md export-ignore
+take_screenshots.py export-ignore
+scripts/convert_apresentacao.py export-ignore
+future?/compile-scout-data.py export-ignore
