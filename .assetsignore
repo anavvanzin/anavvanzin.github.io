@@ -15,6 +15,11 @@
 **/FOTOSSSS
 **/site
 
+# Local brand/eval scratch (also in .gitignore; belt-and-suspenders for
+# Workers uploads if anything under this path is ever force-tracked).
+assets/_eval
+assets/_eval/**
+
 # Never upload this ignore file as a site asset (optional)
 .assetsignore
 
