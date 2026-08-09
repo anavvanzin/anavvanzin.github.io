@@ -13,7 +13,7 @@ npx http-server . -p 8080          # serve the site locally (no build/watch step
 npm test                           # run Playwright E2E suite (= npx playwright test)
 npx playwright test tests/tier1-coverage.spec.js   # run one spec file
 npx playwright test -g "T5.5"      # run tests matching a title
-npm run deploy:worker              # stage clean tree + deploy Cloudflare Worker
+npm run deploy:worker              # deploy Cloudflare Worker (repo root + .assetsignore)
 ```
 
 - Playwright auto-starts `http-server` on port 8080 (`webServer` in `playwright.config.js`), so tests don't need a running server. If browsers are missing: `npx playwright install --with-deps chromium`.
@@ -22,11 +22,12 @@ npm run deploy:worker              # stage clean tree + deploy Cloudflare Worker
 
 ## Deployment
 
-- **Canonical domain `anavanzin.com` → GitHub Pages**: push to `main` triggers `.github/workflows/deploy-pages.yml`, which stages tracked files and strips oversize `.mp4` assets.
-- **Cloudflare Worker (`anavvanzin`)**: `wrangler.jsonc` serves `.worker-assets/`, a clean tree staged by `scripts/stage-worker-assets.sh` (`npm run stage:assets`). Never point wrangler at the repo root — `.git` packs and large media exceed the **25 MiB per-asset Workers limit** (this broke Workers Builds before). New media over 25 MiB must be added to the strip lists in both `stage-worker-assets.sh` and `deploy-pages.yml`.
+- **Canonical domain `anavanzin.com` → GitHub Pages**: push to `main` triggers `.github/workflows/deploy-pages.yml`, which stages tracked files via `scripts/stage-worker-assets.sh` (`git archive` + strip oversize `.mp4` assets).
+- **Cloudflare Worker (`anavvanzin`)**: `wrangler.jsonc` sets `assets.directory` to `.` so Workers Builds can run plain `npx wrangler deploy` on a clean checkout. Publication boundary is [`.assetsignore`](.assetsignore) (excludes `.git/`, tooling, agent notes, and media over the **25 MiB per-asset** limit). New oversize media must be added to both `.assetsignore` and the strip list in `scripts/stage-worker-assets.sh` / `deploy-pages.yml`.
 - Vercel previews exist (`anavvanzin-github-io.vercel.app`) but do not serve the public domain.
 - `.nojekyll` is essential (GitHub Pages would otherwise ignore `_ds_bundle.js`); `CNAME` holds the custom domain. Pages use **root-absolute URLs** (`/styles.css`, `/vendor/react/…`, `/atlas/`), so the site assumes it is served at the domain root — hosting under a path prefix would require base-path work.
-- Both deploy paths stage **all tracked files** (`git archive HEAD`), so `.agents/`, the root handoff `.md` files, and this file are published to the live site. Don't put private or draft-only material in tracked files.
+- Internal paths are excluded from publish via `.gitattributes` `export-ignore` (Pages) and `.assetsignore` (Workers). Still avoid putting secrets in tracked files.
+
 
 ## Architecture
 
