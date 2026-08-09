@@ -198,6 +198,25 @@ a {
 a:hover { color: var(--accent-hover); }
 a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--paper);
+  transform: translateY(calc(-100% - 16px));
+  transition: transform var(--duration-ui) ease;
+}
+.skip-link:focus-visible {
+  color: var(--paper);
+  transform: translateY(0);
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 hr {
   border: 0;
   border-top: var(--rule-w-hairline) solid var(--rule-hairline);

@@ -75,3 +75,32 @@ test('atlas symbols open the drawing workshop and accept a stroke', async ({ pag
 
   expect(after).not.toBe(before);
 });
+
+for (const route of ['/sobre.html', '/conceitos.html']) {
+  test(`${route} exposes a keyboard skip link to main content`, async ({ page }) => {
+    await page.goto(route);
+
+    const skip = page.locator('.skip-link');
+    await skip.focus();
+    await expect(skip).toBeVisible();
+    await skip.press('Enter');
+
+    await expect(page.locator('#main')).toBeFocused();
+  });
+}
+
+test('editorial back-to-top link preserves a clean URL', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/sobre.html');
+  await page.locator('a.top[href="#"]').click();
+
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(page).toHaveURL(/\/sobre\.html$/);
+});
+
+test('profile drag bar does not trap touch scrolling on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/perfil.html');
+
+  await expect.poll(() => page.locator('#bar').evaluate((element) => getComputedStyle(element).touchAction)).toBe('auto');
+});

@@ -51,6 +51,14 @@
   }
 
   document.addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+    var topLink = e.target.closest('a.top[href="#"]');
+    if (topLink) {
+      e.preventDefault();
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      return;
+    }
     var b = e.target.closest('.langtog button[data-lang]');
     if (!b) return;
     if (b.dataset.lang === lang) return;
