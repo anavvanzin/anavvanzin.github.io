@@ -9,7 +9,7 @@
   "scripts": {
     "test": "playwright test",
     "stage:assets": "bash scripts/stage-worker-assets.sh",
-    "deploy:worker": "npm run stage:assets && npx wrangler deploy"
+    "deploy:worker": "npx wrangler deploy"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

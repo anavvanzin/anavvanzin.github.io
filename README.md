@@ -43,17 +43,16 @@ em `main` dispara [`.github/workflows/deploy-pages.yml`](.github/workflows/deplo
 ### Cloudflare Workers (`anavvanzin`)
 
 Há também um Worker com a mesma árvore estática (`wrangler.jsonc`). Workers Builds
-estava quebrado desde 2026-06-24 porque o deploy tentava uploadar `.git/`
-(pack ≈ 52 MiB; limite por asset = 25 MiB) e mídia pesada.
+estava quebrado porque o diretório temporário `.worker-assets/` não existe em um
+checkout remoto limpo antes de `npx wrangler deploy`.
 
-O deploy agora usa uma árvore limpa em `.worker-assets/` (gerada por
-[`scripts/stage-worker-assets.sh`](scripts/stage-worker-assets.sh)).
+O Worker serve a raiz do checkout e [`.assetsignore`](.assetsignore) exclui `.git/`,
+infraestrutura interna e mídia acima do limite de 25 MiB. Assim o comando padrão
+do Workers Builds e o deploy manual usam exatamente o mesmo caminho.
 
 - **Deploy manual:** `npm run deploy:worker`
-- **Workers Builds (painel Cloudflare):**
-  - **Build command:** `npm run stage:assets`
-  - **Deploy command:** `npx wrangler deploy`
-- Exclusões também em [`.assetsignore`](.assetsignore).
+- **Workers Builds:** comando padrão `npx wrangler deploy` (sem etapa prévia)
+- **GitHub Pages:** ainda usa `npm run stage:assets` para gerar o artifact do workflow
 
 ### Vercel
 

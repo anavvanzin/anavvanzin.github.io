@@ -1,21 +1,74 @@
-# Applied inside staged worker assets AND at repo root.
+# Publication boundary for Wrangler when assets.directory points at repo root.
 # Same syntax as .gitignore. Ref:
 # https://developers.cloudflare.com/workers/static-assets/binding/#ignoring-assets
 
-**/.git
-**/.git/**
-**/node_modules
-**/node_modules/**
-**/.wrangler
-**/.playwright-mcp
-**/.cursor
-**/.agents
-**/.claude
-**/.claude/**
-**/FOTOSSSS
-**/site
+.git
+.git/**
+.DS_Store
+**/.DS_Store
+node_modules
+node_modules/**
+.worker-assets
+.worker-assets/**
+.wrangler
+.wrangler/**
+.playwright-mcp
+.playwright-mcp/**
+.cursor
+.cursor/**
+.agents
+.agents/**
+.claude
+.claude/**
+.superpowers
+.superpowers/**
+.remember
+.remember/**
+.github
+.github/**
+.ecc
+.ecc/**
+future?
+future?/**
+scripts
+scripts/**
+tests
+tests/**
+test-results
+test-results/**
+docs/WORKFLOW.md
+docs/superpowers
+docs/superpowers/**
+FOTOSSSS
+FOTOSSSS/**
+site
+site/**
+assets/_eval
+assets/_eval/**
 
-# Never upload this ignore file as a site asset (optional)
+# Repository and agent-facing files are not public website content.
+.gitattributes
+.gitignore
+AGENTS.md
+CLAUDE.md
+README.md
+ORIGINAL_REQUEST.md
+CLAUDE_CODE_HANDOFF.md
+TEST_INFRA.md
+TEST_READY.md
+_LEIA.md
+package.json
+package-lock.json
+playwright.config.js
+wrangler.jsonc
+take_screenshots.py
+WindowContents.js
+mesa/index 2.html
+test-dropcap.js
+apresentacao-slide1.png
+malleus_index_screenshot.png
+
+# Never upload this ignore file as a site asset.
 .assetsignore
 
 # Oversize media (> 25 MiB Workers limit)

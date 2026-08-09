@@ -1,9 +1,10 @@
 # Keep internal working documents and tooling out of the published site.
 #
-# Both deploy paths build the site from `git archive HEAD` (the GitHub Pages
-# workflow and scripts/stage-worker-assets.sh), and `git archive` honors
-# export-ignore. So these stay tracked in git — useful locally and to agents —
-# but are never uploaded to anavanzin.com.
+# GitHub Pages builds its upload tree with `git archive HEAD`, which honors
+# export-ignore. Cloudflare Workers applies the equivalent boundary from
+# .assetsignore because its remote build runs `npx wrangler deploy` directly.
+# These files stay tracked in git — useful locally and to agents — but are not
+# uploaded to anavanzin.com.
 #
 # Verify with:  git archive HEAD | tar -t | grep -c '^docs/superpowers'   -> 0
 
@@ -38,11 +39,12 @@ scripts/convert_apresentacao.py export-ignore
 future?/compile-scout-data.py export-ignore
 
 # Repository infrastructure and future prototypes are versioned for maintainers,
-# but they are not part of the public website. Both deploy paths consume this
-# same archive contract.
+# but they are not part of the public website.
 .gitattributes export-ignore
 .github export-ignore
 .github/** export-ignore
+.ecc export-ignore
+.ecc/** export-ignore
 .gitignore export-ignore
 .assetsignore export-ignore
 .remember export-ignore
@@ -56,6 +58,8 @@ playwright.config.js export-ignore
 wrangler.jsonc export-ignore
 tests export-ignore
 tests/** export-ignore
+test-results export-ignore
+test-results/** export-ignore
 scripts export-ignore
 scripts/** export-ignore
 future? export-ignore
