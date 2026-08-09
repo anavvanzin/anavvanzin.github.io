@@ -10,8 +10,35 @@ DEST="${ROOT}/.worker-assets"
 rm -rf "${DEST}"
 mkdir -p "${DEST}"
 
-# Tracked files only — never .git objects, node_modules, or local junk.
-git -C "${ROOT}" archive HEAD | tar -x -C "${DEST}"
+# Tracked files only — never .git objects, node_modules, or local junk. Reading
+# worktree attributes makes local validation include an edited .gitattributes;
+# in CI the worktree and HEAD are identical.
+git -C "${ROOT}" archive --worktree-attributes HEAD | tar -x -C "${DEST}"
+
+# The archive contract is shared by Pages and Workers. Fail closed if a future
+# edit to .gitattributes accidentally republishes repository infrastructure.
+FORBIDDEN=(
+  ".agents"
+  ".claude"
+  ".github"
+  ".remember"
+  "future?"
+  "scripts"
+  "tests"
+  "AGENTS.md"
+  "CLAUDE.md"
+  "README.md"
+  "package.json"
+  "package-lock.json"
+  "playwright.config.js"
+  "wrangler.jsonc"
+)
+for rel in "${FORBIDDEN[@]}"; do
+  if [[ -e "${DEST}/${rel}" ]]; then
+    printf 'Refusing publish tree with internal path: %s\n' "${rel}" >&2
+    exit 1
+  fi
+done
 
 # Drop oversize media that exceeds the Workers 25 MiB per-asset limit
 OVERSIZE=(
@@ -24,21 +51,20 @@ for rel in "${OVERSIZE[@]}"; do
   rm -f "${DEST}/${rel}"
 done
 
-# Belt-and-suspenders ignore file inside the staged tree
-cp "${ROOT}/.assetsignore" "${DEST}/.assetsignore"
+limit_bytes=$((25 * 1024 * 1024))
+oversize_found=0
+while IFS= read -r -d '' path; do
+  bytes="$(wc -c < "${path}" | tr -d '[:space:]')"
+  if (( bytes > limit_bytes )); then
+    rel="${path#"${DEST}/"}"
+    printf 'OVERSIZE %s bytes  %s\n' "${bytes}" "${rel}" >&2
+    oversize_found=1
+  fi
+done < <(find "${DEST}" -type f -print0)
 
-python3 - <<'PY' "${DEST}"
-import sys
-from pathlib import Path
-root = Path(sys.argv[1])
-limit = 25 * 1024 * 1024
-bad = []
-for p in root.rglob("*"):
-    if p.is_file() and p.stat().st_size > limit:
-        bad.append((p.stat().st_size, p.relative_to(root).as_posix()))
-if bad:
-    for size, name in sorted(bad, reverse=True):
-        print(f"OVERSIZE {size/1024/1024:.1f} MiB  {name}", file=sys.stderr)
-    sys.exit("Worker assets contain files over the 25 MiB Cloudflare limit")
-print(f"Staged worker assets OK → {root}")
-PY
+if (( oversize_found )); then
+  printf 'Worker assets contain files over the 25 MiB Cloudflare limit\n' >&2
+  exit 1
+fi
+
+printf 'Staged worker assets OK → %s\n' "${DEST}"

@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "anavvanzin",
-  // Keep current per Workers best practices:
+  // Bump deliberately after a local dry-run and a successful Workers build:
   // https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
   "compatibility_date": "2026-07-23",
   "compatibility_flags": [
@@ -12,6 +12,7 @@
   "observability": {
     "enabled": true,
     "logs": {
+      "enabled": true,
       // Academic/static traffic is low — capture all logs.
       "head_sampling_rate": 1,
       "invocation_logs": true

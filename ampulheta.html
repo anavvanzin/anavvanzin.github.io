@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -358,6 +358,7 @@
   const PARTICLE_RADIUS = 3.5;
   const RESTITUTION = 0.16;
   const FRICTION = 0.96;
+  const EPSILON = 1e-6;
 
   let angle = 0;
   let targetAngle = 0;
@@ -461,8 +462,20 @@
     const dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist < circle.r) {
-      const normalX = dx / dist;
-      const normalY = dy / dist;
+      let normalX;
+      let normalY;
+      if (dist > EPSILON) {
+        normalX = dx / dist;
+        normalY = dy / dist;
+      } else {
+        const wallLength = Math.sqrt(ab2);
+        normalX = -aby / wallLength;
+        normalY = abx / wallLength;
+        if (circle.vx * normalX + circle.vy * normalY > 0) {
+          normalX *= -1;
+          normalY *= -1;
+        }
+      }
       circle.x = closestX + normalX * circle.r;
       circle.y = closestY + normalY * circle.r;
       const speedAlongNormal = circle.vx * normalX + circle.vy * normalY;
@@ -489,8 +502,8 @@
 
         if (dist < minDist) {
           const overlap = minDist - dist;
-          const nx = dx / dist;
-          const ny = dy / dist;
+          const nx = dist > EPSILON ? dx / dist : ((i + j) % 2 === 0 ? 1 : -1);
+          const ny = dist > EPSILON ? dy / dist : 0;
           p1.x -= nx * overlap * 0.5;
           p1.y -= ny * overlap * 0.5;
           p2.x += nx * overlap * 0.5;
@@ -510,20 +523,25 @@
   let flipProgress = 1;
   const flipDuration = prefersReducedMotion ? 1 : 48;
   let flipStartAngle = 0;
+  let raf = 0;
+
+  function completeFlip() {
+    flipProgress = 1;
+    angle = targetAngle;
+    isFlipping = false;
+    if (pendingAllegoryAdvance) {
+      pendingAllegoryAdvance = false;
+      advanceAllegory();
+    } else {
+      showNextQuote();
+    }
+  }
 
   function update() {
     if (flipProgress < 1) {
       flipProgress += 1 / flipDuration;
       if (flipProgress >= 1) {
-        flipProgress = 1;
-        angle = targetAngle;
-        isFlipping = false;
-        if (pendingAllegoryAdvance) {
-          pendingAllegoryAdvance = false;
-          advanceAllegory();
-        } else {
-          showNextQuote();
-        }
+        completeFlip();
       } else if (!prefersReducedMotion) {
         const t = flipProgress;
         const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -574,11 +592,25 @@
   }
 
   function loop() {
+    if (!isRunning) return;
+    update();
+    draw();
+    if (isRunning) raf = requestAnimationFrame(loop);
+  }
+
+  function setRunning(next) {
+    if (isRunning === next) return;
+    isRunning = next;
     if (isRunning) {
-      update();
       draw();
+      raf = requestAnimationFrame(loop);
+    } else {
+      cancelAnimationFrame(raf);
+      if (isFlipping) {
+        completeFlip();
+        draw();
+      }
     }
-    requestAnimationFrame(loop);
   }
 
   const outerFrame = document.getElementById('frame-outer');
@@ -621,17 +653,14 @@
   });
 
   document.addEventListener('visibilitychange', function() {
-    isRunning = !document.hidden;
-    if (isRunning) {
-      draw();
-    }
+    setRunning(!document.hidden);
   });
 
   initWalls();
   initParticles();
   updateAllegoryLabel();
   showQuote(0);
-  loop();
+  raf = requestAnimationFrame(loop);
 })();
 </script>
 

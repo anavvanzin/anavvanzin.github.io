@@ -8,7 +8,7 @@ edite a saída à mão (é sobrescrita a cada execução).
 import re
 from pathlib import Path
 
-ROOT = Path("/Users/ana/Documents/GitHub/anavvanzin")
+ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "assets" / "Iconocracia - Apresentacao.dc.html"
 DEST = ROOT / "apresentacao" / "index.html"
 
@@ -45,13 +45,13 @@ for name in ['sym-chain.png', 'sym-crown.png', 'sym-eye.png', 'sym-scale.png', '
 
 # Cria o HTML final
 html = f"""<!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apresentação · Iconocracia · ana vanzin</title>
 <meta name="description" content="Slides da apresentação da tese Iconocracia — alegoria feminina na história da cultura jurídica.">
-<link rel="icon" type="image/png" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="../tokens/colors.css">
 <link rel="stylesheet" href="../tokens/typography.css">
@@ -135,7 +135,7 @@ html,body{{ margin:0; height:100%; background:#060913; color:var(--ivory); }}
 </head>
 <body>
 <header class="topbar">
-  <a href="../">← ana vanzin</a>
+  <a href="/">← ana vanzin</a>
   <span class="meta">Iconocracia · Apresentação</span>
   <a href="#" id="toggle-notes" style="color:var(--faded);">notas</a>
 </header>

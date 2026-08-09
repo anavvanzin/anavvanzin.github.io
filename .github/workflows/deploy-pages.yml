@@ -26,17 +26,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Manual dispatches must publish the production branch, never the
+          # branch selected in the Actions UI.
+          ref: main
 
-      - name: Stage site tree (tracked files, drop oversize media)
-        run: |
-          set -euo pipefail
-          mkdir -p _site
-          git archive HEAD | tar -x -C _site
-          rm -f \
-            "_site/assets/wallpaper-engine-ukiyo-e-flowing-topography-1779795277375 (1).mp4" \
-            _site/assets/tropical_iconocracy_conference.mp4 \
-            _site/assets/tropical_iconocracy_conference_v2.mp4 \
-            _site/assets/tropical_iconocracy_vertical_v2.mp4
+      - name: Stage site tree
+        run: bash scripts/stage-worker-assets.sh
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -44,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: .worker-assets
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -36,3 +36,35 @@ _LEIA.md export-ignore
 take_screenshots.py export-ignore
 scripts/convert_apresentacao.py export-ignore
 future?/compile-scout-data.py export-ignore
+
+# Repository infrastructure and future prototypes are versioned for maintainers,
+# but they are not part of the public website. Both deploy paths consume this
+# same archive contract.
+.gitattributes export-ignore
+.github export-ignore
+.github/** export-ignore
+.gitignore export-ignore
+.assetsignore export-ignore
+.remember export-ignore
+.remember/** export-ignore
+AGENTS.md export-ignore
+CLAUDE.md export-ignore
+README.md export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+playwright.config.js export-ignore
+wrangler.jsonc export-ignore
+tests export-ignore
+tests/** export-ignore
+scripts export-ignore
+scripts/** export-ignore
+future? export-ignore
+future?/** export-ignore
+
+# Superseded sources and one-off review artifacts. Runtime equivalents remain:
+# window-contents.js, WPoster.js and mesa/index.html.
+WindowContents.js export-ignore
+"mesa/index 2.html" export-ignore
+test-dropcap.js export-ignore
+apresentacao-slide1.png export-ignore
+malleus_index_screenshot.png export-ignore

@@ -51,6 +51,7 @@
   const PARTICLE_RADIUS = 3.5;
   const RESTITUTION = 0.16;
   const FRICTION = 0.96;
+  const EPSILON = 1e-6;
 
   function initParticles() {
     const particles = [];
@@ -104,8 +105,20 @@
     const dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist < circle.r) {
-      const normalX = dx / dist;
-      const normalY = dy / dist;
+      let normalX;
+      let normalY;
+      if (dist > EPSILON) {
+        normalX = dx / dist;
+        normalY = dy / dist;
+      } else {
+        const wallLength = Math.sqrt(ab2);
+        normalX = -aby / wallLength;
+        normalY = abx / wallLength;
+        if (circle.vx * normalX + circle.vy * normalY > 0) {
+          normalX *= -1;
+          normalY *= -1;
+        }
+      }
       circle.x = closestX + normalX * circle.r;
       circle.y = closestY + normalY * circle.r;
       const speedAlongNormal = circle.vx * normalX + circle.vy * normalY;
@@ -131,8 +144,8 @@
         const minDist = p1.r + p2.r;
         if (dist < minDist) {
           const overlap = minDist - dist;
-          const nx = dx / dist;
-          const ny = dy / dist;
+          const nx = dist > EPSILON ? dx / dist : ((i + j) % 2 === 0 ? 1 : -1);
+          const ny = dist > EPSILON ? dy / dist : 0;
           p1.x -= nx * overlap * 0.5;
           p1.y -= ny * overlap * 0.5;
           p2.x += nx * overlap * 0.5;
@@ -169,6 +182,16 @@
     let pendingAllegoryAdvance = false;
     let running = true;
     let raf = 0;
+
+    function completeFlip() {
+      flipProgress = 1;
+      angle = targetAngle;
+      isFlipping = false;
+      if (pendingAllegoryAdvance) {
+        pendingAllegoryAdvance = false;
+        callbacks.onAdvanceAllegory();
+      }
+    }
 
     function draw() {
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -216,13 +239,7 @@
       if (flipProgress < 1) {
         flipProgress += 1 / flipDuration;
         if (flipProgress >= 1) {
-          flipProgress = 1;
-          angle = targetAngle;
-          isFlipping = false;
-          if (pendingAllegoryAdvance) {
-            pendingAllegoryAdvance = false;
-            callbacks.onAdvanceAllegory();
-          }
+          completeFlip();
         } else if (!prefersReducedMotion) {
           const t = flipProgress;
           const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -246,16 +263,25 @@
     }
 
     function loop() {
-      if (running) {
-        update();
-        draw();
-      }
-      raf = requestAnimationFrame(loop);
+      if (!running) return;
+      update();
+      draw();
+      if (running) raf = requestAnimationFrame(loop);
     }
 
     function setRunning(next) {
+      if (running === next) return;
       running = next;
-      if (running) draw();
+      if (running) {
+        draw();
+        raf = requestAnimationFrame(loop);
+      } else {
+        cancelAnimationFrame(raf);
+        if (isFlipping) {
+          completeFlip();
+          draw();
+        }
+      }
     }
 
     function flip() {
@@ -318,6 +344,10 @@
     const [allegoryIndex, setAllegoryIndex] = React.useState(0);
     const [quoteIndex, setQuoteIndex] = React.useState(0);
     const [frameTransform, setFrameTransform] = React.useState('none');
+    const reduceMotion = React.useMemo(
+      () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      []
+    );
 
     const allegory = ALLEGORIES[allegoryIndex];
     const quote = allegory.quotes[quoteIndex];
@@ -410,7 +440,7 @@
         boxShadow: '3px 3px 0 0 var(--ink)',
         padding: 5,
         transform: frameTransform,
-        transition: 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+        transition: reduceMotion ? 'none' : 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
         maxWidth: 320,
         margin: '0 auto',
         width: '100%'

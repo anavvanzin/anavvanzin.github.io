@@ -3,6 +3,7 @@
    across all routes and the desktop homepage. Generic + declarative:
    - any element with data-pt / data-en   -> textContent swapped on lang change
    - any element with data-pt-html / data-en-html -> innerHTML swapped
+   - any element with data-aria-pt / data-aria-en -> aria-label swapped
    - .langtog buttons[data-lang] toggle + persist
    - .avnav a[data-match] (space-separated filenames) gets .cur for current page
    No asset paths here, so the file loads correctly from root or a subdir. */
@@ -21,7 +22,7 @@
   var lang = getLang();
 
   function paintText() {
-    document.documentElement.lang = lang;
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
     document.querySelectorAll('[data-pt]').forEach(function (el) {
       var v = el.getAttribute('data-' + lang);
       if (v != null) el.textContent = v;
@@ -29,6 +30,10 @@
     document.querySelectorAll('[data-pt-html]').forEach(function (el) {
       var v = el.getAttribute('data-' + lang + '-html');
       if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-aria-pt]').forEach(function (el) {
+      var v = el.getAttribute('data-aria-' + lang);
+      if (v != null) el.setAttribute('aria-label', v);
     });
     document.querySelectorAll('.langtog button[data-lang]').forEach(function (b) {
       b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');

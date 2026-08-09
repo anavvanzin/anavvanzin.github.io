@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "Iconocracia E2E Tests",
   "main": "index.html",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "playwright test",
     "stage:assets": "bash scripts/stage-worker-assets.sh",
     "deploy:worker": "npm run stage:assets && npx wrangler deploy"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
-    "wrangler": "^4.113.0"
+    "@playwright/test": "^1.62.1",
+    "wrangler": "^4.120.0"
   },
   "dependencies": {
     "http-server": "^14.1.1"
