@@ -135,7 +135,8 @@ function WPublicacoes({
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
     href: "http://lattes.cnpq.br/9079096818962275",
-    external: true
+    external: true,
+    className: "mobile-action-link"
   }, L(lang, 'Currículo Lattes', 'Lattes CV'))));
 }
 function WIus({
@@ -154,7 +155,8 @@ function WIus({
       paddingTop: 4
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "/grupoiusgentium/"
+    href: "/grupoiusgentium/",
+    className: "mobile-action-link"
   }, L(lang, 'Página do grupo', 'Group page'))));
 }
 function ProjectCard({
@@ -195,6 +197,7 @@ function ProjectCard({
     href: href,
     target: "_blank",
     rel: "noreferrer",
+    className: "mobile-action-link",
     style: projectTitleLink
   }, title)), /*#__PURE__*/React.createElement("p", {
     style: {
@@ -210,7 +213,8 @@ function ProjectCard({
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
     href: href,
-    external: true
+    external: true,
+    className: "mobile-action-link"
   }, domain)));
 }
 function WProjects({
@@ -269,10 +273,12 @@ function WAdvisor({
       borderTop: '1px solid var(--rule-hairline)'
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: ADVISOR_SITE_URL
+    href: ADVISOR_SITE_URL,
+    className: "mobile-action-link"
   }, L(lang, 'Conhecer o orientador', 'Meet the advisor')), /*#__PURE__*/React.createElement(RubricLink, {
     href: "/assets/CV%20Arno%20Dal%20Ri%20Jr_fr_2026_Paris%201_0.pdf",
-    external: true
+    external: true,
+    className: "mobile-action-link"
   }, "CV")));
 }
 function WContato({
@@ -296,7 +302,8 @@ function WContato({
   }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Contato', 'Contact')), /*#__PURE__*/React.createElement("p", {
     style: win_lead
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "mailto:anavvanzin@outlook.com"
+    href: "mailto:anavvanzin@outlook.com",
+    className: "mobile-action-link"
   }, "anavvanzin@outlook.com")), sent ? /*#__PURE__*/React.createElement("p", {
     style: {
       ...win_p,
@@ -394,7 +401,8 @@ function WCv({
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
     href: "http://lattes.cnpq.br/9079096818962275",
-    external: true
+    external: true,
+    className: "mobile-action-link"
   }, L(lang, 'Currículo Lattes', 'Lattes CV'))));
 }
 function WJustitia({
