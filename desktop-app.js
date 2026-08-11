@@ -888,6 +888,36 @@ function Desktop({
   const visible = wins.filter(w => !w.min);
   const topId = visible.reduce((a, w) => !a || w.z > a.z ? w : a, null)?.id;
   React.useEffect(() => {
+    if (!isMobile || !topId) return undefined;
+    const activeWindow = document.querySelector(`[data-window-id="${topId}"]`);
+    if (!activeWindow) return undefined;
+    activeWindow.focus({
+      preventScroll: true
+    });
+    const keepFocusInside = e => {
+      if (e.key !== 'Tab') return;
+      const focusable = [...activeWindow.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter(element => element.getClientRects().length > 0);
+      if (!focusable.length) {
+        e.preventDefault();
+        activeWindow.focus({
+          preventScroll: true
+        });
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !activeWindow.contains(document.activeElement))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !activeWindow.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener('keydown', keepFocusInside);
+    return () => window.removeEventListener('keydown', keepFocusInside);
+  }, [isMobile, topId]);
+  React.useEffect(() => {
     const onKeyDown = e => {
       if (e.key !== 'Escape' || !topId) return;
       // Tabula owns Escape so its poster can leave zoom mode without the
@@ -900,7 +930,7 @@ function Desktop({
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [topId]);
+  }, [isMobile, topId]);
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
