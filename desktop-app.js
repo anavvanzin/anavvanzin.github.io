@@ -318,7 +318,6 @@ const UI = {
     tagline: 'direito & iconografia',
     enter: 'entrar →',
     dockHint: 'clique duplo · arraste pela barra',
-    dockHintM: 'toque · arraste a barra',
     clk: 'pt-BR'
   },
   en: {
@@ -326,7 +325,6 @@ const UI = {
     tagline: 'law & iconography',
     enter: 'enter →',
     dockHint: 'double-click · drag the title bar',
-    dockHintM: 'tap · drag the bar',
     clk: 'en-GB'
   }
 };
@@ -925,7 +923,7 @@ function Desktop({
       position: 'absolute',
       left: isMobile ? 'auto' : '6%',
       right: isMobile ? '-28%' : 'auto',
-      bottom: 36,
+      bottom: isMobile ? 48 : 36,
       height: isMobile ? '84%' : '91%',
       width: 'auto',
       maxWidth: isMobile ? 'none' : '58%',
@@ -1058,7 +1056,7 @@ function Desktop({
       top: 58,
       left: 0,
       right: 0,
-      bottom: 42,
+      bottom: 54,
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
       display: 'grid',
@@ -1170,7 +1168,7 @@ function Desktop({
       left: 0,
       right: 0,
       bottom: 0,
-      height: 36,
+      height: isMobile ? 48 : 36,
       background: 'var(--ink)',
       color: 'var(--paper)',
       display: 'flex',
@@ -1216,7 +1214,8 @@ function Desktop({
         color: on ? 'var(--ink)' : 'var(--paper)',
         border: '1px solid ' + (on ? 'var(--paper)' : 'rgba(242,234,217,0.35)'),
         borderRadius: 0,
-      padding: '3px 10px',
+        minHeight: isMobile ? 44 : undefined,
+        padding: '3px 10px',
         cursor: 'pointer',
         fontFamily: 'var(--font-body)',
         fontSize: 12.5,
@@ -1231,7 +1230,7 @@ function Desktop({
       color: 'rgba(242,234,217,0.5)',
       whiteSpace: 'nowrap'
     }
-  }, UI[lang][isMobile ? 'dockHintM' : 'dockHint'])), !booted && /*#__PURE__*/React.createElement(Boot, {
+  }, !isMobile && UI[lang].dockHint)), !booted && /*#__PURE__*/React.createElement(Boot, {
     onEnter: enter,
     lang: lang
   }));
