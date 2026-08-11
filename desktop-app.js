@@ -18,6 +18,8 @@ const {
   WTese,
   WPublicacoes,
   WIus,
+  WProjects,
+  WAdvisor,
   WContato,
   WJustitia,
   WVo,
@@ -57,6 +59,22 @@ const REG = {
     },
     w: 440,
     Body: WIus
+  },
+  projetos: {
+    title: {
+      pt: 'projetos-vivos.app',
+      en: 'living-projects.app'
+    },
+    w: 560,
+    Body: WProjects
+  },
+  orientador: {
+    title: {
+      pt: 'orientador.card',
+      en: 'advisor.card'
+    },
+    w: 370,
+    Body: WAdvisor
   },
   contato: {
     title: {
@@ -201,6 +219,20 @@ const DESK_ICONS = [{
   },
   Icon: GroupIcon
 }, {
+  id: 'projetos',
+  label: {
+    pt: 'projetos.app',
+    en: 'projects.app'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'orientador',
+  label: {
+    pt: 'orientador.card',
+    en: 'advisor.card'
+  },
+  Icon: DocIcon
+}, {
   id: 'curriculo',
   label: {
     pt: 'currículo',
@@ -257,7 +289,7 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }];
-const MENUS = ['sobre', 'mover-se', 'tese', 'conceitos', 'publicacoes', 'ius', 'contato'];
+const MENUS = ['sobre', 'mover-se', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
     sobre: 'Sobre',
@@ -265,7 +297,8 @@ const MENU_LABEL = {
     tese: 'Tese',
     conceitos: 'Conceitos',
     publicacoes: 'Perfis',
-    ius: 'Ius Gentium',
+    projetos: 'Projetos',
+    orientador: 'Orientador',
     contato: 'Contato'
   },
   en: {
@@ -274,7 +307,8 @@ const MENU_LABEL = {
     tese: 'Thesis',
     conceitos: 'Concepts',
     publicacoes: 'Profiles',
-    ius: 'Ius Gentium',
+    projetos: 'Projects',
+    orientador: 'Advisor',
     contato: 'Contact'
   }
 };
@@ -305,9 +339,9 @@ function mobForced() {
   }
 }
 function useIsMobile() {
-  const [m, setM] = React.useState(() => typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 760px)').matches));
+  const [m, setM] = React.useState(() => typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 1024px)').matches));
   React.useEffect(() => {
-    const mq = window.matchMedia('(max-width: 760px)');
+    const mq = window.matchMedia('(max-width: 1024px)');
     const fn = () => setM(mobForced() || mq.matches);
     mq.addEventListener('change', fn);
     return () => mq.removeEventListener('change', fn);
@@ -323,25 +357,38 @@ function ChromeBox({
   label
 }) {
   return /*#__PURE__*/React.createElement("button", {
+    className: "window-control",
     onClick: onClick,
     onMouseDown: e => e.stopPropagation(),
     onPointerDown: e => e.stopPropagation(),
     "aria-label": label,
     style: {
-      width: 15,
-      height: 15,
-      border: '1.5px solid var(--ink)',
-      background: 'var(--paper)',
+      width: 44,
+      height: 44,
+      border: 0,
+      background: 'transparent',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: 0,
       cursor: 'pointer',
       boxSizing: 'border-box',
-      opacity: active ? 1 : 0.4,
       lineHeight: 0
     }
-  }, children);
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 24,
+      height: 24,
+      border: '1.5px solid var(--ink)',
+      background: 'var(--paper)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: active ? 1 : 0.4,
+      boxSizing: 'border-box'
+    }
+  }, children));
 }
 function TitleBar({
   title,
@@ -366,9 +413,9 @@ function TitleBar({
     style: {
       display: 'flex',
       alignItems: 'center',
-      gap: 9,
-      height: draggable ? 30 : 38,
-      padding: '0 9px',
+      gap: 3,
+      height: 46,
+      padding: '0 3px',
       background: 'var(--paper)',
       borderBottom: '1px solid var(--ink)',
       cursor: draggable ? 'grab' : 'default',
@@ -442,6 +489,11 @@ function WindowFrame({
   return /*#__PURE__*/React.createElement("div", {
     onPointerDown: () => onFocus(win.id),
     className: "dwin",
+    role: "dialog",
+    "aria-label": regTitle(win.id, lang),
+    "aria-modal": isMobile || undefined,
+    "data-window-id": win.id,
+    tabIndex: -1,
     style: frame
   }, isMobile && /*#__PURE__*/React.createElement("div", {
     style: {
@@ -493,7 +545,7 @@ function Clock({
       fontWeight: 600,
       letterSpacing: '0.12em',
       fontSize: 13,
-      color: 'var(--gold)'
+      color: 'var(--rubric)'
     }
   }, t);
 }
@@ -625,8 +677,11 @@ function Boot({
     }
   }, u.enter))));
 }
-function Desktop() {
+function Desktop({
+  skipBoot = false
+} = {}) {
   const [booted, setBooted] = React.useState(() => {
+    if (skipBoot) return true;
     try {
       return localStorage.getItem('av_booted') === '1';
     } catch (e) {
@@ -634,22 +689,39 @@ function Desktop() {
     }
   });
   const [wins, setWins] = React.useState(() => {
-    const mob = typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 760px)').matches);
-    return mob ? [] : [{
-      id: 'tese',
-      x: 250,
-      y: 92,
+    const mob = typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 1024px)').matches);
+    if (mob) return [{
+      id: 'projetos',
+      x: 0,
+      y: 0,
+      z: 2,
+      min: false
+    }];
+    const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
+    const projectsX = Math.max(460, viewportWidth - REG.projetos.w - 24);
+    const justitiaX = Math.max(100, projectsX - REG.justitia.w - 26);
+    return [{
+      id: 'justitia',
+      x: justitiaX,
+      y: 84,
       z: 2,
       min: false
     }, {
-      id: 'justitia',
-      x: 760,
-      y: 150,
-      z: 1,
+      id: 'projetos',
+      x: projectsX,
+      y: 104,
+      z: 4,
+      min: false
+    }, {
+      id: 'orientador',
+      x: Math.max(110, justitiaX - 64),
+      y: Math.min(620, Math.max(84, viewportHeight - 320)),
+      z: 3,
       min: false
     }];
   });
-  const [zTop, setZTop] = React.useState(3);
+  const [zTop, setZTop] = React.useState(5);
   const [sel, setSel] = React.useState(null);
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
@@ -675,16 +747,25 @@ function Desktop() {
     try {
       localStorage.setItem('av_booted', '1');
     } catch (e) {}
+    setTimeout(() => document.getElementById('main')?.focus({
+      preventScroll: true
+    }), 0);
   };
-  const focus = id => setWins(ws => {
-    const z = zTop;
-    setZTop(p => p + 1);
-    return ws.map(w => w.id === id ? {
-      ...w,
-      z,
-      min: false
-    } : w);
-  });
+  const focusWindowElement = id => setTimeout(() => document.querySelector(`[data-window-id="${id}"]`)?.focus({
+    preventScroll: true
+  }), 0);
+  const focus = id => {
+    setWins(ws => {
+      const z = zTop;
+      setZTop(p => p + 1);
+      return ws.map(w => w.id === id ? {
+        ...w,
+        z,
+        min: false
+      } : w);
+    });
+    focusWindowElement(id);
+  };
   const open = id => {
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
@@ -761,8 +842,14 @@ function Desktop() {
         min: false
       }];
     });
+    focusWindowElement(id);
   };
-  const close = id => setWins(ws => ws.filter(w => w.id !== id));
+  const close = id => {
+    setWins(ws => ws.filter(w => w.id !== id));
+    setTimeout(() => document.querySelector(`[data-app-id="${id}"]`)?.focus({
+      preventScroll: true
+    }), 0);
+  };
   const minimize = id => setWins(ws => ws.map(w => w.id === id ? {
     ...w,
     min: true
@@ -787,7 +874,7 @@ function Desktop() {
       setWins(ws => ws.map(w => w.id === id ? {
         ...w,
         x: Math.max(0, Math.min(e.clientX - dx, window.innerWidth - 60)),
-        y: Math.max(34, Math.min(e.clientY - dy, window.innerHeight - 60))
+        y: Math.max(46, Math.min(e.clientY - dy, window.innerHeight - 60))
       } : w));
     };
     const up = () => {
@@ -802,7 +889,23 @@ function Desktop() {
   }, []);
   const visible = wins.filter(w => !w.min);
   const topId = visible.reduce((a, w) => !a || w.z > a.z ? w : a, null)?.id;
-  return /*#__PURE__*/React.createElement("div", {
+  React.useEffect(() => {
+    const onKeyDown = e => {
+      if (e.key !== 'Escape' || !topId) return;
+      // Tabula owns Escape so its poster can leave zoom mode without the
+      // desktop manager dismissing the enclosing window in the same event.
+      if (topId === 'poster') return;
+      const activeWindow = document.querySelector(`[data-window-id="${topId}"]`);
+      if (activeWindow?.querySelector('.zoomed')) return;
+      e.preventDefault();
+      close(topId);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [topId]);
+  return /*#__PURE__*/React.createElement("main", {
+    id: "main",
+    tabIndex: -1,
     onPointerDown: () => setSel(null),
     style: {
       position: 'fixed',
@@ -811,7 +914,9 @@ function Desktop() {
       overflow: 'hidden',
       fontFamily: 'var(--font-body)'
     }
-  }, /*#__PURE__*/React.createElement("img", {
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "sr-only"
+  }, "ana vanzin \xB7 direito & iconografia"), /*#__PURE__*/React.createElement("img", {
     src: "/assets/pixel-justitia.png",
     alt: "",
     "aria-hidden": "true",
@@ -822,7 +927,8 @@ function Desktop() {
       height: '80%',
       width: 'auto',
       imageRendering: 'pixelated',
-      opacity: 0.15,
+      opacity: 0.09,
+      filter: 'grayscale(0.72) sepia(0.18)',
       pointerEvents: 'none'
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -831,7 +937,7 @@ function Desktop() {
       top: 0,
       left: 0,
       right: 0,
-      height: 34,
+      height: 46,
       background: 'var(--paper)',
       borderBottom: '1px solid var(--ink)',
       display: 'flex',
@@ -874,7 +980,8 @@ function Desktop() {
       height: 16,
       background: 'var(--rule-hairline)'
     }
-  }), /*#__PURE__*/React.createElement("span", {
+  }), /*#__PURE__*/React.createElement("nav", {
+    "aria-label": lang === 'en' ? 'Main navigation' : 'Navega\xE7\xE3o principal',
     style: {
       display: 'flex',
       alignItems: 'center',
@@ -885,6 +992,7 @@ function Desktop() {
     }
   }, MENUS.map(id => /*#__PURE__*/React.createElement("button", {
     key: id,
+    "data-app-id": id,
     onPointerDown: e => e.stopPropagation(),
     onClick: () => open(id),
     style: {
@@ -895,7 +1003,8 @@ function Desktop() {
       fontWeight: 500,
       fontSize: 13.5,
       color: 'var(--ink)',
-      padding: '4px 2px',
+      minHeight: 44,
+      padding: '7px 2px',
       whiteSpace: 'nowrap',
       borderBottom: topId === id ? '1.5px solid var(--rubric)' : '1.5px solid transparent'
     }
@@ -916,6 +1025,8 @@ function Desktop() {
     }
   }, ['pt', 'en'].map(l => /*#__PURE__*/React.createElement("button", {
     key: l,
+    "data-lang": l,
+    "aria-pressed": lang === l,
     onPointerDown: e => e.stopPropagation(),
     onClick: () => setLangP(l),
     style: {
@@ -925,17 +1036,19 @@ function Desktop() {
       fontWeight: 600,
       fontSize: 11,
       letterSpacing: '0.12em',
-      padding: '2px 9px',
+      minWidth: 44,
+      minHeight: 44,
+      padding: '7px 9px',
       lineHeight: 1.6,
       background: lang === l ? 'var(--ink)' : 'var(--paper)',
-      color: lang === l ? 'var(--paper)' : 'var(--text-faint)'
+      color: lang === l ? 'var(--paper)' : 'var(--ink)'
     }
   }, l.toUpperCase()))), !isMobile && /*#__PURE__*/React.createElement(Clock, {
     lang: lang
   }))), /*#__PURE__*/React.createElement("div", {
     style: isMobile ? {
       position: 'absolute',
-      top: 42,
+      top: 58,
       left: 0,
       right: 0,
       bottom: 42,
@@ -949,7 +1062,7 @@ function Desktop() {
       alignContent: 'start'
     } : {
       position: 'absolute',
-      top: 50,
+      top: 62,
       left: 16,
       display: 'flex',
       flexDirection: 'column',
@@ -964,6 +1077,7 @@ function Desktop() {
     const active = sel === id;
     return /*#__PURE__*/React.createElement("button", {
       key: id,
+      "data-app-id": id,
       onPointerDown: e => {
         e.stopPropagation();
         setSel(id);
@@ -1014,15 +1128,21 @@ function Desktop() {
         padding: '1px 5px'
       }
     }, label[lang]));
-  })), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("div", {
-    onPointerDown: e => {
+  })), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": lang === 'en' ? 'Close active window' : 'Fechar janela ativa',
+    onClick: e => {
       e.stopPropagation();
-      minimize(topId);
+      close(topId);
     },
     style: {
       position: 'fixed',
       inset: 0,
       zIndex: 9400,
+      width: '100%',
+      height: '100%',
+      padding: 0,
+      border: 0,
       background: 'rgba(28,25,20,0.34)'
     }
   }), visible.map(w => /*#__PURE__*/React.createElement(WindowFrame, {
@@ -1087,7 +1207,7 @@ function Desktop() {
         color: on ? 'var(--ink)' : 'var(--paper)',
         border: '1px solid ' + (on ? 'var(--paper)' : 'rgba(242,234,217,0.35)'),
         borderRadius: 0,
-        padding: '3px 10px',
+      padding: '3px 10px',
         cursor: 'pointer',
         fontFamily: 'var(--font-body)',
         fontSize: 12.5,
