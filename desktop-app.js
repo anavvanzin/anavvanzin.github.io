@@ -924,14 +924,14 @@ function Desktop({
     style: {
       position: 'absolute',
       left: isMobile ? 'auto' : '6%',
-      right: isMobile ? '-16%' : 'auto',
+      right: isMobile ? '-28%' : 'auto',
       bottom: 36,
-      height: isMobile ? '76%' : '91%',
+      height: isMobile ? '84%' : '91%',
       width: 'auto',
-      maxWidth: isMobile ? '92%' : '58%',
+      maxWidth: isMobile ? 'none' : '58%',
       objectFit: 'contain',
       objectPosition: 'right bottom',
-      opacity: isMobile ? 0.14 : 0.2,
+      opacity: isMobile ? 0.22 : 0.2,
       filter: 'saturate(0.82) contrast(0.92)',
       mixBlendMode: 'multiply',
       WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
@@ -1108,7 +1108,9 @@ function Desktop({
       style: isMobile ? {
         width: '100%',
         height: 76,
-        background: 'var(--paper)',
+        background: 'color-mix(in srgb, var(--paper) 90%, transparent)',
+        backdropFilter: 'blur(1px)',
+        WebkitBackdropFilter: 'blur(1px)',
         border: '1px solid var(--ink)',
         borderRadius: 3,
         boxShadow: active ? '3px 3px 0 0 var(--rubric)' : '2px 2px 0 0 var(--ink)',
@@ -1150,7 +1152,7 @@ function Desktop({
       height: '100%',
       padding: 0,
       border: 0,
-      background: 'rgba(28,25,20,0.34)'
+      background: 'rgba(28,25,20,0.28)'
     }
   }), visible.map(w => /*#__PURE__*/React.createElement(WindowFrame, {
     key: w.id,
