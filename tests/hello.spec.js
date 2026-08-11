@@ -19,6 +19,7 @@ test('home opens directly as an archive desktop with the three principal windows
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(3);
+  await expect(page.locator('a[href="https://anavanzin.com/arno-dal-ri-site/"]')).toBeVisible();
   await expect(page.locator('[data-desktop-wallpaper="illuminated-justitia"]')).toHaveAttribute(
     'src',
     /assets\/landing\/bg-justitia\.jpg\?v=20260811-archive2/
@@ -43,9 +44,9 @@ test('home remains usable when JavaScript is unavailable', async ({ browser }) =
   await page.goto('http://localhost:8080/');
 
   await expect(page.locator('#main')).toBeVisible();
-  await expect(page.locator('a[href="https://iconocracia.com"]')).toBeVisible();
-  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
-  await expect(page.locator('a[href="/orientador/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://iconocracia.com/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://anavanzin.com/arno-dal-ri-site/"]')).toBeVisible();
 
   await context.close();
 });
@@ -73,7 +74,9 @@ test('mobile opens living projects as a scrollable window without horizontal ove
 
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
-  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
+  await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
+  await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'grupoiusgentium.com.br' })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -111,8 +114,8 @@ test('advisor card resolves to a dedicated public page', async ({ page }) => {
 
   await expect(page).toHaveTitle(/Orientador · Arno Dal Ri Júnior/);
   await expect(page.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
-  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
-  await expect(page.locator('a[href="https://iconocracia.com"]')).toBeVisible();
+  await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://iconocracia.com/"]')).toBeVisible();
 });
 
 test('atlas symbols open the drawing workshop and accept a stroke', async ({ page }) => {

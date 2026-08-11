@@ -61,6 +61,7 @@ package.json
 package-lock.json
 playwright.config.js
 wrangler.jsonc
+vercel.json
 take_screenshots.py
 WindowContents.js
 mesa/index 2.html
