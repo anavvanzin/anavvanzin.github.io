@@ -205,6 +205,15 @@ a:focus-visible,
   }
 }
 
+@media (max-width: 1024px) and (orientation: landscape) {
+  [data-desktop-wallpaper="illuminated-justitia"] {
+    right: -4% !important;
+    height: 105% !important;
+    max-width: 48% !important;
+    opacity: 0.18 !important;
+  }
+}
+
 body {
   margin: 0;
   background: var(--bg-page);
