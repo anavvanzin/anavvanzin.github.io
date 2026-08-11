@@ -7,28 +7,30 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/ana vanzin · direito & iconografia/);
 });
 
-test('home entrance is keyboard-safe and transfers focus to the archive', async ({ page }) => {
+test('home opens directly as an archive desktop with the three principal windows', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
-  const enter = page.locator('#bootenter');
-  await expect(enter).toBeEnabled();
-  await enter.press('Enter');
-
   await expect(page.locator('#boot')).toHaveCount(0);
-  await expect(page.locator('#main')).toBeFocused();
+  await expect(page.locator('.dwin')).toHaveCount(3);
+  await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
+  await expect(page.getByText('Arno Dal Ri Júnior', { exact: true })).toBeVisible();
+  await expect(page.getByText('justitia.png', { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
+  await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
+  await expect(page.getByRole('dialog')).toHaveCount(3);
 });
 
-test('home language switch updates content and accessible names', async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('av_entered', '1'));
-  await page.setViewportSize({ width: 390, height: 844 });
+test('home language switch updates the project and advisor windows', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
   await page.locator('button[data-lang="en"]').click();
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.locator('a.mae')).toHaveAttribute('aria-label', 'For my mother, Suzane Beatriz Vanzin');
-  await expect(page.locator('#mob-toggle')).toHaveAttribute('aria-label', 'Open menu');
-  await expect(page.locator('.panel-kicker')).toHaveText('Featured research');
+  await expect(page.locator('button[data-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByText('Living projects', { exact: true })).toBeVisible();
+  await expect(page.getByText('Advisor · PPGD/UFSC', { exact: true })).toBeVisible();
 });
 
 test('home remains usable when JavaScript is unavailable', async ({ browser }) => {
@@ -36,24 +38,77 @@ test('home remains usable when JavaScript is unavailable', async ({ browser }) =
   const page = await context.newPage();
   await page.goto('http://localhost:8080/');
 
-  await expect(page.locator('#boot')).toBeHidden();
   await expect(page.locator('#main')).toBeVisible();
-  await expect(page.locator('a[href="/iconocracia/"]').first()).toBeVisible();
+  await expect(page.locator('a[href="https://iconocracia.com"]')).toBeVisible();
+  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
+  await expect(page.locator('a[href="/orientador/"]')).toBeVisible();
 
   await context.close();
 });
 
-test('featured-research kicker keeps its editorial token styling', async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('av_entered', '1'));
+test('projects window keeps the Mnemosyne editorial system and sienna focus', async ({ page }) => {
   await page.goto('/');
 
-  const style = await page.locator('.panel-kicker').evaluate((element) => {
+  const style = await page.locator('.projects-window-title').evaluate((element) => {
     const computed = getComputedStyle(element);
     return { color: computed.color, family: computed.fontFamily };
   });
 
-  expect(style.color).toBe('rgb(212, 175, 55)');
-  expect(style.family).toContain('JetBrains Mono');
+  expect(style.color).toBe('rgb(17, 17, 17)');
+  expect(style.family).toContain('Playfair Display');
+
+  const projectsMenu = page.getByRole('button', { name: 'Projetos', exact: true });
+  await projectsMenu.focus();
+  await expect(projectsMenu).toBeFocused();
+  await expect.poll(() => projectsMenu.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(139, 58, 26)');
+});
+
+test('mobile opens living projects as a scrollable window without horizontal overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  await expect(page.locator('.dwin')).toHaveCount(1);
+  await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
+  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('compact layout engages before desktop windows can overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 700 });
+  await page.goto('/');
+
+  await expect(page.getByRole('dialog')).toHaveCount(1);
+  await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('advisor window stays above the dock on short desktop viewports', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('/');
+
+  const advisor = page.locator('[data-window-id="orientador"]');
+  const box = await advisor.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box.y + box.height).toBeLessThanOrEqual(684);
+});
+
+test('closing a desktop window returns focus to its launcher', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+
+  const advisor = page.locator('[data-window-id="orientador"]');
+  await advisor.getByRole('button', { name: 'Fechar Janela' }).click();
+  await expect(advisor).toHaveCount(0);
+  await expect(page.locator('[data-app-id="orientador"]:focus')).toHaveCount(1);
+});
+
+test('advisor card resolves to a dedicated public page', async ({ page }) => {
+  await page.goto('/orientador/');
+
+  await expect(page).toHaveTitle(/Orientador · Arno Dal Ri Júnior/);
+  await expect(page.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
+  await expect(page.locator('a[href="https://grupoiusgentium.com.br"]')).toBeVisible();
+  await expect(page.locator('a[href="https://iconocracia.com"]')).toBeVisible();
 });
 
 test('atlas symbols open the drawing workshop and accept a stroke', async ({ page }) => {

@@ -150,6 +150,119 @@ function WIus({
     href: "/grupoiusgentium/"
   }, L(lang, 'Página do grupo', 'Group page'))));
 }
+function ProjectCard({
+  number,
+  kind,
+  title,
+  description,
+  href,
+  domain
+}) {
+  return /*#__PURE__*/React.createElement("article", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: 224,
+      padding: 18,
+      border: '1px solid var(--rubric)',
+      background: 'var(--cream)',
+      boxShadow: '3px 3px 0 0 var(--ink-30)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+      fontSize: 10,
+      fontWeight: 700,
+      letterSpacing: '0.08em',
+      color: 'var(--rubric)'
+    }
+  }, number, " \xB7 ", kind), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: '24px 0 8px',
+      fontFamily: 'var(--font-display)',
+      fontSize: 27,
+      fontWeight: 600,
+      lineHeight: 1
+    }
+  }, title), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...win_p,
+      flex: 1,
+      fontSize: 14
+    }
+  }, description), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 18,
+      paddingTop: 12,
+      borderTop: '1px solid var(--rule-hairline)'
+    }
+  }, /*#__PURE__*/React.createElement(RubricLink, {
+    href: href,
+    external: true
+  }, domain)));
+}
+function WProjects({
+  lang
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "projects-window-content",
+    style: stack(16)
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Pesquisa em rede', 'Research network')), /*#__PURE__*/React.createElement("h2", {
+    className: "projects-window-title",
+    style: {
+      ...win_h2,
+      fontSize: 34
+    }
+  }, L(lang, 'Projetos vivos', 'Living projects')), /*#__PURE__*/React.createElement("div", {
+    className: "project-card-grid",
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement(ProjectCard, {
+    number: "01",
+    kind: L(lang, 'GRUPO DE PESQUISA', 'RESEARCH GROUP'),
+    title: "Ius Gentium",
+    description: L(lang, 'Arquivo, pesquisa, hist\xF3ria e circula\xE7\xE3o de ideias jur\xEDdicas.', 'Archive, research, history and the circulation of legal ideas.'),
+    href: "https://grupoiusgentium.com.br",
+    domain: "grupoiusgentium.com.br"
+  }), /*#__PURE__*/React.createElement(ProjectCard, {
+    number: "02",
+    kind: L(lang, 'TESE E ATLAS', 'THESIS AND ATLAS'),
+    title: "Iconocracia",
+    description: L(lang, 'Casa p\xFAblica do acervo, do atlas e da pesquisa de doutorado.', 'Public home of the collection, atlas and doctoral research.'),
+    href: "https://iconocracia.com",
+    domain: "iconocracia.com"
+  })));
+}
+function WAdvisor({
+  lang
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: stack(14)
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientador \xB7 PPGD/UFSC', 'Advisor \xB7 PPGD/UFSC')), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      ...win_h2,
+      fontSize: 30
+    }
+  }, "Arno Dal Ri J\xFAnior"), /*#__PURE__*/React.createElement("p", {
+    style: win_lead
+  }, L(lang, 'Orientador da pesquisa de doutorado Iconocracia.', 'Advisor to the Iconocracy doctoral research project.')), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '8px 18px',
+      paddingTop: 12,
+      borderTop: '1px solid var(--rule-hairline)'
+    }
+  }, /*#__PURE__*/React.createElement(RubricLink, {
+    href: "/orientador/"
+  }, L(lang, 'Conhecer o orientador', 'Meet the advisor')), /*#__PURE__*/React.createElement(RubricLink, {
+    href: "/assets/CV%20Arno%20Dal%20Ri%20Jr_fr_2026_Paris%201_0.pdf",
+    external: true
+  }, "CV")));
+}
 function WContato({
   lang
 }) {
@@ -409,6 +522,8 @@ Object.assign(window.avapp = window.avapp || {}, {
   WTese,
   WPublicacoes,
   WIus,
+  WProjects,
+  WAdvisor,
   WContato,
   WJustitia,
   WCv,

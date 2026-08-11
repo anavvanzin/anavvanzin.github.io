@@ -167,6 +167,35 @@
 /* Ana Vanzin — base element styles (incunabulum page defaults) */
 * { box-sizing: border-box; }
 
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.desktop-enhanced #main:focus {
+  outline: none;
+}
+
+@media (max-width: 520px) {
+  .project-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 body {
   margin: 0;
   background: var(--bg-page);

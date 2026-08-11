@@ -143,11 +143,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
 
   test('T1.F4.4: Verify index.html (the Home Page) has the poster icon on the desktop', async ({ page }) => {
     await page.goto('/');
-    const enterBtn = page.locator('#bootenter');
-    if (await enterBtn.isVisible()) {
-      await enterBtn.click();
-    }
-    const posterIcon = page.locator('a.icon', { hasText: /tabula/i });
+    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await expect(posterIcon).toBeVisible();
   });
 
