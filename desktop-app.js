@@ -318,7 +318,6 @@ const UI = {
     tagline: 'direito & iconografia',
     enter: 'entrar →',
     dockHint: 'clique duplo · arraste pela barra',
-    dockHintM: 'toque · arraste a barra',
     clk: 'pt-BR'
   },
   en: {
@@ -326,7 +325,6 @@ const UI = {
     tagline: 'law & iconography',
     enter: 'enter →',
     dockHint: 'double-click · drag the title bar',
-    dockHintM: 'tap · drag the bar',
     clk: 'en-GB'
   }
 };
@@ -890,6 +888,36 @@ function Desktop({
   const visible = wins.filter(w => !w.min);
   const topId = visible.reduce((a, w) => !a || w.z > a.z ? w : a, null)?.id;
   React.useEffect(() => {
+    if (!isMobile || !topId) return undefined;
+    const activeWindow = document.querySelector(`[data-window-id="${topId}"]`);
+    if (!activeWindow) return undefined;
+    activeWindow.focus({
+      preventScroll: true
+    });
+    const keepFocusInside = e => {
+      if (e.key !== 'Tab') return;
+      const focusable = [...activeWindow.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter(element => element.getClientRects().length > 0);
+      if (!focusable.length) {
+        e.preventDefault();
+        activeWindow.focus({
+          preventScroll: true
+        });
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !activeWindow.contains(document.activeElement))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !activeWindow.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener('keydown', keepFocusInside);
+    return () => window.removeEventListener('keydown', keepFocusInside);
+  }, [isMobile, topId]);
+  React.useEffect(() => {
     const onKeyDown = e => {
       if (e.key !== 'Escape' || !topId) return;
       // Tabula owns Escape so its poster can leave zoom mode without the
@@ -902,7 +930,7 @@ function Desktop({
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [topId]);
+  }, [isMobile, topId]);
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
@@ -924,14 +952,14 @@ function Desktop({
     style: {
       position: 'absolute',
       left: isMobile ? 'auto' : '6%',
-      right: isMobile ? '-16%' : 'auto',
-      bottom: 36,
-      height: isMobile ? '76%' : '91%',
+      right: isMobile ? '-28%' : 'auto',
+      bottom: isMobile ? 48 : 36,
+      height: isMobile ? '84%' : '91%',
       width: 'auto',
-      maxWidth: isMobile ? '92%' : '58%',
+      maxWidth: isMobile ? 'none' : '58%',
       objectFit: 'contain',
       objectPosition: 'right bottom',
-      opacity: isMobile ? 0.14 : 0.2,
+      opacity: isMobile ? 0.22 : 0.2,
       filter: 'saturate(0.82) contrast(0.92)',
       mixBlendMode: 'multiply',
       WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
@@ -1058,7 +1086,7 @@ function Desktop({
       top: 58,
       left: 0,
       right: 0,
-      bottom: 42,
+      bottom: 54,
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
       display: 'grid',
@@ -1108,7 +1136,9 @@ function Desktop({
       style: isMobile ? {
         width: '100%',
         height: 76,
-        background: 'var(--paper)',
+        background: 'color-mix(in srgb, var(--paper) 90%, transparent)',
+        backdropFilter: 'blur(1px)',
+        WebkitBackdropFilter: 'blur(1px)',
         border: '1px solid var(--ink)',
         borderRadius: 3,
         boxShadow: active ? '3px 3px 0 0 var(--rubric)' : '2px 2px 0 0 var(--ink)',
@@ -1150,7 +1180,7 @@ function Desktop({
       height: '100%',
       padding: 0,
       border: 0,
-      background: 'rgba(28,25,20,0.34)'
+      background: 'rgba(28,25,20,0.28)'
     }
   }), visible.map(w => /*#__PURE__*/React.createElement(WindowFrame, {
     key: w.id,
@@ -1168,7 +1198,7 @@ function Desktop({
       left: 0,
       right: 0,
       bottom: 0,
-      height: 36,
+      height: isMobile ? 48 : 36,
       background: 'var(--ink)',
       color: 'var(--paper)',
       display: 'flex',
@@ -1214,7 +1244,8 @@ function Desktop({
         color: on ? 'var(--ink)' : 'var(--paper)',
         border: '1px solid ' + (on ? 'var(--paper)' : 'rgba(242,234,217,0.35)'),
         borderRadius: 0,
-      padding: '3px 10px',
+        minHeight: isMobile ? 44 : undefined,
+        padding: '3px 10px',
         cursor: 'pointer',
         fontFamily: 'var(--font-body)',
         fontSize: 12.5,
@@ -1229,7 +1260,7 @@ function Desktop({
       color: 'rgba(242,234,217,0.5)',
       whiteSpace: 'nowrap'
     }
-  }, UI[lang][isMobile ? 'dockHintM' : 'dockHint'])), !booted && /*#__PURE__*/React.createElement(Boot, {
+  }, !isMobile && UI[lang].dockHint)), !booted && /*#__PURE__*/React.createElement(Boot, {
     onEnter: enter,
     lang: lang
   }));

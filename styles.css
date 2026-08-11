@@ -196,6 +196,24 @@ a:focus-visible,
   }
 }
 
+@media (max-width: 1024px) {
+  .dwin .mobile-action-link {
+    display: inline-flex;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  [data-desktop-wallpaper="illuminated-justitia"] {
+    right: -4% !important;
+    height: 105% !important;
+    max-width: 48% !important;
+    opacity: 0.18 !important;
+  }
+}
+
 body {
   margin: 0;
   background: var(--bg-page);
