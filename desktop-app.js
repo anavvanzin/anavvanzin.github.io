@@ -917,18 +917,25 @@ function Desktop({
   }, /*#__PURE__*/React.createElement("h1", {
     className: "sr-only"
   }, "ana vanzin \xB7 direito & iconografia"), /*#__PURE__*/React.createElement("img", {
-    src: "/assets/pixel-justitia.png",
+    src: "/assets/landing/bg-justitia.jpg?v=20260811-archive2",
     alt: "",
     "aria-hidden": "true",
+    "data-desktop-wallpaper": "illuminated-justitia",
     style: {
       position: 'absolute',
-      right: '4%',
-      bottom: 40,
-      height: '80%',
+      left: isMobile ? 'auto' : '6%',
+      right: isMobile ? '-16%' : 'auto',
+      bottom: 36,
+      height: isMobile ? '76%' : '91%',
       width: 'auto',
-      imageRendering: 'pixelated',
-      opacity: 0.09,
-      filter: 'grayscale(0.72) sepia(0.18)',
+      maxWidth: isMobile ? '92%' : '58%',
+      objectFit: 'contain',
+      objectPosition: 'right bottom',
+      opacity: isMobile ? 0.14 : 0.2,
+      filter: 'saturate(0.82) contrast(0.92)',
+      mixBlendMode: 'multiply',
+      WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
+      maskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
       pointerEvents: 'none'
     }
   }), /*#__PURE__*/React.createElement("div", {
