@@ -35,6 +35,13 @@ const stack = g => ({
   flexDirection: 'column',
   gap: g
 });
+const ADVISOR_SITE_URL = 'https://anavanzin.com/arno-dal-ri-site/';
+const projectTitleLink = {
+  color: 'inherit',
+  textDecoration: 'underline',
+  textDecorationThickness: '1px',
+  textUnderlineOffset: '0.14em'
+};
 function WSobre({
   lang
 }) {
@@ -184,7 +191,12 @@ function ProjectCard({
       fontWeight: 600,
       lineHeight: 1
     }
-  }, title), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("a", {
+    href: href,
+    target: "_blank",
+    rel: "noreferrer",
+    style: projectTitleLink
+  }, title)), /*#__PURE__*/React.createElement("p", {
     style: {
       ...win_p,
       flex: 1,
@@ -225,14 +237,14 @@ function WProjects({
     kind: L(lang, 'GRUPO DE PESQUISA', 'RESEARCH GROUP'),
     title: "Ius Gentium",
     description: L(lang, 'Arquivo, pesquisa, hist\xF3ria e circula\xE7\xE3o de ideias jur\xEDdicas.', 'Archive, research, history and the circulation of legal ideas.'),
-    href: "https://grupoiusgentium.com.br",
+    href: "https://grupoiusgentium.com.br/",
     domain: "grupoiusgentium.com.br"
   }), /*#__PURE__*/React.createElement(ProjectCard, {
     number: "02",
     kind: L(lang, 'TESE E ATLAS', 'THESIS AND ATLAS'),
     title: "Iconocracia",
     description: L(lang, 'Casa p\xFAblica do acervo, do atlas e da pesquisa de doutorado.', 'Public home of the collection, atlas and doctoral research.'),
-    href: "https://iconocracia.com",
+    href: "https://iconocracia.com/",
     domain: "iconocracia.com"
   })));
 }
@@ -257,7 +269,7 @@ function WAdvisor({
       borderTop: '1px solid var(--rule-hairline)'
     }
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "/orientador/"
+    href: ADVISOR_SITE_URL
   }, L(lang, 'Conhecer o orientador', 'Meet the advisor')), /*#__PURE__*/React.createElement(RubricLink, {
     href: "/assets/CV%20Arno%20Dal%20Ri%20Jr_fr_2026_Paris%201_0.pdf",
     external: true
