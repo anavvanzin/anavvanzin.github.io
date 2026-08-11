@@ -19,6 +19,10 @@ test('home opens directly as an archive desktop with the three principal windows
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(3);
+  await expect(page.locator('[data-desktop-wallpaper="illuminated-justitia"]')).toHaveAttribute(
+    'src',
+    /assets\/landing\/bg-justitia\.jpg\?v=20260811-archive2/
+  );
 });
 
 test('home language switch updates the project and advisor windows', async ({ page }) => {
