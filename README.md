@@ -56,10 +56,9 @@ do Workers Builds e o deploy manual usam exatamente o mesmo caminho.
 
 ### Vercel
 
-O projeto `anavvanzin-github-io` faz preview/produção na Vercel a partir do GitHub.
-Os aliases `*-git-*` podem pedir **SSO da Vercel**; o alias público
-`anavvanzin-github-io.vercel.app` não. O domínio `anavanzin.com` **não** está no
-projeto Vercel — previews da Vercel não atualizam o site público.
+Vercel está desativado para deploys automáticos de Git neste repo. O arquivo
+[`vercel.json`](vercel.json) mantém `git.deploymentEnabled: false`; o domínio
+canônico continua em GitHub Pages/Cloudflare.
 
 Todos os caminhos são relativos — o site funciona em qualquer subdiretório, sem ajuste de caminho-base.
 
