@@ -3,7 +3,7 @@
   "name": "anavvanzin",
   // Bump deliberately after a local dry-run and a successful Workers build:
   // https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
-  "compatibility_date": "2026-08-11",
+  "compatibility_date": "2026-08-12",
   "compatibility_flags": [
     // Enables Node.js built-ins for any future Worker script / library use.
     "nodejs_compat"
