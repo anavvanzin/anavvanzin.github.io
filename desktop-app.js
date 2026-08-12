@@ -27,6 +27,7 @@ const {
   WAmpulheta,
   WPoster
 } = window.avapp;
+const ADVISOR_SITE_URL = 'https://anavanzin.com/arno-dal-ri-site/';
 const REG = {
   sobre: {
     title: {
@@ -228,8 +229,8 @@ const DESK_ICONS = [{
 }, {
   id: 'orientador',
   label: {
-    pt: 'orientador.card',
-    en: 'advisor.card'
+    pt: 'orientador ↗',
+    en: 'advisor ↗'
   },
   Icon: DocIcon
 }, {
@@ -696,7 +697,6 @@ function Desktop({
       min: false
     }];
     const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
-    const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
     const projectsX = Math.max(460, viewportWidth - REG.projetos.w - 24);
     const justitiaX = Math.max(100, projectsX - REG.justitia.w - 26);
     return [{
@@ -710,12 +710,6 @@ function Desktop({
       x: projectsX,
       y: 104,
       z: 4,
-      min: false
-    }, {
-      id: 'orientador',
-      x: Math.max(110, justitiaX - 64),
-      y: Math.min(620, Math.max(84, viewportHeight - 320)),
-      z: 3,
       min: false
     }];
   });
@@ -819,6 +813,10 @@ function Desktop({
     }
     if (id === 'perfil') {
       window.location.href = '/perfil.html';
+      return;
+    }
+    if (id === 'orientador') {
+      window.location.href = ADVISOR_SITE_URL;
       return;
     }
     setSel(id);
@@ -1253,14 +1251,19 @@ function Desktop({
         opacity: w.min ? 0.6 : 1
       }
     }, regTitle(w.id, lang));
-  })), /*#__PURE__*/React.createElement("span", {
+  })), !isMobile && /*#__PURE__*/React.createElement("a", {
+    href: ADVISOR_SITE_URL,
+    onPointerDown: e => e.stopPropagation(),
     style: {
       marginLeft: 'auto',
-      fontSize: 11,
-      color: 'rgba(242,234,217,0.5)',
-      whiteSpace: 'nowrap'
+      color: 'var(--paper)',
+      fontFamily: 'var(--font-body)',
+      fontSize: 12,
+      whiteSpace: 'nowrap',
+      textDecorationColor: 'var(--gold-2)',
+      textUnderlineOffset: '0.22em'
     }
-  }, !isMobile && UI[lang].dockHint)), !booted && /*#__PURE__*/React.createElement(Boot, {
+  }, lang === 'en' ? 'Responsible advisor: Arno Dal Ri Júnior' : 'Orientador responsável: Arno Dal Ri Júnior')), !booted && /*#__PURE__*/React.createElement(Boot, {
     onEnter: enter,
     lang: lang
   }));

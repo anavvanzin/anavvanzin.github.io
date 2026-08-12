@@ -7,17 +7,17 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/ana vanzin · direito & iconografia/);
 });
 
-test('home opens directly as an archive desktop with the three principal windows', async ({ page }) => {
+test('home opens as an archive desktop with projects, Justitia and a simple advisor credit', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
   await expect(page.locator('#boot')).toHaveCount(0);
-  await expect(page.locator('.dwin')).toHaveCount(3);
+  await expect(page.locator('.dwin')).toHaveCount(2);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.getByText('justitia.png', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
-  await expect(page.getByRole('dialog')).toHaveCount(3);
+  await expect(page.getByRole('dialog')).toHaveCount(2);
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -29,7 +29,7 @@ test('home opens directly as an archive desktop with the three principal windows
   );
 });
 
-test('home language switch updates the project and advisor windows', async ({ page }) => {
+test('home language switch updates projects and the advisor credit', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
@@ -92,24 +92,22 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('advisor window stays above the dock on short desktop viewports', async ({ page }) => {
+test('desktop no longer opens an advisor window', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto('/');
 
-  const advisor = page.locator('[data-window-id="orientador"]');
-  const box = await advisor.boundingBox();
-  expect(box).not.toBeNull();
-  expect(box.y + box.height).toBeLessThanOrEqual(684);
+  await expect(page.locator('[data-window-id="orientador"]')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior' })).toBeVisible();
 });
 
 test('closing a desktop window returns focus to its launcher', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
-  const advisor = page.locator('[data-window-id="orientador"]');
-  await advisor.getByRole('button', { name: 'Fechar Janela' }).click();
-  await expect(advisor).toHaveCount(0);
-  await expect(page.locator('[data-app-id="orientador"]:focus')).toHaveCount(1);
+  const projects = page.locator('[data-window-id="projetos"]');
+  await projects.getByRole('button', { name: 'Fechar Janela' }).click();
+  await expect(projects).toHaveCount(0);
+  await expect(page.locator('[data-app-id="projetos"]:focus')).toHaveCount(1);
 });
 
 test('advisor card resolves to a dedicated public page', async ({ page }) => {
