@@ -14,12 +14,15 @@ test('home opens directly as an archive desktop with the three principal windows
   await expect(page.locator('#boot')).toHaveCount(0);
   await expect(page.locator('.dwin')).toHaveCount(3);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
-  await expect(page.getByText('Arno Dal Ri Júnior', { exact: true })).toBeVisible();
   await expect(page.getByText('justitia.png', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(3);
-  await expect(page.locator('a[href="https://anavanzin.com/arno-dal-ri-site/"]')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior' })).toHaveAttribute(
+    'href',
+    'https://anavanzin.com/arno-dal-ri-site/'
+  );
+  await expect(page.locator('a[href*="CV%20Arno"]')).toHaveCount(0);
   await expect(page.locator('[data-desktop-wallpaper="illuminated-justitia"]')).toHaveAttribute(
     'src',
     /assets\/landing\/bg-justitia\.jpg\?v=20260811-archive2/
@@ -35,7 +38,7 @@ test('home language switch updates the project and advisor windows', async ({ pa
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('button[data-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByText('Living projects', { exact: true })).toBeVisible();
-  await expect(page.getByText('Advisor · PPGD/UFSC', { exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Responsible advisor: Arno Dal Ri Júnior' })).toBeVisible();
 });
 
 test('home remains usable when JavaScript is unavailable', async ({ browser }) => {
@@ -114,6 +117,11 @@ test('advisor card resolves to a dedicated public page', async ({ page }) => {
 
   await expect(page).toHaveTitle(/Orientador · Arno Dal Ri Júnior/);
   await expect(page.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Site de Arno Dal Ri Júnior ↗' })).toHaveAttribute(
+    'href',
+    'https://anavanzin.com/arno-dal-ri-site/'
+  );
+  await expect(page.locator('a[href*="CV%20Arno"]')).toHaveCount(0);
   await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
   await expect(page.locator('a[href="https://iconocracia.com/"]')).toBeVisible();
 });

@@ -256,30 +256,17 @@ function WAdvisor({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    style: stack(14)
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientador \xB7 PPGD/UFSC', 'Advisor \xB7 PPGD/UFSC')), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      ...win_h2,
-      fontSize: 30
-    }
-  }, "Arno Dal Ri J\xFAnior"), /*#__PURE__*/React.createElement("p", {
-    style: win_lead
-  }, L(lang, 'Orientador da pesquisa de doutorado Iconocracia.', 'Advisor to the Iconocracy doctoral research project.')), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '8px 18px',
-      paddingTop: 12,
-      borderTop: '1px solid var(--rule-hairline)'
-    }
-  }, /*#__PURE__*/React.createElement(RubricLink, {
+    style: stack(8)
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientação \xB7 PPGD/UFSC', 'Supervision \xB7 PPGD/UFSC')), /*#__PURE__*/React.createElement(RubricLink, {
     href: ADVISOR_SITE_URL,
-    className: "mobile-action-link"
-  }, L(lang, 'Conhecer o orientador', 'Meet the advisor')), /*#__PURE__*/React.createElement(RubricLink, {
-    href: "/assets/CV%20Arno%20Dal%20Ri%20Jr_fr_2026_Paris%201_0.pdf",
-    external: true,
-    className: "mobile-action-link"
-  }, "CV")));
+    className: "mobile-action-link",
+    style: {
+      color: 'var(--ink)',
+      fontFamily: 'var(--font-display)',
+      fontSize: 21,
+      lineHeight: 1.35
+    }
+  }, L(lang, 'Orientador responsável: Arno Dal Ri Júnior', 'Responsible advisor: Arno Dal Ri Júnior')));
 }
 function WContato({
   lang
