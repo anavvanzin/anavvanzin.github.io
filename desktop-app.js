@@ -71,10 +71,10 @@ const REG = {
   },
   orientador: {
     title: {
-      pt: 'orientador.card',
-      en: 'advisor.card'
+      pt: 'orientação.txt',
+      en: 'supervision.txt'
     },
-    w: 370,
+    w: 356,
     Body: WAdvisor
   },
   contato: {
@@ -229,8 +229,8 @@ const DESK_ICONS = [{
 }, {
   id: 'orientador',
   label: {
-    pt: 'orientador ↗',
-    en: 'advisor ↗'
+    pt: 'orientador',
+    en: 'advisor'
   },
   Icon: DocIcon
 }, {
@@ -290,11 +290,10 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }];
-const MENUS = ['sobre', 'mover-se', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
+const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
     sobre: 'Sobre',
-    'mover-se': 'Mover-se',
     tese: 'Tese',
     conceitos: 'Conceitos',
     publicacoes: 'Perfis',
@@ -304,7 +303,6 @@ const MENU_LABEL = {
   },
   en: {
     sobre: 'About',
-    'mover-se': 'Move',
     tese: 'Thesis',
     conceitos: 'Concepts',
     publicacoes: 'Profiles',
@@ -763,10 +761,6 @@ function Desktop({
       window.location.href = '/sobre.html';
       return;
     }
-    if (id === 'mover-se') {
-      window.location.href = '/mover-se.html';
-      return;
-    }
     if (id === 'conceitos') {
       window.location.href = '/conceitos.html';
       return;
@@ -815,10 +809,6 @@ function Desktop({
       window.location.href = '/perfil.html';
       return;
     }
-    if (id === 'orientador') {
-      window.location.href = ADVISOR_SITE_URL;
-      return;
-    }
     setSel(id);
     setWins(ws => {
       const z = zTop;
@@ -829,11 +819,13 @@ function Desktop({
         min: false
       } : w);
       const n = ws.filter(w => !w.min).length;
-      const x = Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
+      const advisor = id === 'orientador';
+      const x = advisor ? Math.min(92, Math.max(12, window.innerWidth - winW(id) - 16)) : Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
+      const y = advisor ? Math.min(490, Math.max(78, window.innerHeight - 330)) : 78 + n * 28;
       return [...ws, {
         id,
         x,
-        y: 78 + n * 28,
+        y,
         z,
         min: false
       }];
