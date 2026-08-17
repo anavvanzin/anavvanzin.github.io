@@ -18,6 +18,8 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(2);
+  await expect(page.getByRole('dialog', { name: 'justitia.png' })).toBeVisible();
+  await expect(page.getByRole('dialog', { name: 'projetos-vivos.app' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -102,11 +104,49 @@ test('advisor opens as a movable archive card with the official site link', asyn
   const advisor = page.locator('[data-window-id="orientador"]');
   await expect(advisor).toBeVisible();
   await expect(advisor).toHaveAttribute('role', 'dialog');
+  await expect(advisor).toHaveAttribute('aria-labelledby', 'window-title-orientador');
+  await expect(advisor.locator('#window-title-orientador')).toHaveText('orientação.txt');
   await expect(advisor.getByRole('link', { name: 'Arno Dal Ri Júnior ↗' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
   );
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
+});
+
+test('archive windows keep touch-sized controls and the minimize, drag, escape cycle', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+
+  const launcher = page.getByRole('button', { name: 'Orientador', exact: true });
+  await launcher.click();
+  const advisor = page.getByRole('dialog', { name: 'orientação.txt' });
+  const controls = advisor.getByRole('button');
+
+  await expect(controls).toHaveCount(2);
+  for (const control of await controls.all()) {
+    const box = await control.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+
+  const before = await advisor.boundingBox();
+  const titlebar = advisor.locator(':scope > div').first();
+  const titlebarBox = await titlebar.boundingBox();
+  await page.mouse.move(titlebarBox.x + titlebarBox.width / 2, titlebarBox.y + 18);
+  await page.mouse.down();
+  await page.mouse.move(titlebarBox.x + titlebarBox.width / 2 + 72, titlebarBox.y + 72, { steps: 4 });
+  await page.mouse.up();
+  const after = await advisor.boundingBox();
+  expect(after.x).not.toBe(before.x);
+  expect(after.y).not.toBe(before.y);
+
+  await advisor.getByRole('button', { name: 'Minimizar' }).click();
+  await expect(advisor).toHaveCount(0);
+  await page.getByRole('button', { name: 'orientação.txt', exact: true }).click();
+  await expect(advisor).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(advisor).toHaveCount(0);
+  await expect(launcher).toBeFocused();
 });
 
 test('closing a desktop window returns focus to its launcher', async ({ page }) => {
