@@ -957,11 +957,11 @@ function Desktop({
       maxWidth: isMobile ? 'none' : '58%',
       objectFit: 'contain',
       objectPosition: 'right bottom',
-      opacity: isMobile ? 0.22 : 0.2,
-      filter: 'saturate(0.82) contrast(0.92)',
-      mixBlendMode: 'multiply',
-      WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
-      maskImage: 'linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%)',
+      opacity: 1,
+      filter: 'none',
+      mixBlendMode: 'normal',
+      WebkitMaskImage: 'none',
+      maskImage: 'none',
       pointerEvents: 'none'
     }
   }), /*#__PURE__*/React.createElement("div", {

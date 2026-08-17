@@ -210,7 +210,7 @@ a:focus-visible,
     right: -4% !important;
     height: 105% !important;
     max-width: 48% !important;
-    opacity: 0.18 !important;
+    opacity: 1 !important;
   }
 }
 
