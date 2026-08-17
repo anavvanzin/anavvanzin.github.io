@@ -360,8 +360,8 @@ function ChromeBox({
     onPointerDown: e => e.stopPropagation(),
     "aria-label": label,
     style: {
-      width: 44,
-      height: 44,
+      width: 'var(--desktop-hit-target)',
+      height: 'var(--desktop-hit-target)',
       border: 0,
       background: 'transparent',
       display: 'flex',
@@ -375,8 +375,8 @@ function ChromeBox({
   }, /*#__PURE__*/React.createElement("span", {
     "aria-hidden": "true",
     style: {
-      width: 24,
-      height: 24,
+      width: 'var(--desktop-control-glyph)',
+      height: 'var(--desktop-control-glyph)',
       border: '1.5px solid var(--ink)',
       background: 'var(--paper)',
       display: 'flex',
@@ -393,9 +393,22 @@ function TitleBar({
   onClose,
   onMin,
   onDown,
+  titleId,
+  lang,
   draggable = true,
   isPoster = false
 }) {
+  const labels = lang === 'en' ? {
+    close: 'Close window',
+    closeInactive: 'Close inactive window',
+    minimize: 'Minimize',
+    minimizeInactive: 'Minimize inactive window'
+  } : {
+    close: 'Fechar Janela',
+    closeInactive: 'Fechar Janela Inativa',
+    minimize: 'Minimizar',
+    minimizeInactive: 'Minimizar Inativo'
+  };
   const stripes = active ? 'repeating-linear-gradient(to bottom, var(--ink) 0 1px, transparent 1px 3px)' : 'none';
   const flank = {
     flex: 1,
@@ -411,7 +424,7 @@ function TitleBar({
       display: 'flex',
       alignItems: 'center',
       gap: 3,
-      height: 46,
+      height: 'var(--desktop-titlebar-height)',
       padding: '0 3px',
       background: 'var(--paper)',
       borderBottom: '1px solid var(--ink)',
@@ -424,14 +437,15 @@ function TitleBar({
   }, /*#__PURE__*/React.createElement(ChromeBox, {
     active: active,
     onClick: onClose,
-    label: isPoster ? (active ? "Fechar" : "Fechar Inativo") : "Fechar Janela"
+    label: isPoster ? (active ? labels.close : labels.closeInactive) : labels.close
   }), /*#__PURE__*/React.createElement("div", {
     style: flank
   }), /*#__PURE__*/React.createElement("span", {
+    id: titleId,
     style: {
       fontFamily: 'var(--font-display)',
       fontWeight: 600,
-      fontSize: 15,
+      fontSize: 'var(--desktop-window-title-text)',
       letterSpacing: '0.02em',
       whiteSpace: 'nowrap',
       color: active ? 'var(--ink)' : 'var(--text-faint)'
@@ -441,7 +455,7 @@ function TitleBar({
   }), /*#__PURE__*/React.createElement(ChromeBox, {
     active: active,
     onClick: onMin,
-    label: active ? "Minimizar" : "Minimizar Inativo"
+    label: active ? labels.minimize : labels.minimizeInactive
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       width: 7,
@@ -462,6 +476,7 @@ function WindowFrame({
 }) {
   const reg = REG[win.id];
   const Body = reg.Body;
+  const titleId = `window-title-${win.id}`;
   const frame = isMobile ? {
     position: 'fixed',
     left: 0,
@@ -472,7 +487,7 @@ function WindowFrame({
     zIndex: 9500 + win.z,
     background: 'var(--paper)',
     borderTop: '1px solid var(--ink)',
-    boxShadow: '0 -6px 0 0 var(--ink)'
+    boxShadow: 'var(--desktop-elevation-sheet)'
   } : {
     position: 'absolute',
     left: win.x,
@@ -481,13 +496,13 @@ function WindowFrame({
     zIndex: win.z,
     background: 'var(--paper)',
     border: '1px solid var(--ink)',
-    boxShadow: active ? '5px 5px 0 0 var(--ink)' : '3px 3px 0 0 var(--ink-50)'
+    boxShadow: active ? 'var(--desktop-elevation-active)' : 'var(--desktop-elevation-idle)'
   };
   return /*#__PURE__*/React.createElement("div", {
     onPointerDown: () => onFocus(win.id),
     className: "dwin",
     role: "dialog",
-    "aria-label": regTitle(win.id, lang),
+    "aria-labelledby": titleId,
     "aria-modal": isMobile || undefined,
     "data-window-id": win.id,
     tabIndex: -1,
@@ -507,6 +522,8 @@ function WindowFrame({
     }
   })), /*#__PURE__*/React.createElement(TitleBar, {
     title: regTitle(win.id, lang),
+    titleId: titleId,
+    lang: lang,
     active: active || isMobile,
     onClose: () => onClose(win.id),
     onMin: () => onMin(win.id),
@@ -653,7 +670,7 @@ function Boot({
       fontWeight: 600,
       textTransform: 'uppercase',
       letterSpacing: '0.22em',
-      fontSize: 11,
+      fontSize: 'var(--desktop-meta-text)',
       color: 'var(--gold)'
     }
   }, u.tagline), /*#__PURE__*/React.createElement("button", {
@@ -962,7 +979,7 @@ function Desktop({
       top: 0,
       left: 0,
       right: 0,
-      height: 46,
+      height: 'var(--desktop-titlebar-height)',
       background: 'var(--paper)',
       borderBottom: '1px solid var(--ink)',
       display: 'flex',
@@ -1017,6 +1034,7 @@ function Desktop({
     }
   }, MENUS.map(id => /*#__PURE__*/React.createElement("button", {
     key: id,
+    className: "desktop-menu-item",
     "data-app-id": id,
     onPointerDown: e => e.stopPropagation(),
     onClick: () => open(id),
@@ -1026,9 +1044,9 @@ function Desktop({
       cursor: 'pointer',
       fontFamily: 'var(--font-body)',
       fontWeight: 500,
-      fontSize: 13.5,
+      fontSize: 'var(--desktop-ui-text)',
       color: 'var(--ink)',
-      minHeight: 44,
+      minHeight: 'var(--desktop-hit-target)',
       padding: '7px 2px',
       whiteSpace: 'nowrap',
       borderBottom: topId === id ? '1.5px solid var(--rubric)' : '1.5px solid transparent'
@@ -1061,8 +1079,8 @@ function Desktop({
       fontWeight: 600,
       fontSize: 11,
       letterSpacing: '0.12em',
-      minWidth: 44,
-      minHeight: 44,
+      minWidth: 'var(--desktop-hit-target)',
+      minHeight: 'var(--desktop-hit-target)',
       padding: '7px 9px',
       lineHeight: 1.6,
       background: lang === l ? 'var(--ink)' : 'var(--paper)',
@@ -1102,6 +1120,7 @@ function Desktop({
     const active = sel === id;
     return /*#__PURE__*/React.createElement("button", {
       key: id,
+      className: "desktop-icon",
       "data-app-id": id,
       onPointerDown: e => {
         e.stopPropagation();
@@ -1130,8 +1149,8 @@ function Desktop({
         backdropFilter: 'blur(1px)',
         WebkitBackdropFilter: 'blur(1px)',
         border: '1px solid var(--ink)',
-        borderRadius: 3,
-        boxShadow: active ? '3px 3px 0 0 var(--rubric)' : '2px 2px 0 0 var(--ink)',
+        borderRadius: 'var(--desktop-icon-radius)',
+        boxShadow: active ? 'var(--desktop-elevation-icon-active)' : 'var(--desktop-elevation-icon)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1188,7 +1207,7 @@ function Desktop({
       left: 0,
       right: 0,
       bottom: 0,
-      height: isMobile ? 48 : 36,
+      height: isMobile ? 'var(--desktop-dock-height-mobile)' : 'var(--desktop-dock-height)',
       background: 'var(--ink)',
       color: 'var(--paper)',
       display: 'flex',
@@ -1203,7 +1222,7 @@ function Desktop({
       fontWeight: 600,
       textTransform: 'uppercase',
       letterSpacing: '0.26em',
-      fontSize: 11,
+      fontSize: 'var(--desktop-meta-text)',
       color: 'var(--gold-2)',
       whiteSpace: 'nowrap'
     }
@@ -1224,6 +1243,7 @@ function Desktop({
     const on = !w.min && topId === w.id;
     return /*#__PURE__*/React.createElement("button", {
       key: w.id,
+      className: "desktop-dock-item",
       onPointerDown: e => e.stopPropagation(),
       onClick: () => w.min ? focus(w.id) : topId === w.id ? minimize(w.id) : focus(w.id),
       style: {
@@ -1232,9 +1252,9 @@ function Desktop({
         gap: 6,
         background: on ? 'var(--paper)' : 'transparent',
         color: on ? 'var(--ink)' : 'var(--paper)',
-        border: '1px solid ' + (on ? 'var(--paper)' : 'rgba(242,234,217,0.35)'),
+        border: '1px solid ' + (on ? 'var(--paper)' : 'var(--desktop-dock-rule)'),
         borderRadius: 0,
-        minHeight: isMobile ? 44 : undefined,
+        minHeight: isMobile ? 'var(--desktop-hit-target)' : undefined,
         padding: '3px 10px',
         cursor: 'pointer',
         fontFamily: 'var(--font-body)',
