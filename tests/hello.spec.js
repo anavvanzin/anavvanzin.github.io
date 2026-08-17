@@ -18,7 +18,7 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(2);
-  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior' })).toHaveAttribute(
+  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
   );
@@ -38,7 +38,7 @@ test('home language switch updates projects and the advisor credit', async ({ pa
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('button[data-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByText('Living projects', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Responsible advisor: Arno Dal Ri Júnior' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Responsible advisor: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
 });
 
 test('home remains usable when JavaScript is unavailable', async ({ browser }) => {
@@ -97,7 +97,7 @@ test('desktop no longer opens an advisor window', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.locator('[data-window-id="orientador"]')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
 });
 
 test('closing a desktop window returns focus to its launcher', async ({ page }) => {

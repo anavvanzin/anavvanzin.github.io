@@ -1253,17 +1253,56 @@ function Desktop({
     }, regTitle(w.id, lang));
   })), !isMobile && /*#__PURE__*/React.createElement("a", {
     href: ADVISOR_SITE_URL,
+    "aria-label": lang === 'en' ? 'Responsible advisor: Arno Dal Ri Júnior, PPGD/UFSC' : 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC',
     onPointerDown: e => e.stopPropagation(),
     style: {
       marginLeft: 'auto',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      minHeight: 28,
+      padding: '0 8px 0 10px',
+      borderLeft: '2px solid var(--gold-2)',
+      background: 'rgba(242,234,217,0.08)',
       color: 'var(--paper)',
       fontFamily: 'var(--font-body)',
-      fontSize: 12,
       whiteSpace: 'nowrap',
-      textDecorationColor: 'var(--gold-2)',
-      textUnderlineOffset: '0.22em'
+      textDecoration: 'none'
     }
-  }, lang === 'en' ? 'Responsible advisor: Arno Dal Ri Júnior' : 'Orientador responsável: Arno Dal Ri Júnior')), !booted && /*#__PURE__*/React.createElement(Boot, {
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 1,
+      lineHeight: 1.05
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--gold-2)',
+      fontFamily: 'var(--font-display)',
+      fontSize: 8,
+      fontWeight: 600,
+      letterSpacing: '0.16em',
+      textTransform: 'uppercase'
+    }
+  }, lang === 'en' ? 'Research advisor · PPGD/UFSC' : 'Orientação · PPGD/UFSC'), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--paper)',
+      fontFamily: 'var(--font-body)',
+      fontSize: 12.5,
+      fontWeight: 600,
+      textDecoration: 'underline',
+      textDecorationColor: 'rgba(220,181,77,0.62)',
+      textUnderlineOffset: '0.18em'
+    }
+  }, 'Arno Dal Ri Júnior')), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": true,
+    style: {
+      color: 'var(--gold-2)',
+      fontSize: 14,
+      lineHeight: 1
+    }
+  }, '↗'))), !booted && /*#__PURE__*/React.createElement(Boot, {
     onEnter: enter,
     lang: lang
   }));
