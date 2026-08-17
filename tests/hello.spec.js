@@ -92,11 +92,20 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('desktop no longer opens an advisor window', async ({ page }) => {
+test('advisor opens as a movable archive card with the official site link', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto('/');
 
   await expect(page.locator('[data-window-id="orientador"]')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Mover-se', exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Orientador', exact: true }).click();
+  const advisor = page.locator('[data-window-id="orientador"]');
+  await expect(advisor).toBeVisible();
+  await expect(advisor).toHaveAttribute('role', 'dialog');
+  await expect(advisor.getByRole('link', { name: 'Arno Dal Ri Júnior ↗' })).toHaveAttribute(
+    'href',
+    'https://anavanzin.com/arno-dal-ri-site/'
+  );
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
 });
 

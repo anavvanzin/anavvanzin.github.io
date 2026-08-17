@@ -256,17 +256,37 @@ function WAdvisor({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    style: stack(8)
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientação \xB7 PPGD/UFSC', 'Supervision \xB7 PPGD/UFSC')), /*#__PURE__*/React.createElement(RubricLink, {
+    style: stack(12)
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientação \xB7 PPGD/UFSC', 'Supervision \xB7 PPGD/UFSC')), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...win_p,
+      margin: 0,
+      color: 'var(--ink-70)'
+    }
+  }, L(lang, 'Pesquisa de doutorado ICONOCRACIA.', 'ICONOCRACIA doctoral research.')), /*#__PURE__*/React.createElement(RubricLink, {
     href: ADVISOR_SITE_URL,
     className: "mobile-action-link",
     style: {
       color: 'var(--ink)',
       fontFamily: 'var(--font-display)',
-      fontSize: 21,
-      lineHeight: 1.35
+      fontSize: 22,
+      lineHeight: 1.22,
+      textDecoration: 'none'
     }
-  }, L(lang, 'Orientador responsável: Arno Dal Ri Júnior', 'Responsible advisor: Arno Dal Ri Júnior')));
+  }, L(lang, 'Arno Dal Ri Júnior ↗', 'Arno Dal Ri Júnior ↗')), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      width: '100%',
+      height: 1,
+      background: 'var(--gold-2)'
+    }
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...win_p,
+      margin: 0,
+      fontSize: 13
+    }
+  }, L(lang, 'Orientador responsável', 'Responsible advisor')));
 }
 function WContato({
   lang
