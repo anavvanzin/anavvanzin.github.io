@@ -704,13 +704,9 @@ function Desktop({
   });
   const [wins, setWins] = React.useState(() => {
     const mob = typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 1024px)').matches);
-    if (mob) return [{
-      id: 'projetos',
-      x: 0,
-      y: 0,
-      z: 2,
-      min: false
-    }];
+    // On compact screens the desk becomes an archive index; a record opens only
+    // after its row is chosen, instead of presenting a desktop window by default.
+    if (mob) return [];
     const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
     const projectsX = Math.max(460, viewportWidth - REG.projetos.w - 24);
     const justitiaX = Math.max(100, projectsX - REG.justitia.w - 26);
@@ -959,9 +955,9 @@ function Desktop({
     style: {
       position: 'absolute',
       left: isMobile ? 'auto' : '6%',
-      right: isMobile ? '-28%' : 'auto',
+      right: isMobile ? '-46%' : 'auto',
       bottom: isMobile ? 48 : 36,
-      height: isMobile ? '84%' : '91%',
+      height: isMobile ? '66%' : '91%',
       width: 'auto',
       maxWidth: isMobile ? 'none' : '58%',
       objectFit: 'contain',
@@ -984,8 +980,8 @@ function Desktop({
       borderBottom: '1px solid var(--ink)',
       display: 'flex',
       alignItems: 'center',
-      gap: 16,
-      padding: '0 16px',
+      gap: isMobile ? 10 : 16,
+      padding: isMobile ? '0 12px' : '0 16px',
       zIndex: 9000
     }
   }, /*#__PURE__*/React.createElement("span", {
@@ -1008,7 +1004,16 @@ function Desktop({
       border: '1px solid var(--ink)',
       flexShrink: 0
     }
-  }), !isMobile && /*#__PURE__*/React.createElement("span", {
+  }), isMobile ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontWeight: 700,
+      fontSize: 11,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      whiteSpace: 'nowrap'
+    }
+  }, lang === 'en' ? 'live archive' : 'arquivo vivo') : /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: 'var(--font-display)',
       fontWeight: 600,
@@ -1016,13 +1021,13 @@ function Desktop({
       letterSpacing: '0.02em',
       whiteSpace: 'nowrap'
     }
-  }, "ana vanzin")), /*#__PURE__*/React.createElement("span", {
+  }, "ana vanzin")), !isMobile && /*#__PURE__*/React.createElement("span", {
     style: {
       width: 1,
       height: 16,
       background: 'var(--rule-hairline)'
     }
-  }), /*#__PURE__*/React.createElement("nav", {
+  }), !isMobile && /*#__PURE__*/React.createElement("nav", {
     "aria-label": lang === 'en' ? 'Main navigation' : 'Navega\xE7\xE3o principal',
     style: {
       display: 'flex',
@@ -1089,18 +1094,20 @@ function Desktop({
   }, l.toUpperCase()))), !isMobile && /*#__PURE__*/React.createElement(Clock, {
     lang: lang
   }))), /*#__PURE__*/React.createElement("div", {
+    role: isMobile ? 'navigation' : undefined,
+    "aria-label": isMobile ? lang === 'en' ? 'Archive index' : 'Índice do arquivo' : undefined,
     style: isMobile ? {
       position: 'absolute',
-      top: 58,
+      top: 46,
       left: 0,
       right: 0,
       bottom: 54,
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(86px, 1fr))',
-      gap: 16,
-      padding: '20px 14px 28px',
+      gridTemplateColumns: '1fr',
+      gap: 8,
+      padding: '26px 16px 32px',
       zIndex: 1,
       alignContent: 'start'
     } : {
@@ -1112,7 +1119,37 @@ function Desktop({
       gap: 16,
       zIndex: 1
     }
-  }, DESK_ICONS.map(({
+  }, isMobile && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '4px 4px 16px',
+      textShadow: '0 1px var(--paper)'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      color: 'var(--rubric)',
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: '0.17em',
+      textTransform: 'uppercase'
+    }
+  }, lang === 'en' ? 'portable desk' : 'mesa portátil'), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      margin: '7px 0 5px',
+      fontFamily: 'var(--font-display)',
+      fontSize: 38,
+      lineHeight: .95,
+      fontWeight: 600,
+      letterSpacing: '-0.025em'
+    }
+  }, lang === 'en' ? 'Live archive' : 'Arquivo vivo'), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      maxWidth: 290,
+      fontSize: 14,
+      lineHeight: 1.45
+    }
+  }, lang === 'en' ? 'Choose a file, a folder, or a record to begin.' : 'Escolha um documento, uma pasta ou uma ficha para começar.')), DESK_ICONS.map(({
     id,
     label,
     Icon
@@ -1135,16 +1172,20 @@ function Desktop({
         border: 0,
         cursor: 'pointer',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: isMobile ? 'row' : 'column',
         alignItems: 'center',
-        gap: 5,
-        width: isMobile ? 'auto' : 84,
-        padding: 3
+        justifyContent: isMobile ? 'flex-start' : undefined,
+        gap: isMobile ? 12 : 5,
+        width: isMobile ? '100%' : 84,
+        minHeight: isMobile ? 'var(--desktop-hit-target)' : undefined,
+        padding: isMobile ? 6 : 3,
+        textAlign: 'left'
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: isMobile ? {
-        width: '100%',
-        height: 76,
+        width: 54,
+        height: 54,
+        flex: '0 0 54px',
         background: 'color-mix(in srgb, var(--paper) 90%, transparent)',
         backdropFilter: 'blur(1px)',
         WebkitBackdropFilter: 'blur(1px)',
@@ -1163,15 +1204,17 @@ function Desktop({
         outlineOffset: 1
       }
     }, /*#__PURE__*/React.createElement(Icon, {
-      size: isMobile ? 46 : 44
+      size: isMobile ? 34 : 44
     })), /*#__PURE__*/React.createElement("span", {
       style: {
-        fontSize: 12,
+        fontFamily: isMobile ? 'var(--font-display)' : 'var(--font-body)',
+        fontSize: isMobile ? 18 : 12,
         lineHeight: 1.2,
-        textAlign: 'center',
+        textAlign: isMobile ? 'left' : 'center',
         background: active ? 'var(--rubric)' : 'transparent',
         color: active ? 'var(--paper)' : 'var(--ink)',
-        padding: '1px 5px'
+        padding: isMobile ? '5px 8px' : '1px 5px',
+        flex: isMobile ? 1 : undefined
       }
     }, label[lang]));
   })), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
