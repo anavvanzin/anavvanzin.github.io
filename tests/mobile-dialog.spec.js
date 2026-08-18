@@ -3,6 +3,7 @@ const { test, expect } = require('@playwright/test');
 test('mobile modal keeps keyboard focus inside the active archive window', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
+  await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
 
   const dialog = page.locator('[data-window-id="projetos"]');
   const close = dialog.getByRole('button', { name: 'Fechar Janela', exact: true });

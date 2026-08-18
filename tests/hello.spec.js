@@ -73,10 +73,14 @@ test('projects window keeps the Mnemosyne editorial system and sienna focus', as
   await expect.poll(() => projectsMenu.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(139, 58, 26)');
 });
 
-test('mobile opens living projects as a scrollable window without horizontal overflow', async ({ page }) => {
+test('mobile starts as an archive index and opens living projects without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
+  await expect(page.locator('.dwin')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Arquivo vivo' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Índice do arquivo' })).toBeVisible();
+  await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
@@ -85,10 +89,22 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('mobile archive index fits narrow portrait and landscape viewports', async ({ page }) => {
+  for (const viewport of [{ width: 375, height: 812 }, { width: 390, height: 844 }, { width: 844, height: 390 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await expect(page.locator('.dwin')).toHaveCount(0);
+    await expect(page.getByRole('navigation', { name: 'Índice do arquivo' })).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+});
+
 test('compact layout engages before desktop windows can overflow', async ({ page }) => {
   await page.setViewportSize({ width: 800, height: 700 });
   await page.goto('/');
 
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
