@@ -238,6 +238,261 @@ a:focus-visible,
   box-shadow: inset 0 0 0 1px var(--gold-2);
 }
 
+/* Archive windows keep an old-computer shell while their interiors describe
+   the kind of research object being opened. */
+.dwin {
+  isolation: isolate;
+  transition: box-shadow var(--duration-ui) ease, border-color var(--duration-ui) ease;
+}
+
+.dwin__titlebar,
+.dwin__status,
+.dwin__body {
+  transition: background-color var(--duration-ui) ease, color var(--duration-ui) ease, filter var(--duration-ui) ease;
+}
+
+.dwin[data-window-state="inactive"] .dwin__body {
+  filter: saturate(0.82) contrast(0.98);
+}
+
+.dwin[data-window-state="active"] .dwin__status {
+  box-shadow: inset 0 1px 0 var(--gold-2);
+}
+
+.research-dossier {
+  position: relative;
+  min-height: 352px;
+  padding: 34px 22px 22px;
+  background:
+    linear-gradient(90deg, transparent 0 18px, color-mix(in srgb, var(--rubric) 13%, transparent) 18px 19px, transparent 19px),
+    var(--paper-deep);
+}
+
+.research-dossier__tab {
+  position: absolute;
+  top: 0;
+  left: 22px;
+  min-width: 176px;
+  padding: 7px 12px 6px;
+  border: 1px solid var(--ink);
+  border-top: 0;
+  background: var(--cream);
+  color: var(--rubric);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-align: center;
+}
+
+.research-dossier__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 12px 0 15px;
+  border-bottom: 3px double var(--ink);
+}
+
+.projects-window-title {
+  margin: 5px 0 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.research-dossier__count {
+  min-width: 58px;
+  padding: 7px 8px 6px;
+  border: 1px solid var(--rubric);
+  background: var(--paper);
+  color: var(--rubric);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  line-height: 1;
+  text-align: center;
+}
+
+.research-dossier__count strong,
+.research-dossier__count span {
+  display: block;
+}
+
+.research-dossier__count strong {
+  font-size: 17px;
+}
+
+.research-dossier__count span {
+  margin-top: 4px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.project-record {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 234px;
+  flex-direction: column;
+  padding: 14px;
+  border: 1px solid var(--rubric);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink-30);
+}
+
+.project-record::before {
+  position: absolute;
+  top: -1px;
+  right: 14px;
+  width: 34px;
+  height: 5px;
+  border: 1px solid var(--rubric);
+  border-top: 0;
+  background: var(--gold-1);
+  content: "";
+}
+
+.project-record__heading {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.project-record__tile {
+  display: block;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 2px 2px 0 var(--ink-30);
+  object-fit: cover;
+}
+
+.project-record__kind {
+  display: block;
+  color: var(--rubric);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.065em;
+}
+
+.project-record__title {
+  margin: 7px 0 0;
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.project-record__description {
+  flex: 1;
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.project-record__footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-hairline);
+}
+
+.project-record__inventory {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.project-record__footer a {
+  min-width: 0;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.image-viewer-content {
+  padding: 10px;
+  background: var(--ink);
+}
+
+.image-viewer-stage {
+  position: relative;
+  padding: 8px;
+  border: 1px solid var(--gold-2);
+  background: var(--ink);
+}
+
+.image-viewer-mat {
+  display: flex;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--gold-2) 50%, var(--ink));
+  background: var(--ink);
+}
+
+.image-viewer-registration {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  padding: 3px 5px;
+  border: 1px solid var(--gold-2);
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  color: var(--paper);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+.image-viewer-art {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.image-viewer-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 2px 1px;
+  color: var(--paper-deep);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  line-height: 1.25;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.image-viewer-caption span:last-child {
+  color: var(--gold-2);
+  text-align: right;
+}
+
 .desktop-enhanced #main:focus {
   outline: none;
 }
@@ -245,6 +500,32 @@ a:focus-visible,
 @media (max-width: 520px) {
   .project-card-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  .research-dossier {
+    min-height: 0;
+    padding: 32px 16px 18px;
+  }
+
+  .research-dossier__tab {
+    left: 16px;
+  }
+
+  .research-dossier__header {
+    grid-template-columns: minmax(0, 1fr) 52px;
+    gap: 10px;
+  }
+
+  .projects-window-title {
+    font-size: 30px;
+  }
+
+  .project-record {
+    min-height: 0;
+  }
+
+  .image-viewer-art {
+    max-height: 48vh;
   }
 }
 
@@ -254,6 +535,10 @@ a:focus-visible,
     align-items: center;
     min-width: 44px;
     min-height: 44px;
+  }
+
+  .dwin__status {
+    min-height: 32px !important;
   }
 }
 

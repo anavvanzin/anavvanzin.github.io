@@ -165,53 +165,42 @@ function ProjectCard({
   title,
   description,
   href,
-  domain
+  domain,
+  icon,
+  inventory
 }) {
   return /*#__PURE__*/React.createElement("article", {
+    className: "project-record"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "project-record__heading"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: icon,
+    alt: "",
+    width: 54,
+    height: 54,
+    className: "project-record__tile",
+    "aria-hidden": "true"
+  }), /*#__PURE__*/React.createElement("div", {
     style: {
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: 224,
-      padding: 18,
-      border: '1px solid var(--rubric)',
-      background: 'var(--cream)',
-      boxShadow: '3px 3px 0 0 var(--ink-30)'
+      minWidth: 0
     }
   }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-      fontSize: 10,
-      fontWeight: 700,
-      letterSpacing: '0.08em',
-      color: 'var(--rubric)'
-    }
+    className: "project-record__kind"
   }, number, " \xB7 ", kind), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      margin: '24px 0 8px',
-      fontFamily: 'var(--font-display)',
-      fontSize: 27,
-      fontWeight: 600,
-      lineHeight: 1
-    }
+    className: "project-record__title"
   }, /*#__PURE__*/React.createElement("a", {
     href: href,
     target: "_blank",
     rel: "noreferrer",
     className: "mobile-action-link",
     style: projectTitleLink
-  }, title)), /*#__PURE__*/React.createElement("p", {
-    style: {
-      ...win_p,
-      flex: 1,
-      fontSize: 14
-    }
-  }, description), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 18,
-      paddingTop: 12,
-      borderTop: '1px solid var(--rule-hairline)'
-    }
-  }, /*#__PURE__*/React.createElement(RubricLink, {
+  }, title)))), /*#__PURE__*/React.createElement("p", {
+    className: "project-record__description"
+  }, description), /*#__PURE__*/React.createElement("footer", {
+    className: "project-record__footer"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "project-record__inventory"
+  }, inventory), /*#__PURE__*/React.createElement(RubricLink, {
     href: href,
     external: true,
     className: "mobile-action-link"
@@ -221,35 +210,37 @@ function WProjects({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "projects-window-content",
-    style: stack(16)
-  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Pesquisa em rede', 'Research network')), /*#__PURE__*/React.createElement("h2", {
-    className: "projects-window-title",
-    style: {
-      ...win_h2,
-      fontSize: 34
-    }
-  }, L(lang, 'Projetos vivos', 'Living projects')), /*#__PURE__*/React.createElement("div", {
+    className: "projects-window-content research-dossier"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "research-dossier__tab",
+    "aria-hidden": "true"
+  }, L(lang, 'DOSSIÊ 01 · PESQUISA', 'DOSSIER 01 · RESEARCH')), /*#__PURE__*/React.createElement("header", {
+    className: "research-dossier__header"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Pesquisa em rede', 'Research network')), /*#__PURE__*/React.createElement("h2", {
+    className: "projects-window-title"
+  }, L(lang, 'Projetos vivos', 'Living projects'))), /*#__PURE__*/React.createElement("div", {
+    className: "research-dossier__count",
+    "aria-label": L(lang, 'Dois registros no dossiê', 'Two records in the dossier')
+  }, /*#__PURE__*/React.createElement("strong", null, "02"), /*#__PURE__*/React.createElement("span", null, L(lang, 'registros', 'records')))), /*#__PURE__*/React.createElement("div", {
     className: "project-card-grid",
-    style: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-      gap: 14
-    }
   }, /*#__PURE__*/React.createElement(ProjectCard, {
     number: "01",
     kind: L(lang, 'GRUPO DE PESQUISA', 'RESEARCH GROUP'),
     title: "Ius Gentium",
     description: L(lang, 'Arquivo, pesquisa, hist\xF3ria e circula\xE7\xE3o de ideias jur\xEDdicas.', 'Archive, research, history and the circulation of legal ideas.'),
     href: "https://grupoiusgentium.com.br/",
-    domain: "grupoiusgentium.com.br"
+    domain: "grupoiusgentium.com.br",
+    icon: "/assets/icons/ius-gentium-v1.png",
+    inventory: "GIG · EXT"
   }), /*#__PURE__*/React.createElement(ProjectCard, {
     number: "02",
     kind: L(lang, 'TESE E ATLAS', 'THESIS AND ATLAS'),
     title: "Iconocracia",
     description: L(lang, 'Casa p\xFAblica do acervo, do atlas e da pesquisa de doutorado.', 'Public home of the collection, atlas and doctoral research.'),
     href: "https://iconocracia.com/",
-    domain: "iconocracia.com"
+    domain: "iconocracia.com",
+    icon: "/assets/icons/iconocracia.webp",
+    inventory: "ICO · EXT"
   })));
 }
 function WAdvisorLegacy({
@@ -466,36 +457,21 @@ function WJustitia({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    style: stack(0)
+    className: "image-viewer-content"
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: 'var(--ink)',
-      padding: 12,
-      display: 'flex',
-      justifyContent: 'center'
-    }
+    className: "image-viewer-stage"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "image-viewer-registration",
+    "aria-hidden": "true"
+  }, "IMG-01"), /*#__PURE__*/React.createElement("div", {
+    className: "image-viewer-mat"
   }, /*#__PURE__*/React.createElement("img", {
     src: "/assets/pixel-justitia-sky.png",
-    alt: "Justitia, pixel art",
-    style: {
-      maxWidth: '100%',
-      maxHeight: 420,
-      imageRendering: 'pixelated',
-      border: '1px solid var(--gold-2)'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderTop: '1px solid var(--rule-hairline)',
-      paddingTop: 10,
-      marginTop: 10,
-      fontSize: 12,
-      color: 'var(--text-faint)',
-      letterSpacing: '0.04em'
-    }
-  }, /*#__PURE__*/React.createElement("span", null, "justitia.png"), /*#__PURE__*/React.createElement("span", null, "1086 \xD7 1448 \xB7 16-bit")));
+    alt: L(lang, 'Alegoria de Justitia em pixel art diante de um céu azul', 'Pixel-art allegory of Justitia against a blue sky'),
+    className: "image-viewer-art"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "image-viewer-caption"
+  }, /*#__PURE__*/React.createElement("span", null, L(lang, 'Alegoria da Justiça', 'Allegory of Justice')), /*#__PURE__*/React.createElement("span", null, L(lang, 'visualização de trabalho', 'working view'))));
 }
 function WVo({
   lang

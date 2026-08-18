@@ -66,7 +66,13 @@ const REG = {
       pt: 'projetos-vivos.app',
       en: 'living-projects.app'
     },
-    w: 560,
+    w: 600,
+    variant: 'research-dossier',
+    recordCode: 'DOS-01',
+    status: {
+      pt: '2 registros · pesquisa em rede',
+      en: '2 records · research network'
+    },
     Body: WProjects
   },
   orientador: {
@@ -90,7 +96,13 @@ const REG = {
       pt: 'justitia.png',
       en: 'justitia.png'
     },
-    w: 360,
+    w: 380,
+    variant: 'image-viewer',
+    recordCode: 'IMG-01',
+    status: {
+      pt: '1086 × 1448 · 16-bit · imagem de trabalho',
+      en: '1086 × 1448 · 16-bit · working image'
+    },
     Body: WJustitia
   },
   vo: {
@@ -453,6 +465,8 @@ function TitleBar({
   onDown,
   titleId,
   lang,
+  variant = 'standard',
+  recordCode,
   draggable = true,
   isPoster = false
 }) {
@@ -476,7 +490,11 @@ function TitleBar({
     opacity: active ? 0.9 : 0,
     minWidth: 12
   };
+  const activeSurface = variant === 'research-dossier' ? 'linear-gradient(to bottom, var(--paper) 0 68%, var(--paper-deep) 68% 100%)' : variant === 'image-viewer' ? 'linear-gradient(to bottom, var(--paper) 0 72%, var(--cream) 72% 100%)' : 'var(--paper)';
   return /*#__PURE__*/React.createElement("div", {
+    className: "dwin__titlebar",
+    "data-titlebar-variant": variant,
+    "data-titlebar-state": active ? 'active' : 'inactive',
     onPointerDown: draggable ? onDown : undefined,
     style: {
       display: 'flex',
@@ -484,8 +502,9 @@ function TitleBar({
       gap: 3,
       height: 'var(--desktop-titlebar-height)',
       padding: '0 3px',
-      background: 'var(--paper)',
-      borderBottom: '1px solid var(--ink)',
+      background: active ? activeSurface : 'var(--paper)',
+      borderBottom: active ? '2px solid var(--rubric)' : '1px solid var(--ink-50)',
+      boxSizing: 'border-box',
       cursor: draggable ? 'grab' : 'default',
       userSelect: 'none',
       touchAction: 'none',
@@ -496,7 +515,23 @@ function TitleBar({
     active: active,
     onClick: onClose,
     label: isPoster ? (active ? labels.close : labels.closeInactive) : labels.close
-  }), /*#__PURE__*/React.createElement("div", {
+  }), recordCode && /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    className: "dwin__record-code",
+    style: {
+      minWidth: 43,
+      padding: '3px 5px 2px',
+      border: '1px solid var(--ink-50)',
+      background: active ? 'var(--ink)' : 'var(--paper-deep)',
+      color: active ? 'var(--paper)' : 'var(--text-faint)',
+      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+      fontSize: 9,
+      fontWeight: 700,
+      lineHeight: 1,
+      letterSpacing: '0.08em',
+      textAlign: 'center'
+    }
+  }, recordCode), /*#__PURE__*/React.createElement("div", {
     style: flank
   }), /*#__PURE__*/React.createElement("span", {
     id: titleId,
@@ -522,6 +557,44 @@ function TitleBar({
     }
   })));
 }
+function WindowStatus({
+  reg,
+  lang
+}) {
+  if (!reg.recordCode || !reg.status) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "dwin__status",
+    "aria-label": lang === 'en' ? 'Archive record status' : 'Estado do registro de arquivo',
+    style: {
+      minHeight: 30,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      padding: '5px 10px',
+      borderTop: '1px solid var(--ink)',
+      background: 'var(--paper-deep)',
+      color: 'var(--text-faint)',
+      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+      fontSize: 'var(--desktop-meta-text)',
+      lineHeight: 1.2,
+      letterSpacing: '0.035em'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rubric)',
+      fontWeight: 700,
+      whiteSpace: 'nowrap'
+    }
+  }, reg.recordCode), /*#__PURE__*/React.createElement("span", {
+    style: {
+      overflow: 'hidden',
+      textAlign: 'right',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    }
+  }, reg.status[lang] || reg.status.pt));
+}
 function WindowFrame({
   win,
   active,
@@ -535,6 +608,8 @@ function WindowFrame({
   const reg = REG[win.id];
   const Body = reg.Body;
   const titleId = `window-title-${win.id}`;
+  const variant = reg.variant || 'standard';
+  const archiveInterior = variant === 'image-viewer' || variant === 'research-dossier';
   const frame = isMobile ? {
     position: 'fixed',
     left: 0,
@@ -553,16 +628,18 @@ function WindowFrame({
     width: winW(win.id),
     zIndex: win.z,
     background: 'var(--paper)',
-    border: '1px solid var(--ink)',
-    boxShadow: active ? 'var(--desktop-elevation-active)' : 'var(--desktop-elevation-idle)'
+    border: active ? '1px solid var(--ink)' : '1px solid var(--ink-50)',
+    boxShadow: active ? 'inset 0 0 0 1px var(--rubric), var(--desktop-elevation-active)' : 'var(--desktop-elevation-idle)'
   };
   return /*#__PURE__*/React.createElement("div", {
     onPointerDown: () => onFocus(win.id),
-    className: "dwin",
+    className: `dwin dwin--${variant}`,
     role: "dialog",
     "aria-labelledby": titleId,
     "aria-modal": isMobile || undefined,
     "data-window-id": win.id,
+    "data-window-variant": variant,
+    "data-window-state": active || isMobile ? 'active' : 'inactive',
     tabIndex: -1,
     style: frame
   }, isMobile && /*#__PURE__*/React.createElement("div", {
@@ -583,20 +660,26 @@ function WindowFrame({
     titleId: titleId,
     lang: lang,
     active: active || isMobile,
+    variant: variant,
+    recordCode: reg.recordCode,
     onClose: () => onClose(win.id),
     onMin: () => onMin(win.id),
     onDown: e => onDragStart(e, win.id),
     draggable: !isMobile,
     isPoster: win.id === 'poster'
   }), /*#__PURE__*/React.createElement("div", {
+    className: "dwin__body",
     style: {
-      padding: win.id === 'justitia' ? 12 : (win.id === 'ampulheta' ? 16 : 22),
+      padding: archiveInterior ? 0 : win.id === 'ampulheta' ? 16 : 22,
       maxHeight: isMobile ? '64vh' : '58vh',
       overflow: 'auto'
     }
   }, /*#__PURE__*/React.createElement(Body, {
     lang: lang
-  })));
+  })), /*#__PURE__*/React.createElement(WindowStatus, {
+    reg: reg,
+    lang: lang
+  }));
 }
 function Clock({
   lang

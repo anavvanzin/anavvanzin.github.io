@@ -18,8 +18,19 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(2);
-  await expect(page.getByRole('dialog', { name: 'justitia.png' })).toBeVisible();
-  await expect(page.getByRole('dialog', { name: 'projetos-vivos.app' })).toBeVisible();
+  const justitiaWindow = page.getByRole('dialog', { name: 'justitia.png' });
+  const projectsWindow = page.getByRole('dialog', { name: 'projetos-vivos.app' });
+  await expect(justitiaWindow).toHaveAttribute('data-window-variant', 'image-viewer');
+  await expect(projectsWindow).toHaveAttribute('data-window-variant', 'research-dossier');
+  await expect(justitiaWindow).toHaveAttribute('data-window-state', 'inactive');
+  await expect(projectsWindow).toHaveAttribute('data-window-state', 'active');
+  await expect(justitiaWindow.locator('.dwin__status')).toContainText('IMG-01');
+  await expect(justitiaWindow.locator('.dwin__status')).toContainText('1086 × 1448 · 16-bit');
+  await expect(projectsWindow.locator('.dwin__status')).toContainText('DOS-01');
+  await expect(projectsWindow.locator('.dwin__status')).toContainText('2 registros · pesquisa em rede');
+  await justitiaWindow.click();
+  await expect(justitiaWindow).toHaveAttribute('data-window-state', 'active');
+  await expect(projectsWindow).toHaveAttribute('data-window-state', 'inactive');
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -107,6 +118,8 @@ test('mobile starts as an archive index and opens living projects without horizo
   await expect(page.locator('.desktop-icon img')).toHaveCount(23);
   await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.locator('.dwin')).toHaveCount(1);
+  await expect(page.locator('.dwin')).toHaveAttribute('data-window-variant', 'research-dossier');
+  await expect(page.locator('.dwin__status')).toContainText('DOS-01');
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
