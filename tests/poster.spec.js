@@ -39,6 +39,7 @@ test('desktop app tabula window integration', async ({ page }) => {
   }
 
   // Find the tabula icon on desktop
+  await page.getByRole('button', { name: 'arquivo', exact: true }).click();
   const posterIcon = page.locator('button', { hasText: /^tabula$/i });
   await expect(posterIcon).toBeVisible();
 

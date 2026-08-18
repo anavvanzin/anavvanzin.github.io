@@ -143,6 +143,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
 
   test('T1.F4.4: Verify index.html (the Home Page) has the poster icon on the desktop', async ({ page }) => {
     await page.goto('/');
+    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await expect(posterIcon).toBeVisible();
   });
@@ -162,6 +163,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await expect(posterIcon).toBeVisible();
     await posterIcon.dblclick();

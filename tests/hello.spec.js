@@ -31,6 +31,29 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   );
 });
 
+test('desktop archive sections expose every illustrated launcher exactly once', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+
+  const sections = {
+    pesquisa: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos'],
+    arquivo: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster'],
+    pessoas: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia'],
+    memória: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura'],
+  };
+  const seen = [];
+
+  for (const [section, expectedIds] of Object.entries(sections)) {
+    await page.getByRole('button', { name: section, exact: true }).click();
+    const visibleIds = await page.locator('.desktop-icon').evaluateAll((nodes) => nodes.map((node) => node.dataset.appId).sort());
+    expect(visibleIds).toEqual([...expectedIds].sort());
+    seen.push(...visibleIds);
+  }
+
+  expect(seen).toHaveLength(23);
+  expect(new Set(seen).size).toBe(23);
+});
+
 test('home language switch updates projects and the advisor credit', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
@@ -80,6 +103,8 @@ test('mobile starts as an archive index and opens living projects without horizo
   await expect(page.locator('.dwin')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Arquivo vivo' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Índice do arquivo' })).toBeVisible();
+  await expect(page.locator('.desktop-icon')).toHaveCount(23);
+  await expect(page.locator('.desktop-icon img')).toHaveCount(23);
   await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
