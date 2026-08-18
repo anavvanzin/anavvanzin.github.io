@@ -290,6 +290,64 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }];
+const ICON_TILES = {
+  sobre: '/assets/icons/sobre.webp',
+  tese: '/assets/icons/metodologia.webp',
+  conceitos: '/assets/icons/conceitos.webp',
+  iconocracia: '/assets/icons/iconocracia.webp',
+  radiografia: '/assets/icons/radiografia.webp',
+  marginalia: '/assets/icons/marginalia.webp',
+  atlas: '/assets/icons/atlas.webp',
+  'sala-de-leitura': '/assets/icons/sala.webp',
+  advocacia: '/assets/icons/advocacia.webp',
+  quotes: '/assets/icons/citacoes.webp',
+  trabalhos: '/assets/icons/trabalhos.webp',
+  publicacoes: '/assets/icons/publicacoes.webp',
+  ius: '/assets/icons/ius-gentium-v1.png',
+  projetos: '/assets/icons/projetos-vivos-v1.png',
+  orientador: '/assets/icons/orientador-v1.png',
+  curriculo: '/assets/icons/curriculo.webp',
+  perfil: '/assets/icons/perfil.webp',
+  justitia: '/assets/icons/justitia.webp',
+  vo: '/assets/icons/vo.webp',
+  mae: '/assets/mae/mae-icon.jpg',
+  contato: '/assets/icons/contato-v1.png',
+  ampulheta: '/assets/icons/ampulheta-v1.png',
+  poster: '/assets/icons/tabula-v1.png'
+};
+const DESK_GROUPS = [{
+  id: 'pesquisa',
+  label: {
+    pt: 'pesquisa',
+    en: 'research'
+  },
+  tile: '/assets/icons/iconocracia.webp',
+  ids: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos']
+}, {
+  id: 'arquivo',
+  label: {
+    pt: 'arquivo',
+    en: 'archive'
+  },
+  tile: '/assets/icons/publicacoes.webp',
+  ids: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster']
+}, {
+  id: 'pessoas',
+  label: {
+    pt: 'pessoas',
+    en: 'people'
+  },
+  tile: '/assets/icons/perfil.webp',
+  ids: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia']
+}, {
+  id: 'memoria',
+  label: {
+    pt: 'memória',
+    en: 'memory'
+  },
+  tile: '/assets/icons/justitia.webp',
+  ids: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura']
+}];
 const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
@@ -726,8 +784,11 @@ function Desktop({
   });
   const [zTop, setZTop] = React.useState(5);
   const [sel, setSel] = React.useState(null);
+  const [activeDeskGroup, setActiveDeskGroup] = React.useState('pesquisa');
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
+  const selectedDeskGroup = DESK_GROUPS.find(group => group.id === activeDeskGroup) || DESK_GROUPS[0];
+  const iconsInView = isMobile ? DESK_ICONS : DESK_ICONS.filter(icon => selectedDeskGroup.ids.includes(icon.id));
   const [lang, setLang] = React.useState(() => {
     try {
       const s = localStorage.getItem('av_lang');
@@ -1114,12 +1175,67 @@ function Desktop({
       position: 'absolute',
       top: 62,
       left: 16,
+      width: 84,
       display: 'flex',
       flexDirection: 'column',
-      gap: 16,
+      gap: 10,
       zIndex: 1
     }
-  }, isMobile && /*#__PURE__*/React.createElement("div", {
+  }, !isMobile && /*#__PURE__*/React.createElement("div", {
+    role: "group",
+    "aria-label": lang === 'en' ? 'Desktop archive sections' : 'Seções do arquivo na mesa',
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+      gap: 4,
+      marginBottom: 4
+    }
+  }, DESK_GROUPS.map(group => /*#__PURE__*/React.createElement("button", {
+    key: group.id,
+    type: "button",
+    "aria-pressed": activeDeskGroup === group.id,
+    "aria-label": group.label[lang],
+    onPointerDown: e => e.stopPropagation(),
+    onClick: () => setActiveDeskGroup(group.id),
+    title: group.label[lang],
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      minWidth: 0,
+      minHeight: 38,
+      padding: 3,
+      border: activeDeskGroup === group.id ? '1.5px solid var(--rubric)' : '1px solid var(--ink)',
+      background: activeDeskGroup === group.id ? 'var(--paper)' : 'color-mix(in srgb, var(--paper) 72%, transparent)',
+      boxShadow: activeDeskGroup === group.id ? 'var(--desktop-elevation-icon-active)' : 'var(--desktop-elevation-icon)',
+      cursor: 'pointer'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: group.tile,
+    alt: "",
+    width: 30,
+    height: 30,
+    style: {
+      width: 30,
+      height: 30,
+      objectFit: 'cover',
+      imageRendering: 'auto'
+    }
+  })))), !isMobile && /*#__PURE__*/React.createElement("div", {
+    "aria-live": "polite",
+    style: {
+      margin: '-1px 0 3px',
+      color: 'var(--rubric)',
+      fontSize: 9,
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: '0.12em',
+      textAlign: 'center',
+      textTransform: 'uppercase',
+      textShadow: '0 1px var(--paper)'
+    }
+  }, selectedDeskGroup.label[lang]), isMobile && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: '4px 4px 16px',
       textShadow: '0 1px var(--paper)'
@@ -1149,12 +1265,13 @@ function Desktop({
       fontSize: 14,
       lineHeight: 1.45
     }
-  }, lang === 'en' ? 'Choose a file, a folder, or a record to begin.' : 'Escolha um documento, uma pasta ou uma ficha para começar.')), DESK_ICONS.map(({
+  }, lang === 'en' ? 'Choose a file, a folder, or a record to begin.' : 'Escolha um documento, uma pasta ou uma ficha para começar.')), iconsInView.map(({
     id,
     label,
     Icon
   }) => {
     const active = sel === id;
+    const tile = ICON_TILES[id];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       className: "desktop-icon",
@@ -1203,7 +1320,18 @@ function Desktop({
         outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent',
         outlineOffset: 1
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
+    }, tile ? /*#__PURE__*/React.createElement("img", {
+      src: tile,
+      alt: "",
+      width: isMobile ? 54 : 58,
+      height: isMobile ? 54 : 58,
+      style: {
+        width: isMobile ? 54 : 58,
+        height: isMobile ? 54 : 58,
+        objectFit: 'cover',
+        imageRendering: 'auto'
+      }
+    }) : /*#__PURE__*/React.createElement(Icon, {
       size: isMobile ? 34 : 44
     })), /*#__PURE__*/React.createElement("span", {
       style: {

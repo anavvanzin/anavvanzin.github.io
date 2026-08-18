@@ -28,6 +28,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
