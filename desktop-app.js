@@ -156,13 +156,6 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }, {
-  id: 'radiografia',
-  label: {
-    pt: 'radiografia',
-    en: 'radiografia'
-  },
-  Icon: SealIcon
-}, {
   id: 'marginalia',
   label: {
     pt: 'marginália',
@@ -778,11 +771,7 @@ function Desktop({
       return;
     }
     if (id === 'iconocracia') {
-      window.location.href = '/iconocracia/';
-      return;
-    }
-    if (id === 'radiografia') {
-      window.location.href = '/iconocracia/radiografia/';
+      window.location.href = '/atlas/';
       return;
     }
     if (id === 'marginalia') {
