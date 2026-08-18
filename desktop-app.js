@@ -74,7 +74,7 @@ const REG = {
       pt: 'orientação.txt',
       en: 'supervision.txt'
     },
-    w: 356,
+    w: 470,
     Body: WAdvisor
   },
   contato: {
@@ -837,8 +837,8 @@ function Desktop({
       } : w);
       const n = ws.filter(w => !w.min).length;
       const advisor = id === 'orientador';
-      const x = advisor ? Math.min(92, Math.max(12, window.innerWidth - winW(id) - 16)) : Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
-      const y = advisor ? Math.min(490, Math.max(78, window.innerHeight - 330)) : 78 + n * 28;
+      const x = advisor ? Math.min(360, Math.max(112, Math.round(window.innerWidth * 0.18))) : Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
+      const y = advisor ? Math.min(380, Math.max(84, window.innerHeight - 350)) : 78 + n * 28;
       return [...ws, {
         id,
         x,

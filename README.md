@@ -37,14 +37,16 @@ Domínio canônico: **anavanzin.com**.
 
 ### O que serve o domínio hoje
 
-`anavanzin.com` aponta para **GitHub Pages** (atrás do proxy Cloudflare). Um push
-em `main` dispara [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+`anavanzin.com` aponta exclusivamente para **GitHub Pages** (atrás do proxy
+Cloudflare). Um push em `main` dispara
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
 
 ### Cloudflare Workers (`anavvanzin`)
 
-Há também um Worker com a mesma árvore estática (`wrangler.jsonc`). Workers Builds
-estava quebrado porque o diretório temporário `.worker-assets/` não existe em um
-checkout remoto limpo antes de `npx wrangler deploy`.
+Há também um Worker técnico com a mesma árvore estática (`wrangler.jsonc`), usado
+para validação e testes de assets; ele não é a origem pública de
+`anavanzin.com`. Workers Builds estava quebrado porque o diretório temporário
+`.worker-assets/` não existe em um checkout remoto limpo antes de `npx wrangler deploy`.
 
 O Worker serve a raiz do checkout e [`.assetsignore`](.assetsignore) exclui `.git/`,
 infraestrutura interna e mídia acima do limite de 25 MiB. Assim o comando padrão

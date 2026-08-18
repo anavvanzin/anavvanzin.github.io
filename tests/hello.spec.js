@@ -94,7 +94,7 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('advisor opens as a movable archive card with the official site link', async ({ page }) => {
+test('advisor opens as a movable academic record with one official site action', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto('/');
 
@@ -106,10 +106,16 @@ test('advisor opens as a movable archive card with the official site link', asyn
   await expect(advisor).toHaveAttribute('role', 'dialog');
   await expect(advisor).toHaveAttribute('aria-labelledby', 'window-title-orientador');
   await expect(advisor.locator('#window-title-orientador')).toHaveText('orientação.txt');
-  await expect(advisor.getByRole('link', { name: 'Arno Dal Ri Júnior ↗' })).toHaveAttribute(
-    'href',
-    'https://anavanzin.com/arno-dal-ri-site/'
-  );
+  await expect(advisor.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
+  await expect(advisor.getByText('Orientador responsável pela pesquisa de doutorado', { exact: false })).toBeVisible();
+  await expect(advisor.getByText('Vínculo acadêmico · PPGD/UFSC')).toBeVisible();
+  const advisorAction = advisor.getByRole('link', { name: '↗ conhecer o orientador' });
+  await expect(advisorAction).toHaveAttribute('href', 'https://anavanzin.com/arno-dal-ri-site/');
+  const advisorActionBox = await advisorAction.boundingBox();
+  expect(advisorActionBox?.height).toBeGreaterThanOrEqual(44);
+  const advisorBox = await advisor.boundingBox();
+  expect(advisorBox?.width).toBeGreaterThanOrEqual(470);
+  expect(advisorBox?.y).toBeLessThan(400);
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
 });
 

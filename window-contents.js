@@ -252,7 +252,7 @@ function WProjects({
     domain: "iconocracia.com"
   })));
 }
-function WAdvisor({
+function WAdvisorLegacy({
   lang
 }) {
   return /*#__PURE__*/React.createElement("div", {
@@ -287,6 +287,56 @@ function WAdvisor({
       fontSize: 13
     }
   }, L(lang, 'Orientador responsável', 'Responsible advisor')));
+}
+function WAdvisor({
+  lang
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: stack(16)
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Orientador · PPGD/UFSC', 'Advisor · PPGD/UFSC')), /*#__PURE__*/React.createElement("h2", {
+    className: "advisor-window-title",
+    style: {
+      ...win_h2,
+      margin: 0,
+      fontSize: 34,
+      lineHeight: 1.06
+    }
+  }, 'Arno Dal Ri Júnior'), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...win_p,
+      margin: 0,
+      color: 'var(--ink-70)',
+      fontSize: 17,
+      lineHeight: 1.42,
+      maxWidth: 390
+    }
+  }, L(lang, 'Orientador responsável pela pesquisa de doutorado ', 'Responsible advisor for the doctoral research '), /*#__PURE__*/React.createElement("em", null, 'Iconocracia'), '.'), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": true,
+    style: {
+      display: 'block',
+      width: '100%',
+      height: 1,
+      background: 'var(--gold-2)'
+    }
+  }), /*#__PURE__*/React.createElement(RubricLink, {
+    href: ADVISOR_SITE_URL,
+    className: "mobile-action-link",
+    style: {
+      color: 'var(--ink)',
+      minHeight: 44,
+      alignSelf: 'flex-start'
+    }
+  }, L(lang, '↗ conhecer o orientador', '↗ meet the advisor')), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...win_p,
+      margin: 0,
+      fontSize: 11,
+      lineHeight: 1.2,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      color: 'var(--ink-70)'
+    }
+  }, L(lang, 'Vínculo acadêmico · PPGD/UFSC', 'Academic affiliation · PPGD/UFSC')));
 }
 function WContato({
   lang
