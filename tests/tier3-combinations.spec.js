@@ -46,7 +46,8 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.click();
 
-    const titleBar = page.locator('button[aria-label="Fechar"]').locator('xpath=..');
+    const tabulaWindow = page.locator('[data-window-id="poster"]');
+    const titleBar = tabulaWindow.locator('button[aria-label="Fechar Janela"]').locator('xpath=..');
     const boxBefore = await titleBar.boundingBox();
     
     await titleBar.hover();

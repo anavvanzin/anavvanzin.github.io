@@ -177,7 +177,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
-    const titleBar = page.locator('button[aria-label="Fechar"]').locator('xpath=..');
+    const tabulaWindow = page.locator('[data-window-id="poster"]');
+    const titleBar = tabulaWindow.locator('button[aria-label="Fechar Janela"]').locator('xpath=..');
     const boxBefore = await titleBar.boundingBox();
 
     await titleBar.hover();
@@ -199,9 +200,10 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     await posterIcon.dblclick();
     await expect(page.locator('.poster-banner h1')).toBeVisible();
 
-    const closeBtn = page.locator('button[aria-label="Fechar"]').first();
+    const tabulaWindow = page.locator('[data-window-id="poster"]');
+    const closeBtn = tabulaWindow.locator('button[aria-label="Fechar Janela"]');
     await closeBtn.click();
-    await expect(page.locator('.dwin', { hasText: /tabula/i })).toHaveCount(0);
+    await expect(tabulaWindow).toHaveCount(0);
   });
 
   test('T2.F4.4: Verify opening the tabula window does not close or interfere with other open desktop windows', async ({ page }) => {
