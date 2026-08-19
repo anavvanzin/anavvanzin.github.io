@@ -40,8 +40,7 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.click();

@@ -1,19 +1,6 @@
 /*IIFE*/(function(){
 /* ana vanzin desktop — window manager, menu bar, dock, boot. */
 const {
-  FolderIcon,
-  DocIcon,
-  MailIcon,
-  GroupIcon,
-  ImageIcon,
-  SealIcon,
-  QuoteIcon,
-  AtlasIcon,
-  WorksIcon,
-  CloseBox,
-  HourglassIcon
-} = window.avapp;
-const {
   WSobre,
   WTese,
   WPublicacoes,
@@ -128,169 +115,7 @@ const REG = {
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
-const DESK_ICONS = [{
-  id: 'sobre',
-  label: {
-    pt: 'sobre.txt',
-    en: 'about.txt'
-  },
-  Icon: DocIcon
-}, {
-  id: 'tese',
-  label: {
-    pt: 'tese',
-    en: 'thesis'
-  },
-  Icon: FolderIcon
-}, {
-  id: 'conceitos',
-  label: {
-    pt: 'conceitos',
-    en: 'concepts'
-  },
-  Icon: SealIcon
-}, {
-  id: 'iconocracia',
-  label: {
-    pt: 'iconocracia',
-    en: 'iconocracia'
-  },
-  Icon: AtlasIcon
-}, {
-  id: 'radiografia',
-  label: {
-    pt: 'radiografia',
-    en: 'radiografia'
-  },
-  Icon: SealIcon
-}, {
-  id: 'marginalia',
-  label: {
-    pt: 'marginália',
-    en: 'marginalia'
-  },
-  Icon: DocIcon
-}, {
-  id: 'atlas',
-  label: {
-    pt: 'atlas',
-    en: 'atlas'
-  },
-  Icon: AtlasIcon
-}, {
-  id: 'sala-de-leitura',
-  label: {
-    pt: 'sala de leitura',
-    en: 'reading room'
-  },
-  Icon: FolderIcon
-}, {
-  id: 'advocacia',
-  label: {
-    pt: 'advocacia',
-    en: 'practice'
-  },
-  Icon: WorksIcon
-}, {
-  id: 'quotes',
-  label: {
-    pt: 'citações',
-    en: 'quotes'
-  },
-  Icon: QuoteIcon
-}, {
-  id: 'trabalhos',
-  label: {
-    pt: 'trabalhos',
-    en: 'works'
-  },
-  Icon: WorksIcon
-}, {
-  id: 'publicacoes',
-  label: {
-    pt: 'publicações',
-    en: 'publications'
-  },
-  Icon: FolderIcon
-}, {
-  id: 'ius',
-  label: {
-    pt: 'ius gentium',
-    en: 'ius gentium'
-  },
-  Icon: GroupIcon
-}, {
-  id: 'projetos',
-  label: {
-    pt: 'projetos.app',
-    en: 'projects.app'
-  },
-  Icon: FolderIcon
-}, {
-  id: 'orientador',
-  label: {
-    pt: 'orientador',
-    en: 'advisor'
-  },
-  Icon: DocIcon
-}, {
-  id: 'curriculo',
-  label: {
-    pt: 'currículo',
-    en: 'curriculum'
-  },
-  Icon: DocIcon
-}, {
-  id: 'perfil',
-  label: {
-    pt: 'perfil.card',
-    en: 'profile.card'
-  },
-  Icon: ImageIcon
-}, {
-  id: 'justitia',
-  label: {
-    pt: 'justitia.png',
-    en: 'justitia.png'
-  },
-  Icon: ImageIcon
-}, {
-  id: 'vo',
-  label: {
-    pt: 'vó.jpg',
-    en: 'grandma.jpg'
-  },
-  Icon: ImageIcon
-}, {
-  id: 'mae',
-  label: {
-    pt: 'mãe.jpg',
-    en: 'mom.jpg'
-  },
-  Icon: ImageIcon
-}, {
-  id: 'contato',
-  label: {
-    pt: 'contato',
-    en: 'contact'
-  },
-  Icon: MailIcon
-}, {
-  id: 'ampulheta',
-  label: {
-    pt: 'ampulheta.app',
-    en: 'hourglass.app'
-  },
-  Icon: HourglassIcon
-}, {
-  id: 'poster',
-  label: {
-    pt: 'tabula',
-    en: 'tabula'
-  },
-  Icon: AtlasIcon
-}];
-const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
+const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
     sobre: 'Sobre',
@@ -298,6 +123,7 @@ const MENU_LABEL = {
     conceitos: 'Conceitos',
     publicacoes: 'Perfis',
     projetos: 'Projetos',
+    poster: 'Tabula',
     orientador: 'Orientador',
     contato: 'Contato'
   },
@@ -307,6 +133,7 @@ const MENU_LABEL = {
     conceitos: 'Concepts',
     publicacoes: 'Profiles',
     projetos: 'Projects',
+    poster: 'Tabula',
     orientador: 'Advisor',
     contato: 'Contact'
   }
@@ -729,7 +556,6 @@ function Desktop({
     }];
   });
   const [zTop, setZTop] = React.useState(5);
-  const [sel, setSel] = React.useState(null);
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
   const [lang, setLang] = React.useState(() => {
@@ -826,7 +652,6 @@ function Desktop({
       window.location.href = '/perfil.html';
       return;
     }
-    setSel(id);
     setWins(ws => {
       const z = zTop;
       setZTop(p => p + 1);
@@ -851,9 +676,12 @@ function Desktop({
   };
   const close = id => {
     setWins(ws => ws.filter(w => w.id !== id));
-    setTimeout(() => document.querySelector(`[data-app-id="${id}"]`)?.focus({
-      preventScroll: true
-    }), 0);
+    setTimeout(() => {
+      const returnTarget = document.querySelector(`[data-app-id="${id}"]`) || document.getElementById('main');
+      returnTarget?.focus({
+        preventScroll: true
+      });
+    }, 0);
   };
   const minimize = id => setWins(ws => ws.map(w => w.id === id ? {
     ...w,
@@ -941,7 +769,6 @@ function Desktop({
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
-    onPointerDown: () => setSel(null),
     style: {
       position: 'fixed',
       inset: 0,
@@ -1088,93 +915,7 @@ function Desktop({
     }
   }, l.toUpperCase()))), !isMobile && /*#__PURE__*/React.createElement(Clock, {
     lang: lang
-  }))), /*#__PURE__*/React.createElement("div", {
-    style: isMobile ? {
-      position: 'absolute',
-      top: 58,
-      left: 0,
-      right: 0,
-      bottom: 54,
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(86px, 1fr))',
-      gap: 16,
-      padding: '20px 14px 28px',
-      zIndex: 1,
-      alignContent: 'start'
-    } : {
-      position: 'absolute',
-      top: 62,
-      left: 16,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 16,
-      zIndex: 1
-    }
-  }, DESK_ICONS.map(({
-    id,
-    label,
-    Icon
-  }) => {
-    const active = sel === id;
-    return /*#__PURE__*/React.createElement("button", {
-      key: id,
-      className: "desktop-icon",
-      "data-app-id": id,
-      onPointerDown: e => {
-        e.stopPropagation();
-        setSel(id);
-      },
-      onDoubleClick: () => open(id),
-      onClick: e => {
-        if (isMobile || e.detail === 0) open(id);
-      },
-      style: {
-        background: 'none',
-        border: 0,
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 5,
-        width: isMobile ? 'auto' : 84,
-        padding: 3
-      }
-    }, /*#__PURE__*/React.createElement("span", {
-      style: isMobile ? {
-        width: '100%',
-        height: 76,
-        background: 'color-mix(in srgb, var(--paper) 90%, transparent)',
-        backdropFilter: 'blur(1px)',
-        WebkitBackdropFilter: 'blur(1px)',
-        border: '1px solid var(--ink)',
-        borderRadius: 'var(--desktop-icon-radius)',
-        boxShadow: active ? 'var(--desktop-elevation-icon-active)' : 'var(--desktop-elevation-icon)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent',
-        outlineOffset: -3,
-        transition: 'box-shadow .1s ease'
-      } : {
-        padding: 3,
-        outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent',
-        outlineOffset: 1
-      }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      size: isMobile ? 46 : 44
-    })), /*#__PURE__*/React.createElement("span", {
-      style: {
-        fontSize: 12,
-        lineHeight: 1.2,
-        textAlign: 'center',
-        background: active ? 'var(--rubric)' : 'transparent',
-        color: active ? 'var(--paper)' : 'var(--ink)',
-        padding: '1px 5px'
-      }
-    }, label[lang]));
-  })), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
+  }))), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
     type: "button",
     "aria-label": lang === 'en' ? 'Close active window' : 'Fechar janela ativa',
     onClick: e => {

@@ -133,18 +133,15 @@ test.describe('Tier 1 - Feature Coverage', () => {
     expect(isRegistered).toBe(true);
   });
 
-  test('T1.F4.3: Verify icons.js contains a definition for the poster icon', async ({ page }) => {
-    await page.goto('/mesa/');
-    const posterIconExists = await page.evaluate(() => {
-      return typeof window.avapp?.AtlasIcon !== 'undefined' || typeof window.avapp?.DocIcon !== 'undefined';
-    });
-    expect(posterIconExists).toBe(true);
+  test('T1.F4.3: Verify the archive desktop publishes no launcher icon grid', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('.desktop-icon')).toHaveCount(0);
   });
 
-  test('T1.F4.4: Verify index.html (the Home Page) has the poster icon on the desktop', async ({ page }) => {
+  test('T1.F4.4: Verify index.html exposes Tabula through text navigation', async ({ page }) => {
     await page.goto('/');
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await expect(posterIcon).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Tabula', exact: true })).toBeVisible();
+    await expect(page.locator('.desktop-icon')).toHaveCount(0);
   });
 
   test('T1.F4.4b: Verify index.html does not reference the missing mother photo asset', async ({ page }) => {
@@ -156,15 +153,15 @@ test.describe('Tier 1 - Feature Coverage', () => {
     await expect(page.locator('a[href="/assets/mae.jpg"], img[src="/assets/mae.jpg"]')).toHaveCount(0);
   });
 
-  test('T1.F4.5: Verify double-clicking the poster icon on the desktop successfully creates a window container for poster', async ({ page }) => {
+  test('T1.F4.5: Verify activating the Tabula navigation control creates its window', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await expect(posterIcon).toBeVisible();
-    await posterIcon.dblclick();
+    const tabulaMenu = page.getByRole('button', { name: 'Tabula', exact: true });
+    await expect(tabulaMenu).toBeVisible();
+    await tabulaMenu.click();
     // Opening the window mounts the WPoster (tabula) plate
     const plate = page.locator('.poster-banner h1');
     await expect(plate.first()).toBeVisible();

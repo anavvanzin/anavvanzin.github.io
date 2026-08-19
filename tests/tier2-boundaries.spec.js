@@ -160,11 +160,9 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    // The desktop icon and the open window title bar both read "tabula";
-    // scope to the first match (the desktop icon).
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i }).first();
-    await posterIcon.dblclick();
-    await posterIcon.dblclick();
+    const tabulaMenu = page.getByRole('button', { name: 'Tabula', exact: true });
+    await tabulaMenu.click();
+    await tabulaMenu.click();
     await expect(page.locator('.poster-banner h1').first()).toBeVisible();
   });
 
@@ -174,8 +172,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     const tabulaWindow = page.locator('[data-window-id="poster"]');
     const titleBar = tabulaWindow.locator('button[aria-label="Fechar Janela"]').locator('xpath=..');
@@ -196,8 +193,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
     await expect(page.locator('.poster-banner h1')).toBeVisible();
 
     const tabulaWindow = page.locator('[data-window-id="poster"]');
@@ -215,8 +211,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     const teseTabs = page.locator('button', { hasText: /tese/i });
     await expect(teseTabs.first()).toBeVisible();
 
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     await expect(page.locator('button', { hasText: /tese/i }).first()).toBeVisible();
   });
@@ -227,8 +222,7 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     await page.setViewportSize({ width: 400, height: 600 });
     const win = page.locator('.poster-root-wrapper').or(page.locator('.poster-bezel-outer')).first();
