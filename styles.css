@@ -10,11 +10,9 @@
    Canonical source: tokens/source/mnemosyne-viva-design-tokens.json
    Tints are derived with color-mix so they follow the base automatically. */
 :root {
-  /* Force the warm-paper palette regardless of OS appearance: the whole site
-     is an illuminated-manuscript aesthetic and the home (index.html) has no
-     dark variant, so a dark override here made the site incoherent. Keeping
-     light also renders native controls/scrollbars on-palette. */
-  color-scheme: light;
+  /* Both appearances supported since 2026-08 (see dark block below).
+     color-scheme: light dark lets native controls/scrollbars follow. */
+  color-scheme: light dark;
 
   /* ---- Mnemosyne Viva canonical palette ---- */
   --ink: #111111;          /* preto de impressão — text, rules */
@@ -70,12 +68,42 @@
   --focus-ring: var(--rubric);
 }
 
-/* Dark-mode override removed 2026-06-26: it flipped --paper to near-black on the
-   ~55 pages that link styles.css, while the home (index.html, own inline tokens,
-   no dark block) stayed light — making the site look broken in dark mode. The
-   mesa icon tiles also bake in #EFE5CF paper padding, so a true dark theme would
-   need new assets + a home variant. Reinstate as a complete, coherent feature if
-   wanted. */
+/* ===== Dark mode — "sala de leitura à noite" (2026-08) =====
+   Full-site dark appearance, following the OS by default. Only the 10 base
+   tokens are redefined; every alias/derived tint (rubric, gold, ink-N,
+   paper-deep, semantic text/bg) recomputes automatically from them.
+   Manual override: <html data-theme="dark"> or "light" wins over the OS.
+   Note: --night deepens (footer/cabinet stay darker than the page ground);
+   the mesa icon tiles keep their baked cream padding by design — they read
+   as paper miniatures pinned to a dark desk. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #EDE4D3;          /* ivory ink — text, rules */
+  --paper: #15110E;        /* night ground */
+  --cream: #1F1A15;        /* panel surface, lifted from the ground */
+  --sienna: #C96F45;       /* accent brightened for contrast on dark */
+  --sienna-dark: #A85436;  /* hover — still luminous on dark */
+  --aged: #A68A64;         /* secondary voice, lifted */
+  --soft: #2A211A;         /* fills / hairline grounds */
+  --line: #D8CCB4;         /* rules */
+  --muted: #A89780;        /* meta text */
+  --night: #0D0A07;        /* footer / cabinet — darker than the page */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ink: #EDE4D3;
+    --paper: #15110E;
+    --cream: #1F1A15;
+    --sienna: #C96F45;
+    --sienna-dark: #A85436;
+    --aged: #A68A64;
+    --soft: #2A211A;
+    --line: #D8CCB4;
+    --muted: #A89780;
+    --night: #0D0A07;
+  }
+}
 
 
 /* ===== tokens/typography.css ===== */

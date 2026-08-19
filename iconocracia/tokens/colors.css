@@ -114,3 +114,51 @@
   --country-fr:#1D3A6E; --country-uk:#7C2D12; --country-de:#3A3A3A;
   --country-us:#2A4D7A; --country-be:#8A6D1F; --country-br:#2A7A5A;
 }
+
+/* ── Dark mode — "sala de leitura à noite" (2026-08) ─────────────────────
+   Follows the OS by default; <html data-theme="dark"|"light"> overrides.
+   Only the --mv-* base tokens flip — every alias recomputes from them.
+   The on-dark text tokens (--ivory, --ivory-light, --faded-on-dark,
+   --gold-bright) are pinned light because the cabinet chrome (--mv-night)
+   stays dark in both themes. --brand-indigo follows the ink so the
+   wordmark stays legible on dark grounds. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --mv-ink: #EDE4D3;
+  --mv-paper: #15110E;
+  --mv-cream: #1F1A15;
+  --mv-sienna: #C96F45;
+  --mv-sienna-dark: #A85436;
+  --mv-aged: #A68A64;
+  --mv-soft: #2A211A;
+  --mv-line: #D8CCB4;
+  --mv-muted: #A89780;
+  --mv-night: #0D0A07;
+  --ivory: #E8DDC8;
+  --ivory-light: #FAF6EB;
+  --faded-on-dark: #E8DDC8;
+  --gold-bright: color-mix(in srgb, var(--mv-ochre) 78%, #FFF9EF);
+  --brand-indigo: #EDE4D3;
+  --selection: color-mix(in srgb, var(--mv-sienna) 32%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --mv-ink: #EDE4D3;
+    --mv-paper: #15110E;
+    --mv-cream: #1F1A15;
+    --mv-sienna: #C96F45;
+    --mv-sienna-dark: #A85436;
+    --mv-aged: #A68A64;
+    --mv-soft: #2A211A;
+    --mv-line: #D8CCB4;
+    --mv-muted: #A89780;
+    --mv-night: #0D0A07;
+    --ivory: #E8DDC8;
+    --ivory-light: #FAF6EB;
+    --faded-on-dark: #E8DDC8;
+    --gold-bright: color-mix(in srgb, var(--mv-ochre) 78%, #FFF9EF);
+    --brand-indigo: #EDE4D3;
+    --selection: color-mix(in srgb, var(--mv-sienna) 32%, transparent);
+  }
+}
