@@ -171,11 +171,8 @@
   --desktop-ui-text: 0.84375rem;
   --desktop-window-title-text: 0.9375rem;
   --desktop-meta-text: 0.6875rem;
-  --desktop-icon-radius: var(--radius-1);
   --desktop-elevation-idle: 3px 3px 0 0 var(--ink-50);
   --desktop-elevation-active: 5px 5px 0 0 var(--ink);
-  --desktop-elevation-icon: 2px 2px 0 0 var(--ink);
-  --desktop-elevation-icon-active: 3px 3px 0 0 var(--rubric);
   --desktop-elevation-sheet: 0 -6px 0 0 var(--ink);
   --desktop-dock-rule: color-mix(in srgb, var(--paper) 35%, transparent);
   --desktop-hover-surface: var(--paper-deep);
@@ -209,7 +206,6 @@ a:focus-visible,
    bounds so dragging and window geometry never jump. */
 .window-control,
 .desktop-menu-item,
-.desktop-icon,
 .desktop-dock-item {
   transition: background-color var(--duration-ui) ease, box-shadow var(--duration-ui) ease, transform var(--duration-ui) ease;
 }
@@ -224,14 +220,6 @@ a:focus-visible,
 
 .desktop-menu-item:hover {
   box-shadow: inset 0 -3px 0 var(--ink-30);
-}
-
-.desktop-icon:hover > span {
-  transform: translate(-1px, -1px);
-}
-
-.desktop-icon:active > span {
-  transform: none;
 }
 
 .desktop-dock-item:hover {

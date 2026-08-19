@@ -20,6 +20,8 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('dialog')).toHaveCount(2);
   await expect(page.getByRole('dialog', { name: 'justitia.png' })).toBeVisible();
   await expect(page.getByRole('dialog', { name: 'projetos-vivos.app' })).toBeVisible();
+  await expect(page.locator('.desktop-icon')).toHaveCount(0);
+  await expect(page.locator('[data-app-id="radiografia"]')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -82,6 +84,7 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'grupoiusgentium.com.br' })).toBeVisible();
+  await expect(page.locator('.desktop-icon')).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -155,7 +158,7 @@ test('archive windows keep touch-sized controls and the minimize, drag, escape c
   await expect(launcher).toBeFocused();
 });
 
-test('closing a desktop window returns focus to its launcher', async ({ page }) => {
+test('closing a desktop window returns focus to its text navigation control', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 

@@ -28,8 +28,7 @@ test.describe('Tier 5 - Challenger 2 Adversarial Coverage Hardening', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     // The poster-root-container is the element with overflow-y/scroll inside the desktop window wrapper
     const rootContainer = page.locator('.poster-root-container');

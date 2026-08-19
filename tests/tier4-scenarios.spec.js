@@ -6,14 +6,13 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
     await page.addInitScript(() => { localStorage.setItem('av_booted', '1'); });
   });
 
-  test('T4.1: Scenario 1 (Full Poster Room Navigation): Full path from home page double-click icon -> open poster room -> hover poster (tactile scale) -> click poster (spring physics zoom) -> read content', async ({ page }) => {
+  test('T4.1: Scenario 1 (Full Poster Room Navigation): text navigation -> open poster room -> hover -> zoom -> read', async ({ page }) => {
     await page.goto('/mesa/');
     const enterBtn = page.locator('button', { hasText: /entrar/i });
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.hover();
@@ -53,8 +52,7 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
       await enterBtn.click();
     }
 
-    const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-    await posterIcon.dblclick();
+    await page.getByRole('button', { name: 'Tabula', exact: true }).click();
 
     const teseTitle = page.locator('button', { hasText: /tese/i }).first();
     await teseTitle.click();
