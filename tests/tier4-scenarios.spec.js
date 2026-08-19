@@ -12,14 +12,13 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
     const poster = page.locator('.poster, .poster-bezel-outer').first();
     await poster.hover();
     await poster.click();
-    
+
     const p = page.locator('.poster p, p.poster-p').first();
     await expect(p).toBeVisible();
   });
@@ -54,7 +53,6 @@ test.describe('Tier 4 - Real-World Application Scenarios', () => {
       await enterBtn.click();
     }
 
-    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 

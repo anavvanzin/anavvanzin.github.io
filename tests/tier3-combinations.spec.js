@@ -40,7 +40,6 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
-    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 

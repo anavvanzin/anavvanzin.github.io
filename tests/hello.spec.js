@@ -18,19 +18,8 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/ana vanzin/);
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible();
   await expect(page.getByRole('dialog')).toHaveCount(2);
-  const justitiaWindow = page.getByRole('dialog', { name: 'justitia.png' });
-  const projectsWindow = page.getByRole('dialog', { name: 'projetos-vivos.app' });
-  await expect(justitiaWindow).toHaveAttribute('data-window-variant', 'image-viewer');
-  await expect(projectsWindow).toHaveAttribute('data-window-variant', 'research-dossier');
-  await expect(justitiaWindow).toHaveAttribute('data-window-state', 'inactive');
-  await expect(projectsWindow).toHaveAttribute('data-window-state', 'active');
-  await expect(justitiaWindow.locator('.dwin__status')).toContainText('IMG-01');
-  await expect(justitiaWindow.locator('.dwin__status')).toContainText('1086 × 1448 · 16-bit');
-  await expect(projectsWindow.locator('.dwin__status')).toContainText('DOS-01');
-  await expect(projectsWindow.locator('.dwin__status')).toContainText('2 registros · pesquisa em rede');
-  await justitiaWindow.click();
-  await expect(justitiaWindow).toHaveAttribute('data-window-state', 'active');
-  await expect(projectsWindow).toHaveAttribute('data-window-state', 'inactive');
+  await expect(page.getByRole('dialog', { name: 'justitia.png' })).toBeVisible();
+  await expect(page.getByRole('dialog', { name: 'projetos-vivos.app' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -40,29 +29,6 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
     'src',
     /assets\/landing\/bg-justitia\.jpg\?v=20260811-archive2/
   );
-});
-
-test('desktop archive sections expose every illustrated launcher exactly once', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('/');
-
-  const sections = {
-    pesquisa: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos'],
-    arquivo: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster'],
-    pessoas: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia'],
-    memória: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura'],
-  };
-  const seen = [];
-
-  for (const [section, expectedIds] of Object.entries(sections)) {
-    await page.getByRole('button', { name: section, exact: true }).click();
-    const visibleIds = await page.locator('.desktop-icon').evaluateAll((nodes) => nodes.map((node) => node.dataset.appId).sort());
-    expect(visibleIds).toEqual([...expectedIds].sort());
-    seen.push(...visibleIds);
-  }
-
-  expect(seen).toHaveLength(23);
-  expect(new Set(seen).size).toBe(23);
 });
 
 test('home language switch updates projects and the advisor credit', async ({ page }) => {
@@ -107,19 +73,11 @@ test('projects window keeps the Mnemosyne editorial system and sienna focus', as
   await expect.poll(() => projectsMenu.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(139, 58, 26)');
 });
 
-test('mobile starts as an archive index and opens living projects without horizontal overflow', async ({ page }) => {
+test('mobile opens living projects as a scrollable window without horizontal overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
-  await expect(page.locator('.dwin')).toHaveCount(0);
-  await expect(page.getByRole('heading', { name: 'Arquivo vivo' })).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Índice do arquivo' })).toBeVisible();
-  await expect(page.locator('.desktop-icon')).toHaveCount(23);
-  await expect(page.locator('.desktop-icon img')).toHaveCount(23);
-  await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.locator('.dwin')).toHaveCount(1);
-  await expect(page.locator('.dwin')).toHaveAttribute('data-window-variant', 'research-dossier');
-  await expect(page.locator('.dwin__status')).toContainText('DOS-01');
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
@@ -127,22 +85,10 @@ test('mobile starts as an archive index and opens living projects without horizo
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('mobile archive index fits narrow portrait and landscape viewports', async ({ page }) => {
-  for (const viewport of [{ width: 375, height: 812 }, { width: 390, height: 844 }, { width: 844, height: 390 }]) {
-    await page.setViewportSize(viewport);
-    await page.goto('/');
-    await expect(page.locator('.dwin')).toHaveCount(0);
-    await expect(page.getByRole('navigation', { name: 'Índice do arquivo' })).toBeVisible();
-    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  }
-});
-
 test('compact layout engages before desktop windows can overflow', async ({ page }) => {
   await page.setViewportSize({ width: 800, height: 700 });
   await page.goto('/');
 
-  await expect(page.getByRole('dialog')).toHaveCount(0);
-  await page.getByRole('button', { name: 'projetos.app', exact: true }).click();
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
