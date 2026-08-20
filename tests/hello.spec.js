@@ -77,6 +77,8 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
+  // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
@@ -89,6 +91,8 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await page.setViewportSize({ width: 800, height: 700 });
   await page.goto('/');
 
+  // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

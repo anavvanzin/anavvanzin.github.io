@@ -8,6 +8,15 @@
     // Enables Node.js built-ins for any future Worker script / library use.
     "nodejs_compat"
   ],
+  // Memória mínima da mesa: worker.js só intercepta /_state; o resto são os assets.
+  "main": "worker.js",
+  "kv_namespaces": [
+    {
+      "binding": "MESAS",
+      // Namespace criado em 2026-08-20 via `npx wrangler kv namespace create MESAS`.
+      "id": "f68b5eef312746c794e86c37be7bf7e1"
+    }
+  ],
   // Logs + traces before production debugging is needed.
   "observability": {
     "enabled": true,

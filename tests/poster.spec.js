@@ -38,7 +38,8 @@ test('desktop app tabula window integration', async ({ page }) => {
     await enterBtn.click();
   }
 
-  // Find the tabula icon on desktop
+  // The poster icon lives in the archive section; switch to it first.
+  await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
   const posterIcon = page.locator('button', { hasText: /^tabula$/i });
   await expect(posterIcon).toBeVisible();
 
