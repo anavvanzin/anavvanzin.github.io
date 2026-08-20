@@ -56,6 +56,8 @@ package.json export-ignore
 package-lock.json export-ignore
 playwright.config.js export-ignore
 wrangler.jsonc export-ignore
+worker.js export-ignore
+worker-configuration.d.ts export-ignore
 vercel.json export-ignore
 tests export-ignore
 tests/** export-ignore

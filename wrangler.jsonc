@@ -3,9 +3,10 @@
   "name": "anavvanzin",
   // Bump deliberately after a local dry-run and a successful Workers build:
   // https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
-  "compatibility_date": "2026-08-11",
+  "compatibility_date": "2026-08-20",
   "compatibility_flags": [
     // Enables Node.js built-ins for any future Worker script / library use.
+    // Default for dates ≥ 2026-08-04; kept explicit for clarity.
     "nodejs_compat"
   ],
   // Memória mínima da mesa: worker.js só intercepta /_state; o resto são os assets.
@@ -37,10 +38,17 @@
     // the checkout directly keeps that default command self-contained;
     // .assetsignore is the publication boundary for tooling and large media.
     "directory": ".",
+    // Required for env.ASSETS.fetch() in worker.js (404-page / html_handling).
+    "binding": "ASSETS",
+    // Only /_state runs the Worker first; all other routes stay asset-first.
+    // https://developers.cloudflare.com/workers/static-assets/routing/worker-script/
+    "run_worker_first": [
+      "/_state"
+    ],
     // Serve directory pages (e.g. /iconocracia/index.html) at both /iconocracia
     // and /iconocracia/ without forcing a redirect — matches the site's mix of
     // /dir/ links and /file.html links. This is the Workers default, set
-    // explicitly so routing is not left implicit (it's a Worker, not a static host).
+    // explicitly so routing is not left implicit.
     "html_handling": "auto-trailing-slash",
     // Serve the custom 404.html on unknown routes. Without this the default is a
     // bare 404 and 404.html (with its "← ana vanzin" backlink) is never reached.
