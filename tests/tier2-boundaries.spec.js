@@ -160,6 +160,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    // The poster icon lives in the archive section; switch to it first.
+    await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
     // The desktop icon and the open window title bar both read "tabula";
     // scope to the first match (the desktop icon).
     const posterIcon = page.locator('button', { hasText: /^tabula$/i }).first();
@@ -174,6 +176,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    // The poster icon lives in the archive section; switch to it first.
+    await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
@@ -196,6 +200,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    // The poster icon lives in the archive section; switch to it first.
+    await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
     await expect(page.locator('.poster-banner h1')).toBeVisible();
@@ -215,6 +221,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     const teseTabs = page.locator('button', { hasText: /tese/i });
     await expect(teseTabs.first()).toBeVisible();
 
+    // The poster icon lives in the archive section; switch to it first.
+    await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 
@@ -227,6 +235,8 @@ test.describe('Tier 2 - Boundaries & Corner Cases', () => {
     if (await enterBtn.isVisible()) {
       await enterBtn.click();
     }
+    // The poster icon lives in the archive section; switch to it first.
+    await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
     const posterIcon = page.locator('button', { hasText: /^tabula$/i });
     await posterIcon.dblclick();
 

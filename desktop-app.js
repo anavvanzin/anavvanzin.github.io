@@ -66,7 +66,13 @@ const REG = {
       pt: 'projetos-vivos.app',
       en: 'living-projects.app'
     },
-    w: 560,
+    w: 600,
+    variant: 'research-dossier',
+    recordCode: 'DOS-01',
+    status: {
+      pt: '2 registros · pesquisa em rede',
+      en: '2 records · research network'
+    },
     Body: WProjects
   },
   orientador: {
@@ -90,7 +96,13 @@ const REG = {
       pt: 'justitia.png',
       en: 'justitia.png'
     },
-    w: 360,
+    w: 380,
+    variant: 'image-viewer',
+    recordCode: 'IMG-01',
+    status: {
+      pt: '1086 × 1448 · 16-bit · imagem de trabalho',
+      en: '1086 × 1448 · 16-bit · working image'
+    },
     Body: WJustitia
   },
   vo: {
@@ -290,6 +302,92 @@ const DESK_ICONS = [{
   },
   Icon: AtlasIcon
 }];
+const ICON_TILES = {
+  sobre: '/assets/icons/sobre.webp',
+  tese: '/assets/icons/metodologia.webp',
+  conceitos: '/assets/icons/conceitos.webp',
+  iconocracia: '/assets/icons/iconocracia.webp',
+  radiografia: '/assets/icons/radiografia.webp',
+  marginalia: '/assets/icons/marginalia.webp',
+  atlas: '/assets/icons/atlas.webp',
+  'sala-de-leitura': '/assets/icons/sala.webp',
+  advocacia: '/assets/icons/advocacia.webp',
+  quotes: '/assets/icons/citacoes.webp',
+  trabalhos: '/assets/icons/trabalhos.webp',
+  publicacoes: '/assets/icons/publicacoes.webp',
+  ius: '/assets/icons/ius-gentium-v1.png',
+  projetos: '/assets/icons/projetos-vivos-v1.png',
+  orientador: '/assets/icons/orientador-v1.png',
+  curriculo: '/assets/icons/curriculo.webp',
+  perfil: '/assets/icons/perfil.webp',
+  justitia: '/assets/icons/justitia.webp',
+  vo: '/assets/icons/vo.webp',
+  mae: '/assets/mae/mae-icon.jpg',
+  contato: '/assets/icons/contato-v1.png',
+  ampulheta: '/assets/icons/ampulheta-v1.png',
+  poster: '/assets/icons/tabula-v1.png'
+};
+// Ficha flutuante (preview card que segue o cursor): código de registro +
+// rubrica com nome humano por ícone. Ícones com entrada no REG reaproveitam
+// o recordCode já existente; os demais ganham códigos no mesmo padrão.
+const FICHA = {
+  sobre: { code: 'SOB-01', human: { pt: 'Apresentação', en: 'Introduction' } },
+  tese: { code: 'DOS-02', human: { pt: 'Doutorado · PPGD/UFSC', en: 'PhD · PPGD/UFSC' } },
+  conceitos: { code: 'LEX-01', human: { pt: 'Léxico iconocrático', en: 'Iconocratic lexicon' } },
+  iconocracia: { code: 'ATL-01', human: { pt: 'Atlas da pesquisa', en: 'Research atlas' } },
+  radiografia: { code: 'RAD-01', human: { pt: 'Raio-x do site', en: 'Site x-ray' } },
+  marginalia: { code: 'MAR-01', human: { pt: 'Notas de margem', en: 'Marginal notes' } },
+  atlas: { code: 'ATL-02', human: { pt: 'Painéis warburguianos', en: 'Warburgian panels' } },
+  'sala-de-leitura': { code: 'SAL-01', human: { pt: 'Bibliografia comentada', en: 'Annotated bibliography' } },
+  advocacia: { code: 'ADV-01', human: { pt: 'Prática jurídica', en: 'Legal practice' } },
+  quotes: { code: 'CIT-01', human: { pt: 'Citações recolhidas', en: 'Collected quotes' } },
+  trabalhos: { code: 'TRB-01', human: { pt: 'Ensaios e papers', en: 'Essays and papers' } },
+  publicacoes: { code: 'PUB-01', human: { pt: 'Perfis acadêmicos', en: 'Academic profiles' } },
+  ius: { code: 'GIG · EXT', human: { pt: 'Grupo de pesquisa', en: 'Research group' } },
+  projetos: { code: 'DOS-01', human: { pt: 'Pesquisa em rede', en: 'Networked research' } },
+  orientador: { code: 'ORI-01', human: { pt: 'Cartas de orientação', en: 'Supervision letters' } },
+  curriculo: { code: 'CV-01', human: { pt: 'Trajetória', en: 'Track record' } },
+  perfil: { code: 'PRF-01', human: { pt: 'Quem escreve', en: 'The author' } },
+  justitia: { code: 'IMG-01', human: { pt: 'Alegoria da Justiça', en: 'Allegory of Justice' } },
+  vo: { code: 'IMG-02', human: { pt: 'Arquivo de família', en: 'Family archive' } },
+  mae: { code: 'IMG-03', human: { pt: 'Arquivo de família', en: 'Family archive' } },
+  contato: { code: 'CTT-01', human: { pt: 'Escreva-me', en: 'Write to me' } },
+  ampulheta: { code: 'TMP-01', human: { pt: 'Ensaio sobre o tempo', en: 'Essay on time' } },
+  poster: { code: 'TAB-01', human: { pt: 'Painel-síntese', en: 'Synthesis panel' } }
+};
+const DESK_GROUPS = [{
+  id: 'pesquisa',
+  label: {
+    pt: 'pesquisa',
+    en: 'research'
+  },
+  tile: '/assets/icons/iconocracia.webp',
+  ids: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos']
+}, {
+  id: 'arquivo',
+  label: {
+    pt: 'arquivo',
+    en: 'archive'
+  },
+  tile: '/assets/icons/publicacoes.webp',
+  ids: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster']
+}, {
+  id: 'pessoas',
+  label: {
+    pt: 'pessoas',
+    en: 'people'
+  },
+  tile: '/assets/icons/perfil.webp',
+  ids: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia']
+}, {
+  id: 'memoria',
+  label: {
+    pt: 'memória',
+    en: 'memory'
+  },
+  tile: '/assets/icons/justitia.webp',
+  ids: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura']
+}];
 const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
@@ -395,6 +493,8 @@ function TitleBar({
   onDown,
   titleId,
   lang,
+  variant = 'standard',
+  recordCode,
   draggable = true,
   isPoster = false
 }) {
@@ -418,7 +518,11 @@ function TitleBar({
     opacity: active ? 0.9 : 0,
     minWidth: 12
   };
+  const activeSurface = variant === 'research-dossier' ? 'linear-gradient(to bottom, var(--paper) 0 68%, var(--paper-deep) 68% 100%)' : variant === 'image-viewer' ? 'linear-gradient(to bottom, var(--paper) 0 72%, var(--cream) 72% 100%)' : 'var(--paper)';
   return /*#__PURE__*/React.createElement("div", {
+    className: "dwin__titlebar",
+    "data-titlebar-variant": variant,
+    "data-titlebar-state": active ? 'active' : 'inactive',
     onPointerDown: draggable ? onDown : undefined,
     style: {
       display: 'flex',
@@ -426,8 +530,9 @@ function TitleBar({
       gap: 3,
       height: 'var(--desktop-titlebar-height)',
       padding: '0 3px',
-      background: 'var(--paper)',
-      borderBottom: '1px solid var(--ink)',
+      background: active ? activeSurface : 'var(--paper)',
+      borderBottom: active ? '2px solid var(--rubric)' : '1px solid var(--ink-50)',
+      boxSizing: 'border-box',
       cursor: draggable ? 'grab' : 'default',
       userSelect: 'none',
       touchAction: 'none',
@@ -438,7 +543,23 @@ function TitleBar({
     active: active,
     onClick: onClose,
     label: isPoster ? (active ? labels.close : labels.closeInactive) : labels.close
-  }), /*#__PURE__*/React.createElement("div", {
+  }), recordCode && /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    className: "dwin__record-code",
+    style: {
+      minWidth: 43,
+      padding: '3px 5px 2px',
+      border: '1px solid var(--ink-50)',
+      background: active ? 'var(--ink)' : 'var(--paper-deep)',
+      color: active ? 'var(--paper)' : 'var(--text-faint)',
+      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+      fontSize: 9,
+      fontWeight: 700,
+      lineHeight: 1,
+      letterSpacing: '0.08em',
+      textAlign: 'center'
+    }
+  }, recordCode), /*#__PURE__*/React.createElement("div", {
     style: flank
   }), /*#__PURE__*/React.createElement("span", {
     id: titleId,
@@ -464,6 +585,44 @@ function TitleBar({
     }
   })));
 }
+function WindowStatus({
+  reg,
+  lang
+}) {
+  if (!reg.recordCode || !reg.status) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "dwin__status",
+    "aria-label": lang === 'en' ? 'Archive record status' : 'Estado do registro de arquivo',
+    style: {
+      minHeight: 30,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      padding: '5px 10px',
+      borderTop: '1px solid var(--ink)',
+      background: 'var(--paper-deep)',
+      color: 'var(--text-faint)',
+      fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+      fontSize: 'var(--desktop-meta-text)',
+      lineHeight: 1.2,
+      letterSpacing: '0.035em'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rubric)',
+      fontWeight: 700,
+      whiteSpace: 'nowrap'
+    }
+  }, reg.recordCode), /*#__PURE__*/React.createElement("span", {
+    style: {
+      overflow: 'hidden',
+      textAlign: 'right',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    }
+  }, reg.status[lang] || reg.status.pt));
+}
 function WindowFrame({
   win,
   active,
@@ -477,6 +636,8 @@ function WindowFrame({
   const reg = REG[win.id];
   const Body = reg.Body;
   const titleId = `window-title-${win.id}`;
+  const variant = reg.variant || 'standard';
+  const archiveInterior = variant === 'image-viewer' || variant === 'research-dossier';
   const frame = isMobile ? {
     position: 'fixed',
     left: 0,
@@ -495,16 +656,18 @@ function WindowFrame({
     width: winW(win.id),
     zIndex: win.z,
     background: 'var(--paper)',
-    border: '1px solid var(--ink)',
-    boxShadow: active ? 'var(--desktop-elevation-active)' : 'var(--desktop-elevation-idle)'
+    border: active ? '1px solid var(--ink)' : '1px solid var(--ink-50)',
+    boxShadow: active ? 'inset 0 0 0 1px var(--rubric), var(--desktop-elevation-active)' : 'var(--desktop-elevation-idle)'
   };
   return /*#__PURE__*/React.createElement("div", {
     onPointerDown: () => onFocus(win.id),
-    className: "dwin",
+    className: `dwin dwin--${variant}`,
     role: "dialog",
     "aria-labelledby": titleId,
     "aria-modal": isMobile || undefined,
     "data-window-id": win.id,
+    "data-window-variant": variant,
+    "data-window-state": active || isMobile ? 'active' : 'inactive',
     tabIndex: -1,
     style: frame
   }, isMobile && /*#__PURE__*/React.createElement("div", {
@@ -525,20 +688,26 @@ function WindowFrame({
     titleId: titleId,
     lang: lang,
     active: active || isMobile,
+    variant: variant,
+    recordCode: reg.recordCode,
     onClose: () => onClose(win.id),
     onMin: () => onMin(win.id),
     onDown: e => onDragStart(e, win.id),
     draggable: !isMobile,
     isPoster: win.id === 'poster'
   }), /*#__PURE__*/React.createElement("div", {
+    className: "dwin__body",
     style: {
-      padding: win.id === 'justitia' ? 12 : (win.id === 'ampulheta' ? 16 : 22),
+      padding: archiveInterior ? 0 : win.id === 'ampulheta' ? 16 : 22,
       maxHeight: isMobile ? '64vh' : '58vh',
       overflow: 'auto'
     }
   }, /*#__PURE__*/React.createElement(Body, {
     lang: lang
-  })));
+  })), /*#__PURE__*/React.createElement(WindowStatus, {
+    reg: reg,
+    lang: lang
+  }));
 }
 function Clock({
   lang
@@ -691,6 +860,145 @@ function Boot({
     }
   }, u.enter))));
 }
+// Ficha de preview que acompanha o cursor sobre os ícones da mesa.
+// Estrutura: barra com código de registro / poço de imagem escuro com o tile /
+// rodapé com nome humano + "abrir ↗". pointer-events: none — nunca intercepta
+// o clique do ícone. Posição interpolada (lerp .16) via requestAnimationFrame.
+function PeekCard({
+  peek,
+  show,
+  posRef,
+  lang
+}) {
+  const elRef = React.useRef(null);
+  const cur = React.useRef(null);
+  React.useEffect(() => {
+    let raf = 0;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      const el = elRef.current;
+      if (!el) return;
+      const t = posRef.current;
+      if (!cur.current) cur.current = {
+        x: t.x,
+        y: t.y
+      };
+      cur.current.x += (t.x - cur.current.x) * 0.16;
+      cur.current.y += (t.y - cur.current.y) * 0.16;
+      const w = 250,
+        h = 226;
+      const x = Math.min(cur.current.x + 22, window.innerWidth - w - 12);
+      const y = Math.min(cur.current.y + 18, window.innerHeight - h - 12);
+      el.style.transform = `translate(${x}px, ${y}px) scale(${show ? 1 : .96})`;
+      el.style.opacity = show ? '1' : '0';
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [show, posRef]);
+  if (!peek) return null;
+  const meta = FICHA[peek.id] || {};
+  const reg = REG[peek.id];
+  const tile = ICON_TILES[peek.id];
+  const icon = DESK_ICONS.find(i => i.id === peek.id);
+  const file = reg ? regTitle(peek.id, lang) : (icon ? icon.label[lang] || icon.label.pt : peek.id) + '/';
+  const human = meta.human ? meta.human[lang] || meta.human.pt : '';
+  return /*#__PURE__*/React.createElement("div", {
+    ref: elRef,
+    "aria-hidden": true,
+    style: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 50000,
+      width: 250,
+      pointerEvents: 'none',
+      background: 'var(--paper)',
+      border: '1.5px solid var(--ink)',
+      boxShadow: '6px 6px 0 rgba(17,17,17,.28)',
+      opacity: 0,
+      transform: 'translate(-9999px, -9999px)',
+      transition: 'opacity .18s cubic-bezier(.23,.34,.18,1), transform .18s cubic-bezier(.23,.34,.18,1)',
+      willChange: 'transform, opacity'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      height: 26,
+      padding: '0 8px',
+      borderBottom: '1px solid var(--ink)',
+      background: 'var(--paper)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 8.5,
+      fontWeight: 700,
+      letterSpacing: '0.12em',
+      color: 'var(--paper)',
+      background: 'var(--ink)',
+      padding: '2px 5px',
+      whiteSpace: 'nowrap'
+    }
+  }, meta.code || (reg && reg.recordCode) || ''), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      textAlign: 'center',
+      fontSize: 12,
+      color: 'var(--ink)',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    }
+  }, file), /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 12,
+      height: 12,
+      border: '1px solid var(--ink)',
+      boxSizing: 'border-box',
+      flex: '0 0 12px'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 150,
+      overflow: 'hidden',
+      position: 'relative',
+      background: 'var(--ink)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, tile && /*#__PURE__*/React.createElement("img", {
+    src: tile,
+    alt: "",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'baseline',
+      gap: 8,
+      padding: '6px 8px 7px',
+      fontSize: 8.5,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: 'var(--ink)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rubric)',
+      fontWeight: 700,
+      letterSpacing: '0.06em',
+      textTransform: 'none',
+      fontSize: 10.5
+    }
+  }, human), /*#__PURE__*/React.createElement("span", null, lang === 'en' ? 'open ↗' : 'abrir ↗')));
+}
 function Desktop({
   skipBoot = false
 } = {}) {
@@ -704,13 +1012,9 @@ function Desktop({
   });
   const [wins, setWins] = React.useState(() => {
     const mob = typeof window !== 'undefined' && (mobForced() || window.matchMedia('(max-width: 1024px)').matches);
-    if (mob) return [{
-      id: 'projetos',
-      x: 0,
-      y: 0,
-      z: 2,
-      min: false
-    }];
+    // On compact screens the desk becomes an archive index; a record opens only
+    // after its row is chosen, instead of presenting a desktop window by default.
+    if (mob) return [];
     const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
     const projectsX = Math.max(460, viewportWidth - REG.projetos.w - 24);
     const justitiaX = Math.max(100, projectsX - REG.justitia.w - 26);
@@ -730,8 +1034,34 @@ function Desktop({
   });
   const [zTop, setZTop] = React.useState(5);
   const [sel, setSel] = React.useState(null);
+  const [activeDeskGroup, setActiveDeskGroup] = React.useState('pesquisa');
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
+  /* ---- mesa persistente (KV via /_state) — acréscimo puro; sem KV, comportamento idêntico ---- */
+  const mesaId = React.useMemo(() => {
+    try {
+      const q = new URLSearchParams(location.search).get('mesa');
+      if (q && /^[\w-]{3,40}$/.test(q)) return q; // mesa curada via URL (?mesa=curada-banca)
+      const m = document.cookie.match(/(?:^|;\s*)mesa_id=([\w-]+)/);
+      if (m) return m[1];
+      const novo = 'm' + Math.random().toString(36).slice(2, 12);
+      document.cookie = 'mesa_id=' + novo + '; max-age=7776000; path=/; samesite=lax';
+      return novo;
+    } catch (e) {
+      return null;
+    }
+  }, []);
+  const restored = React.useRef(false);
+  const skipSave = React.useRef(true);
+  // ficha flutuante: ícone sob o cursor + posição do mouse (ref, sem re-render)
+  const [peek, setPeek] = React.useState(null);
+  const [peekShow, setPeekShow] = React.useState(false);
+  const peekPos = React.useRef({
+    x: 0,
+    y: 0
+  });
+  const selectedDeskGroup = DESK_GROUPS.find(group => group.id === activeDeskGroup) || DESK_GROUPS[0];
+  const iconsInView = isMobile ? DESK_ICONS : DESK_ICONS.filter(icon => selectedDeskGroup.ids.includes(icon.id));
   const [lang, setLang] = React.useState(() => {
     try {
       const s = localStorage.getItem('av_lang');
@@ -749,6 +1079,60 @@ function Desktop({
   React.useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+  // Restaura a mesa salva (apenas desktop, após boot, uma única vez).
+  // Escolha local de idioma (localStorage) vence o KV; janelas validadas contra REG.
+  React.useEffect(() => {
+    if (!mesaId || isMobile || !booted || restored.current) return;
+    restored.current = true;
+    fetch('/_state?id=' + mesaId).then(r => r.json()).then(s => {
+      if (!s || !Array.isArray(s.janelas) || !s.janelas.length) return;
+      const ok = s.janelas.filter(j => j && typeof j.id === 'string' && REG[j.id] && Number.isFinite(j.x) && Number.isFinite(j.y));
+      if (!ok.length) return;
+      setWins(ok.map((j, i) => ({
+        id: j.id,
+        x: j.x,
+        y: j.y,
+        z: i + 2,
+        min: false
+      })));
+      setZTop(ok.length + 2);
+      let local = null;
+      try {
+        local = localStorage.getItem('av_lang');
+      } catch (e) {}
+      if (!local && (s.lang === 'pt' || s.lang === 'en')) setLangP(s.lang);
+    }).catch(() => {}).finally(() => {
+      // primeira gravação só depois da tentativa de restauração
+      setTimeout(() => {
+        skipSave.current = false;
+      }, 0);
+    });
+  }, [mesaId, isMobile, booted]);
+  // Salva a mesa com debounce de 500 ms; nunca grava o estado de fábrica antes de restaurar.
+  const saveT = React.useRef(null);
+  React.useEffect(() => {
+    if (!mesaId || isMobile || !booted || skipSave.current) return;
+    clearTimeout(saveT.current);
+    saveT.current = setTimeout(() => {
+      fetch('/_state?id=' + mesaId, {
+        method: 'PUT',
+        body: JSON.stringify({
+          v: 1,
+          lang,
+          janelas: wins.map(({
+            id,
+            x,
+            y
+          }) => ({
+            id,
+            x,
+            y
+          }))
+        })
+      }).catch(() => {});
+    }, 500);
+    return () => clearTimeout(saveT.current);
+  }, [wins, lang, booted, mesaId, isMobile]);
   const enter = () => {
     setBooted(true);
     try {
@@ -959,9 +1343,9 @@ function Desktop({
     style: {
       position: 'absolute',
       left: isMobile ? 'auto' : '6%',
-      right: isMobile ? '-28%' : 'auto',
+      right: isMobile ? '-46%' : 'auto',
       bottom: isMobile ? 48 : 36,
-      height: isMobile ? '84%' : '91%',
+      height: isMobile ? '66%' : '91%',
       width: 'auto',
       maxWidth: isMobile ? 'none' : '58%',
       objectFit: 'contain',
@@ -984,8 +1368,8 @@ function Desktop({
       borderBottom: '1px solid var(--ink)',
       display: 'flex',
       alignItems: 'center',
-      gap: 16,
-      padding: '0 16px',
+      gap: isMobile ? 10 : 16,
+      padding: isMobile ? '0 12px' : '0 16px',
       zIndex: 9000
     }
   }, /*#__PURE__*/React.createElement("span", {
@@ -1008,7 +1392,16 @@ function Desktop({
       border: '1px solid var(--ink)',
       flexShrink: 0
     }
-  }), !isMobile && /*#__PURE__*/React.createElement("span", {
+  }), isMobile ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontWeight: 700,
+      fontSize: 11,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      whiteSpace: 'nowrap'
+    }
+  }, "ana vanzin") : /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: 'var(--font-display)',
       fontWeight: 600,
@@ -1016,13 +1409,13 @@ function Desktop({
       letterSpacing: '0.02em',
       whiteSpace: 'nowrap'
     }
-  }, "ana vanzin")), /*#__PURE__*/React.createElement("span", {
+  }, "ana vanzin")), !isMobile && /*#__PURE__*/React.createElement("span", {
     style: {
       width: 1,
       height: 16,
       background: 'var(--rule-hairline)'
     }
-  }), /*#__PURE__*/React.createElement("nav", {
+  }), !isMobile && /*#__PURE__*/React.createElement("nav", {
     "aria-label": lang === 'en' ? 'Main navigation' : 'Navega\xE7\xE3o principal',
     style: {
       display: 'flex',
@@ -1089,35 +1482,119 @@ function Desktop({
   }, l.toUpperCase()))), !isMobile && /*#__PURE__*/React.createElement(Clock, {
     lang: lang
   }))), /*#__PURE__*/React.createElement("div", {
+    role: isMobile ? 'navigation' : undefined,
+    "aria-label": isMobile ? lang === 'en' ? 'Archive index' : 'Índice do arquivo' : undefined,
     style: isMobile ? {
       position: 'absolute',
-      top: 58,
+      top: 46,
       left: 0,
       right: 0,
       bottom: 54,
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(86px, 1fr))',
-      gap: 16,
-      padding: '20px 14px 28px',
+      gridTemplateColumns: '1fr',
+      gap: 8,
+      padding: '26px 16px 32px',
       zIndex: 1,
       alignContent: 'start'
     } : {
       position: 'absolute',
       top: 62,
       left: 16,
+      width: 168,
       display: 'flex',
       flexDirection: 'column',
-      gap: 16,
+      gap: 6,
       zIndex: 1
     }
-  }, DESK_ICONS.map(({
+  }, !isMobile && /*#__PURE__*/React.createElement("div", {
+    role: "group",
+    "aria-label": lang === 'en' ? 'Desktop archive sections' : 'Seções do arquivo na mesa',
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+      gap: 4,
+      marginBottom: 4
+    }
+  }, DESK_GROUPS.map(group => /*#__PURE__*/React.createElement("button", {
+    key: group.id,
+    type: "button",
+    "aria-pressed": activeDeskGroup === group.id,
+    "aria-label": group.label[lang],
+    onPointerDown: e => e.stopPropagation(),
+    onClick: () => setActiveDeskGroup(group.id),
+    title: group.label[lang],
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 2,
+      width: '100%',
+      minWidth: 0,
+      minHeight: 52,
+      padding: '4px 2px 3px',
+      border: activeDeskGroup === group.id ? '1.5px solid var(--rubric)' : '1px solid var(--ink)',
+      background: activeDeskGroup === group.id ? 'var(--paper)' : 'color-mix(in srgb, var(--paper) 72%, transparent)',
+      boxShadow: activeDeskGroup === group.id ? 'var(--desktop-elevation-icon-active)' : 'var(--desktop-elevation-icon)',
+      cursor: 'pointer'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: group.tile,
+    alt: "",
+    width: 30,
+    height: 30,
+    style: {
+      width: 30,
+      height: 30,
+      objectFit: 'cover',
+      imageRendering: 'auto'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 7.5,
+      fontWeight: 700,
+      letterSpacing: '0.08em',
+      textTransform: 'uppercase',
+      lineHeight: 1.2,
+      textAlign: 'center',
+      color: 'var(--ink)'
+    }
+  }, group.label[lang])))), !isMobile && /*#__PURE__*/React.createElement("div", {
+    "aria-live": "polite",
+    style: {
+      margin: '-1px 0 3px',
+      color: 'var(--rubric)',
+      fontSize: 9,
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: '0.12em',
+      textAlign: 'center',
+      textTransform: 'uppercase',
+      textShadow: '0 1px var(--paper)'
+    }
+  }, selectedDeskGroup.label[lang]), isMobile && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '4px 4px 16px',
+      textShadow: '0 1px var(--paper)'
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      margin: '7px 0 5px',
+      fontFamily: 'var(--font-display)',
+      fontSize: 38,
+      lineHeight: .95,
+      fontWeight: 600,
+      letterSpacing: '-0.025em'
+    }
+  }, "ana vanzin")), iconsInView.map(({
     id,
     label,
     Icon
   }) => {
     const active = sel === id;
+    const tile = ICON_TILES[id];
     return /*#__PURE__*/React.createElement("button", {
       key: id,
       className: "desktop-icon",
@@ -1125,7 +1602,27 @@ function Desktop({
       onPointerDown: e => {
         e.stopPropagation();
         setSel(id);
+        setPeekShow(false);
       },
+      onPointerEnter: e => {
+        if (isMobile || e.pointerType !== 'mouse') return;
+        peekPos.current = {
+          x: e.clientX,
+          y: e.clientY
+        };
+        setPeek({
+          id
+        });
+        setPeekShow(true);
+      },
+      onPointerMove: e => {
+        if (isMobile) return;
+        peekPos.current = {
+          x: e.clientX,
+          y: e.clientY
+        };
+      },
+      onPointerLeave: () => setPeekShow(false),
       onDoubleClick: () => open(id),
       onClick: e => {
         if (isMobile || e.detail === 0) open(id);
@@ -1135,16 +1632,20 @@ function Desktop({
         border: 0,
         cursor: 'pointer',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
-        gap: 5,
-        width: isMobile ? 'auto' : 84,
-        padding: 3
+        justifyContent: 'flex-start',
+        gap: isMobile ? 12 : 10,
+        width: '100%',
+        minHeight: isMobile ? 'var(--desktop-hit-target)' : undefined,
+        padding: isMobile ? 6 : '3px 4px',
+        textAlign: 'left'
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: isMobile ? {
-        width: '100%',
-        height: 76,
+        width: 54,
+        height: 54,
+        flex: '0 0 54px',
         background: 'color-mix(in srgb, var(--paper) 90%, transparent)',
         backdropFilter: 'blur(1px)',
         WebkitBackdropFilter: 'blur(1px)',
@@ -1158,20 +1659,36 @@ function Desktop({
         outlineOffset: -3,
         transition: 'box-shadow .1s ease'
       } : {
-        padding: 3,
+        flex: '0 0 52px',
+        padding: 2,
         outline: active ? '1.5px solid var(--rubric)' : '1.5px solid transparent',
         outlineOffset: 1
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      size: isMobile ? 46 : 44
+    }, tile ? /*#__PURE__*/React.createElement("img", {
+      src: tile,
+      alt: "",
+      width: isMobile ? 54 : 52,
+      height: isMobile ? 54 : 52,
+      style: {
+        width: isMobile ? 54 : 52,
+        height: isMobile ? 54 : 52,
+        objectFit: 'cover',
+        imageRendering: 'auto',
+        filter: isMobile ? 'none' : 'drop-shadow(1px 2px 1px rgba(17,17,17,.35))'
+      }
+    }) : /*#__PURE__*/React.createElement(Icon, {
+      size: isMobile ? 34 : 36
     })), /*#__PURE__*/React.createElement("span", {
       style: {
-        fontSize: 12,
+        fontFamily: isMobile ? 'var(--font-display)' : 'var(--font-body)',
+        fontSize: isMobile ? 18 : 12,
         lineHeight: 1.2,
-        textAlign: 'center',
+        textAlign: 'left',
         background: active ? 'var(--rubric)' : 'transparent',
         color: active ? 'var(--paper)' : 'var(--ink)',
-        padding: '1px 5px'
+        padding: isMobile ? '5px 8px' : '1px 4px',
+        flex: 1,
+        textShadow: isMobile ? undefined : '0 1px var(--paper)'
       }
     }, label[lang]));
   })), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
@@ -1201,7 +1718,12 @@ function Desktop({
     onDragStart: dragStart,
     lang: lang,
     isMobile: isMobile
-  })), /*#__PURE__*/React.createElement("div", {
+  })), !isMobile && /*#__PURE__*/React.createElement(PeekCard, {
+    peek: peek,
+    show: peekShow,
+    posRef: peekPos,
+    lang: lang
+  }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
       left: 0,
