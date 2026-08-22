@@ -1,6 +1,7 @@
 # Cloudflare Workers static-asset headers.
 # https://developers.cloudflare.com/workers/static-assets/headers/
-# Applied only to asset responses (this Worker has no `main` script).
+# Applied to asset responses. Dynamic /_state (worker.js) sets its own
+# Cache-Control; these rules do not rewrite that JSON endpoint.
 
 /*
   X-Content-Type-Options: nosniff

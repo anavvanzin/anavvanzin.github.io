@@ -32,6 +32,9 @@ FORBIDDEN=(
   "package-lock.json"
   "playwright.config.js"
   "wrangler.jsonc"
+  "vercel.json"
+  "worker.js"
+  "worker-configuration.d.ts"
 )
 for rel in "${FORBIDDEN[@]}"; do
   if [[ -e "${DEST}/${rel}" ]]; then
