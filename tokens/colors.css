@@ -125,15 +125,15 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --mv-ink: #EDE4D3;
-  --mv-paper: #15110E;
-  --mv-cream: #1F1A15;
+  --mv-paper: #1C1712;
+  --mv-cream: #26201A;
   --mv-sienna: #C96F45;
   --mv-sienna-dark: #A85436;
   --mv-aged: #A68A64;
-  --mv-soft: #2A211A;
+  --mv-soft: #322820;
   --mv-line: #D8CCB4;
   --mv-muted: #A89780;
-  --mv-night: #0D0A07;
+  --mv-night: #14100C;
   --ivory: #E8DDC8;
   --ivory-light: #FAF6EB;
   --faded-on-dark: #E8DDC8;
@@ -145,15 +145,15 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --mv-ink: #EDE4D3;
-    --mv-paper: #15110E;
-    --mv-cream: #1F1A15;
+    --mv-paper: #1C1712;
+    --mv-cream: #26201A;
     --mv-sienna: #C96F45;
     --mv-sienna-dark: #A85436;
     --mv-aged: #A68A64;
-    --mv-soft: #2A211A;
+    --mv-soft: #322820;
     --mv-line: #D8CCB4;
     --mv-muted: #A89780;
-    --mv-night: #0D0A07;
+    --mv-night: #14100C;
     --ivory: #E8DDC8;
     --ivory-light: #FAF6EB;
     --faded-on-dark: #E8DDC8;

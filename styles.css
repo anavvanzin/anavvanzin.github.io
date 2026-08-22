@@ -79,29 +79,29 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
   --ink: #EDE4D3;          /* ivory ink — text, rules */
-  --paper: #15110E;        /* night ground */
-  --cream: #1F1A15;        /* panel surface, lifted from the ground */
+  --paper: #1C1712;        /* night ground */
+  --cream: #26201A;        /* panel surface, lifted from the ground */
   --sienna: #C96F45;       /* accent brightened for contrast on dark */
   --sienna-dark: #A85436;  /* hover — still luminous on dark */
   --aged: #A68A64;         /* secondary voice, lifted */
-  --soft: #2A211A;         /* fills / hairline grounds */
+  --soft: #322820;         /* fills / hairline grounds */
   --line: #D8CCB4;         /* rules */
   --muted: #A89780;        /* meta text */
-  --night: #0D0A07;        /* footer / cabinet — darker than the page */
+  --night: #14100C;        /* footer / cabinet — darker than the page */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --ink: #EDE4D3;
-    --paper: #15110E;
-    --cream: #1F1A15;
+    --paper: #1C1712;
+    --cream: #26201A;
     --sienna: #C96F45;
     --sienna-dark: #A85436;
     --aged: #A68A64;
-    --soft: #2A211A;
+    --soft: #322820;
     --line: #D8CCB4;
     --muted: #A89780;
-    --night: #0D0A07;
+    --night: #14100C;
   }
 }
 
