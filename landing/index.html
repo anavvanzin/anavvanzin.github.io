@@ -18,6 +18,28 @@
     --body:'DM Sans',Arial,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
   }
+  /* dark mode — mesa à noite; follows OS, <html data-theme> overrides */
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --paper:#1C1712; --paper-card:#26201A; --ink:#EDE4D3;
+    --rubric:#C96F45; --amethyst:#A68A64;
+    --rule:color-mix(in srgb, var(--ink) 22%, var(--paper));
+    --hard:4px 4px 0 rgba(237,228,211,.14);
+    --hard-sm:3px 3px 0 rgba(237,228,211,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme:dark;
+      --paper:#1C1712; --paper-card:#26201A; --ink:#EDE4D3;
+      --rubric:#C96F45; --amethyst:#A68A64;
+      --rule:color-mix(in srgb, var(--ink) 22%, var(--paper));
+      --hard:4px 4px 0 rgba(237,228,211,.14);
+      --hard-sm:3px 3px 0 rgba(237,228,211,.14);
+    }
+    :root:not([data-theme="light"]) body{
+      background-image:radial-gradient(rgba(237,228,211,.05) .5px, transparent .5px);
+    }
+  }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{

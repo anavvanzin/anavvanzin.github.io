@@ -21,6 +21,26 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  /* dark mode — follows OS, <html data-theme> overrides */
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ink: #EDE4D3;
+    --paper: #1C1712;
+    --paper-card: #26201A;
+    --rubric: #C96F45;
+    --gold-soft: color-mix(in srgb, var(--gold) 16%, var(--paper));
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ink: #EDE4D3;
+      --paper: #1C1712;
+      --paper-card: #26201A;
+      --rubric: #C96F45;
+      --gold-soft: color-mix(in srgb, var(--gold) 16%, var(--paper));
+    }
+  }
+
   body::before {
     content: "";
     position: fixed;
@@ -273,9 +293,12 @@
   const ctx = canvas.getContext('2d');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const darkMode = document.documentElement.dataset.theme === 'dark' ||
+    (document.documentElement.dataset.theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
   const C = {
-    ink: '#111111',
-    rubric: '#8B3A1A',
+    ink: darkMode ? '#EDE4D3' : '#111111',
+    rubric: darkMode ? '#C96F45' : '#8B3A1A',
     gold: '#D4AF37',
     gold2: '#D4AF37'
   };
