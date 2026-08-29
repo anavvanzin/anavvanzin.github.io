@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal academic site for Ana Vanzin (anavanzin.com) — the ICONOCRACIA / *Iuris Memoria* doctoral project (PPGD/UFSC). It is a **static site with no build step**: plain HTML + CSS + pre-compiled React. The main React surfaces (`/mesa/`, `poster.html`) load self-hosted React 18 production builds from `/vendor/react/`; only some sub-sites (`iconocracia/atlas*`, `manifesto/`) load React + Babel from a CDN. Editing an HTML/CSS/JS file is reflected on the next browser reload. Most content is in Portuguese; the desktop shell is bilingual (`{ lang }` prop, `'pt' | 'en'`).
+Personal academic site for Ana Vanzin (anavanzin.com) — the ICONOCRACIA / *Iuris Memoria* doctoral project (PPGD/UFSC). It is a **static site with no build step**: plain HTML + CSS + pre-compiled React. The main React surfaces (`/mesa/`, `poster.html`, `manifesto/`) load self-hosted React 18 production builds from `/vendor/react/`; the `iconocracia/` sub-sites load React from the unpkg CDN but still run **pre-compiled `.js`**. The only page using in-browser Babel/JSX is the nested `manifesto/manifesto/`. Editing an HTML/CSS/JS file is reflected on the next browser reload. Most content is in Portuguese; the desktop shell is bilingual (`{ lang }` prop, `'pt' | 'en'`).
 
 ## Commands
 
@@ -41,11 +41,11 @@ The repo-root `index.html` is the home page — a **static editorial "mesa" page
 - `_ds_bundle.js` — the design-system component bundle, exposed as `window.AnaVanzinDesignSystem_b45a86`.
 - `styles.css` + `tokens/` — design tokens (colors, typography, spacing) and global styles.
 
-**To add a new desktop window** you must wire several places (the tier-1 tests assert exactly this wiring): the body component registered on `window.avapp` (in `window-contents.js`, or in its own file added to `mesa/index.html`'s script list *before* `desktop-app.js`), a `REG` entry in `desktop-app.js`, an icon in `icons.js`, and — if it should also be reachable from the home page — an `a.icon` entry in the root `index.html` grid. When editing an existing window, check which file actually registers it (e.g. `WPoster` is in `WPoster.js`, not `window-contents.js`).
+**To add a new desktop window** you must wire several places (the tier-1 tests assert exactly this wiring): the body component registered on `window.avapp` (in `window-contents.js`, or in its own file added to `mesa/index.html`'s script list *before* `desktop-app.js`), a `REG` entry **plus a `DESK_ICONS` entry and the window's id in a `DESK_GROUPS` entry's `ids`** in `desktop-app.js` (`DESK_ICONS` is what renders desktop icons on `/mesa/`, but on non-mobile layout icons are filtered through the selected `DESK_GROUPS` group — an id absent from every group never renders, so the window would be launchable only on mobile), an icon component in `icons.js`, and — if it should also be reachable from the home page — an `a.icon` entry in the root `index.html` grid. When editing an existing window, check which file actually registers it (e.g. `WPoster` is in `WPoster.js`, not `window-contents.js`).
 
 ### Standalone pages and sub-sites
 
-Self-contained sections with their own entry points, largely independent of the desktop shell: `iconocracia/` (thesis atlas + atlas-lab, own `styles.css`/`tokens/`), `manifesto/`, `mesa/`, `malleus/`, `marginalia/`, `atlas/`, plus single pages like `poster.html`, `ampulheta.html`, `conceitos.html`, `trabalhos.html`, `perfil.html`, `mae.html`. Sub-sites may contain `.jsx` loaded via CDN Babel — the no-Babel rule applies to the root desktop shell only.
+Self-contained sections with their own entry points, largely independent of the desktop shell: `iconocracia/` (thesis atlas + atlas-lab, own `styles.css`/`tokens/`), `manifesto/`, `mesa/`, `malleus/`, `marginalia/`, `atlas/`, plus single pages like `poster.html`, `ampulheta.html`, `conceitos.html`, `trabalhos.html`, `perfil.html`, `mae.html`. Sub-site `.jsx` files are **sources for pre-compiled `.js` twins** (see Rules below), not runtime code — editing a `.jsx` alone changes nothing in the browser. The one exception loading `.jsx` via CDN Babel at runtime is the nested `manifesto/manifesto/` page.
 
 `.agents/` and the various `*_REQUEST.md` / handoff markdown files at the root are working notes from previous agent sessions, not site content — but note they are tracked and therefore deployed (see Deployment).
 
