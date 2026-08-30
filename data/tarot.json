@@ -1,0 +1,52 @@
+[
+  {
+    "id": "justica",
+    "title": "Justiça",
+    "number": "I",
+    "image": "./assets/tarot/justica.png",
+    "hue": 40,
+    "description": "A Justiça surge como uma soberana serena do equilíbrio: o ideal de que o julgamento deve pesar os atos com simetria, contenção e razão pública.",
+    "history": "Na iconografia jurídica, a Justiça herda as traditions clássica e medieval em que a mulher com balança e espada encarna a legitimidade da adjudicação e a promessa de igual medida perante a lei.",
+    "meaning": "Academicamente, a Justiça marca a tensão entre a igualdade formal e a desigualdade material, questionando se o direito pode ser imparcial sem se tornar cego às estruturas sociais."
+  },
+  {
+    "id": "liberdade",
+    "title": "Liberdade",
+    "number": "II",
+    "image": "./assets/tarot/liberdade.png",
+    "hue": 15,
+    "description": "A Liberdade é a figura do movimento, do sopro e do devir cívico — um corpo que recusa o enclausuramento e insiste na autodeterminação coletiva.",
+    "history": "Dos emblemas revolucionários aos selos republicanos, a Liberdade serviu como alegoria feminina da emancipação, da ruptura constitucional e do direito de aparecer em público como sujeito político.",
+    "meaning": "Na leitura teórica, a Liberdade nunca é apenas uma condition individual; ela nomeia os arranjos institucionais e materiais que tornam a liberdade real, frágil e contestada."
+  },
+  {
+    "id": "republica",
+    "title": "República",
+    "number": "III",
+    "image": "./assets/tarot/republica.png",
+    "hue": 110,
+    "description": "A República ergue-se como a figura disciplinada da vida comum, onde a autoridade é imaginada como algo compartilhado, não herdada como propriedade privada.",
+    "history": "As repúblicas modernas frequentemente adotaram personificações femininas para sinalizar a esfera pública, a virtude cívica e a abstração da nação como um corpo maior do que qualquer governante.",
+    "meaning": "A força acadêmica da República reside no lembrete de que a forma política é tanto simbólica quanto constitucional: uma república deve narrar continuamente quem pertence ao povo."
+  },
+  {
+    "id": "lei",
+    "title": "Lei",
+    "number": "IV",
+    "image": "./assets/tarot/lei.png",
+    "hue": 205,
+    "description": "A Lei aparece como a arquitetura da ordem — não apenas um livro de regras, mas uma linguagem cultural que molda o que pode ser reconhecido, reivindicado ou punido.",
+    "history": "Na imagética jurídica, a Lei muitas vezes toma emprestada a alegoria feminina para tornar visível a normatividade abstrata, apresentando a legalidade como um poder solene e civilizador.",
+    "meaning": "Uma leitura reflexiva enxerga a Lei como habilitadora e restritiva: ela distribui autoridade enquanto também revela as exclusões ocultas em todo sistema de classificação."
+  },
+  {
+    "id": "verdade",
+    "title": "Verdade",
+    "number": "V",
+    "image": "./assets/tarot/verdade.png",
+    "hue": 270,
+    "description": "A Verdade é a carta mais elusiva: luminosa, severa e avessa à adulação, sugere a revelação como uma exigência ética.",
+    "history": "A Verdade há muito é imaginada como uma mulher que revela o que está oculto, vinculando a cultura jurídica aos ideais probatórios, à confissão, à prova e à encenação pública dos fatos.",
+    "meaning": "Em termos acadêmicos, a Verdade nunca é um ponto final neutro. Ela é produzida por meio de instituições, arquivos, discursos e conflitos — e permanece vulnerável ao poder."
+  }
+]
