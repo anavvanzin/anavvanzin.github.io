@@ -12,7 +12,8 @@ const {
   WVo,
   WMae,
   WAmpulheta,
-  WPoster
+  WPoster,
+  WTarot
 } = window.avapp;
 const ADVISOR_SITE_URL = 'https://anavanzin.com/arno-dal-ri-site/';
 const REG = {
@@ -112,10 +113,19 @@ const REG = {
     w: 860,
     h: 640,
     Body: WPoster
+  },
+  tarot: {
+    title: {
+      pt: 'tarot.app',
+      en: 'tarot.app'
+    },
+    w: 800,
+    h: 600,
+    Body: WTarot
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
-const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'orientador', 'contato'];
+const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
     sobre: 'Sobre',
@@ -124,6 +134,7 @@ const MENU_LABEL = {
     publicacoes: 'Perfis',
     projetos: 'Projetos',
     poster: 'Tabula',
+    tarot: 'Tarô Dialético',
     orientador: 'Orientador',
     contato: 'Contato'
   },
@@ -134,6 +145,7 @@ const MENU_LABEL = {
     publicacoes: 'Profiles',
     projetos: 'Projects',
     poster: 'Tabula',
+    tarot: 'Dialectical Tarot',
     orientador: 'Advisor',
     contato: 'Contact'
   }
