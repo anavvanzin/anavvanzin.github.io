@@ -33,8 +33,17 @@ export default {
       }
 
       if (req.method === 'PUT') {
+        // Require Content-Length so chunked / unbounded bodies cannot bypass the
+        // 4 KB cap (Workers 128 MB limit — never buffer unknown size).
         const cl = req.headers.get('content-length');
-        if (cl !== null && Number(cl) > MAX_BYTES) {
+        if (cl === null || cl === '') {
+          return new Response('content-length required', { status: 411 });
+        }
+        const declared = Number(cl);
+        if (!Number.isFinite(declared) || declared < 0) {
+          return new Response('bad content-length', { status: 400 });
+        }
+        if (declared > MAX_BYTES) {
           return new Response('too big', { status: 413 });
         }
         // Bounded payload (≤ 4 KB): safe to buffer after Content-Length gate.
