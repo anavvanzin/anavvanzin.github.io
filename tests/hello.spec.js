@@ -79,6 +79,8 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
+  // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
@@ -92,6 +94,8 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await page.setViewportSize({ width: 800, height: 700 });
   await page.goto('/');
 
+  // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -230,3 +234,24 @@ test('profile drag bar does not trap touch scrolling on mobile', async ({ page }
 
   await expect.poll(() => page.locator('#bar').evaluate((element) => getComputedStyle(element).touchAction)).toBe('auto');
 });
+
+for (const entry of ['/', '/mesa/']) {
+  test(`tarot opens from text navigation at ${entry} on compact screens`, async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => localStorage.setItem('av_booted', '1'));
+    await page.goto(entry);
+    await page.getByRole('button', { name: 'Tarô Dialético', exact: true }).click();
+    const tarot = page.getByRole('dialog', { name: 'tarot.app' });
+    await expect(tarot).toBeVisible();
+    await expect(tarot.locator('.tarot-card')).toHaveCount(5);
+    await expect.poll(() => tarot.locator('.tarot-card img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
+    await tarot.locator('.tarot-card').nth(0).click();
+    await tarot.locator('.tarot-card').nth(1).click();
+    await expect(tarot.locator('.tarot-tension')).toBeVisible();
+    await expect(tarot.locator('.tarot-evidence-card').first()).toBeVisible();
+    expect(pageErrors).toEqual([]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}

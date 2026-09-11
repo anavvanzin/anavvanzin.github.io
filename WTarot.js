@@ -2,6 +2,8 @@
   const { createElement: el, useState, useEffect } = React;
   const L = (lang, pt, en) => lang === 'en' ? en : pt;
 
+  const siteAsset = path => path ? new URL(path, window.location.origin + '/').href : undefined;
+
   // Dialectical Tarot Component
   function WTarot({ lang, onClose }) {
     const [deck, setDeck] = useState([]);
@@ -11,8 +13,8 @@
 
     useEffect(() => {
       Promise.all([
-        fetch('./data/tarot.json').then(r => r.json()),
-        fetch('./data/corpus.json').then(r => r.json())
+        fetch('/data/tarot.json').then(r => r.json()),
+        fetch('/data/corpus.json').then(r => r.json())
       ]).then(([tarotData, corpusData]) => {
         setDeck(tarotData);
         setCorpus(corpusData);
@@ -81,7 +83,7 @@
         el("div", { className: "tarot-evidence-grid" },
           evidence.map(item => el("div", { key: item.id, className: "tarot-evidence-card" },
             el("div", { className: "tarot-evidence-img" }, 
-              el("img", { src: (item.files && item.files[0]) ? item.files[0].path : '', alt: item.title })
+              el("img", { src: siteAsset((item.files && item.files[0]) ? item.files[0].path : ''), alt: item.title })
             ),
             el("h4", null, item.title),
             el("p", null, (item.longDescription || item.shortDescription || '').substring(0, 100) + '...')
@@ -108,14 +110,14 @@
         },
           el("div", { className: "tarot-card-inner" },
             el("div", { className: "tarot-card-front" },
-              el("img", { src: card.image, alt: card.title }),
+              el("img", { src: siteAsset(card.image), alt: card.title }),
               el("div", { className: "tarot-card-label" },
                 el("span", { className: "tarot-card-num" }, card.number),
                 el("span", { className: "tarot-card-title" }, card.title)
               )
             ),
             el("div", { className: "tarot-card-back" },
-              el("img", { src: "./assets/tarot/card_back.png", alt: "Back" })
+              el("img", { src: "/assets/tarot/card_back.png", alt: "Back" })
             )
           )
         ))

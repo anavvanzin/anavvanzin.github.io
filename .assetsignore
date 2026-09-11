@@ -61,6 +61,8 @@ package.json
 package-lock.json
 playwright.config.js
 wrangler.jsonc
+worker.js
+worker-configuration.d.ts
 vercel.json
 take_screenshots.py
 WindowContents.js
@@ -77,3 +79,25 @@ assets/wallpaper-engine-ukiyo-e-flowing-topography-1779795277375 (1).mp4
 assets/tropical_iconocracy_conference.mp4
 assets/tropical_iconocracy_conference_v2.mp4
 assets/tropical_iconocracy_vertical_v2.mp4
+
+# Handoff/agent working files and oversize archives — not site content.
+_handoff
+_handoff/**
+kimi
+kimi/**
+kimi.zip
+Kimi_Agent_Anavanzin Site Improvements
+Kimi_Agent_Anavanzin Site Improvements/**
+Kimi_Agent_Anavanzin Site Improvements.zip
+Kimi_Agent_Anavanzin Site Improvements 2
+Kimi_Agent_Anavanzin Site Improvements 2/**
+.mesa-backup
+.mesa-backup/**
+correcao-icones-desktop.patch.txt
+desktop-app-corrigido.js.txt
+Branch · Display names para Ana.pdf
+assets/anavanzin_site_asset_pack.zip
+
+# Archived migration tooling and source captures are not website assets.
+quotes/forum-migration
+quotes/forum-migration/**
