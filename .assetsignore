@@ -97,3 +97,7 @@ correcao-icones-desktop.patch.txt
 desktop-app-corrigido.js.txt
 Branch · Display names para Ana.pdf
 assets/anavanzin_site_asset_pack.zip
+
+# Archived migration tooling and source captures are not website assets.
+quotes/forum-migration
+quotes/forum-migration/**

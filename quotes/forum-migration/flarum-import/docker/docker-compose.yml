@@ -1,0 +1,60 @@
+version: "3.8"
+
+# Ambiente de teste local: Flarum + MariaDB + Nginx
+# Uso:
+#   cd ~/Projects/forum-migration/flarum-import/docker
+#   docker compose up -d
+#   # Aguarde ~2 min para instalação
+#   # Acesse http://localhost:8080
+#   # Configure o fórum (título, banco, etc.)
+#   # Depois: crie uma API Key no banco para rodar o importador
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: flarum-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: flarum_root_pass
+      MYSQL_DATABASE: flarum
+      MYSQL_USER: flarum
+      MYSQL_PASSWORD: flarum_pass
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  flarum:
+    image: mondedie/flarum:latest
+    container_name: flarum-app
+    restart: unless-stopped
+    environment:
+      FORUM_URL: http://localhost:8080
+      DB_HOST: mariadb
+      DB_NAME: flarum
+      DB_USER: flarum
+      DB_PASS: flarum_pass
+      DB_PREF: flarum_
+      DB_PORT: 3306
+    volumes:
+      - flarum_data:/flarum/app
+    ports:
+      - "8080:8888"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  db_data:
+  flarum_data:

@@ -38,13 +38,11 @@ test('desktop app tabula window integration', async ({ page }) => {
     await enterBtn.click();
   }
 
-  // The poster icon lives in the archive section; switch to it first.
-  await page.getByRole('button', { name: /^(arquivo|archive)$/i }).click();
-  const posterIcon = page.locator('button', { hasText: /^tabula$/i });
-  await expect(posterIcon).toBeVisible();
+  // Tabula remains available through the text navigation without a desktop icon.
+  const tabulaMenu = page.getByRole('button', { name: 'Tabula', exact: true });
+  await expect(tabulaMenu).toBeVisible();
 
-  // Double click the icon to open the window
-  await posterIcon.dblclick();
+  await tabulaMenu.click();
 
   // Verify the window is open
   const win = page.locator('.dwin', { hasText: /tabula/i });

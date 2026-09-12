@@ -20,6 +20,8 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.getByRole('dialog')).toHaveCount(2);
   await expect(page.getByRole('dialog', { name: 'justitia.png' })).toBeVisible();
   await expect(page.getByRole('dialog', { name: 'projetos-vivos.app' })).toBeVisible();
+  await expect(page.locator('.desktop-icon')).toHaveCount(0);
+  await expect(page.locator('[data-app-id="radiografia"]')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://anavanzin.com/arno-dal-ri-site/'
@@ -84,6 +86,7 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'grupoiusgentium.com.br' })).toBeVisible();
+  await expect(page.locator('.desktop-icon')).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -159,7 +162,7 @@ test('archive windows keep touch-sized controls and the minimize, drag, escape c
   await expect(launcher).toBeFocused();
 });
 
-test('closing a desktop window returns focus to its launcher', async ({ page }) => {
+test('closing a desktop window returns focus to its text navigation control', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
@@ -231,3 +234,24 @@ test('profile drag bar does not trap touch scrolling on mobile', async ({ page }
 
   await expect.poll(() => page.locator('#bar').evaluate((element) => getComputedStyle(element).touchAction)).toBe('auto');
 });
+
+for (const entry of ['/', '/mesa/']) {
+  test(`tarot opens from text navigation at ${entry} on compact screens`, async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(() => localStorage.setItem('av_booted', '1'));
+    await page.goto(entry);
+    await page.getByRole('button', { name: 'Tarô Dialético', exact: true }).click();
+    const tarot = page.getByRole('dialog', { name: 'tarot.app' });
+    await expect(tarot).toBeVisible();
+    await expect(tarot.locator('.tarot-card')).toHaveCount(5);
+    await expect.poll(() => tarot.locator('.tarot-card img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
+    await tarot.locator('.tarot-card').nth(0).click();
+    await tarot.locator('.tarot-card').nth(1).click();
+    await expect(tarot.locator('.tarot-tension')).toBeVisible();
+    await expect(tarot.locator('.tarot-evidence-card').first()).toBeVisible();
+    expect(pageErrors).toEqual([]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}

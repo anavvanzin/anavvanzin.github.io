@@ -75,3 +75,7 @@ WindowContents.js export-ignore
 test-dropcap.js export-ignore
 apresentacao-slide1.png export-ignore
 malleus_index_screenshot.png export-ignore
+
+# Preserve migration sources in Git without publishing them as site assets.
+quotes/forum-migration export-ignore
+quotes/forum-migration/** export-ignore
