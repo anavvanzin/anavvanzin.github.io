@@ -387,6 +387,65 @@ function CloseBox({
     }
   });
 }
+function TarotIcon({
+  size = 46
+}) {
+  /* Dialectical Tarot — five cards fan-style */
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 48 48",
+    style: _crisp,
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "6",
+    y: "14",
+    width: "18",
+    height: "26",
+    transform: "rotate(-15 15 27)",
+    fill: "var(--paper-deep)",
+    stroke: "var(--ink)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "24",
+    y: "14",
+    width: "18",
+    height: "26",
+    transform: "rotate(15 33 27)",
+    fill: "var(--paper-deep)",
+    stroke: "var(--ink)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "15",
+    y: "10",
+    width: "18",
+    height: "28",
+    fill: "var(--paper)",
+    stroke: "var(--ink)",
+    strokeWidth: "1.6"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "24",
+    cy: "20",
+    r: "5",
+    fill: "var(--rubric)",
+    stroke: "var(--ink)",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "19",
+    y1: "30",
+    x2: "29",
+    y2: "30",
+    stroke: "var(--ink-50)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "19",
+    y1: "33",
+    x2: "26",
+    y2: "33",
+    stroke: "var(--ink-50)",
+    strokeWidth: "1.2"
+  }));
+}
 function HourglassIcon({
   size = 46
 }) {
@@ -445,6 +504,7 @@ function HourglassIcon({
     fill: "var(--rubric)"
   }));
 }
+
 Object.assign(window.avapp = window.avapp || {}, {
   FolderIcon,
   DocIcon,
@@ -456,6 +516,7 @@ Object.assign(window.avapp = window.avapp || {}, {
   AtlasIcon,
   WorksIcon,
   CloseBox,
-  HourglassIcon
+  HourglassIcon,
+  TarotIcon
 });
 })();
