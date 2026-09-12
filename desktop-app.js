@@ -137,27 +137,29 @@ const REG = {
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
-const MENUS = ['sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
+const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
+    intro: 'Intro',
     sobre: 'Sobre',
     tese: 'Tese',
     conceitos: 'Conceitos',
     publicacoes: 'Perfis',
     projetos: 'Projetos',
     poster: 'Tabula',
-    tarot: 'Tarô Dialético',
+    tarot: 'Tarô',
     orientador: 'Orientador',
     contato: 'Contato'
   },
   en: {
+    intro: 'Intro',
     sobre: 'About',
     tese: 'Thesis',
     conceitos: 'Concepts',
     publicacoes: 'Profiles',
     projetos: 'Projects',
     poster: 'Tabula',
-    tarot: 'Dialectical Tarot',
+    tarot: 'Tarot',
     orientador: 'Advisor',
     contato: 'Contact'
   }
@@ -384,7 +386,8 @@ function WindowFrame({
   onFocus,
   onDragStart,
   lang,
-  isMobile
+  isMobile,
+  navigationOpen = false
 }) {
   const reg = REG[win.id];
   const Body = reg.Body;
@@ -417,7 +420,7 @@ function WindowFrame({
     className: `dwin dwin--${variant}`,
     role: "dialog",
     "aria-labelledby": titleId,
-    "aria-modal": isMobile || undefined,
+    "aria-modal": (isMobile && !navigationOpen) || undefined,
     "data-window-id": win.id,
     "data-window-variant": variant,
     "data-window-state": active || isMobile ? 'active' : 'inactive',
@@ -451,7 +454,7 @@ function WindowFrame({
   }), /*#__PURE__*/React.createElement("div", {
     className: "dwin__body",
     style: {
-      padding: archiveInterior ? 0 : win.id === 'ampulheta' ? 16 : 22,
+      padding: archiveInterior || win.id === 'tarot' ? 0 : win.id === 'ampulheta' ? 16 : 22,
       maxHeight: isMobile ? '64vh' : '58vh',
       overflow: 'auto'
     }
@@ -648,6 +651,7 @@ function Desktop({
   const [zTop, setZTop] = React.useState(5);
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   /* ---- mesa persistente (KV via /_state) — acréscimo puro; sem KV, comportamento idêntico ---- */
   const mesaId = React.useMemo(() => {
     try {
@@ -760,6 +764,7 @@ function Desktop({
     focusWindowElement(id);
   };
   const open = id => {
+    if (id === 'intro') { window.location.href = '/intro/'; return; }
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
       return;
@@ -883,12 +888,12 @@ function Desktop({
   const visible = wins.filter(w => !w.min);
   const topId = visible.reduce((a, w) => !a || w.z > a.z ? w : a, null)?.id;
   React.useEffect(() => {
-    if (!isMobile || !topId) return undefined;
+    if (!isMobile || !topId || mobileMenuOpen) return undefined;
     const activeWindow = document.querySelector(`[data-window-id="${topId}"]`);
     if (!activeWindow) return undefined;
-    activeWindow.focus({
-      preventScroll: true
-    });
+    if (document.activeElement?.id !== 'desktop-menu-toggle') {
+      activeWindow.focus({ preventScroll: true });
+    }
     const keepFocusInside = e => {
       if (e.key !== 'Tab') return;
       const focusable = [...activeWindow.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter(element => element.getClientRects().length > 0);
@@ -911,10 +916,12 @@ function Desktop({
     };
     window.addEventListener('keydown', keepFocusInside);
     return () => window.removeEventListener('keydown', keepFocusInside);
-  }, [isMobile, topId]);
+  }, [isMobile, topId, mobileMenuOpen]);
   React.useEffect(() => {
     const onKeyDown = e => {
-      if (e.key !== 'Escape' || !topId) return;
+      if (e.key !== 'Escape') return;
+      if (mobileMenuOpen) { setMobileMenuOpen(false); document.getElementById('desktop-menu-toggle')?.focus(); return; }
+      if (!topId) return;
       // Tabula owns Escape so its poster can leave zoom mode without the
       // desktop manager dismissing the enclosing window in the same event.
       if (topId === 'poster') return;
@@ -925,7 +932,7 @@ function Desktop({
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isMobile, topId]);
+  }, [isMobile, topId, mobileMenuOpen]);
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
@@ -973,7 +980,7 @@ function Desktop({
       alignItems: 'center',
       gap: isMobile ? 10 : 16,
       padding: isMobile ? '0 12px' : '0 16px',
-      zIndex: 9000
+      zIndex: isMobile ? 20000 : 9000
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -1009,22 +1016,30 @@ function Desktop({
       height: 16,
       background: 'var(--rule-hairline)'
     }
-  }), /*#__PURE__*/React.createElement("nav", {
+  }), isMobile && React.createElement("button", {
+    id: "desktop-menu-toggle", type: "button",
+    "aria-expanded": mobileMenuOpen, "aria-controls": "desktop-navigation",
+    onClick: () => setMobileMenuOpen(value => !value),
+    style: { minHeight: 44, padding: "0 14px", border: "1px solid var(--ink)", background: "var(--paper)", color: "var(--ink)", font: "inherit", cursor: "pointer" }
+  }, mobileMenuOpen ? (lang === "en" ? "Close menu" : "Fechar menu") : "Menu"), /*#__PURE__*/React.createElement("nav", {
+    id: "desktop-navigation",
     "aria-label": lang === 'en' ? 'Main navigation' : 'Navega\xE7\xE3o principal',
     style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: isMobile ? 13 : 16,
-      overflowX: isMobile ? 'auto' : 'hidden',
-      flex: isMobile ? 1 : '0 1 auto',
-      minWidth: 0
+      display: isMobile && !mobileMenuOpen ? 'none' : 'flex',
+      position: isMobile ? 'absolute' : 'static',
+      top: isMobile ? '100%' : undefined, left: isMobile ? 0 : undefined, right: isMobile ? 0 : undefined,
+      flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : 'center',
+      padding: isMobile ? '12px 20px' : 0, background: 'var(--paper)',
+      borderBottom: isMobile ? '1px solid var(--ink)' : undefined,
+      maxHeight: isMobile ? 'calc(100dvh - 100px)' : undefined, overflowY: isMobile ? 'auto' : undefined,
+      gap: isMobile ? 0 : 16, flex: '0 1 auto', minWidth: 0
     }
   }, MENUS.map(id => /*#__PURE__*/React.createElement("button", {
     key: id,
     className: "desktop-menu-item",
     "data-app-id": id,
     onPointerDown: e => e.stopPropagation(),
-    onClick: () => open(id),
+    onClick: () => { setMobileMenuOpen(false); open(id); },
     style: {
       background: 'none',
       border: 0,
@@ -1034,7 +1049,8 @@ function Desktop({
       fontSize: 'var(--desktop-ui-text)',
       color: 'var(--ink)',
       minHeight: 'var(--desktop-hit-target)',
-      padding: '7px 2px',
+      padding: isMobile ? '12px 8px' : '7px 2px',
+      textAlign: 'left',
       whiteSpace: 'nowrap',
       borderBottom: topId === id ? '1.5px solid var(--rubric)' : '1.5px solid transparent'
     }
@@ -1101,7 +1117,8 @@ function Desktop({
     onFocus: focus,
     onDragStart: dragStart,
     lang: lang,
-    isMobile: isMobile
+    isMobile: isMobile,
+    navigationOpen: mobileMenuOpen
   })), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
