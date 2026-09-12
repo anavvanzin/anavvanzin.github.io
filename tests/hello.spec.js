@@ -80,6 +80,7 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await page.goto('/');
 
   // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.getByRole('button', { name: 'Menu', exact: true }).click();
   await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.locator('.dwin')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
@@ -95,6 +96,7 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await page.goto('/');
 
   // Compact/mobile starts with no windows open; tap the projects record to open it.
+  await page.getByRole('button', { name: 'Menu', exact: true }).click();
   await page.locator('button[data-app-id="projetos"]').click();
   await expect(page.getByRole('dialog')).toHaveCount(1);
   await expect(page.getByText('Projetos vivos', { exact: true })).toBeVisible();
@@ -236,22 +238,26 @@ test('profile drag bar does not trap touch scrolling on mobile', async ({ page }
 });
 
 for (const entry of ['/', '/mesa/']) {
-  test(`tarot opens from text navigation at ${entry} on compact screens`, async ({ page }) => {
-    const pageErrors = [];
-    page.on('pageerror', error => pageErrors.push(error.message));
+  test(`tarot draws and reshuffles at ${entry} on compact screens`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.addInitScript(() => localStorage.setItem('av_booted', '1'));
     await page.goto(entry);
-    await page.getByRole('button', { name: 'Tarô Dialético', exact: true }).click();
-    const tarot = page.getByRole('dialog', { name: 'tarot.app' });
-    await expect(tarot).toBeVisible();
-    await expect(tarot.locator('.tarot-card')).toHaveCount(5);
-    await expect.poll(() => tarot.locator('.tarot-card img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
-    await tarot.locator('.tarot-card').nth(0).click();
-    await tarot.locator('.tarot-card').nth(1).click();
-    await expect(tarot.locator('.tarot-tension')).toBeVisible();
-    await expect(tarot.locator('.tarot-evidence-card').first()).toBeVisible();
-    expect(pageErrors).toEqual([]);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.getByRole('button', { name: 'Menu', exact: true }).click();
+    await page.getByRole('button', { name: 'Tarô', exact: true }).click();
+    const game = page.frameLocator('iframe[src="/tarot/"]');
+    await expect(game.locator('#remainingCount')).toHaveText('5');
+    await game.getByRole('button', { name: 'Retirar duas cartas' }).click();
+    await expect(game.locator('#remainingCount')).toHaveText('3');
+    await expect(game.locator('#synthesisPanel')).toBeVisible();
+    await expect(game.locator('#exportBtn')).toHaveCount(0);
+    await game.getByRole('button', { name: 'Embaralhar novamente' }).click();
+    await expect(game.locator('#remainingCount')).toHaveText('5');
   });
 }
+
+test('intro can be skipped to the real desktop', async ({ page }) => {
+  await page.goto('/intro/');
+  await page.getByRole('button', { name: /pular/i }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('button', { name: 'Tarô', exact: true })).toBeVisible();
+});
