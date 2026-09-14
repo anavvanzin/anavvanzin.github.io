@@ -9,7 +9,7 @@
     // Default for dates ≥ 2026-08-04; kept explicit for clarity.
     "nodejs_compat"
   ],
-  // Memória mínima da mesa: worker.js só intercepta /_state; o resto são os assets.
+  // Memória mínima da mesa: worker.js atende /_state e preserva URLs .html do corpus.
   "main": "worker.js",
   "kv_namespaces": [
     {
@@ -40,10 +40,12 @@
     "directory": ".",
     // Required for env.ASSETS.fetch() in worker.js (404-page / html_handling).
     "binding": "ASSETS",
-    // Only /_state runs the Worker first; all other routes stay asset-first.
+    // State and corpus compatibility routes run the Worker first; other routes stay asset-first.
     // https://developers.cloudflare.com/workers/static-assets/routing/worker-script/
     "run_worker_first": [
-      "/_state"
+      "/_state",
+      "/iconocracia/corpus/*",
+      "/corpus/*"
     ],
     // Serve directory pages (e.g. /iconocracia/index.html) at both /iconocracia
     // and /iconocracia/ without forcing a redirect — matches the site's mix of

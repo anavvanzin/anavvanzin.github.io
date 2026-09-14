@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ana vanzin · mesa iluminada (preview)</title>
-<meta name="robots" content="noindex"><!-- preview route; remove ao virar index -->
+<title>ana vanzin · mesa iluminada (preview)</title><!-- preview route; remove ao virar index -->
 <link rel="icon" type="image/png" href="/assets/favicon-32.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
   :root{
+    color-scheme: light;
     --paper:#F5F0E6; --paper-card:#FFF9EF; --ink:#111111;
     --navy:#15110E; --rubric:#8B3A1A; --gold:#D4AF37; --amethyst:#7B5E3C;
     --rule:color-mix(in srgb, var(--ink) 22%, var(--paper));
@@ -18,7 +18,7 @@
     --body:'DM Sans',Arial,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
   }
-  /* dark mode — mesa à noite; follows OS, <html data-theme> overrides */
+  /* dark mode — mesa à noite; opt-in with <html data-theme="dark"> */
   :root[data-theme="dark"]{
     color-scheme:dark;
     --paper:#1C1712; --paper-card:#26201A; --ink:#EDE4D3;
@@ -27,19 +27,7 @@
     --hard:4px 4px 0 rgba(237,228,211,.14);
     --hard-sm:3px 3px 0 rgba(237,228,211,.14);
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      color-scheme:dark;
-      --paper:#1C1712; --paper-card:#26201A; --ink:#EDE4D3;
-      --rubric:#C96F45; --amethyst:#A68A64;
-      --rule:color-mix(in srgb, var(--ink) 22%, var(--paper));
-      --hard:4px 4px 0 rgba(237,228,211,.14);
-      --hard-sm:3px 3px 0 rgba(237,228,211,.14);
-    }
-    :root:not([data-theme="light"]) body{
-      background-image:radial-gradient(rgba(237,228,211,.05) .5px, transparent .5px);
-    }
-  }
+
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
@@ -137,6 +125,8 @@
   #boot .enter.ready{opacity:1; pointer-events:auto}
   #boot .enter:hover{background:var(--ink); color:var(--paper)}
 </style>
+<link rel="canonical" href="https://anavanzin.com/landing/">
+<meta name="robots" content="noindex,follow">
 </head>
 <body>
 <div class="pageframe" aria-hidden="true"></div>
@@ -154,12 +144,12 @@
   <img class="seal" src="/assets/sun-seal.svg" alt="">
   <span class="brand">ANA VANZIN</span>
   <nav aria-label="Navegação">
-    <a href="/sobre.html" data-pt="Sobre" data-en="About">Sobre</a>
+    <a href="/sobre" data-pt="Sobre" data-en="About">Sobre</a>
     <a href="/iconocracia/">Tese</a>
-    <a href="/conceitos.html" data-pt="Conceitos" data-en="Concepts">Conceitos</a>
+    <a href="/conceitos" data-pt="Conceitos" data-en="Concepts">Conceitos</a>
     <a href="/publicacoes/" data-pt="Perfis" data-en="Profiles">Perfis</a>
     <a href="/manifesto/">Manifesto</a>
-    <a href="mailto:anavvanzin@outlook.com" data-pt="Contato" data-en="Contact">Contato</a>
+    <a href="mailto:ana@anavanzin.com" data-pt="Contato" data-en="Contact">Contato</a>
   </nav>
   <span class="sp"></span>
   <span class="langtog" role="group" aria-label="Idioma / Language">
@@ -175,9 +165,9 @@
     <section class="group">
       <h2 class="glabel" data-pt="Identidade" data-en="Identity">Identidade</h2>
       <div class="icons">
-        <a class="icon nv" href="/sobre.html"><span class="cap">S</span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
-        <a class="icon rb" href="/perfil.html"><span class="cap">P</span><span class="lbl">perfil<span class="ext">.card</span></span></a>
-        <a class="icon" href="/readme.html"><span class="cap">C</span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
+        <a class="icon nv" href="/sobre"><span class="cap">S</span><span class="lbl">sobre<span class="ext">.txt</span></span></a>
+        <a class="icon rb" href="/perfil"><span class="cap">P</span><span class="lbl">perfil<span class="ext">.card</span></span></a>
+        <a class="icon" href="/readme"><span class="cap">C</span><span class="lbl" data-pt="currículo" data-en="cv">currículo</span></a>
       </div>
     </section>
 
@@ -190,7 +180,7 @@
         <a class="icon" href="/marginalia/"><span class="cap">M</span><span class="lbl" data-pt="marginália" data-en="marginalia">marginália</span></a>
         <a class="icon" href="/publicacoes/"><span class="cap">P</span><span class="lbl" data-pt="publicações" data-en="publications">publicações</span></a>
         <a class="icon" href="/sala-de-leitura/"><span class="cap">S</span><span class="lbl" data-pt="sala de leitura" data-en="reading room">sala de leitura</span></a>
-        <a class="icon" href="/conceitos.html"><span class="cap">C</span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
+        <a class="icon" href="/conceitos"><span class="cap">C</span><span class="lbl" data-pt="conceitos" data-en="concepts">conceitos</span></a>
         <a class="icon nv" href="/metodologia/"><span class="cap">M</span><span class="lbl" data-pt="metodologia" data-en="methodology">metodologia</span></a>
       </div>
     </section>
@@ -198,12 +188,12 @@
     <section class="group">
       <h2 class="glabel" data-pt="Outros" data-en="Other">Outros</h2>
       <div class="icons">
-        <a class="icon" href="/trabalhos.html"><span class="cap">T</span><span class="lbl" data-pt="trabalhos" data-en="works">trabalhos</span></a>
+        <a class="icon" href="/trabalhos"><span class="cap">T</span><span class="lbl" data-pt="trabalhos" data-en="works">trabalhos</span></a>
         <a class="icon" href="/quotes/"><span class="cap">C</span><span class="lbl" data-pt="citações" data-en="quotes">citações</span></a>
-        <a class="icon" href="/advocacia.html"><span class="cap">A</span><span class="lbl">advocacia</span></a>
+        <a class="icon" href="/advocacia"><span class="cap">A</span><span class="lbl">advocacia</span></a>
         <a class="icon" href="/assets/pixel-justitia-sky.png"><span class="cap">J</span><span class="lbl">justitia<span class="ext">.png</span></span></a>
         <a class="icon" href="/assets/avo.png"><span class="cap">V</span><span class="lbl">vó<span class="ext">.jpg</span></span></a>
-        <a class="icon" href="/assets/mae.jpg"><span class="cap">M</span><span class="lbl">mãe<span class="ext">.jpg</span></span></a>
+        <a class="icon" href="/mae"><span class="cap">M</span><span class="lbl">mãe<span class="ext">.jpg</span></span></a>
       </div>
     </section>
 

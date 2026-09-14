@@ -188,6 +188,9 @@ body {
 
 /* ── Author Tags ── */
 .author-tags {
+  min-height: 72px;
+  max-height: 72px;
+  overflow: auto;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0.7rem 2rem 0.2rem;

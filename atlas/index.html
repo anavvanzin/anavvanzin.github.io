@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<link rel="canonical" href="https://anavanzin.com/atlas/">
+<link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Atlas · ana vanzin</title>
@@ -44,6 +46,8 @@
   ]
 }
 </script>
+<link rel="canonical" href="https://anavanzin.com/atlas/">
+<meta name="robots" content="index,follow">
 </head>
 <body class="ed" data-route="atlas">
   <header class="ed-bar">
@@ -57,8 +61,8 @@
       <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
       <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
       <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
-      <a href="../advocacia.html" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
-      <a href="../sobre.html" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+      <a href="/advocacia" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="/sobre" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
     </nav>
     <span class="langtog" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="pt" aria-pressed="true">PT</button>
@@ -71,11 +75,13 @@
     <div class="ed-head">
       <p class="kicker rise" data-pt="Objetos · arquivo visual" data-en="Objects · visual archive">Objetos · arquivo visual</p>
       <h1 class="ed-title rise" style="--d:.06s">atlas</h1>
-      <p class="dek rise" style="--d:.12s" data-pt="Dossiês de objetos visuais do direito, sob curadoria. Cada objeto é tratado como dispositivo político — não como ornamento herdado." data-en="Dossiers of the visual objects of law, under curation. Each object is treated as a political device — not inherited ornament.">Dossiês de objetos visuais do direito, sob curadoria. Cada objeto é tratado como dispositivo político — não como ornamento herdado.</p>
+      <p class="dek rise" style="--d:.12s" data-pt="Moedas, gravuras e figuras de Justiça. Reúno aqui objetos da pesquisa e as fontes consultadas. As fichas indicam o que ainda está em curadoria." data-en="Coins, prints and figures of Justice. Here I gather research objects and the sources consulted. The dossiers indicate what remains under curation.">Moedas, gravuras e figuras de Justiça. Reúno aqui objetos da pesquisa e as fontes consultadas. As fichas indicam o que ainda está em curadoria.</p>
     </div>
 
     <div id="tfilter" class="tfilter" role="group" aria-label="Filtrar por tema"></div>
-    <ul class="atlas-grid" id="grid"></ul>
+    <!-- prerender:grid -->
+<ul class="atlas-grid" id="grid"><li data-themes="justica-cegueira alegoria-feminina"><a href="/atlas/justitia"><span class="th"><span class="st">em curadoria</span><img src="../assets/atlas/justitia.jpg" alt="O tolo venda os olhos de Justitia. A primeira Justitia vendada não é virtude — é escárnio." loading="lazy"></span><span class="cap"><span class="ti">Justitia vendada</span><span class="mt">Xilogravura · Das Narrenschiff, Basileia · 1494</span><span class="ds">A mais antiga Justitia vendada de que se tem notícia não a mostra como virtude, mas como alvo: um tolo lhe cobre os olhos, e o gesto é de zombaria. Este dossiê reúne o objeto, sua descrição material e as leituras que o atravessam.</span></span></a></li><li data-themes="nacao-republica alegoria-feminina soberania-visual"><a href="/atlas/marianne"><span class="th"><span class="st">em formação</span><img src="../assets/atlas/marianne.jpg" alt="A República figurada em corpo de mulher — e sua irmã tropical." loading="lazy"></span><span class="cap"><span class="ti">Marianne</span><span class="mt">Alegoria nacional · França · séc. XVIII–</span><span class="ds">A figura feminina que encarna a República francesa e viaja, transformada, para a alegoria da nação brasileira. Dossiê em formação.</span></span></a></li><li data-themes="nacao-republica soberania-visual colonialidade-ver"><a href="/atlas/britannia"><span class="th"><span class="st">em formação</span><img src="../assets/atlas/britannia.jpg" alt="A nação imperial em corpo de mulher armada." loading="lazy"></span><span class="cap"><span class="ti">Britannia</span><span class="mt">Alegoria nacional · Grã-Bretanha · séc. XVII–</span><span class="ds">A alegoria britânica entre virtude cívica e poder imperial. Dossiê em formação.</span></span></a></li><li data-themes="nacao-republica alegoria-feminina colonialidade-ver"><a href="/atlas/republica"><span class="th"><span class="st">em formação</span><img src="../assets/atlas/republica.jpg" alt="A irmã tropical de Marianne: a República brasileira figurada como mulher." loading="lazy"></span><span class="cap"><span class="ti">A República</span><span class="mt">Alegoria nacional · Brasil · 1889–</span><span class="ds">A alegoria feminina da nação brasileira, entre importação iconográfica e invenção local. Dossiê em formação.</span></span></a></li></ul>
+<!-- /prerender:grid -->
 
     <p class="dek" style="margin-top:clamp(40px,6vh,68px);max-width:60ch" data-pt="O Atlas está em formação. Imagens e direitos são verificados objeto a objeto antes da publicação." data-en="The Atlas is in formation. Images and rights are verified object by object before publication.">O Atlas está em formação. Imagens e direitos são verificados objeto a objeto antes da publicação.</p>
   </main>
@@ -92,11 +98,11 @@
         <a href="/iconocracia/">iconocracia</a>
         <a href="/publicacoes/" data-pt="publicações" data-en="publications">publicações</a>
         <a href="/sala-de-leitura/" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
-        <a href="/sobre.html" data-pt="sobre" data-en="about">sobre</a>
+        <a href="/sobre" data-pt="sobre" data-en="about">sobre</a>
       </nav>
       <div class="zone links">
         <span class="zt" data-pt="canais" data-en="channels">canais</span>
-        <a href="mailto:anavvanzin@outlook.com">e-mail</a>
+        <a href="mailto:ana@anavanzin.com">e-mail</a>
         <a href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener">Lattes ↗</a>
         <a href="https://instagram.com/anavanzin" target="_blank" rel="noopener">Instagram ↗</a>
         <a href="http://hookahr.tumblr.com/" target="_blank" rel="noopener">Tumblr ↗</a>

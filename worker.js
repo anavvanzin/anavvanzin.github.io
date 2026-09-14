@@ -1,5 +1,6 @@
 // anavanzin.com — mesa com memória mínima.
-// /_state é o único endpoint dinâmico; todo o resto vai para os assets estáticos
+// /_state guarda estado; as rotas do corpus preservam seus endereços .html.
+// Todo o conteúdo continua vindo dos assets estáticos
 // (via assets.run_worker_first + env.ASSETS).
 //
 // Estado por mesa (JSON ≤ 4 KB): { v:1, lang, janelas:[{id,x,y}...] }
@@ -22,6 +23,12 @@ export default {
     const url = new URL(req.url);
     try {
       if (url.pathname !== '/_state') {
+        // Keep the established corpus .html canonical URLs as 200 responses.
+        // The assets service resolves the extensionless request to the same HTML.
+        if (/^\/(?:iconocracia\/)?corpus\/[^/]+\.html$/.test(url.pathname)) {
+          url.pathname = url.pathname.slice(0, -5);
+          return env.ASSETS.fetch(new Request(url, req));
+        }
         // Selective run_worker_first should keep this rare; still forward
         // so not_found_handling / html_handling stay consistent.
         return env.ASSETS.fetch(req);

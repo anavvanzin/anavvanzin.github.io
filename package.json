@@ -9,7 +9,10 @@
   "scripts": {
     "test": "playwright test",
     "stage:assets": "bash scripts/stage-worker-assets.sh",
-    "deploy:worker": "npx wrangler deploy"
+    "deploy:worker": "npx wrangler deploy",
+    "seo:check": "node scripts/publication.mjs",
+    "seo:write": "node scripts/publication.mjs --write",
+    "prerender": "node scripts/prerender.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

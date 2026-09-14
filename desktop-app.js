@@ -15,7 +15,7 @@ const {
   WPoster,
   WTarot
 } = window.avapp;
-const ADVISOR_SITE_URL = 'https://anavanzin.com/arno-dal-ri-site/';
+const ADVISOR_SITE_URL = 'https://arno-dal-ri.anavanzin.workers.dev/';
 const REG = {
   sobre: {
     title: {
@@ -137,6 +137,7 @@ const REG = {
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
+const PUBLIC_ROUTES = { intro: '/intro/', sobre: '/sobre', conceitos: '/conceitos', publicacoes: '/publicacoes/' };
 const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
@@ -764,7 +765,7 @@ function Desktop({
     focusWindowElement(id);
   };
   const open = id => {
-    if (id === 'intro') { window.location.href = '/intro/'; return; }
+    if (id === 'intro') { window.dispatchEvent(new Event('av:intro-replay')); return; }
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
       return;
@@ -1034,12 +1035,16 @@ function Desktop({
       maxHeight: isMobile ? 'calc(100dvh - 100px)' : undefined, overflowY: isMobile ? 'auto' : undefined,
       gap: isMobile ? 0 : 16, flex: '0 1 auto', minWidth: 0
     }
-  }, MENUS.map(id => /*#__PURE__*/React.createElement("button", {
+  }, MENUS.map(id => /*#__PURE__*/React.createElement(PUBLIC_ROUTES[id] ? "a" : "button", {
+    href: PUBLIC_ROUTES[id],
     key: id,
     className: "desktop-menu-item",
     "data-app-id": id,
     onPointerDown: e => e.stopPropagation(),
-    onClick: () => { setMobileMenuOpen(false); open(id); },
+    onClick: e => {
+      if (id === 'intro' && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) { e.preventDefault(); setMobileMenuOpen(false); open(id); }
+      else if (!PUBLIC_ROUTES[id]) { setMobileMenuOpen(false); open(id); }
+    },
     style: {
       background: 'none',
       border: 0,

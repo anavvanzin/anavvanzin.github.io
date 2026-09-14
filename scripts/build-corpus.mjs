@@ -27,9 +27,11 @@ for (let idx=0; idx<records.length; idx++) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${esc(r.seo.title)}</title>
 <meta name="description" content="${esc(r.seo.description)}" />
+<link rel="canonical" href="https://anavanzin.com/iconocracia/corpus/${esc(r.slug)}.html" />
+<meta name="robots" content="${r.editorialStatus === 'draft' ? 'noindex,follow' : 'index,follow'}" />
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="ficha.css" />
-<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'VisualArtwork',name:r.title,url:`https://anavanzin.com/corpus/${r.slug}.html`,description:r.shortDescription,image:{'@type':'ImageObject',url:`https://anavanzin.com${img.path}`,caption:r.title}},null,2)}</script>
+<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'VisualArtwork',name:r.title,url:`https://anavanzin.com/iconocracia/corpus/${r.slug}.html`,description:r.shortDescription,image:{'@type':'ImageObject',url:`https://anavanzin.com${img.path}`,caption:r.title}},null,2)}</script>
 </head>
 <body>
 <header class="chrome"><a class="home" href="/">anavanzin.com</a><span class="sep"></span><span class="mark">ICONOCRACIA</span><a class="crumb" href="../iconocracia/atlas/#corpus">· corpus</a><div class="nav"><span class="counter">placa ${String(idx+1).padStart(2,'0')} / ${records.length}</span>${prev?`<a class="pgbtn" href="${prev.slug}.html">‹ anterior</a>`:''}${next?`<a class="pgbtn" href="${next.slug}.html">próxima ›</a>`:''}</div></header>

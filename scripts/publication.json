@@ -1,0 +1,713 @@
+{
+  "reviewedAt": "2026-09-13",
+  "pages": [
+    {
+      "file": "404.html",
+      "canonical": "https://anavanzin.com/404",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "advocacia.html",
+      "canonical": "https://anavanzin.com/advocacia",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "ampulheta.html",
+      "canonical": "https://anavanzin.com/ampulheta",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "apresentacao/index.html",
+      "canonical": "https://anavanzin.com/apresentacao/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "arno-dal-ri-site/index.html",
+      "canonical": "https://arno-dal-ri.anavanzin.workers.dev/",
+      "category": "redirect",
+      "reason": "Endereço antigo do orientador."
+    },
+    {
+      "file": "assets/ICONOCRACIAgrupohistoriadireito.html",
+      "canonical": "https://anavanzin.com/assets/ICONOCRACIAgrupohistoriadireito",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "assets/Iconocracia - Apresentacao.dc.html",
+      "canonical": "https://anavanzin.com/apresentacao/",
+      "category": "redirect",
+      "reason": "Exportação dependente de suporte ausente; encaminhar para a apresentação pública correspondente e preservar o arquivo de origem."
+    },
+    {
+      "file": "assets/Iconocracia - Manifesto.dc.html",
+      "canonical": "https://anavanzin.com/manifesto/impressa",
+      "category": "redirect",
+      "reason": "Exportação dependente de suporte ausente; encaminhar para a apresentação pública correspondente e preservar o arquivo de origem."
+    },
+    {
+      "file": "assets/Iconocracia - Video Vertical.dc.html",
+      "canonical": "https://anavanzin.com/video/",
+      "category": "redirect",
+      "reason": "Exportação dependente de suporte ausente; encaminhar para a apresentação pública correspondente e preservar o arquivo de origem."
+    },
+    {
+      "file": "assets/Iconocracia - Video.dc.html",
+      "canonical": "https://anavanzin.com/video/",
+      "category": "redirect",
+      "reason": "Exportação dependente de suporte ausente; encaminhar para a apresentação pública correspondente e preservar o arquivo de origem."
+    },
+    {
+      "file": "assets/do-ventre-a-alegoria 2/index.html",
+      "canonical": "https://anavanzin.com/assets/do-ventre-a-alegoria%202/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "assets/iconocracia-deck.html",
+      "canonical": "https://anavanzin.com/assets/iconocracia-deck",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "atlas/britannia.html",
+      "canonical": "https://anavanzin.com/atlas/britannia",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "atlas/index.html",
+      "canonical": "https://anavanzin.com/atlas/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "atlas/justitia.html",
+      "canonical": "https://anavanzin.com/atlas/justitia",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "atlas/marianne.html",
+      "canonical": "https://anavanzin.com/atlas/marianne",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "atlas/republica.html",
+      "canonical": "https://anavanzin.com/atlas/republica",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "aula_di_avancado (1).html",
+      "canonical": "https://anavanzin.com/aula_di_avancado%20(1)",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "conceitos.html",
+      "canonical": "https://anavanzin.com/conceitos",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "corpus/BE-1559-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1559-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BE-1912-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1912-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BE-1921-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1921-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1896-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1896-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1896-02.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1896-02.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1906-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1906-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1961-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1961-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1965-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1965-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/BR-1970-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1970-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1589-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1589-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1752-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1752-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1900-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1900-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1908-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1908-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1910-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1910-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/DE-1919-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1919-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1792-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1792-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1793-02.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1793-02.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1793-03.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1793-03.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1849-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1849-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1865-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1865-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1871-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1871-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1900-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1900-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1904-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1904-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/FR-1915-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1915-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/UK-1600-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1600-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/UK-1695-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1695-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/UK-1898-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1898-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/UK-1912-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1912-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/US-1864-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/US-1864-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "corpus/US-1896-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/US-1896-01.html",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "defesa/index.html",
+      "canonical": "https://anavanzin.com/defesa/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "grupoiusgentium/index.html",
+      "canonical": "https://anavanzin.com/grupoiusgentium/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "iconocracia/atlas-lab/index.html",
+      "canonical": "https://anavanzin.com/iconocracia/atlas-lab/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "iconocracia/atlas/index.html",
+      "canonical": "https://anavanzin.com/iconocracia/atlas/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "iconocracia/corpus/BE-1559-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1559-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BE-1912-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1912-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BE-1921-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BE-1921-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1896-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1896-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1896-02.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1896-02.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1906-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1906-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1961-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1961-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1965-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1965-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/BR-1970-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/BR-1970-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1589-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1589-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1752-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1752-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1900-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1900-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1908-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1908-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1910-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1910-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/DE-1919-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/DE-1919-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1792-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1792-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1793-02.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1793-02.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1793-03.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1793-03.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1849-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1849-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1865-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1865-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1871-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1871-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1900-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1900-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1904-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1904-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/FR-1915-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/FR-1915-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/UK-1600-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1600-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/UK-1695-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1695-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/UK-1898-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1898-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/UK-1912-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/UK-1912-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/US-1864-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/US-1864-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/corpus/US-1896-01.html",
+      "canonical": "https://anavanzin.com/iconocracia/corpus/US-1896-01.html",
+      "category": "draft",
+      "reason": "editorialStatus: draft em data/corpus.json; preservar o destino canônico."
+    },
+    {
+      "file": "iconocracia/desenhe-um-simbolo.html",
+      "canonical": "https://anavanzin.com/iconocracia/desenhe-um-simbolo",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "iconocracia/index.html",
+      "canonical": "https://anavanzin.com/iconocracia/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "iconocracia/radiografia/index.html",
+      "canonical": "https://anavanzin.com/iconocracia/radiografia/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "iconocracia_grupo_estudos_impactante.html",
+      "canonical": "https://anavanzin.com/iconocracia_grupo_estudos_impactante",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "index.html",
+      "canonical": "https://anavanzin.com/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "intro/index.html",
+      "canonical": "https://anavanzin.com/intro/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "landing/index.html",
+      "canonical": "https://anavanzin.com/landing/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "mae.html",
+      "canonical": "https://anavanzin.com/mae",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "malleus/flyer.html",
+      "canonical": "https://anavanzin.com/malleus/flyer",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "malleus/index.html",
+      "canonical": "https://anavanzin.com/malleus/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "malleus/vintage_os_template.html",
+      "canonical": "https://anavanzin.com/malleus/vintage_os_template",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "manifesto/impressa.html",
+      "canonical": "https://anavanzin.com/manifesto/impressa",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "manifesto/index.html",
+      "canonical": "https://anavanzin.com/manifesto/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "manifesto/manifesto/index.html",
+      "canonical": "https://anavanzin.com/manifesto/",
+      "category": "duplicate",
+      "reason": "Cópia com destino canônico preservado."
+    },
+    {
+      "file": "marginalia/balanca.html",
+      "canonical": "https://anavanzin.com/marginalia/balanca",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "marginalia/fachada.html",
+      "canonical": "https://anavanzin.com/marginalia/fachada",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "marginalia/index.html",
+      "canonical": "https://anavanzin.com/marginalia/",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "marginalia/justica-nao-nasceu-cega.html",
+      "canonical": "https://anavanzin.com/marginalia/justica-nao-nasceu-cega",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "mesa/index.html",
+      "canonical": "https://anavanzin.com/mesa/",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "metodologia/index.html",
+      "canonical": "https://anavanzin.com/metodologia/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "mover-se.html",
+      "canonical": "https://anavanzin.com/mover-se",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "orientador/index.html",
+      "canonical": "https://anavanzin.com/orientador/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "perfil.html",
+      "canonical": "https://anavanzin.com/perfil",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "poster.html",
+      "canonical": "https://anavanzin.com/poster",
+      "category": "utility",
+      "reason": "Superfície auxiliar, exportação ou apresentação institucional pendente de conferência."
+    },
+    {
+      "file": "publicacoes/contrato-visual.html",
+      "canonical": "https://anavanzin.com/publicacoes/contrato-visual",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "publicacoes/index.html",
+      "canonical": "https://anavanzin.com/publicacoes/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "publicacoes/maria-marianne.html",
+      "canonical": "https://anavanzin.com/publicacoes/maria-marianne",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "publicacoes/vrouwe-justitia.html",
+      "canonical": "https://anavanzin.com/publicacoes/vrouwe-justitia",
+      "category": "draft",
+      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+    },
+    {
+      "file": "quotes/index.html",
+      "canonical": "https://anavanzin.com/quotes/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "readme.html",
+      "canonical": "https://anavanzin.com/readme",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "sala-de-leitura/index.html",
+      "canonical": "https://anavanzin.com/sala-de-leitura/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "sobre.html",
+      "canonical": "https://anavanzin.com/sobre",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "tarot/index.html",
+      "canonical": "https://anavanzin.com/tarot/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "trabalhos.html",
+      "canonical": "https://anavanzin.com/trabalhos",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    },
+    {
+      "file": "video/index.html",
+      "canonical": "https://anavanzin.com/video/",
+      "category": "ready",
+      "reason": "Página de apresentação, referência ou material público sem indicação explícita de rascunho."
+    }
+  ]
+}

@@ -60,7 +60,7 @@
   function figure(o) {
     var inner;
     if (o.img) {
-      inner = '<img src="../' + o.img + '" alt="' + L(o.caption) + '" loading="lazy">';
+      inner = '<img src="../' + o.img + '" width="' + o.imageWidth + '" height="' + o.imageHeight + '" alt="' + L(o.caption) + '" loading="lazy">';
     } else {
       inner = '<div class="ph tall"><span class="ph-lbl">' + L(o.caption) + '</span></div>';
     }
@@ -85,6 +85,8 @@
   function render() {
     var root = document.getElementById('obj');
     var o = window.AVContent.object(SLUG);
+    if (root.dataset.renderedLang === ((window.AV && window.AV.lang) || 'pt') && !window.AV_PRERENDER) return;
+    root.dataset.renderedLang = ((window.AV && window.AV.lang) || 'pt');
     var en = window.AV && window.AV.lang === 'en';
     document.documentElement.lang = en ? 'en' : 'pt';
     if (!o) {

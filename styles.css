@@ -10,9 +10,8 @@
    Canonical source: tokens/source/mnemosyne-viva-design-tokens.json
    Tints are derived with color-mix so they follow the base automatically. */
 :root {
-  /* Both appearances supported since 2026-08 (see dark block below).
-     color-scheme: light dark lets native controls/scrollbars follow. */
-  color-scheme: light dark;
+  /* Papel claro por padrão; modo escuro somente por escolha explícita. */
+  color-scheme: light;
 
   /* ---- Mnemosyne Viva canonical palette ---- */
   --ink: #111111;          /* preto de impressão — text, rules */
@@ -69,7 +68,7 @@
 }
 
 /* ===== Dark mode — "sala de leitura à noite" (2026-08) =====
-   Full-site dark appearance, following the OS by default. Only the 10 base
+   Explicit dark appearance; the default remains light in every OS theme. Only the 10 base
    tokens are redefined; every alias/derived tint (rubric, gold, ink-N,
    paper-deep, semantic text/bg) recomputes automatically from them.
    Manual override: <html data-theme="dark"> or "light" wins over the OS.
@@ -89,21 +88,7 @@
   --muted: #A89780;        /* meta text */
   --night: #14100C;        /* footer / cabinet — darker than the page */
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --ink: #EDE4D3;
-    --paper: #1C1712;
-    --cream: #26201A;
-    --sienna: #C96F45;
-    --sienna-dark: #A85436;
-    --aged: #A68A64;
-    --soft: #322820;
-    --line: #D8CCB4;
-    --muted: #A89780;
-    --night: #14100C;
-  }
-}
+
 
 
 /* ===== tokens/typography.css ===== */

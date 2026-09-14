@@ -146,7 +146,7 @@ html.js .langtog { display: inline-flex; border: 1px solid var(--ink); border-ra
 figure.ed-fig { margin: 0 0 2em; }
 figure.ed-fig.wide { max-width: none; }
 .ed-fig .frame { border: 1px solid var(--ink); position: relative; overflow: hidden; }
-.ed-fig img { display: block; width: 100%; }
+.ed-fig img { display: block; width: 100%; height: auto; }
 /* striped placeholder for archival images not yet sourced */
 .ph {
   position: relative; width: 100%;
@@ -170,7 +170,8 @@ figcaption .cap { flex: 1 1 60%; min-width: 12ch; }
 figcaption .cap em { font-style: italic; }
 figcaption .src {
   font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px;
-  letter-spacing: .03em; color: var(--text-faint); text-align: right; flex: 0 0 auto;
+  letter-spacing: .03em; color: var(--text-faint); text-align: right; flex: 0 1 auto;
+  min-width: 0; max-width: 100%; overflow-wrap: anywhere;
 }
 
 /* ---------- numbered / typographic sequence (research questions) ---------- */
@@ -290,6 +291,9 @@ figcaption .src {
 @media (max-width: 680px) { .atlas-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Atlas: object page (.oc-*) ---------- */
+#obj .folio-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+#obj .folio-meta .fm { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 560px) { #obj .folio-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .oc-ths { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
 .oc-th { font-family: var(--font-display); font-weight: 600; text-transform: lowercase; letter-spacing: .04em; font-size: 13px; color: var(--rubric); text-decoration: none; border: 1px solid var(--ink-30); padding: 3px 11px; }
 .oc-th:hover { border-color: var(--rubric); }

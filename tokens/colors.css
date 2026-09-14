@@ -9,6 +9,7 @@
    Root styles.css does NOT import this file; it carries its own :root. */
 
 :root {
+  color-scheme: light;
   /* ── Mnemosyne Viva canonical palette ───────── */
   --mv-ink:         #111111;
   --mv-paper:       #F5F0E6;
@@ -116,7 +117,7 @@
 }
 
 /* ── Dark mode — "sala de leitura à noite" (2026-08) ─────────────────────
-   Follows the OS by default; <html data-theme="dark"|"light"> overrides.
+   Light by default; <html data-theme="dark"> explicitly enables dark mode.
    Only the --mv-* base tokens flip — every alias recomputes from them.
    The on-dark text tokens (--ivory, --ivory-light, --faded-on-dark,
    --gold-bright) are pinned light because the cabinet chrome (--mv-night)
@@ -140,25 +141,4 @@
   --gold-bright: color-mix(in srgb, var(--mv-ochre) 78%, #FFF9EF);
   --brand-indigo: #EDE4D3;
   --selection: color-mix(in srgb, var(--mv-sienna) 32%, transparent);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --mv-ink: #EDE4D3;
-    --mv-paper: #1C1712;
-    --mv-cream: #26201A;
-    --mv-sienna: #C96F45;
-    --mv-sienna-dark: #A85436;
-    --mv-aged: #A68A64;
-    --mv-soft: #322820;
-    --mv-line: #D8CCB4;
-    --mv-muted: #A89780;
-    --mv-night: #14100C;
-    --ivory: #E8DDC8;
-    --ivory-light: #FAF6EB;
-    --faded-on-dark: #E8DDC8;
-    --gold-bright: color-mix(in srgb, var(--mv-ochre) 78%, #FFF9EF);
-    --brand-indigo: #EDE4D3;
-    --selection: color-mix(in srgb, var(--mv-sienna) 32%, transparent);
-  }
 }

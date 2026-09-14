@@ -24,7 +24,7 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.locator('[data-app-id="radiografia"]')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
-    'https://anavanzin.com/arno-dal-ri-site/'
+    'https://arno-dal-ri.anavanzin.workers.dev/'
   );
   await expect(page.locator('a[href*="CV%20Arno"]')).toHaveCount(0);
   await expect(page.locator('[data-desktop-wallpaper="illuminated-justitia"]')).toHaveAttribute(
@@ -53,12 +53,13 @@ test('home remains usable when JavaScript is unavailable', async ({ browser }) =
   await expect(page.locator('#main')).toBeVisible();
   await expect(page.locator('a[href="https://iconocracia.com/"]')).toBeVisible();
   await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
-  await expect(page.locator('a[href="https://anavanzin.com/arno-dal-ri-site/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://arno-dal-ri.anavanzin.workers.dev/"]')).toBeVisible();
 
   await context.close();
 });
 
 test('projects window keeps the Mnemosyne editorial system and sienna focus', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
 
   const style = await page.locator('.projects-window-title').evaluate((element) => {
@@ -119,7 +120,7 @@ test('advisor opens as a movable academic record with one official site action',
   await expect(advisor.getByText('Orientador responsável pela pesquisa de doutorado', { exact: false })).toBeVisible();
   await expect(advisor.getByText('Vínculo acadêmico · PPGD/UFSC')).toBeVisible();
   const advisorAction = advisor.getByRole('link', { name: '↗ conhecer o orientador' });
-  await expect(advisorAction).toHaveAttribute('href', 'https://anavanzin.com/arno-dal-ri-site/');
+  await expect(advisorAction).toHaveAttribute('href', 'https://arno-dal-ri.anavanzin.workers.dev/');
   const advisorActionBox = await advisorAction.boundingBox();
   expect(advisorActionBox?.height).toBeGreaterThanOrEqual(44);
   const advisorBox = await advisor.boundingBox();
@@ -181,7 +182,7 @@ test('advisor card resolves to a dedicated public page', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Site de Arno Dal Ri Júnior ↗' })).toHaveAttribute(
     'href',
-    'https://anavanzin.com/arno-dal-ri-site/'
+    'https://arno-dal-ri.anavanzin.workers.dev/'
   );
   await expect(page.locator('a[href*="CV%20Arno"]')).toHaveCount(0);
   await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
@@ -192,7 +193,7 @@ test('atlas symbols open the drawing workshop and accept a stroke', async ({ pag
   await page.goto('/atlas/justitia.html');
   await page.locator('.oc-sym').first().click();
 
-  await expect(page).toHaveURL(/\/iconocracia\/desenhe-um-simbolo\.html#/);
+  await expect(page).toHaveURL(/\/iconocracia\/desenhe-um-simbolo#/);
   const canvas = page.locator('#cv');
   await expect(canvas).toBeVisible();
 
@@ -260,4 +261,69 @@ test('intro can be skipped to the real desktop', async ({ page }) => {
   await page.getByRole('button', { name: /pular/i }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('button', { name: 'Tarô', exact: true })).toBeVisible();
+});
+
+
+test('home plays the wine intro once without changing URL and allows replay', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveURL(/:\d+\/$/);
+  await expect(page.locator('#intro-overlay')).toBeVisible();
+  await expect(page.frameLocator('#intro-overlay iframe').locator('#morph-object')).toBeVisible();
+  await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 15000 });
+  await page.reload();
+  await expect(page.locator('#intro-overlay')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Intro', exact: true }).click();
+  await expect(page.locator('#intro-overlay')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#intro-overlay')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Intro', exact: true })).toBeFocused();
+});
+
+test('reduced motion opens the desktop without the automatic intro', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Intro', exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/:\d+\/$/);
+  await page.goto('/intro/');
+  await expect(page).toHaveURL(/:\d+\/$/);
+});
+
+test('home remains available when session storage is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'sessionStorage', { get() { throw new Error('Storage blocked'); } });
+  });
+  await page.goto('/');
+  await expect(page.locator('#intro-overlay')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Intro', exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/:\d+\/$/);
+});
+
+test('about has the current contact and direct bilingual research description', async ({ page }) => {
+  await page.goto('/sobre.html');
+  await expect(page.locator('.prose')).toContainText('história do direito das mulheres e iconografia jurídica');
+  await expect(page.locator('a[href="mailto:ana@anavanzin.com"]')).toHaveCount(2);
+  await expect(page.locator('body')).not.toContainText('anavvanzin@outlook.com');
+  await expect(page.locator('.pull')).toHaveCount(0);
+  await page.getByRole('button', { name: 'EN', exact: true }).click();
+  await expect(page.locator('.prose')).toContainText('women’s legal history and legal iconography');
+  await expect(page.locator('#research-links')).toHaveText('Research and publications');
+});
+
+for (const route of ['/sobre.html', '/conceitos.html', '/perfil.html', '/publicacoes/', '/atlas/', '/iconocracia/', '/apresentacao/', '/ampulheta.html', '/landing/']) {
+  test('paper stays light with dark OS at ' + route, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto(route);
+    await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
+    await expect.poll(() => page.locator('html').evaluate(el => getComputedStyle(el).getPropertyValue('--paper').trim())).toBe('#F5F0E6');
+  });
+}
+
+test('quotes starts light and retains its explicit theme switch', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/quotes/');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await page.getByRole('button', { name: 'Alternar modo claro/escuro' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });

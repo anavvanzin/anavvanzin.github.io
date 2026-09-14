@@ -109,6 +109,7 @@ async function loadData() {
     const authorCounts = {};
     allPosts.forEach(p => {
       const key = p._attr || p.author || 'Anônimo';
+      if (/^(admin|unknown|anônimo|\d+)$/i.test(key.trim())) return;
       authorCounts[key] = (authorCounts[key] || 0) + 1;
     });
     authorsList = Object.entries(authorCounts)
@@ -120,6 +121,7 @@ async function loadData() {
     renderAuthorTags();
     renderBatch();
     initScrollObserver();
+    infiniteObserver.observe($('#loadMore'));
   } catch (err) {
     $('#quotesGrid').innerHTML = `
       <div class="empty-state">
@@ -140,8 +142,8 @@ function renderHero() {
     return len >= 40 && len <= 200 && !isUrl(p._quote);
   });
   const src = pool.length ? pool : allPosts;
-  const hero = src[Math.floor(Math.random() * src.length)];
-  const el = document.createElement('div');
+  const hero = src[0]; // Stable opening; the random button remains available.
+  const el = document.querySelector('.hero-section') || document.createElement('div');
   el.className = 'hero-section';
   el.innerHTML = `
     <div class="hero-inner">
@@ -252,6 +254,7 @@ function observeCards() {
 
 function renderBatch() {
   const grid = $('#quotesGrid');
+  if (renderedCount === 0) grid.replaceChildren();
   const slice = filteredPosts.slice(renderedCount, renderedCount + CONFIG.BATCH_SIZE);
   const frag = document.createDocumentFragment();
   const searchQuery = $('#searchInput').value;
@@ -320,7 +323,8 @@ $('#loadMoreBtn').addEventListener('click', renderBatch);
 let infiniteObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting && !$('#loadMoreBtn').disabled) renderBatch(); });
 }, { rootMargin: '400px' });
-infiniteObserver.observe($('#loadMore'));
+// Observe only after data is ready: no empty initial batch.
+
 
 /* ── Random ── */
 $('#randomBtn').addEventListener('click', () => {
@@ -339,7 +343,7 @@ function openOverlay(post) {
   $('#overlayQuote').innerHTML = `
     <span class="overlay-num">Trecho Nº ${padNum(post._position)}</span>
     <div class="overlay-text">${q}</div>
-    ${attr ? `<div class="overlay-attr">${attr}</div>` : ''}
+    ${attr ? `<div class="overlay-attr">${attr}</div>` : '<div class="overlay-attr">Atribuição a conferir na fonte.</div>'}
   `;
   const meta = [];
   if (post.author) meta.push(escapeHtml(post.author));
@@ -389,7 +393,7 @@ $('#nextRandom').addEventListener('click', () => {
 /* ── Theme ── */
 $('#themeBtn').addEventListener('click', () => {
   const html = document.documentElement;
-  const current = html.getAttribute('data-theme') || 'dark';
+  const current = html.getAttribute('data-theme') || 'light';
   const next = current === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);

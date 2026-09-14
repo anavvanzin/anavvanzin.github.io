@@ -48,6 +48,7 @@
     {
       slug: 'justitia', href: 'atlas/justitia.html',
       img: 'assets/atlas/justitia.jpg',
+      imageWidth: 250, imageHeight: 375,
       status: { pt: 'em curadoria', en: 'under curation' },
       title: { pt: 'Justitia vendada', en: 'Blindfolded Justitia' },
       object: { pt: 'Xilogravura', en: 'Woodcut' },
@@ -81,6 +82,7 @@
     {
       slug: 'marianne', href: 'atlas/marianne.html',
       img: 'assets/atlas/marianne.jpg',
+      imageWidth: 1280, imageHeight: 1024,
       status: { pt: 'em formação', en: 'in formation' },
       title: { pt: 'Marianne', en: 'Marianne' },
       object: { pt: 'Alegoria nacional', en: 'National allegory' },
@@ -104,6 +106,7 @@
     {
       slug: 'britannia', href: 'atlas/britannia.html',
       img: 'assets/atlas/britannia.jpg',
+      imageWidth: 586, imageHeight: 800,
       status: { pt: 'em formação', en: 'in formation' },
       title: { pt: 'Britannia', en: 'Britannia' },
       object: { pt: 'Alegoria nacional', en: 'National allegory' },
@@ -125,6 +128,7 @@
     {
       slug: 'republica', href: 'atlas/republica.html',
       img: 'assets/atlas/republica.jpg',
+      imageWidth: 616, imageHeight: 1200,
       status: { pt: 'em formação', en: 'in formation' },
       title: { pt: 'A República', en: 'The Republic' },
       object: { pt: 'Alegoria nacional', en: 'National allegory' },

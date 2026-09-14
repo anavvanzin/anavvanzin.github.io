@@ -35,7 +35,7 @@ const stack = g => ({
   flexDirection: 'column',
   gap: g
 });
-const ADVISOR_SITE_URL = 'https://anavanzin.com/arno-dal-ri-site/';
+const ADVISOR_SITE_URL = 'https://arno-dal-ri.anavanzin.workers.dev/';
 const projectTitleLink = {
   color: 'inherit',
   textDecoration: 'underline',
@@ -359,9 +359,9 @@ function WContato({
   }, /*#__PURE__*/React.createElement(Eyebrow, null, L(lang, 'Contato', 'Contact')), /*#__PURE__*/React.createElement("p", {
     style: win_lead
   }, /*#__PURE__*/React.createElement(RubricLink, {
-    href: "mailto:anavvanzin@outlook.com",
+    href: "mailto:ana@anavanzin.com",
     className: "mobile-action-link"
-  }, "anavvanzin@outlook.com")), sent ? /*#__PURE__*/React.createElement("p", {
+  }, "ana@anavanzin.com")), sent ? /*#__PURE__*/React.createElement("p", {
     style: {
       ...win_p,
       borderTop: '1px solid var(--rule-hairline)',

@@ -1,0 +1,14 @@
+# Exact legacy advisor routes; no wildcard over the research corpus.
+/arno-dal-ri-site https://arno-dal-ri.anavanzin.workers.dev/ 301
+/arno-dal-ri-site/ https://arno-dal-ri.anavanzin.workers.dev/ 301
+/arno-dal-ri-site/index.html https://arno-dal-ri.anavanzin.workers.dev/ 301
+
+# Legacy design exports depend on an unavailable editor runtime.
+/assets/Iconocracia%20-%20Apresentacao.dc.html https://anavanzin.com/apresentacao/ 301
+/assets/Iconocracia%20-%20Apresentacao.dc https://anavanzin.com/apresentacao/ 301
+/assets/Iconocracia%20-%20Manifesto.dc.html https://anavanzin.com/manifesto/impressa 301
+/assets/Iconocracia%20-%20Manifesto.dc https://anavanzin.com/manifesto/impressa 301
+/assets/Iconocracia%20-%20Video.dc.html https://anavanzin.com/video/ 301
+/assets/Iconocracia%20-%20Video.dc https://anavanzin.com/video/ 301
+/assets/Iconocracia%20-%20Video%20Vertical.dc.html https://anavanzin.com/video/ 301
+/assets/Iconocracia%20-%20Video%20Vertical.dc https://anavanzin.com/video/ 301
