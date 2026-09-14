@@ -18,6 +18,31 @@ function jsonLog(level, fields) {
   else console.log(line);
 }
 
+/** Read request body as UTF-8 text, cancelling once maxBytes is exceeded. */
+async function readTextLimited(req, maxBytes) {
+  if (!req.body) return { ok: true, text: '' };
+  const reader = req.body.getReader();
+  const chunks = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel();
+      return { ok: false };
+    }
+    chunks.push(value);
+  }
+  const merged = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    merged.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return { ok: true, text: new TextDecoder().decode(merged) };
+}
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
@@ -40,8 +65,8 @@ export default {
       }
 
       if (req.method === 'PUT') {
-        // Require Content-Length so chunked / unbounded bodies cannot bypass the
-        // 4 KB cap (Workers 128 MB limit — never buffer unknown size).
+        // Fast reject when the client declares an oversized body. Chunked /
+        // missing CL still get a 411; understated CL is caught by the streamer.
         const cl = req.headers.get('content-length');
         if (cl === null || cl === '') {
           return new Response('content-length required', { status: 411 });
@@ -53,11 +78,13 @@ export default {
         if (declared > MAX_BYTES) {
           return new Response('too big', { status: 413 });
         }
-        // Bounded payload (≤ 4 KB): safe to buffer after Content-Length gate.
-        const body = await req.text();
-        if (body.length > MAX_BYTES) {
+        // Stream with a hard byte cap — Content-Length alone is not trustworthy
+        // (Workers 128 MB limit — never buffer unknown / understated size).
+        const read = await readTextLimited(req, MAX_BYTES);
+        if (!read.ok) {
           return new Response('too big', { status: 413 });
         }
+        const body = read.text;
         // validação mínima: tem que ser JSON de objeto
         try {
           const parsed = JSON.parse(body);
