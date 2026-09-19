@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorte ou Azar — a flor do dia · Ana Vanzin</title>
+  <meta name="description" content="Uma lâmina por dia do baralho MUJO: hanafuda, yokai e alegorias da justiça. azar ← ár. az-zahr, o dado e a flor." />
+  <link rel="stylesheet" href="../fonts/fonts.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="sala">
+    <p class="sobrescrito">無常 · mujō</p>
+    <h1>Sorte ou Azar</h1>
+    <p class="subtitulo">a flor do dia · the flower of the day</p>
+
+    <div id="lamina" class="lamina" tabindex="0" role="button" aria-label="virar a lâmina do dia">
+      <div class="face verso">
+        <img src="assets/verso.webp" alt="Verso da lâmina MUJO" />
+      </div>
+      <div class="face frente">
+        <img id="lamina-frente-img" src="" alt="" />
+      </div>
+    </div>
+
+    <div class="legenda" aria-live="polite">
+      <h2 id="lamina-nome"></h2>
+      <p class="jp" id="lamina-jp"></p>
+      <p class="qualidade"><span id="lamina-kanji"></span> <span id="lamina-qualidade"></span></p>
+      <p class="leitura" id="lamina-leitura"></p>
+    </div>
+
+    <p class="volte">volte amanhã · come back tomorrow</p>
+
+    <footer class="selo">
+      <p><em>azar</em> ← ár. <span lang="ar">اَلزَّهْر</span> <em>az-zahr</em>, “o dado” e “a flor” —
+      a mesma palavra para o instrumento do acaso e o seu símbolo vencedor.</p>
+      <p><a href="#" id="ver-baralho">ver o baralho inteiro · see the whole deck</a></p>
+      <p><a href="../">← desktop</a></p>
+    </footer>
+
+    <section id="baralho" hidden>
+      <div id="baralho-grid" class="grid"></div>
+    </section>
+  </main>
+  <script src="deck.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
