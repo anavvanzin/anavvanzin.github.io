@@ -646,8 +646,8 @@
     {
       "file": "publicacoes/contrato-visual.html",
       "canonical": "https://anavanzin.com/publicacoes/contrato-visual",
-      "category": "draft",
-      "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
+      "category": "ready",
+      "reason": "Página pública de artigo em versão de trabalho, identificada como tal e com PDF em acesso aberto."
     },
     {
       "file": "publicacoes/index.html",
