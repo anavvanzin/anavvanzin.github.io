@@ -128,8 +128,8 @@ const REG = {
   },
   tarot: {
     title: {
-      pt: 'tarot.app',
-      en: 'tarot.app'
+      pt: 'sorte.app',
+      en: 'sorte.app'
     },
     w: 800,
     h: 600,
@@ -148,7 +148,7 @@ const MENU_LABEL = {
     publicacoes: 'Perfis',
     projetos: 'Projetos',
     poster: 'Tabula',
-    tarot: 'Tarô',
+    tarot: 'Sorte',
     orientador: 'Orientador',
     contato: 'Contato'
   },
@@ -160,7 +160,7 @@ const MENU_LABEL = {
     publicacoes: 'Profiles',
     projetos: 'Projects',
     poster: 'Tabula',
-    tarot: 'Tarot',
+    tarot: 'Luck',
     orientador: 'Advisor',
     contato: 'Contact'
   }
@@ -766,6 +766,7 @@ function Desktop({
   };
   const open = id => {
     if (id === 'intro') { window.dispatchEvent(new Event('av:intro-replay')); return; }
+    if (id === 'tarot') { window.location.href = '/sorte/'; return; }
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
       return;
