@@ -1,7 +1,7 @@
 /* A Vigilante — criatura pixel silenciosa do desktop. Sem balão, sem XP.
    O chochin acende quando a flor do dia já foi vista. Nada explica isso. */
 (function () {
-  var PERSONAGENS = ["miko", "bakuto", "mariposa"];
+  var PERSONAGENS = ["justitia"];
 
   function personagemDoDia(date) {
     var dia = Math.floor(date.getTime() / 86400000);

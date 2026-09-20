@@ -10,10 +10,8 @@ const fn = src.match(/var PERSONAGENS[^\n]*/)[0] + "\n"
   + src.match(/function lanternaAcesa[\s\S]*?\n  \}/)[0];
 eval(fn);
 const assert = require("assert");
-assert.ok(["miko","bakuto","mariposa"].includes(personagemDoDia(new Date())));
-assert.notStrictEqual(
-  [1,2,3].map(d => personagemDoDia(new Date(2026, 8, d))).join(","),
-  "miko,miko,miko", "personagem não varia");
+assert.ok(["justitia","miko","bakuto","mariposa"].includes(personagemDoDia(new Date())));
+assert.strictEqual(personagemDoDia(new Date(2026, 8, 19)), personagemDoDia(new Date(2026, 8, 20)), "personagem fixo deve ser estável");
 const d = new Date();
 const iso = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 assert.strictEqual(lanternaAcesa(), false, "acesa sem visita");
