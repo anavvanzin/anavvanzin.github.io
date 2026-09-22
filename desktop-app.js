@@ -13,7 +13,6 @@ const {
   WVo,
   WMae,
   WAmpulheta,
-  WPoster,
   WTarot
 } = window.avapp;
 const ADVISOR_SITE_URL = 'https://arno-dal-ri.anavanzin.workers.dev/';
@@ -117,15 +116,6 @@ const REG = {
     },
     w: 480,
     Body: WAmpulheta
-  },
-  poster: {
-    title: {
-      pt: 'tabula',
-      en: 'tabula'
-    },
-    w: 860,
-    h: 640,
-    Body: WPoster
   },
   tarot: {
     title: {
@@ -293,10 +283,10 @@ const DESK_ICONS = [{
   },
   Icon: HourglassIcon
 }, {
-  id: 'poster',
+  id: 'contrato-visual',
   label: {
-    pt: 'tabula',
-    en: 'tabula'
+    pt: 'o contrato visual',
+    en: 'the visual contract'
   },
   Icon: AtlasIcon
 }];
@@ -323,7 +313,7 @@ const ICON_TILES = {
   mae: '/assets/mae/mae-icon.jpg',
   contato: '/assets/icons/contato-v1.png',
   ampulheta: '/assets/icons/ampulheta-v1.png',
-  poster: '/assets/icons/tabula-v1.png'
+  'contrato-visual': '/assets/icons/tabula-v1.png'
 };
 // Ficha flutuante (preview card que segue o cursor): código de registro +
 // rubrica com nome humano por ícone. Ícones com entrada no REG reaproveitam
@@ -351,7 +341,7 @@ const FICHA = {
   mae: { code: 'IMG-03', human: { pt: 'Arquivo de família', en: 'Family archive' } },
   contato: { code: 'CTT-01', human: { pt: 'Escreva-me', en: 'Write to me' } },
   ampulheta: { code: 'TMP-01', human: { pt: 'Ensaio sobre o tempo', en: 'Essay on time' } },
-  poster: { code: 'TAB-01', human: { pt: 'Painel-síntese', en: 'Synthesis panel' } }
+  'contrato-visual': { code: 'PUB-02', human: { pt: 'Artigo · versão de trabalho', en: 'Article · working version' } }
 };
 const DESK_GROUPS = [{
   id: 'pesquisa',
@@ -368,7 +358,7 @@ const DESK_GROUPS = [{
     en: 'sources and writing'
   },
   tile: '/assets/icons/publicacoes.webp',
-  ids: ['sala-de-leitura', 'marginalia', 'quotes', 'poster', 'publicacoes', 'trabalhos']
+  ids: ['sala-de-leitura', 'marginalia', 'quotes', 'contrato-visual', 'publicacoes', 'trabalhos']
 }, {
   id: 'redes',
   label: {
@@ -388,7 +378,7 @@ const DESK_GROUPS = [{
 }];
 const DESK_ICON_BY_ID = Object.fromEntries(DESK_ICONS.map(icon => [icon.id, icon]));
 const PUBLIC_ROUTES = { intro: '/intro/', sobre: '/sobre', conceitos: '/conceitos', publicacoes: '/publicacoes/' };
-const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
+const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
   pt: {
     intro: 'Intro',
@@ -397,7 +387,6 @@ const MENU_LABEL = {
     conceitos: 'Conceitos',
     publicacoes: 'Publicações',
     projetos: 'Projetos',
-    poster: 'Tabula',
     tarot: 'Sorte',
     orientador: 'Orientador',
     contato: 'Contato'
@@ -409,7 +398,6 @@ const MENU_LABEL = {
     conceitos: 'Concepts',
     publicacoes: 'Publications',
     projetos: 'Projects',
-    poster: 'Tabula',
     tarot: 'Luck',
     orientador: 'Advisor',
     contato: 'Contact'
@@ -501,17 +489,14 @@ function TitleBar({
   lang,
   variant = 'standard',
   recordCode,
-  draggable = true,
-  isPoster = false
+  draggable = true
 }) {
   const labels = lang === 'en' ? {
     close: 'Close window',
-    closeInactive: 'Close inactive window',
     minimize: 'Minimize',
     minimizeInactive: 'Minimize inactive window'
   } : {
     close: 'Fechar Janela',
-    closeInactive: 'Fechar Janela Inativa',
     minimize: 'Minimizar',
     minimizeInactive: 'Minimizar Inativo'
   };
@@ -548,7 +533,7 @@ function TitleBar({
   }, /*#__PURE__*/React.createElement(ChromeBox, {
     active: active,
     onClick: onClose,
-    label: isPoster ? (active ? labels.close : labels.closeInactive) : labels.close
+    label: labels.close
   }), recordCode && /*#__PURE__*/React.createElement("span", {
     "aria-hidden": "true",
     className: "dwin__record-code",
@@ -700,8 +685,7 @@ function WindowFrame({
     onClose: () => onClose(win.id),
     onMin: () => onMin(win.id),
     onDown: e => onDragStart(e, win.id),
-    draggable: !isMobile,
-    isPoster: win.id === 'poster'
+    draggable: !isMobile
   }), /*#__PURE__*/React.createElement("div", {
     className: "dwin__body",
     style: {
@@ -1018,6 +1002,7 @@ function Desktop({
   const open = id => {
     if (id === 'intro') { window.dispatchEvent(new Event('av:intro-replay')); return; }
     if (id === 'tarot') { window.location.href = '/sorte/'; return; }
+    if (id === 'contrato-visual') { window.location.href = '/publicacoes/contrato-visual.html'; return; }
     if (id === 'sobre') {
       window.location.href = '/sobre.html';
       return;
@@ -1175,9 +1160,6 @@ function Desktop({
       if (e.key !== 'Escape') return;
       if (mobileMenuOpen) { setMobileMenuOpen(false); document.getElementById('desktop-menu-toggle')?.focus(); return; }
       if (!topId) return;
-      // Tabula owns Escape so its poster can leave zoom mode without the
-      // desktop manager dismissing the enclosing window in the same event.
-      if (topId === 'poster') return;
       const activeWindow = document.querySelector(`[data-window-id="${topId}"]`);
       if (activeWindow?.querySelector('.zoomed')) return;
       e.preventDefault();
