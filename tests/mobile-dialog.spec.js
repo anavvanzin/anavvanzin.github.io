@@ -10,7 +10,7 @@ for (const entry of ['/', '/mesa/']) {
     await expect(navigation).toBeHidden();
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(navigation.locator('[data-app-id]')).toHaveCount(10);
+    await expect(navigation.locator('[data-app-id]')).toHaveCount(9);
     await expect(navigation.getByRole('link')).toHaveCount(4);
     await navigation.locator('[data-app-id="projetos"]').click();
     await expect(navigation).toBeHidden();

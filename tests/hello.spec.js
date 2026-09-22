@@ -38,7 +38,7 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
 
 const researchPath = [
   { title: 'pesquisa', ids: ['tese', 'conceitos', 'justitia', 'iconocracia', 'atlas', 'radiografia'] },
-  { title: 'materiais e escrita', ids: ['sala-de-leitura', 'marginalia', 'quotes', 'poster', 'publicacoes', 'trabalhos'] },
+  { title: 'materiais e escrita', ids: ['sala-de-leitura', 'marginalia', 'quotes', 'contrato-visual', 'publicacoes', 'trabalhos'] },
   { title: 'redes', ids: ['projetos', 'ius', 'orientador', 'advocacia'] },
   { title: 'pessoa e memória', ids: ['sobre', 'perfil', 'curriculo', 'vo', 'mae', 'ampulheta', 'contato'] },
 ];
@@ -287,20 +287,18 @@ test('profile drag bar does not trap touch scrolling on mobile', async ({ page }
 });
 
 for (const entry of ['/', '/mesa/']) {
-  test(`tarot draws and reshuffles at ${entry} on compact screens`, async ({ page }) => {
+  test(`the chance tile opens and turns the daily card from ${entry} on compact screens`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.addInitScript(() => localStorage.setItem('av_booted', '1'));
     await page.goto(entry);
     await page.getByRole('button', { name: 'Menu', exact: true }).click();
-    await page.getByRole('button', { name: 'Tarô', exact: true }).click();
-    const game = page.frameLocator('iframe[src="/tarot/"]');
-    await expect(game.locator('#remainingCount')).toHaveText('5');
-    await game.getByRole('button', { name: 'Retirar duas cartas' }).click();
-    await expect(game.locator('#remainingCount')).toHaveText('3');
-    await expect(game.locator('#synthesisPanel')).toBeVisible();
-    await expect(game.locator('#exportBtn')).toHaveCount(0);
-    await game.getByRole('button', { name: 'Embaralhar novamente' }).click();
-    await expect(game.locator('#remainingCount')).toHaveText('5');
+    await page.getByRole('button', { name: 'Sorte', exact: true }).click();
+    await expect(page).toHaveURL(/\/sorte\/$/);
+    const card = page.locator('#lamina');
+    await expect(card).toBeVisible();
+    await card.click();
+    await expect(card).toHaveClass(/virada/);
+    await expect(page.locator('#lamina-nome')).not.toBeEmpty();
   });
 }
 
@@ -308,7 +306,7 @@ test('intro can be skipped to the real desktop', async ({ page }) => {
   await page.goto('/intro/');
   await page.getByRole('button', { name: /pular/i }).click();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByRole('button', { name: 'Tarô', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Sorte', exact: true })).toBeVisible();
 });
 
 
