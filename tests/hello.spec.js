@@ -23,8 +23,8 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.locator('.desktop-icon')).toHaveCount(6);
   await expect(page.getByRole('navigation', { name: 'Ladrilhos da mesa' })).toBeVisible();
   await expect(page.locator('.desktop-tile-group')).toHaveCount(4);
-  await page.getByRole('button', { name: 'arquivo', exact: true }).click();
-  await expect(page.locator('.desktop-icon[data-app-id="radiografia"]')).toBeVisible();
+  await page.getByRole('button', { name: 'materiais e escrita', exact: true }).click();
+  await expect(page.locator('.desktop-icon[data-app-id="sala-de-leitura"]')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
     'href',
     'https://arno-dal-ri.anavanzin.workers.dev/'
@@ -34,6 +34,51 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
     'src',
     /assets\/landing\/bg-justitia\.jpg\?v=20260811-archive2/
   );
+});
+
+const researchPath = [
+  { title: 'pesquisa', ids: ['tese', 'conceitos', 'justitia', 'iconocracia', 'atlas', 'radiografia'] },
+  { title: 'materiais e escrita', ids: ['sala-de-leitura', 'marginalia', 'quotes', 'poster', 'publicacoes', 'trabalhos'] },
+  { title: 'redes', ids: ['projetos', 'ius', 'orientador', 'advocacia'] },
+  { title: 'pessoa e memória', ids: ['sobre', 'perfil', 'curriculo', 'vo', 'mae', 'ampulheta', 'contato'] },
+];
+
+test('desktop tiles follow the research path and remain keyboard operable', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  const groups = page.locator('.desktop-tile-group');
+  await expect(groups).toHaveCount(4);
+  await expect(groups.locator('span')).toHaveText(researchPath.map(stage => stage.title));
+  for (const [index, stage] of researchPath.entries()) {
+    await groups.nth(index).click();
+    const ids = await page.locator('.desktop-icon').evaluateAll(elements => elements.map(element => element.dataset.appId));
+    expect(ids).toEqual(stage.ids);
+  }
+  await groups.first().click();
+  const first = page.locator('.desktop-icon[data-app-id="tese"]');
+  await first.focus();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.desktop-icon[data-app-id="conceitos"]')).toBeFocused();
+  await first.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-window-id="tese"]')).toBeVisible();
+});
+
+test('mobile tiles show every stage and each tile exactly once', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const stages = page.locator('.desktop-tile-stage');
+  await expect(stages).toHaveCount(4);
+  await expect(page.locator('.desktop-tile-heading')).toHaveText(researchPath.map(stage => stage.title));
+  const actual = await stages.evaluateAll(elements => elements.map(element => ({
+    title: element.querySelector('h2').textContent,
+    ids: [...element.querySelectorAll('.desktop-icon')].map(tile => tile.dataset.appId),
+  })));
+  expect(actual).toEqual(researchPath);
+  expect(new Set(actual.flatMap(stage => stage.ids)).size).toBe(23);
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator('.desktop-icon[data-app-id="tese"]').click();
+  await expect(page.locator('[data-window-id="tese"]')).toBeVisible();
 });
 
 test('home language switch updates projects and the advisor credit', async ({ page }) => {

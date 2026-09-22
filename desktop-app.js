@@ -340,7 +340,7 @@ const FICHA = {
   advocacia: { code: 'ADV-01', human: { pt: 'Prática jurídica', en: 'Legal practice' } },
   quotes: { code: 'CIT-01', human: { pt: 'Citações recolhidas', en: 'Collected quotes' } },
   trabalhos: { code: 'TRB-01', human: { pt: 'Ensaios e papers', en: 'Essays and papers' } },
-  publicacoes: { code: 'PUB-01', human: { pt: 'Perfis acadêmicos', en: 'Academic profiles' } },
+  publicacoes: { code: 'PUB-01', human: { pt: 'Artigos e publicações', en: 'Articles and publications' } },
   ius: { code: 'GIG · EXT', human: { pt: 'Grupo de pesquisa', en: 'Research group' } },
   projetos: { code: 'DOS-01', human: { pt: 'Pesquisa em rede', en: 'Networked research' } },
   orientador: { code: 'ORI-01', human: { pt: 'Cartas de orientação', en: 'Supervision letters' } },
@@ -360,32 +360,33 @@ const DESK_GROUPS = [{
     en: 'research'
   },
   tile: '/assets/icons/iconocracia.webp',
-  ids: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos']
+  ids: ['tese', 'conceitos', 'justitia', 'iconocracia', 'atlas', 'radiografia']
 }, {
-  id: 'arquivo',
+  id: 'materiais',
   label: {
-    pt: 'arquivo',
-    en: 'archive'
+    pt: 'materiais e escrita',
+    en: 'sources and writing'
   },
   tile: '/assets/icons/publicacoes.webp',
-  ids: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster']
+  ids: ['sala-de-leitura', 'marginalia', 'quotes', 'poster', 'publicacoes', 'trabalhos']
 }, {
-  id: 'pessoas',
+  id: 'redes',
   label: {
-    pt: 'pessoas',
-    en: 'people'
+    pt: 'redes',
+    en: 'networks'
+  },
+  tile: '/assets/icons/ius-gentium-v1.png',
+  ids: ['projetos', 'ius', 'orientador', 'advocacia']
+}, {
+  id: 'pessoa-memoria',
+  label: {
+    pt: 'pessoa e memória',
+    en: 'person and memory'
   },
   tile: '/assets/icons/perfil.webp',
-  ids: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia']
-}, {
-  id: 'memoria',
-  label: {
-    pt: 'memória',
-    en: 'memory'
-  },
-  tile: '/assets/icons/justitia.webp',
-  ids: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura']
+  ids: ['sobre', 'perfil', 'curriculo', 'vo', 'mae', 'ampulheta', 'contato']
 }];
+const DESK_ICON_BY_ID = Object.fromEntries(DESK_ICONS.map(icon => [icon.id, icon]));
 const PUBLIC_ROUTES = { intro: '/intro/', sobre: '/sobre', conceitos: '/conceitos', publicacoes: '/publicacoes/' };
 const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
@@ -394,7 +395,7 @@ const MENU_LABEL = {
     sobre: 'Sobre',
     tese: 'Tese',
     conceitos: 'Conceitos',
-    publicacoes: 'Perfis',
+    publicacoes: 'Publicações',
     projetos: 'Projetos',
     poster: 'Tabula',
     tarot: 'Sorte',
@@ -406,7 +407,7 @@ const MENU_LABEL = {
     sobre: 'About',
     tese: 'Thesis',
     conceitos: 'Concepts',
-    publicacoes: 'Profiles',
+    publicacoes: 'Publications',
     projetos: 'Projects',
     poster: 'Tabula',
     tarot: 'Luck',
@@ -1186,7 +1187,7 @@ function Desktop({
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isMobile, topId, mobileMenuOpen]);
   const selectedDeskGroup = DESK_GROUPS.find(group => group.id === activeDeskGroup) || DESK_GROUPS[0];
-  const iconsInView = isMobile ? DESK_ICONS : DESK_ICONS.filter(icon => selectedDeskGroup.ids.includes(icon.id));
+  const groupsInView = isMobile ? DESK_GROUPS : [selectedDeskGroup];
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
@@ -1382,21 +1383,32 @@ function Desktop({
     width: 30,
     height: 30
   }), /*#__PURE__*/React.createElement("span", null, group.label[lang])))), /*#__PURE__*/React.createElement("div", {
-    className: "desktop-tile-list",
+    className: "desktop-tile-stages",
     "aria-live": isMobile ? undefined : "polite"
-  }, iconsInView.map(({ id, label, Icon }) => /*#__PURE__*/React.createElement("button", {
-    key: id,
-    type: "button",
-    className: "desktop-icon",
-    "data-app-id": id,
-    title: (FICHA[id]?.human?.[lang] || label[lang]) + ' · ' + label[lang],
-    onClick: () => open(id)
-  }, /*#__PURE__*/React.createElement("span", { className: "desktop-icon-image" }, ICON_TILES[id] ? /*#__PURE__*/React.createElement("img", {
-    src: ICON_TILES[id],
-    alt: "",
-    width: 52,
-    height: 52
-  }) : /*#__PURE__*/React.createElement(Icon, { size: 36 })), /*#__PURE__*/React.createElement("span", { className: "desktop-icon-label" }, label[lang]))))), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
+  }, groupsInView.map(group => /*#__PURE__*/React.createElement("section", {
+    key: group.id,
+    className: "desktop-tile-stage",
+    "aria-label": group.label[lang]
+  }, isMobile && /*#__PURE__*/React.createElement("h2", {
+    className: "desktop-tile-heading"
+  }, group.label[lang]), /*#__PURE__*/React.createElement("div", {
+    className: "desktop-tile-list"
+  }, group.ids.map(id => {
+    const { label, Icon } = DESK_ICON_BY_ID[id];
+    return /*#__PURE__*/React.createElement("button", {
+      key: id,
+      type: "button",
+      className: "desktop-icon",
+      "data-app-id": id,
+      title: (FICHA[id]?.human?.[lang] || label[lang]) + ' · ' + label[lang],
+      onClick: () => open(id)
+    }, /*#__PURE__*/React.createElement("span", { className: "desktop-icon-image" }, ICON_TILES[id] ? /*#__PURE__*/React.createElement("img", {
+      src: ICON_TILES[id],
+      alt: "",
+      width: 52,
+      height: 52
+    }) : /*#__PURE__*/React.createElement(Icon, { size: 36 })), /*#__PURE__*/React.createElement("span", { className: "desktop-icon-label" }, label[lang]));
+  })))))), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
     type: "button",
     "aria-label": lang === 'en' ? 'Close active window' : 'Fechar janela ativa',
     onClick: e => {
