@@ -34,7 +34,7 @@ test('mobile modal keeps keyboard focus inside the active archive window', async
 
   // Compact/mobile starts with no windows open; tap the projects record to open it.
   await page.getByRole('button', { name: 'Menu', exact: true }).click();
-  await page.locator('button[data-app-id="projetos"]').click();
+  await page.locator('.desktop-menu-item[data-app-id="projetos"]').click();
 
   const dialog = page.locator('[data-window-id="projetos"]');
   const close = dialog.getByRole('button', { name: 'Fechar Janela', exact: true });
