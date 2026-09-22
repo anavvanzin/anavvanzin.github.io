@@ -133,15 +133,19 @@ test.describe('Tier 1 - Feature Coverage', () => {
     expect(isRegistered).toBe(true);
   });
 
-  test('T1.F4.3: Verify the archive desktop publishes no launcher icon grid', async ({ page }) => {
+  test('T1.F4.3: Verify the illustrated desk launches grouped tiles', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('.desktop-icon')).toHaveCount(0);
+    await expect(page.locator('.desktop-icon')).toHaveCount(6);
+    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
+    await expect(page.locator('.desktop-icon[data-app-id="poster"]')).toBeVisible();
   });
 
-  test('T1.F4.4: Verify index.html exposes Tabula through text navigation', async ({ page }) => {
+  test('T1.F4.4: Verify index.html exposes Tabula through text and tile navigation', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('button', { name: 'Tabula', exact: true })).toBeVisible();
-    await expect(page.locator('.desktop-icon')).toHaveCount(0);
+    await page.getByRole('button', { name: 'arquivo', exact: true }).click();
+    await page.locator('.desktop-icon[data-app-id="poster"]').click();
+    await expect(page.getByRole('dialog', { name: 'tabula' })).toBeVisible();
   });
 
   test('T1.F4.4b: Verify index.html does not reference the missing mother photo asset', async ({ page }) => {

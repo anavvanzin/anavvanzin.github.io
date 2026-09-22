@@ -1,5 +1,6 @@
 /*IIFE*/(function(){
 /* ana vanzin desktop — window manager, menu bar, dock, boot. */
+const { FolderIcon, DocIcon, MailIcon, GroupIcon, ImageIcon, SealIcon, QuoteIcon, AtlasIcon, WorksIcon, HourglassIcon } = window.avapp;
 const {
   WSobre,
   WTese,
@@ -137,6 +138,254 @@ const REG = {
   }
 };
 const regTitle = (id, lang) => REG[id].title[lang] || REG[id].title.pt;
+const DESK_ICONS = [{
+  id: 'sobre',
+  label: {
+    pt: 'sobre.txt',
+    en: 'about.txt'
+  },
+  Icon: DocIcon
+}, {
+  id: 'tese',
+  label: {
+    pt: 'tese',
+    en: 'thesis'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'conceitos',
+  label: {
+    pt: 'conceitos',
+    en: 'concepts'
+  },
+  Icon: SealIcon
+}, {
+  id: 'iconocracia',
+  label: {
+    pt: 'iconocracia',
+    en: 'iconocracia'
+  },
+  Icon: AtlasIcon
+}, {
+  id: 'radiografia',
+  label: {
+    pt: 'radiografia',
+    en: 'radiografia'
+  },
+  Icon: SealIcon
+}, {
+  id: 'marginalia',
+  label: {
+    pt: 'marginália',
+    en: 'marginalia'
+  },
+  Icon: DocIcon
+}, {
+  id: 'atlas',
+  label: {
+    pt: 'atlas',
+    en: 'atlas'
+  },
+  Icon: AtlasIcon
+}, {
+  id: 'sala-de-leitura',
+  label: {
+    pt: 'sala de leitura',
+    en: 'reading room'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'advocacia',
+  label: {
+    pt: 'advocacia',
+    en: 'practice'
+  },
+  Icon: WorksIcon
+}, {
+  id: 'quotes',
+  label: {
+    pt: 'citações',
+    en: 'quotes'
+  },
+  Icon: QuoteIcon
+}, {
+  id: 'trabalhos',
+  label: {
+    pt: 'trabalhos',
+    en: 'works'
+  },
+  Icon: WorksIcon
+}, {
+  id: 'publicacoes',
+  label: {
+    pt: 'publicações',
+    en: 'publications'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'ius',
+  label: {
+    pt: 'ius gentium',
+    en: 'ius gentium'
+  },
+  Icon: GroupIcon
+}, {
+  id: 'projetos',
+  label: {
+    pt: 'projetos.app',
+    en: 'projects.app'
+  },
+  Icon: FolderIcon
+}, {
+  id: 'orientador',
+  label: {
+    pt: 'orientador',
+    en: 'advisor'
+  },
+  Icon: DocIcon
+}, {
+  id: 'curriculo',
+  label: {
+    pt: 'currículo',
+    en: 'curriculum'
+  },
+  Icon: DocIcon
+}, {
+  id: 'perfil',
+  label: {
+    pt: 'perfil.card',
+    en: 'profile.card'
+  },
+  Icon: ImageIcon
+}, {
+  id: 'justitia',
+  label: {
+    pt: 'justitia.png',
+    en: 'justitia.png'
+  },
+  Icon: ImageIcon
+}, {
+  id: 'vo',
+  label: {
+    pt: 'vó.jpg',
+    en: 'grandma.jpg'
+  },
+  Icon: ImageIcon
+}, {
+  id: 'mae',
+  label: {
+    pt: 'mãe.jpg',
+    en: 'mom.jpg'
+  },
+  Icon: ImageIcon
+}, {
+  id: 'contato',
+  label: {
+    pt: 'contato',
+    en: 'contact'
+  },
+  Icon: MailIcon
+}, {
+  id: 'ampulheta',
+  label: {
+    pt: 'ampulheta.app',
+    en: 'hourglass.app'
+  },
+  Icon: HourglassIcon
+}, {
+  id: 'poster',
+  label: {
+    pt: 'tabula',
+    en: 'tabula'
+  },
+  Icon: AtlasIcon
+}];
+const ICON_TILES = {
+  sobre: '/assets/icons/sobre.webp',
+  tese: '/assets/icons/metodologia.webp',
+  conceitos: '/assets/icons/conceitos.webp',
+  iconocracia: '/assets/icons/iconocracia.webp',
+  radiografia: '/assets/icons/radiografia.webp',
+  marginalia: '/assets/icons/marginalia.webp',
+  atlas: '/assets/icons/atlas.webp',
+  'sala-de-leitura': '/assets/icons/sala.webp',
+  advocacia: '/assets/icons/advocacia.webp',
+  quotes: '/assets/icons/citacoes.webp',
+  trabalhos: '/assets/icons/trabalhos.webp',
+  publicacoes: '/assets/icons/publicacoes.webp',
+  ius: '/assets/icons/ius-gentium-v1.png',
+  projetos: '/assets/icons/projetos-vivos-v1.png',
+  orientador: '/assets/icons/orientador-v1.png',
+  curriculo: '/assets/icons/curriculo.webp',
+  perfil: '/assets/icons/perfil.webp',
+  justitia: '/assets/icons/justitia.webp',
+  vo: '/assets/icons/vo.webp',
+  mae: '/assets/mae/mae-icon.jpg',
+  contato: '/assets/icons/contato-v1.png',
+  ampulheta: '/assets/icons/ampulheta-v1.png',
+  poster: '/assets/icons/tabula-v1.png'
+};
+// Ficha flutuante (preview card que segue o cursor): código de registro +
+// rubrica com nome humano por ícone. Ícones com entrada no REG reaproveitam
+// o recordCode já existente; os demais ganham códigos no mesmo padrão.
+const FICHA = {
+  sobre: { code: 'SOB-01', human: { pt: 'Apresentação', en: 'Introduction' } },
+  tese: { code: 'DOS-02', human: { pt: 'Doutorado · PPGD/UFSC', en: 'PhD · PPGD/UFSC' } },
+  conceitos: { code: 'LEX-01', human: { pt: 'Léxico iconocrático', en: 'Iconocratic lexicon' } },
+  iconocracia: { code: 'ATL-01', human: { pt: 'Atlas da pesquisa', en: 'Research atlas' } },
+  radiografia: { code: 'RAD-01', human: { pt: 'Raio-x do site', en: 'Site x-ray' } },
+  marginalia: { code: 'MAR-01', human: { pt: 'Notas de margem', en: 'Marginal notes' } },
+  atlas: { code: 'ATL-02', human: { pt: 'Painéis warburguianos', en: 'Warburgian panels' } },
+  'sala-de-leitura': { code: 'SAL-01', human: { pt: 'Bibliografia comentada', en: 'Annotated bibliography' } },
+  advocacia: { code: 'ADV-01', human: { pt: 'Prática jurídica', en: 'Legal practice' } },
+  quotes: { code: 'CIT-01', human: { pt: 'Citações recolhidas', en: 'Collected quotes' } },
+  trabalhos: { code: 'TRB-01', human: { pt: 'Ensaios e papers', en: 'Essays and papers' } },
+  publicacoes: { code: 'PUB-01', human: { pt: 'Perfis acadêmicos', en: 'Academic profiles' } },
+  ius: { code: 'GIG · EXT', human: { pt: 'Grupo de pesquisa', en: 'Research group' } },
+  projetos: { code: 'DOS-01', human: { pt: 'Pesquisa em rede', en: 'Networked research' } },
+  orientador: { code: 'ORI-01', human: { pt: 'Cartas de orientação', en: 'Supervision letters' } },
+  curriculo: { code: 'CV-01', human: { pt: 'Trajetória', en: 'Track record' } },
+  perfil: { code: 'PRF-01', human: { pt: 'Quem escreve', en: 'The author' } },
+  justitia: { code: 'IMG-01', human: { pt: 'Alegoria da Justiça', en: 'Allegory of Justice' } },
+  vo: { code: 'IMG-02', human: { pt: 'Arquivo de família', en: 'Family archive' } },
+  mae: { code: 'IMG-03', human: { pt: 'Arquivo de família', en: 'Family archive' } },
+  contato: { code: 'CTT-01', human: { pt: 'Escreva-me', en: 'Write to me' } },
+  ampulheta: { code: 'TMP-01', human: { pt: 'Ensaio sobre o tempo', en: 'Essay on time' } },
+  poster: { code: 'TAB-01', human: { pt: 'Painel-síntese', en: 'Synthesis panel' } }
+};
+const DESK_GROUPS = [{
+  id: 'pesquisa',
+  label: {
+    pt: 'pesquisa',
+    en: 'research'
+  },
+  tile: '/assets/icons/iconocracia.webp',
+  ids: ['tese', 'iconocracia', 'ius', 'projetos', 'atlas', 'conceitos']
+}, {
+  id: 'arquivo',
+  label: {
+    pt: 'arquivo',
+    en: 'archive'
+  },
+  tile: '/assets/icons/publicacoes.webp',
+  ids: ['radiografia', 'marginalia', 'quotes', 'trabalhos', 'publicacoes', 'poster']
+}, {
+  id: 'pessoas',
+  label: {
+    pt: 'pessoas',
+    en: 'people'
+  },
+  tile: '/assets/icons/perfil.webp',
+  ids: ['sobre', 'perfil', 'curriculo', 'orientador', 'contato', 'advocacia']
+}, {
+  id: 'memoria',
+  label: {
+    pt: 'memória',
+    en: 'memory'
+  },
+  tile: '/assets/icons/justitia.webp',
+  ids: ['justitia', 'vo', 'mae', 'ampulheta', 'sala-de-leitura']
+}];
 const PUBLIC_ROUTES = { intro: '/intro/', sobre: '/sobre', conceitos: '/conceitos', publicacoes: '/publicacoes/' };
 const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'poster', 'tarot', 'orientador', 'contato'];
 const MENU_LABEL = {
@@ -650,6 +899,7 @@ function Desktop({
     }];
   });
   const [zTop, setZTop] = React.useState(5);
+  const [activeDeskGroup, setActiveDeskGroup] = React.useState('pesquisa');
   const drag = React.useRef(null);
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -935,6 +1185,8 @@ function Desktop({
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isMobile, topId, mobileMenuOpen]);
+  const selectedDeskGroup = DESK_GROUPS.find(group => group.id === activeDeskGroup) || DESK_GROUPS[0];
+  const iconsInView = isMobile ? DESK_ICONS : DESK_ICONS.filter(icon => selectedDeskGroup.ids.includes(icon.id));
   return /*#__PURE__*/React.createElement("main", {
     id: "main",
     tabIndex: -1,
@@ -1097,7 +1349,54 @@ function Desktop({
     }
   }, l.toUpperCase()))), !isMobile && /*#__PURE__*/React.createElement(Clock, {
     lang: lang
-  }))), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
+  }))), /*#__PURE__*/React.createElement("nav", {
+    className: "desktop-tiles",
+    "aria-label": lang === 'en' ? 'Illustrated desk' : 'Ladrilhos da mesa',
+    style: {
+      position: 'absolute',
+      top: isMobile ? 'var(--desktop-titlebar-height)' : 58,
+      bottom: isMobile ? 'var(--desktop-dock-height-mobile)' : 'var(--desktop-dock-height)',
+      left: isMobile ? 0 : 12,
+      right: isMobile ? 0 : 'auto',
+      width: isMobile ? '100%' : 184,
+      zIndex: isMobile ? 1 : 9001,
+      overflowY: 'auto',
+      padding: isMobile ? '14px 14px 24px' : '8px 6px 16px',
+      background: isMobile ? 'color-mix(in srgb, var(--paper) 92%, transparent)' : 'color-mix(in srgb, var(--paper) 90%, transparent)',
+      border: '1px solid var(--ink)'
+    }
+  }, !isMobile && /*#__PURE__*/React.createElement("div", {
+    className: "desktop-tile-groups",
+    role: "group",
+    "aria-label": lang === 'en' ? 'Desk sections' : 'Seções da mesa'
+  }, DESK_GROUPS.map(group => /*#__PURE__*/React.createElement("button", {
+    key: group.id,
+    type: "button",
+    "aria-pressed": activeDeskGroup === group.id,
+    "aria-label": group.label[lang],
+    onClick: () => setActiveDeskGroup(group.id),
+    className: "desktop-tile-group"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: group.tile,
+    alt: "",
+    width: 30,
+    height: 30
+  }), /*#__PURE__*/React.createElement("span", null, group.label[lang])))), /*#__PURE__*/React.createElement("div", {
+    className: "desktop-tile-list",
+    "aria-live": isMobile ? undefined : "polite"
+  }, iconsInView.map(({ id, label, Icon }) => /*#__PURE__*/React.createElement("button", {
+    key: id,
+    type: "button",
+    className: "desktop-icon",
+    "data-app-id": id,
+    title: (FICHA[id]?.human?.[lang] || label[lang]) + ' · ' + label[lang],
+    onClick: () => open(id)
+  }, /*#__PURE__*/React.createElement("span", { className: "desktop-icon-image" }, ICON_TILES[id] ? /*#__PURE__*/React.createElement("img", {
+    src: ICON_TILES[id],
+    alt: "",
+    width: 52,
+    height: 52
+  }) : /*#__PURE__*/React.createElement(Icon, { size: 36 })), /*#__PURE__*/React.createElement("span", { className: "desktop-icon-label" }, label[lang]))))), isMobile && visible.length > 0 && /*#__PURE__*/React.createElement("button", {
     type: "button",
     "aria-label": lang === 'en' ? 'Close active window' : 'Fechar janela ativa',
     onClick: e => {

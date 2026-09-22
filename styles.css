@@ -219,6 +219,7 @@ a:focus-visible,
    bounds so dragging and window geometry never jump. */
 .window-control,
 .desktop-menu-item,
+.desktop-icon,
 .desktop-dock-item {
   transition: background-color var(--duration-ui) ease, box-shadow var(--duration-ui) ease, transform var(--duration-ui) ease;
 }
@@ -233,6 +234,67 @@ a:focus-visible,
 
 .desktop-menu-item:hover {
   box-shadow: inset 0 -3px 0 var(--ink-30);
+}
+
+.desktop-tile-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.desktop-tile-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 53px;
+  padding: 4px 2px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font: 700 8px var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.desktop-tile-group[aria-pressed="true"] {
+  border: 2px solid var(--sienna);
+  color: var(--sienna);
+}
+
+.desktop-tile-group img { width: 30px; height: 30px; object-fit: cover; }
+.desktop-tile-list { display: grid; gap: 4px; }
+
+.desktop-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 54px;
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  font: 500 12px var(--font-body);
+}
+
+.desktop-icon-image { flex: 0 0 52px; width: 52px; height: 52px; }
+.desktop-icon-image img { display: block; width: 52px; height: 52px; object-fit: cover; }
+.desktop-icon-label { padding: 2px; text-shadow: 0 1px var(--paper); }
+.desktop-icon:hover .desktop-icon-label,
+.desktop-icon:focus-visible .desktop-icon-label { background: var(--sienna); color: var(--paper); text-shadow: none; }
+
+@media (max-width: 1024px) {
+  .desktop-tile-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .desktop-icon { font-size: 13px; }
+}
+
+@media (max-width: 500px) {
+  .desktop-tile-list { grid-template-columns: 1fr; }
 }
 
 .desktop-dock-item:hover {
