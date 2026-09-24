@@ -7,7 +7,7 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/ana vanzin · direito & iconografia/);
 });
 
-test('home opens as an archive desktop with projects, Justitia and a simple advisor credit', async ({ page }) => {
+test('home opens as an archive desktop with projects and Justitia', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
@@ -25,10 +25,7 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
   await expect(page.locator('.desktop-tile-group')).toHaveCount(4);
   await page.getByRole('button', { name: 'materiais e escrita', exact: true }).click();
   await expect(page.locator('.desktop-icon[data-app-id="sala-de-leitura"]')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveAttribute(
-    'href',
-    'https://arno-dal-ri.anavanzin.workers.dev/'
-  );
+  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveCount(0);
   await expect(page.locator('a[href*="CV%20Arno"]')).toHaveCount(0);
   await expect(page.locator('[data-desktop-wallpaper="illuminated-justitia"]')).toHaveAttribute(
     'src',
@@ -39,7 +36,7 @@ test('home opens as an archive desktop with projects, Justitia and a simple advi
 const researchPath = [
   { title: 'pesquisa', ids: ['tese', 'conceitos', 'justitia', 'iconocracia', 'atlas', 'radiografia'] },
   { title: 'materiais e escrita', ids: ['sala-de-leitura', 'marginalia', 'quotes', 'contrato-visual', 'publicacoes', 'trabalhos'] },
-  { title: 'redes', ids: ['projetos', 'ius', 'orientador', 'advocacia'] },
+  { title: 'redes', ids: ['projetos', 'ius', 'advocacia'] },
   { title: 'pessoa e memória', ids: ['sobre', 'perfil', 'curriculo', 'vo', 'mae', 'ampulheta', 'contato'] },
 ];
 
@@ -75,13 +72,13 @@ test('mobile tiles show every stage and each tile exactly once', async ({ page }
     ids: [...element.querySelectorAll('.desktop-icon')].map(tile => tile.dataset.appId),
   })));
   expect(actual).toEqual(researchPath);
-  expect(new Set(actual.flatMap(stage => stage.ids)).size).toBe(23);
+  expect(new Set(actual.flatMap(stage => stage.ids)).size).toBe(22);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.locator('.desktop-icon[data-app-id="tese"]').click();
   await expect(page.locator('[data-window-id="tese"]')).toBeVisible();
 });
 
-test('home language switch updates projects and the advisor credit', async ({ page }) => {
+test('home language switch updates projects', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
@@ -90,7 +87,7 @@ test('home language switch updates projects and the advisor credit', async ({ pa
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('button[data-lang="en"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByText('Living projects', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Responsible advisor: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Responsible advisor: Arno Dal Ri Júnior, PPGD/UFSC' })).toHaveCount(0);
 });
 
 test('home remains usable when JavaScript is unavailable', async ({ browser }) => {
@@ -101,7 +98,8 @@ test('home remains usable when JavaScript is unavailable', async ({ browser }) =
   await expect(page.locator('#main')).toBeVisible();
   await expect(page.locator('a[href="https://iconocracia.com/"]')).toBeVisible();
   await expect(page.locator('a[href="https://grupoiusgentium.com.br/"]')).toBeVisible();
-  await expect(page.locator('a[href="https://arno-dal-ri.anavanzin.workers.dev/"]')).toBeVisible();
+  await expect(page.locator('a[href="https://arno-dal-ri.anavanzin.workers.dev/"]')).toHaveCount(0);
+  await expect(page.locator('a[href="https://anavanzin.com/arno-dal-ri-site/"]')).toHaveCount(0);
 
   await context.close();
 });
@@ -136,7 +134,7 @@ test('mobile opens living projects as a scrollable window without horizontal ove
   await expect(page.locator('article h3 a[href="https://grupoiusgentium.com.br/"]').filter({ hasText: 'Ius Gentium' })).toBeVisible();
   await expect(page.locator('article h3 a[href="https://iconocracia.com/"]').filter({ hasText: 'Iconocracia' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'grupoiusgentium.com.br' })).toBeVisible();
-  await expect(page.locator('.desktop-icon')).toHaveCount(23);
+  await expect(page.locator('.desktop-icon')).toHaveCount(22);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -152,38 +150,13 @@ test('compact layout engages before desktop windows can overflow', async ({ page
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('advisor opens as a movable academic record with one official site action', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 720 });
-  await page.goto('/');
-
-  await expect(page.locator('[data-window-id="orientador"]')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Mover-se', exact: true })).toHaveCount(0);
-  await page.getByRole('button', { name: 'Orientador', exact: true }).click();
-  const advisor = page.locator('[data-window-id="orientador"]');
-  await expect(advisor).toBeVisible();
-  await expect(advisor).toHaveAttribute('role', 'dialog');
-  await expect(advisor).toHaveAttribute('aria-labelledby', 'window-title-orientador');
-  await expect(advisor.locator('#window-title-orientador')).toHaveText('orientação.txt');
-  await expect(advisor.getByRole('heading', { name: 'Arno Dal Ri Júnior' })).toBeVisible();
-  await expect(advisor.getByText('Orientador responsável pela pesquisa de doutorado', { exact: false })).toBeVisible();
-  await expect(advisor.getByText('Vínculo acadêmico · PPGD/UFSC')).toBeVisible();
-  const advisorAction = advisor.getByRole('link', { name: '↗ conhecer o orientador' });
-  await expect(advisorAction).toHaveAttribute('href', 'https://arno-dal-ri.anavanzin.workers.dev/');
-  const advisorActionBox = await advisorAction.boundingBox();
-  expect(advisorActionBox?.height).toBeGreaterThanOrEqual(44);
-  const advisorBox = await advisor.boundingBox();
-  expect(advisorBox?.width).toBeGreaterThanOrEqual(470);
-  expect(advisorBox?.y).toBeLessThan(400);
-  await expect(page.getByRole('link', { name: 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC' })).toBeVisible();
-});
-
 test('archive windows keep touch-sized controls and the minimize, drag, escape cycle', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
 
-  const launcher = page.getByRole('button', { name: 'Orientador', exact: true });
+  const launcher = page.getByRole('button', { name: 'Tese', exact: true });
   await launcher.click();
-  const advisor = page.getByRole('dialog', { name: 'orientação.txt' });
+  const advisor = page.getByRole('dialog', { name: 'tese' });
   const controls = advisor.getByRole('button');
 
   await expect(controls).toHaveCount(2);
@@ -206,7 +179,7 @@ test('archive windows keep touch-sized controls and the minimize, drag, escape c
 
   await advisor.getByRole('button', { name: 'Minimizar' }).click();
   await expect(advisor).toHaveCount(0);
-  await page.getByRole('button', { name: 'orientação.txt', exact: true }).click();
+  await page.locator('button.desktop-dock-item', { hasText: /^tese$/ }).click();
   await expect(advisor).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(advisor).toHaveCount(0);

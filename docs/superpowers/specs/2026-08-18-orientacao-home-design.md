@@ -1,6 +1,12 @@
 # Ficha de orientação na home
 
-## Decisão
+> **Revogada em 2026-09-24.** A ficha de orientação (`orientação.txt`), o crédito
+> fixo no dock e a entrada de menu "Orientador" foram removidos da home — a
+> proprietária do site apontou que a atribuição não faz sentido no contexto da
+> página pessoal. As rotas `/orientador/` e `/arno-dal-ri-site/` permanecem
+> ativas e independentes. Texto original preservado abaixo para referência.
+
+## Decisão (original, 2026-08-18)
 
 A home apresenta a orientação acadêmica como uma janela média de arquivo,
 `orientação.txt`, e não como uma página institucional resumida. A rota

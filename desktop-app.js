@@ -7,7 +7,6 @@ const {
   WPublicacoes,
   WIus,
   WProjects,
-  WAdvisor,
   WContato,
   WJustitia,
   WVo,
@@ -15,7 +14,6 @@ const {
   WAmpulheta,
   WTarot
 } = window.avapp;
-const ADVISOR_SITE_URL = 'https://arno-dal-ri.anavanzin.workers.dev/';
 const REG = {
   sobre: {
     title: {
@@ -62,14 +60,6 @@ const REG = {
       en: '2 records · research network'
     },
     Body: WProjects
-  },
-  orientador: {
-    title: {
-      pt: 'orientação.txt',
-      en: 'supervision.txt'
-    },
-    w: 470,
-    Body: WAdvisor
   },
   contato: {
     title: {
@@ -227,13 +217,6 @@ const DESK_ICONS = [{
   },
   Icon: FolderIcon
 }, {
-  id: 'orientador',
-  label: {
-    pt: 'orientador',
-    en: 'advisor'
-  },
-  Icon: DocIcon
-}, {
   id: 'curriculo',
   label: {
     pt: 'currículo',
@@ -305,7 +288,6 @@ const ICON_TILES = {
   publicacoes: '/assets/icons/publicacoes.webp',
   ius: '/assets/icons/ius-gentium-v1.png',
   projetos: '/assets/icons/projetos-vivos-v1.png',
-  orientador: '/assets/icons/orientador-v1.png',
   curriculo: '/assets/icons/curriculo.webp',
   perfil: '/assets/icons/perfil.webp',
   justitia: '/assets/icons/justitia.webp',
@@ -333,7 +315,6 @@ const FICHA = {
   publicacoes: { code: 'PUB-01', human: { pt: 'Artigos e publicações', en: 'Articles and publications' } },
   ius: { code: 'GIG · EXT', human: { pt: 'Grupo de pesquisa', en: 'Research group' } },
   projetos: { code: 'DOS-01', human: { pt: 'Pesquisa em rede', en: 'Networked research' } },
-  orientador: { code: 'ORI-01', human: { pt: 'Cartas de orientação', en: 'Supervision letters' } },
   curriculo: { code: 'CV-01', human: { pt: 'Trajetória', en: 'Track record' } },
   perfil: { code: 'PRF-01', human: { pt: 'Quem escreve', en: 'The author' } },
   justitia: { code: 'IMG-01', human: { pt: 'Alegoria da Justiça', en: 'Allegory of Justice' } },
@@ -366,7 +347,7 @@ const DESK_GROUPS = [{
     en: 'networks'
   },
   tile: '/assets/icons/ius-gentium-v1.png',
-  ids: ['projetos', 'ius', 'orientador', 'advocacia']
+  ids: ['projetos', 'ius', 'advocacia']
 }, {
   id: 'pessoa-memoria',
   label: {
@@ -378,7 +359,7 @@ const DESK_GROUPS = [{
 }];
 const DESK_ICON_BY_ID = Object.fromEntries(DESK_ICONS.map(icon => [icon.id, icon]));
 const PUBLIC_ROUTES = { intro: '/intro/', sobre: '/sobre', conceitos: '/conceitos', publicacoes: '/publicacoes/' };
-const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'tarot', 'orientador', 'contato'];
+const MENUS = ['intro', 'sobre', 'tese', 'conceitos', 'publicacoes', 'projetos', 'tarot', 'contato'];
 const MENU_LABEL = {
   pt: {
     intro: 'Intro',
@@ -388,7 +369,6 @@ const MENU_LABEL = {
     publicacoes: 'Publicações',
     projetos: 'Projetos',
     tarot: 'Sorte',
-    orientador: 'Orientador',
     contato: 'Contato'
   },
   en: {
@@ -399,7 +379,6 @@ const MENU_LABEL = {
     publicacoes: 'Publications',
     projetos: 'Projects',
     tarot: 'Luck',
-    orientador: 'Advisor',
     contato: 'Contact'
   }
 };
@@ -1064,9 +1043,8 @@ function Desktop({
         min: false
       } : w);
       const n = ws.filter(w => !w.min).length;
-      const advisor = id === 'orientador';
-      const x = advisor ? Math.min(360, Math.max(112, Math.round(window.innerWidth * 0.18))) : Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
-      const y = advisor ? Math.min(380, Math.max(84, window.innerHeight - 350)) : 78 + n * 28;
+      const x = Math.min(160 + n * 32, Math.max(12, window.innerWidth - winW(id) - 16));
+      const y = 78 + n * 28;
       return [...ws, {
         id,
         x,
@@ -1480,58 +1458,7 @@ function Desktop({
         opacity: w.min ? 0.6 : 1
       }
     }, regTitle(w.id, lang));
-  })), !isMobile && /*#__PURE__*/React.createElement("a", {
-    href: ADVISOR_SITE_URL,
-    "aria-label": lang === 'en' ? 'Responsible advisor: Arno Dal Ri Júnior, PPGD/UFSC' : 'Orientador responsável: Arno Dal Ri Júnior, PPGD/UFSC',
-    onPointerDown: e => e.stopPropagation(),
-    style: {
-      marginLeft: 'auto',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 8,
-      minHeight: 28,
-      padding: '0 8px 0 10px',
-      borderLeft: '2px solid var(--gold-2)',
-      background: 'rgba(242,234,217,0.08)',
-      color: 'var(--paper)',
-      fontFamily: 'var(--font-body)',
-      whiteSpace: 'nowrap',
-      textDecoration: 'none'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 1,
-      lineHeight: 1.05
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: 'var(--gold-2)',
-      fontFamily: 'var(--font-display)',
-      fontSize: 8,
-      fontWeight: 600,
-      letterSpacing: '0.16em',
-      textTransform: 'uppercase'
-    }
-  }, lang === 'en' ? 'Research advisor · PPGD/UFSC' : 'Orientação · PPGD/UFSC'), /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: 'var(--paper)',
-      fontFamily: 'var(--font-body)',
-      fontSize: 12.5,
-      fontWeight: 600,
-      textDecoration: 'underline',
-      textDecorationColor: 'rgba(220,181,77,0.62)',
-      textUnderlineOffset: '0.18em'
-    }
-  }, 'Arno Dal Ri Júnior')), /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": true,
-    style: {
-      color: 'var(--gold-2)',
-      fontSize: 14,
-      lineHeight: 1
-    }
-  }, '↗'))), !booted && /*#__PURE__*/React.createElement(Boot, {
+  }))), !booted && /*#__PURE__*/React.createElement(Boot, {
     onEnter: enter,
     lang: lang
   }));
