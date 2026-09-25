@@ -1,0 +1,281 @@
+/* ============================================================
+   ana vanzin — mapa bibliográfico (dados)
+   GERADO automaticamente por build_mapa.py a partir de
+   scholar_data.json (Google Scholar, coleta de set/2026).
+   Não editar à mão — regerar a partir da fonte.
+   ============================================================ */
+window.MAPA_DATA = {
+ "meta": {
+  "source": "Google Scholar",
+  "collected": "2026-09",
+  "paper_count": 186,
+  "author_count": 8,
+  "query_count": 23
+ },
+ "themes": [
+  {
+   "slug": "legal-iconography",
+   "label": "legal iconography",
+   "count": 20
+  },
+  {
+   "slug": "justica-de-olhos-vendados",
+   "label": "Justiça de olhos vendados",
+   "count": 10
+  },
+  {
+   "slug": "marianne-allegory-of-the-republic",
+   "label": "Marianne / allegory of the Republic",
+   "count": 10
+  },
+  {
+   "slug": "mondzain-image-economy",
+   "label": "Mondzain image economy",
+   "count": 10
+  },
+  {
+   "slug": "panofsky-iconology",
+   "label": "Panofsky iconology",
+   "count": 10
+  },
+  {
+   "slug": "peter-goodrich-legal-emblems",
+   "label": "Peter Goodrich legal emblems",
+   "count": 10
+  },
+  {
+   "slug": "ranciere-distribution-of-the-sensible",
+   "label": "Rancière distribution of the sensible",
+   "count": 10
+  },
+  {
+   "slug": "republica-alegoria-feminina",
+   "label": "República alegoria feminina",
+   "count": 10
+  },
+  {
+   "slug": "warburg-nachleben",
+   "label": "Warburg Nachleben",
+   "count": 10
+  },
+  {
+   "slug": "warburg-pathosformel",
+   "label": "Warburg Pathosformel",
+   "count": 10
+  },
+  {
+   "slug": "alegorias-femininas-da-justica",
+   "label": "alegorias femininas da justiça",
+   "count": 10
+  },
+  {
+   "slug": "iconografia-da-justica",
+   "label": "iconografia da Justiça",
+   "count": 10
+  },
+  {
+   "slug": "imago-decidendi",
+   "label": "imago decidendi",
+   "count": 10
+  },
+  {
+   "slug": "nocturnal-jurisprudence-stramignoni",
+   "label": "nocturnal jurisprudence (Stramignoni)",
+   "count": 10
+  },
+  {
+   "slug": "partilha-do-sensivel",
+   "label": "partilha do sensível",
+   "count": 10
+  },
+  {
+   "slug": "personification-of-law",
+   "label": "personification of law",
+   "count": 10
+  },
+  {
+   "slug": "personificacao-do-direito",
+   "label": "personificação do direito",
+   "count": 10
+  },
+  {
+   "slug": "blindfolded-justice",
+   "label": "blindfolded justice",
+   "count": 9
+  },
+  {
+   "slug": "female-allegory-of-justice",
+   "label": "female allegory of justice",
+   "count": 9
+  },
+  {
+   "slug": "political-theology-of-images",
+   "label": "political theology of images",
+   "count": 9
+  },
+  {
+   "slug": "justitia-iconography",
+   "label": "Justitia iconography",
+   "count": 5
+  },
+  {
+   "slug": "recent-production-2015-2026",
+   "label": "recent production 2015-2026",
+   "count": 3
+  }
+ ],
+ "papers": [
+  {
+   "title": "Images of justice",
+   "authors": [
+    "DE Curtis",
+    "J Resnik"
+   ],
+   "year": 1986,
+   "venue": "DE Curtis, J Resnik - Yale LJ, 1986 - HeinOnline",
+   "citation_count": 304,
+   "abstract": "… Justitia in our tale has put on the blindfold to avoid the pitfalls … Our icon, however, is Justitia blindfolded, not Justitia blind, … upon an iconographic history replete with images of Justitia, of …",
+   "url": "https://access.heinonline.com/hol-cgi-bin/get_pdf.cgi?handle=hein.journals/ylr96&section=74",
+   "pdf_links": [],
+   "themes": [
+    "Justitia iconography",
+    "female allegory of justice"
+   ],
+   "source_query": "Justitia iconography | female allegory justice"
+  },
+  {
+   "title": "Justice blindfolded: the historical course of an image",
+   "authors": [
+    "A Prosperi"
+   ],
+   "year": 2018,
+   "venue": "A Prosperi - 2018 - books.google.com",
+   "citation_count": 26,
+   "abstract": "Justice Blindfolded gives an overview of the history of “justice” and its iconography through the centuries. Justice has been portrayed as a woman with scales, or holding a sword, or, …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=ppJyDwAAQBAJ&oi=fnd&pg=PR7&dq=Justitia+iconography&ots=JZu5_NS_wJ&sig=Bgs30-rLphvqufpr9WlxjvXGRUs",
+   "pdf_links": [],
+   "themes": [
+    "Justitia iconography",
+    "blindfolded justice"
+   ],
+   "source_query": "Justitia iconography | blindfolded justice"
+  },
+  {
+   "title": "Lady justice: An anatomy of allegory",
+   "authors": [
+    "V Hayaert"
+   ],
+   "year": 2023,
+   "venue": "V Hayaert - 2023 - books.google.com",
+   "citation_count": 13,
+   "abstract": "… and as broad as the history of images of Justitia or theories of retinal justice. Working with both … the notion of Justice are often approached through iconographic or stylistic study alone. In …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=hvigEQAAQBAJ&oi=fnd&pg=PP1&dq=Justitia+iconography&ots=QFQEykN3CC&sig=eWONAPpKINMXyxj1cukDRytTYfs",
+   "pdf_links": [],
+   "themes": [
+    "Justitia iconography",
+    "female allegory of justice"
+   ],
+   "source_query": "Justitia iconography | female allegory justice"
+  },
+  {
+   "title": "Virtue or Tyranny? Pieter Bruegel, Justitia, and the Myth of the Inquisition",
+   "authors": [
+    "G Schwerhoff"
+   ],
+   "year": 2018,
+   "venue": "G Schwerhoff - Pieter Bruegel the Elder and Religion, 2018 - books.google.com",
+   "citation_count": 9,
+   "abstract": "… Thus one could view Justitia as a building block in the creation of Inquisition iconography, which, at least in the long term, has been very successfully deployed. Further studies are …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=R-t5DwAAQBAJ&oi=fnd&pg=PA79&dq=Justitia+iconography&ots=pTUcRVOdkg&sig=VN0H01tZfiiqQxi417qspZTq4Yw",
+   "pdf_links": [],
+   "themes": [
+    "Justitia iconography"
+   ],
+   "source_query": "Justitia iconography"
+  },
+  {
+   "title": "The blindness of justice: An iconographic dialogue between art and law",
+   "authors": [
+    "M Franca"
+   ],
+   "year": 2018,
+   "venue": "M Franca - See, 2018 - library.oapen.org",
+   "citation_count": 13,
+   "abstract": "This essay seeks to listen to the ‘muta eloquentia’of visual arts, in a very specific field, namely, the plastic discourse on the eyes, the blindness and the blindfold of justice–‘the most …",
+   "url": "https://library.oapen.org/bitstream/handle/20.500.12657/30607/1/645079.pdf#page=166",
+   "pdf_links": [
+    "https://library.oapen.org/bitstream/handle/20.500.12657/30607/1/645079.pdf#page=166"
+   ],
+   "themes": [
+    "Justitia iconography",
+    "blindfolded justice",
+    "legal iconography",
+    "recent production 2015-2026"
+   ],
+   "source_query": "Justitia iconography | legal iconography | blindfolded justice | law art justice iconography (2015-2026, sort=date)"
+  },
+  {
+   "title": "Monuments and maidens: The allegory of the female form",
+   "authors": [
+    "M Warner"
+   ],
+   "year": 2000,
+   "venue": "M Warner - 2000 - books.google.com",
+   "citation_count": 1523,
+   "abstract": "… The second section of the book examines a principal reason for female allegory, … allegorical figures, like the Beatitudes and the Liberal Arts. In Chapter 8 I discuss allegories of Justice, a …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=KUrd5GqffyEC&oi=fnd&pg=PA1&dq=female+allegory+justice&ots=K8TKN0QNx_&sig=8spcoZH1k6vM9-rGbE3UubpNZvo",
+   "pdf_links": [],
+   "themes": [
+    "female allegory of justice"
+   ],
+   "source_query": "female allegory justice | female allegory justice"
+  },
+  {
+   "title": "Gauzy allegory and the construction of gender",
+   "authors": [
+    "MH Weresh"
+   ],
+   "year": 2018,
+   "venue": "MH Weresh - Wm. & Mary J. Race Gender & Soc. Just., 2018 - HeinOnline",
+   "citation_count": 5,
+   "abstract": "… see a form of female allegorical representation in American … The longstanding female representation of Justice is also … that the use of female allegory to represent Justice in societies …",
+   "url": "https://access.heinonline.com/hol-cgi-bin/get_pdf.cgi?handle=hein.journals/wmjwl25&section=6",
+   "pdf_links": [
+    "https://scholarship.law.wm.edu/cgi/viewcontent.cgi?article=1485&context=wmjowl"
+   ],
+   "themes": [
+    "female allegory of justice"
+   ],
+   "source_query": "female allegory justice"
+  },
+  {
+   "title": "The allegory of female authority: Christine de Pizan's Cité des dames",
+   "authors": [
+    "M Quilligan"
+   ],
+   "year": 1991,
+   "venue": "M Quilligan - 1991 - books.google.com",
+   "citation_count": 323,
+   "abstract": "… that we may finally not do literary history justice if we do eliminate the author as a powerful position from which to produce text before any female author can usefully inhabit that position. …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=2ow63xNWkmMC&oi=fnd&pg=PR9&dq=female+allegory+justice&ots=7b5kAB_IRe&sig=Jqd73Yqg4iGXn3cUa-LTO9IsGZo",
+   "pdf_links": [],
+   "themes": [
+    "female allegory of justice"
+   ],
+   "source_query": "female allegory justice"
+  },
+  {
+   "title": "Allegory and violence",
+   "authors": [
+    "G Teskey"
+   ],
+   "year": 1996,
+   "venue": "G Teskey - 1996 - books.google.com",
+   "citation_count": 530,
+   "abstract": "… apart from its ideological identification with the female, it functions as a logical instrument for … Justice is said to be just, leaves a residue that is not justice but the thing in which Justice …",
+   "url": "https://books.google.com/books?hl=zh-CN&lr=&id=jDVVo3BH31wC&oi=fnd&pg=PR9&dq=female+allegory+justice&ots=f2-943LFPn&sig=r1E9I_sXwkLlSH1VmQbmr1UJYfs",
+   "pdf_links": [],
+   "themes": [
+    "female allegory of justice"
+   ],
+   "source_query":
