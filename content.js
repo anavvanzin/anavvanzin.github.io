@@ -146,6 +146,30 @@
         en: 'The feminine allegory of the Brazilian nation, between iconographic import and local invention. Dossier in formation.'
       },
       notes: [], essay: { href: 'publicacoes/maria-marianne.html', label: { pt: 'Maria, Marianne e a República', en: 'Maria, Marianne and the Republic' } }, sources: []
+    },
+    {
+      slug: 'nacao-como-mulher', href: '/atlas/nacao-como-mulher/',
+      img: 'atlas/nacao-como-mulher/plates/BR-005-republica-atlas.webp',
+      imageWidth: 1536, imageHeight: 1024,
+      status: { pt: 'exposição · 9 objetos', en: 'exhibition · 9 objects' },
+      title: { pt: 'A Nação como Mulher', en: 'The Nation as a Woman' },
+      object: { pt: 'Exposição temática bilíngue', en: 'Bilingual thematic exhibition' },
+      origin: { pt: 'Europa e Américas', en: 'Europe and the Americas' },
+      date: '1537–1917',
+      maker: { pt: 'curadoria de Ana Vanzin', en: 'curated by Ana Vanzin' },
+      shelf: { pt: 'nove estudos interpretativos', en: 'nine interpretive studies' },
+      rights: { pt: 'fontes e direitos por objeto', en: 'sources and rights per object' },
+      themes: ['nacao-republica', 'alegoria-feminina', 'soberania-visual'],
+      caption: {
+        pt: 'Estudo interpretativo gerado por IA da República brasileira; a exposição identifica separadamente cada objeto histórico.',
+        en: 'AI-generated interpretive study of the Brazilian Republic; the exhibition identifies each historical object separately.'
+      },
+      symbols: ['barrete', 'coroa', 'gume'],
+      summary: {
+        pt: 'Nove personificações femininas lidas em três camadas: descrição visível, contexto histórico-jurídico e hipótese interpretativa. Com proveniência, direitos e leitura comparativa.',
+        en: 'Nine female personifications read in three layers: visible description, legal-historical context and interpretive hypothesis. With provenance, rights and comparative reading.'
+      },
+      notes: [], essay: null, sources: []
     }
   ];
 

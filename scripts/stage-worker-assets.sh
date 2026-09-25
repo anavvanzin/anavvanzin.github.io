@@ -23,6 +23,7 @@ FORBIDDEN=(
   ".github"
   ".remember"
   "future?"
+  "apps"
   "scripts"
   "tests"
   "AGENTS.md"

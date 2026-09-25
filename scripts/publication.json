@@ -98,6 +98,12 @@
       "reason": "Texto provisório ou dossiê com curadoria/fontes pendentes."
     },
     {
+      "file": "atlas/nacao-como-mulher/index.html",
+      "canonical": "https://anavanzin.com/atlas/nacao-como-mulher/",
+      "category": "ready",
+      "reason": "Exposição temática com fontes, direitos, escopo documental e estatuto derivativo explicitados por objeto."
+    },
+    {
       "file": "atlas/republica.html",
       "canonical": "https://anavanzin.com/atlas/republica",
       "category": "draft",
