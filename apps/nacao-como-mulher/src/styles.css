@@ -68,7 +68,6 @@ main { width: min(1480px, 100%); margin: 0 auto; }
 .object-visual { position: relative; min-height: 520px; display: grid; place-items: center; background: #fbf8f0; border: 1px solid rgba(111,35,52,.16); box-shadow: 0 22px 60px rgba(43,31,20,.09); overflow: hidden; }
 .object-visual::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(166,125,51,.25); pointer-events: none; }
 .object-visual img { width: 100%; height: 100%; object-fit: contain; }
-.derivative-label { position: absolute; left: 22px; top: 22px; z-index: 2; max-width: calc(100% - 44px); padding: 7px 10px; background: rgba(73,23,34,.91); color: white; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; }
 .object-copy { align-self: center; }
 .object-copy h2, .explore-meta h2 { margin: 0; font: 500 clamp(2.8rem, 5.4vw, 5.6rem)/.96 "AV Serif", Georgia, serif; letter-spacing: -.045em; }
 .object-subtitle { margin: 18px 0; color: var(--wine); font: italic 1.2rem/1.45 Georgia, serif; }

@@ -12,7 +12,6 @@ const cards = data.items.map((item, index) => `
   <article class="object-card" id="${escape(item.id)}">
     <div class="folio">${String(index + 1).padStart(2, '0')}</div>
     <div class="object-visual">
-      <span class="derivative-label">estudo interpretativo gerado por IA</span>
       <img src="/atlas/nacao-como-mulher/${escape(item.images.plate)}" alt="${escape(item.images.alt.pt)}">
     </div>
     <div class="object-copy">

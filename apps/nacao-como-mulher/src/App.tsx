@@ -16,7 +16,7 @@ const copy = {
     note: 'As pranchas são estudos interpretativos gerados por IA a partir de objetos históricos identificados. Não são reproduções nem evidência do corpus.',
     read: 'Leitura', explore: 'Explorar', all: 'Todos', compare: 'Comparar', source: 'Fonte e direitos',
     observed: 'Descrição visível', context: 'Contexto histórico-jurídico', interpretation: 'Hipótese interpretativa',
-    study: 'estudo interpretativo gerado por IA', original: 'Ver estudo integral', figure: 'Ver figura recortada',
+    original: 'Ver estudo integral', figure: 'Ver figura recortada',
     select: 'Selecionar para comparação', selected: 'Selecionado', clear: 'Limpar comparação', reset: 'Repor figura',
     instructions: 'Arraste a figura. Use as setas para mover, + e − para dimensionar e Enter para alternar a prancha.',
     canonical: 'corpus canônico em expansão', survey: 'levantamento comparativo datado',
@@ -32,7 +32,7 @@ const copy = {
     note: 'The plates are AI-generated interpretive studies based on identified historical objects. They are neither reproductions nor corpus evidence.',
     read: 'Reading', explore: 'Explore', all: 'All', compare: 'Compare', source: 'Source and rights',
     observed: 'Visible description', context: 'Legal-historical context', interpretation: 'Interpretive hypothesis',
-    study: 'AI-generated interpretive study', original: 'View full study', figure: 'View cut-out figure',
+    original: 'View full study', figure: 'View cut-out figure',
     select: 'Select for comparison', selected: 'Selected', clear: 'Clear comparison', reset: 'Reset figure',
     instructions: 'Drag the figure. Use arrow keys to move, + and − to resize, and Enter to switch the plate.',
     canonical: 'expanding canonical corpus', survey: 'dated comparative survey',
@@ -104,7 +104,6 @@ function ReadingCard({ item, index, lang, selected, onCompare }: {
     <article className="object-card" id={item.id}>
       <div className="folio">{String(index + 1).padStart(2, '0')}</div>
       <div className="object-visual">
-        <span className="derivative-label">{c.study}</span>
         <img src={asset(item.images.plate)} alt={t(item.images.alt, lang)} loading={index > 1 ? 'lazy' : 'eager'} />
       </div>
       <div className="object-copy">
@@ -206,7 +205,7 @@ function ExploreStage({ item, lang }: { item: ExhibitionItem; lang: Lang }) {
           className="draggable-figure"
           style={{ left: obstacle.x, top: obstacle.y, width: obstacle.w, height: obstacle.h }}
           aria-describedby={`instructions-${item.id}`}
-          aria-label={`${t(item.title, lang)} — ${c.study}`}
+          aria-label={t(item.title, lang)}
           onKeyDown={onKeyDown}
           onDoubleClick={() => setShowPlate((value) => !value)}
           onPointerDown={(event) => {
@@ -225,7 +224,6 @@ function ExploreStage({ item, lang }: { item: ExhibitionItem; lang: Lang }) {
           onPointerCancel={() => { dragRef.current = null }}
         >
           <img src={asset(showPlate ? item.images.plate : item.images.figure)} alt="" draggable={false} />
-          <span>{c.study}</span>
         </button>
         <div className="sr-only">
           <h3>{t(item.title, lang)}</h3>

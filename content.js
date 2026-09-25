@@ -161,8 +161,8 @@
       rights: { pt: 'fontes e direitos por objeto', en: 'sources and rights per object' },
       themes: ['nacao-republica', 'alegoria-feminina', 'soberania-visual'],
       caption: {
-        pt: 'Estudo interpretativo gerado por IA da República brasileira; a exposição identifica separadamente cada objeto histórico.',
-        en: 'AI-generated interpretive study of the Brazilian Republic; the exhibition identifies each historical object separately.'
+        pt: 'A República brasileira em composição alegórica; a exposição identifica separadamente cada objeto histórico.',
+        en: 'The Brazilian Republic in an allegorical composition; the exhibition identifies each historical object separately.'
       },
       symbols: ['barrete', 'coroa', 'gume'],
       summary: {

@@ -9,7 +9,7 @@ test('exhibition has a complete no-JavaScript reading edition', async ({ browser
   expect(response.status()).toBe(200);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('A Nação como Mulher');
   await expect(page.locator('.object-card')).toHaveCount(9);
-  await expect(page.locator('.derivative-label')).toHaveCount(9);
+  await expect(page.locator('.derivative-label')).toHaveCount(0);
   await expect(page.locator('.source-panel')).toHaveCount(9);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://anavanzin.com/atlas/nacao-como-mulher/');
   await context.close();
