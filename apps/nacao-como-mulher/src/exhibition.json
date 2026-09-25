@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "snapshotDate": "2026-09-25",
+    "canonicalCorpus": {
+      "count": 337,
+      "commit": "30dae40e670e7e113b27d0a8857dd7bfecdc7741",
+      "source": "data/processed/records.jsonl"
+    },
+    "comparativeSurvey": {
+      "total": 79,
+      "female": 51,
+      "sha256": "3daad645777ce8b28daebd16d3f3d5366536cb843e6555b87b252891dcd2709f"
+    }
+  },
+  "items": [
+    {
+      "id": "europa-regina",
+      "atlasId": "EU-1628",
+      "scope": "comparative-antecedent",
+      "title": { "pt": "Europa Regina", "en": "Europa Regina" },
+      "subtitle": { "pt": "O continente convertido em corpo soberano", "en": "A continent turned into a sovereign body" },
+      "territory": { "pt": "Europa", "en": "Europe" },
+      "date": "1537 / edições posteriores",
+      "medium": { "pt": "mapa antropomórfico", "en": "anthropomorphic map" },
+      "themes": ["genealogia", "cartografia", "soberania"],
+      "observed": {
+        "pt": "O contorno europeu forma uma rainha coroada. A Península Ibérica ocupa a cabeça; a Boêmia aparece no centro do torso; Itália e Dinamarca funcionam como braços.",
+        "en": "Europe's outline forms a crowned queen. The Iberian Peninsula occupies the head; Bohemia appears at the centre of the torso; Italy and Denmark become arms."
+      },
+      "context": {
+        "pt": "O esquema foi concebido por Johannes Putsch em 1537 e retomado por edições cartográficas posteriores, entre elas versões ligadas à Cosmographia de Sebastian Münster.",
+        "en": "Johannes Putsch devised the scheme in 1537; later cartographic editions reused it, including versions associated with Sebastian Münster's Cosmographia."
+      },
+      "interpretation": {
+        "pt": "Como antecedente genealógico, a imagem mostra que território, corpo feminino e insígnias de soberania podiam ser fundidos numa mesma operação visual antes do recorte principal da tese.",
+        "en": "As a genealogical antecedent, the image shows territory, the female body and sovereign insignia merging into one visual operation before the thesis's main period."
+      },
+      "source": {
+        "institution": "Bavarikon / Staatsbibliothek Regensburg",
+        "url": "https://www.bavarikon.de/object/bav:SBR-HSS-00000BSB00113022?lang=en",
+        "rights": { "pt": "Obra histórica em domínio público; consultar os termos da reprodução digital na instituição.", "en": "Historical work in the public domain; consult the institution's terms for the digital reproduction." },
+        "citation": { "pt": "PUTSCH, Johannes. Europa Regina. 1537; versão cartográfica posterior. Bavarikon.", "en": "PUTSCH, Johannes. Europa Regina. 1537; later cartographic version. Bavarikon." }
+      },
+      "images": {
+        "figure": "plates/EU-1628-europa-regina-cut.webp",
+        "plate": "plates/EU-1628-europa-regina-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Europa Regina como rainha cartográfica", "en": "Interpretive study of Europa Regina as a cartographic queen" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "hispania-1870",
+      "atlasId": "ES-003",
+      "scope": "canonical",
+      "title": { "pt": "Hispania reclinada", "en": "Reclining Hispania" },
+      "subtitle": { "pt": "Uma imagem fundacional do Governo Provisório", "en": "A foundational image of the Provisional Government" },
+      "territory": { "pt": "Espanha", "en": "Spain" },
+      "date": "1870",
+      "medium": { "pt": "moeda de 5 pesetas", "en": "5-peseta coin" },
+      "themes": ["moeda", "fundacional", "circulação"],
+      "observed": {
+        "pt": "Hispania aparece reclinada, coroada por muralhas, apoiada nos Pireneus e com Gibraltar aos pés; segura um ramo diante do mar e de raios de sol.",
+        "en": "Hispania reclines with a mural crown, resting against the Pyrenees with Gibraltar at her feet; she holds a branch before the sea and sun rays."
+      },
+      "context": {
+        "pt": "A peça foi cunhada sob o Governo Provisório instaurado depois da Revolução de 1868. Ela antecede a Primeira República espanhola, proclamada em 1873.",
+        "en": "The coin was struck under the Provisional Government established after the 1868 Revolution. It predates the First Spanish Republic, proclaimed in 1873."
+      },
+      "interpretation": {
+        "pt": "A nova unidade monetária pôs uma figura antiga em circulação cotidiana: a ruptura institucional buscou legibilidade em uma personificação territorial já reconhecível.",
+        "en": "The new currency placed an old figure into everyday circulation: institutional rupture sought legibility in an already recognisable territorial personification."
+      },
+      "source": {
+        "institution": "Numista",
+        "url": "https://en.numista.com/6722",
+        "rights": { "pt": "Objeto histórico em domínio público; a exposição não incorpora a fotografia da base.", "en": "Historical object in the public domain; the exhibition does not embed the database photograph." },
+        "citation": { "pt": "GOBIERNO PROVISIONAL. 5 pesetas, Hispania reclinada. Espanha, 1870. Numista.", "en": "PROVISIONAL GOVERNMENT. 5 pesetas, Reclining Hispania. Spain, 1870. Numista." }
+      },
+      "images": {
+        "figure": "plates/ES-1870-hispania-cut.webp",
+        "plate": "plates/ES-1870-hispania-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Hispania reclinada", "en": "Interpretive study of reclining Hispania" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "britannia-1912",
+      "atlasId": "UK-PENNY-1912",
+      "scope": "canonical",
+      "title": { "pt": "Britannia", "en": "Britannia" },
+      "subtitle": { "pt": "A soberania imperial no reverso de um penny", "en": "Imperial sovereignty on the reverse of a penny" },
+      "territory": { "pt": "Grã-Bretanha", "en": "Great Britain" },
+      "date": "1912",
+      "medium": { "pt": "moeda de bronze", "en": "bronze coin" },
+      "themes": ["moeda", "normativo", "império"],
+      "observed": {
+        "pt": "Sentada sobre uma rocha, Britannia usa elmo e vestes longas, segura um tridente e apoia a mão num escudo com a Union Flag.",
+        "en": "Seated on a rock, Britannia wears a helmet and flowing robes, holds a trident and rests one hand on a Union Flag shield."
+      },
+      "context": {
+        "pt": "O penny de Jorge V foi emitido como moeda corrente. A ficha do Museums Victoria registra bronze, 31 mm e emissão em 1912 pela Heaton & Sons.",
+        "en": "George V's penny circulated as ordinary currency. Museums Victoria records a bronze coin, 31 mm in diameter, issued in 1912 by Heaton & Sons."
+      },
+      "interpretation": {
+        "pt": "A repetição numismática converte atributos marítimos e imperiais em presença habitual: o signo estatal passa de mão em mão sem depender de uma cena narrativa.",
+        "en": "Numismatic repetition turns maritime and imperial attributes into an everyday presence: the state sign passes from hand to hand without relying on a narrative scene."
+      },
+      "source": {
+        "institution": "Museums Victoria",
+        "url": "https://collections.museumsvictoria.com.au/items/57610",
+        "rights": { "pt": "Fotografia de referência: Museums Victoria / CC BY 4.0; a exposição usa apenas o estudo interpretativo próprio.", "en": "Reference photograph: Museums Victoria / CC BY 4.0; the exhibition uses only its own interpretive study." },
+        "citation": { "pt": "HEATON & SONS. Penny, George V, Grã-Bretanha. 1912. Museums Victoria, item NU 1574.", "en": "HEATON & SONS. Penny, George V, Great Britain. 1912. Museums Victoria, item NU 1574." }
+      },
+      "images": {
+        "figure": "plates/UK-1912-britannia-cut.webp",
+        "plate": "plates/UK-1912-britannia-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Britannia com elmo, tridente e escudo", "en": "Interpretive study of Britannia with helmet, trident and shield" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "marianne-1917",
+      "atlasId": "2b7a1a18-1a29-5703-9264-6012425c65e8",
+      "scope": "canonical",
+      "title": { "pt": "Marianne", "en": "Marianne" },
+      "subtitle": { "pt": "A República mobilizada pelo empréstimo de guerra", "en": "The Republic mobilised by a war loan" },
+      "territory": { "pt": "França", "en": "France" },
+      "date": "1917",
+      "medium": { "pt": "cartaz de empréstimo nacional", "en": "national war-loan poster" },
+      "themes": ["cartaz", "guerra", "mobilização"],
+      "observed": {
+        "pt": "A figura republicana domina a composição do terceiro Empréstimo da Defesa Nacional, fazendo do corpo alegórico o principal apelo visual.",
+        "en": "The republican figure dominates the poster for the Third National Defence Loan, making the allegorical body its principal visual appeal."
+      },
+      "context": {
+        "pt": "Produzido em 1917, o cartaz liga a iconografia da República à captação financeira durante a Primeira Guerra Mundial.",
+        "en": "Produced in 1917, the poster connects republican iconography to wartime fundraising during the First World War."
+      },
+      "interpretation": {
+        "pt": "Aqui Marianne não apenas representa a República: ela interpela o público e converte pertencimento cívico em participação financeira.",
+        "en": "Here Marianne does more than represent the Republic: she addresses the public and turns civic belonging into financial participation."
+      },
+      "source": {
+        "institution": "Bibliothèque nationale de France / Europeana",
+        "url": "https://www.europeana.eu/en/item/9200518/ark__12148_btv1b10051217v",
+        "rights": { "pt": "No Copyright – Other Known Legal Restrictions, conforme o registro institucional.", "en": "No Copyright – Other Known Legal Restrictions, according to the institutional record." },
+        "citation": { "pt": "RÉPUBLIQUE FRANÇAISE. 3e Emprunt de la Défense nationale. 1917. BnF/Europeana.", "en": "FRENCH REPUBLIC. 3e Emprunt de la Défense nationale. 1917. BnF/Europeana." }
+      },
+      "images": {
+        "figure": "plates/FR-007-marianne-cut.webp",
+        "plate": "plates/FR-007-marianne-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Marianne em cartaz de empréstimo nacional", "en": "Interpretive study of Marianne in a national-loan poster" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "germania-1914",
+      "atlasId": "DE-013",
+      "scope": "canonical",
+      "title": { "pt": "Germania", "en": "Germania" },
+      "subtitle": { "pt": "A nação em prontidão defensiva", "en": "The nation in defensive readiness" },
+      "territory": { "pt": "Alemanha", "en": "Germany" },
+      "date": "1914",
+      "medium": { "pt": "óleo sobre tela", "en": "oil on canvas" },
+      "themes": ["pintura", "guerra", "mobilização"],
+      "observed": {
+        "pt": "Germania aparece de couraça, coroa imperial, espada desembainhada e escudo heráldico diante de um horizonte em chamas.",
+        "en": "Germania appears in armour and an imperial crown, with drawn sword and heraldic shield before a burning horizon."
+      },
+      "context": {
+        "pt": "Friedrich August von Kaulbach pintou Deutschland — August 1914 no início da Primeira Guerra Mundial. O Deutsches Historisches Museum descreve a figura como personificação da prontidão alemã para a guerra.",
+        "en": "Friedrich August von Kaulbach painted Deutschland — August 1914 at the beginning of the First World War. The Deutsches Historisches Museum describes the figure as personifying German readiness for war."
+      },
+      "interpretation": {
+        "pt": "A composição transforma uma posição política situada — a guerra apresentada como defesa — em postura corporal da própria nação.",
+        "en": "The composition turns a situated political position — war presented as defence — into the bodily posture of the nation itself."
+      },
+      "source": {
+        "institution": "Deutsches Historisches Museum",
+        "url": "https://www.dhm.de/lemo/bestand/objekt/gemaelde-friedrich-august-von-kaulbach-germania-1914",
+        "rights": { "pt": "Obra de 1914 em domínio público; reprodução digital creditada ao Deutsches Historisches Museum.", "en": "1914 work in the public domain; digital reproduction credited to the Deutsches Historisches Museum." },
+        "citation": { "pt": "KAULBACH, Friedrich August von. Germania (Deutschland — August 1914). 1914. Óleo sobre tela. Deutsches Historisches Museum, inv. 1988/82.", "en": "KAULBACH, Friedrich August von. Germania (Deutschland — August 1914). 1914. Oil on canvas. Deutsches Historisches Museum, inv. 1988/82." }
+      },
+      "images": {
+        "figure": "plates/DE-013-germania-cut.webp",
+        "plate": "plates/DE-013-germania-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Germania armada", "en": "Interpretive study of an armed Germania" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "italia-turrita-1917",
+      "atlasId": "IT-005",
+      "scope": "canonical",
+      "title": { "pt": "Italia Turrita", "en": "Italia Turrita" },
+      "subtitle": { "pt": "A cidade coroada pede crédito para a guerra", "en": "The turret-crowned city asks for wartime credit" },
+      "territory": { "pt": "Itália", "en": "Italy" },
+      "date": "1917",
+      "medium": { "pt": "cartaz de empréstimo de guerra", "en": "war-loan poster" },
+      "themes": ["cartaz", "guerra", "mobilização"],
+      "observed": {
+        "pt": "Italia Turrita usa coroa mural, armadura e o tricolor italiano; a espada organiza a direção do gesto e do confronto.",
+        "en": "Italia Turrita wears a mural crown, armour and the Italian tricolour; the sword directs both gesture and confrontation."
+      },
+      "context": {
+        "pt": "O cartaz Sottoscrivete al Prestito foi publicado em Bérgamo em 1917 para promover subscrição financeira durante a Primeira Guerra Mundial.",
+        "en": "The poster Sottoscrivete al Prestito was published in Bergamo in 1917 to promote financial subscription during the First World War."
+      },
+      "interpretation": {
+        "pt": "A coroa mural associa corpo, cidade e território; a campanha financeira converte essa identidade visual em obrigação cívica.",
+        "en": "The mural crown joins body, city and territory; the financial campaign turns that visual identity into civic obligation."
+      },
+      "source": {
+        "institution": "Library of Congress",
+        "url": "https://www.loc.gov/item/2004666216/",
+        "rights": { "pt": "Consultar a declaração de direitos do registro da Library of Congress; a exposição não incorpora a reprodução histórica.", "en": "Consult the Library of Congress record's rights statement; the exhibition does not embed the historical reproduction." },
+        "citation": { "pt": "SOTTOSCRIVETE al Prestito. Bérgamo: Istituto Italiano d'Arti Grafiche, 1917. Library of Congress.", "en": "SOTTOSCRIVETE al Prestito. Bergamo: Istituto Italiano d'Arti Grafiche, 1917. Library of Congress." }
+      },
+      "images": {
+        "figure": "plates/IT-005-italia-turrita-cut.webp",
+        "plate": "plates/IT-005-italia-turrita-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo de Italia Turrita com coroa mural", "en": "Interpretive study of Italia Turrita with a mural crown" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "republica-brasileira",
+      "atlasId": "BR-005",
+      "scope": "canonical",
+      "title": { "pt": "A República brasileira", "en": "The Brazilian Republic" },
+      "subtitle": { "pt": "Décio Villares e o rosto do novo regime", "en": "Décio Villares and the face of the new regime" },
+      "territory": { "pt": "Brasil", "en": "Brazil" },
+      "date": "c. 1900",
+      "medium": { "pt": "óleo sobre tela", "en": "oil on canvas" },
+      "themes": ["pintura", "fundacional", "república"],
+      "observed": {
+        "pt": "A figura é mostrada de perfil, com cabelos longos, barrete frígio verde e vestes nas cores nacionais.",
+        "en": "The figure appears in profile, with long hair, a green Phrygian cap and garments in national colours."
+      },
+      "context": {
+        "pt": "A ficha do arquivo da NYU identifica a pintura como estudo de Décio Villares, cerca de 1900, pertencente ao Museu Histórico Nacional.",
+        "en": "The NYU archive record identifies the painting as a study by Décio Villares, circa 1900, held by the Museu Histórico Nacional."
+      },
+      "interpretation": {
+        "pt": "O barrete republicano e a paleta verde-amarela traduzem uma gramática transnacional para o programa visual do regime brasileiro recém-instituído.",
+        "en": "The republican cap and green-and-yellow palette translate a transnational grammar into the visual programme of Brazil's newly instituted regime."
+      },
+      "source": {
+        "institution": "Museu Histórico Nacional / NYU Faculty Digital Archive",
+        "url": "https://archive.nyu.edu/handle/2451/61396",
+        "rights": { "pt": "Obra histórica em domínio público; registro digital disponibilizado pelo arquivo da NYU.", "en": "Historical work in the public domain; digital record provided by the NYU archive." },
+        "citation": { "pt": "VILLARES, Décio. Alegoria da República. c. 1900. Óleo sobre tela, 97 × 77 cm. Museu Histórico Nacional.", "en": "VILLARES, Décio. Allegory of the Republic. c. 1900. Oil on canvas, 97 × 77 cm. Museu Histórico Nacional." }
+      },
+      "images": {
+        "figure": "plates/BR-005-republica-cut.webp",
+        "plate": "plates/BR-005-republica-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo da República brasileira de Décio Villares", "en": "Interpretive study of Décio Villares's Brazilian Republic" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "republica-espanhola-1873",
+      "atlasId": "ES-002",
+      "scope": "canonical",
+      "title": { "pt": "A República espanhola", "en": "The Spanish Republic" },
+      "subtitle": { "pt": "Lei, balança e alegoria na imprensa de 1873", "en": "Law, scales and allegory in the press of 1873" },
+      "territory": { "pt": "Espanha", "en": "Spain" },
+      "date": "1873",
+      "medium": { "pt": "litografia em periódico", "en": "periodical lithograph" },
+      "themes": ["imprensa", "fundacional", "república"],
+      "observed": {
+        "pt": "A personificação reúne asas, balança e uma tábua inscrita LEY, acompanhadas por outros emblemas republicanos.",
+        "en": "The personification combines wings, scales and a tablet inscribed LEY, alongside other republican emblems."
+      },
+      "context": {
+        "pt": "A imagem é atribuída a Tomás Padró e circulou em La Flaca durante a Primeira República espanhola, no contexto do Sexênio Democrático.",
+        "en": "Attributed to Tomás Padró, the image circulated in La Flaca during the First Spanish Republic and the broader Democratic Sexennium."
+      },
+      "interpretation": {
+        "pt": "A tábua e a balança vinculam o novo regime à promessa de uma ordem legal; a imprensa torna essa promessa visível e disputável.",
+        "en": "The tablet and scales bind the new regime to the promise of a legal order; the press makes that promise visible and contestable."
+      },
+      "source": {
+        "institution": "Biblioteca Nacional de España, Hemeroteca Digital",
+        "url": "https://hemerotecadigital.bne.es/hd/es/card?sid=3971781",
+        "rights": { "pt": "Domínio público: Tomás Padró i Pedret (1840–1877), publicação de 1873.", "en": "Public domain: Tomás Padró i Pedret (1840–1877), published in 1873." },
+        "citation": { "pt": "PADRÓ I PEDRET, Tomás. Alegoría de la Primera República española. La Flaca, Barcelona, 1873. Biblioteca Nacional de España.", "en": "PADRÓ I PEDRET, Tomás. Allegory of the First Spanish Republic. La Flaca, Barcelona, 1873. Biblioteca Nacional de España." }
+      },
+      "images": {
+        "figure": "plates/ES-002-republica-espanhola-cut.webp",
+        "plate": "plates/ES-002-republica-espanhola-atlas.webp",
+        "alt": { "pt": "Estudo interpretativo da República espanhola de 1873", "en": "Interpretive study of the Spanish Republic of 1873" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    },
+    {
+      "id": "columbia-1917",
+      "atlasId": "US-017",
+      "scope": "canonical",
+      "title": { "pt": "Columbia", "en": "Columbia" },
+      "subtitle": { "pt": "A nação que chama ao alistamento", "en": "The nation calling for enlistment" },
+      "territory": { "pt": "Estados Unidos", "en": "United States" },
+      "date": "1917",
+      "medium": { "pt": "cartaz de recrutamento", "en": "recruitment poster" },
+      "themes": ["cartaz", "guerra", "mobilização"],
+      "observed": {
+        "pt": "Columbia está sobre o globo, com bandeira dos Estados Unidos e espada; o título do cartaz formula diretamente o chamado ao alistamento.",
+        "en": "Columbia stands on a globe with the United States flag and a sword; the poster's title directly states the call to enlist."
+      },
+      "context": {
+        "pt": "Columbia Calls foi produzido em 1917 como cartaz de recrutamento do Exército dos Estados Unidos durante a Primeira Guerra Mundial.",
+        "en": "Columbia Calls was produced in 1917 as a United States Army recruitment poster during the First World War."
+      },
+      "interpretation": {
+        "pt": "A personificação transforma a nação em voz e gesto de comando: o corpo feminino funciona como autoridade que solicita participação militar.",
+        "en": "The personification turns the nation into a commanding voice and gesture: the female body functions as the authority requesting military participation."
+      },
+      "source": {
+        "institution": "Library of Congress",
+        "url": "https://www.loc.gov/item/95506508/",
+        "rights": { "pt": "Domínio público, conforme registro correlato da Library of Congress; a exposição usa estudo interpretativo próprio.", "en": "Public domain, according to the related Library of Congress record; the exhibition uses its own interpretive study." },
+        "citation": { "pt": "COLUMBIA CALLS — Enlist Now for U.S. Army. 1917. Library of Congress, item 95506508.", "en": "COLUMBIA CALLS — Enlist Now for U.S. Army. 1917. Library of Congress, item 95506508." }
+      },
+      "images": {
+        "figure": "plates/US-012-columbia-cut.webp",
+        "plate": "plates/US-012-columbia-atlas-v2.webp",
+        "alt": { "pt": "Estudo interpretativo de Columbia com bandeira e espada", "en": "Interpretive study of Columbia with flag and sword" }
+      },
+      "review": { "status": "verified", "reviewedAt": "2026-09-25" }
+    }
+  ]
+}

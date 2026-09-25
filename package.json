@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test": "playwright test",
+    "build:exhibition": "npm --prefix apps/nacao-como-mulher run build",
+    "check:exhibition": "npm --prefix apps/nacao-como-mulher run check",
     "stage:assets": "bash scripts/stage-worker-assets.sh",
     "deploy:worker": "npx wrangler deploy",
     "seo:check": "node scripts/publication.mjs",

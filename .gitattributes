@@ -67,6 +67,8 @@ scripts export-ignore
 scripts/** export-ignore
 future? export-ignore
 future?/** export-ignore
+apps export-ignore
+apps/** export-ignore
 
 # Superseded sources and one-off review artifacts. Runtime equivalents remain:
 # window-contents.js, WPoster.js and mesa/index.html.

@@ -30,6 +30,8 @@ node_modules/**
 .ecc/**
 future?
 future?/**
+apps
+apps/**
 scripts
 scripts/**
 tests
@@ -91,6 +93,7 @@ Kimi_Agent_Anavanzin Site Improvements/**
 Kimi_Agent_Anavanzin Site Improvements.zip
 Kimi_Agent_Anavanzin Site Improvements 2
 Kimi_Agent_Anavanzin Site Improvements 2/**
+Kimi_Agent_Plan and improve dashboard*
 .mesa-backup
 .mesa-backup/**
 correcao-icones-desktop.patch.txt
