@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TZEX4SFYEN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TZEX4SFYEN');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa bibliográfico · ana vanzin</title>
+<link rel="icon" href="/assets/favicon-32.png">
+<meta name="description" content="Mapa bibliográfico — 186 publicações sobre iconografia jurídica e alegorias femininas da justiça, coletadas no Google Scholar, com filtros por tema, busca e autores-chave.">
+<meta name="theme-color" content="#F5F0E6">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../editorial.css">
+<link rel="canonical" href="https://anavanzin.com/mapa-bibliografico/">
+<meta name="robots" content="index,follow">
+<style>
+  /* mapa bibliográfico — extensões locais à gramática editorial (editorial.css) */
+  .mp-note { margin-top: clamp(24px,3.5vh,36px); padding: 14px 18px; background: var(--paper-deep); border: 1px solid var(--ink-15); border-left: 3px solid var(--rubric); font-size: 13.5px; line-height: 1.55; color: var(--text-muted); max-width: 76ch; }
+  .mp-note b { color: var(--ink); font-weight: 600; }
+  .mp-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 20px; }
+  .mp-toolbar input[type="search"], .mp-toolbar select {
+    font-family: var(--font-body); font-size: 13.5px; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--ink-30); border-radius: 999px;
+    padding: 6px 14px; }
+  .mp-toolbar input[type="search"] { flex: 1 1 240px; min-width: 180px; max-width: 380px; }
+  .mp-toolbar input[type="search"]:focus, .mp-toolbar select:focus { outline: none; border-color: var(--rubric); }
+  .mp-toolbar select { cursor: pointer; }
+  .mp-toolbar label { font-family: var(--font-body); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
+  .mp-count { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; color: var(--text-faint); margin-left: auto; }
+  .mp-list { list-style: none; margin: 22px 0 0; padding: 0; }
+  .mp-item { padding: 18px 2px; border-top: 1px solid var(--rule-hairline); }
+  .mp-item:first-child { border-top: 1.5px solid var(--ink); }
+  .mp-item.is-hidden { display: none; }
+  .mp-row { display: flex; align-items: baseline; gap: 14px; }
+  .mp-au { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; line-height: 1.25; }
+  .mp-yr { margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+  .mp-ti { display: block; font-family: var(--font-display); font-style: italic; font-size: 1.08rem; line-height: 1.3; color: var(--ink); margin-top: 3px; }
+  .mp-ti a { color: inherit; text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--rubric) 45%, transparent); }
+  .mp-ti a:hover { color: var(--rubric); border-bottom-color: var(--rubric); }
+  .mp-meta { display: block; font-size: 12.5px; color: var(--text-faint); margin-top: 5px; }
+  .mp-meta .mp-cit { color: var(--rubric); font-weight: 600; }
+  .mp-sn { display: block; font-size: 13.5px; line-height: 1.55; color: var(--text-muted); margin-top: 6px; max-width: 70ch; }
+  .mp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .mp-tags button { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .04em; color: var(--text-faint); background: var(--paper); border: 1px solid var(--ink-15); border-radius: 999px; padding: 2px 10px; cursor: pointer; transition: all .15s; }
+  .mp-tags button:hover { border-color: var(--rubric); color: var(--rubric); }
+  .mp-empty { margin-top: 26px; font-size: 14px; color: var(--text-muted); }
+  .mp-authors { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 20px; }
+  .mp-author { border: 1px solid var(--ink-30); background: var(--paper); padding: 16px 18px; }
+  .mp-author h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.18rem; line-height: 1.15; text-transform: lowercase; letter-spacing: -.005em; margin: 0; }
+  .mp-author .mp-af { font-size: 12.5px; color: var(--text-faint); margin: 6px 0 0; }
+  .mp-author .mp-int { font-size: 12.5px; color: var(--text-muted); margin: 6px 0 0; }
+  .mp-author .mp-m { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--rubric); margin: 10px 0 0; }
+  .mp-queries { list-style: none; margin: 16px 0 0; padding: 0; }
+  .mp-queries li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; padding: 10px 2px; border-top: 1px solid var(--rule-hairline); font-size: 13px; color: var(--text-muted); }
+  .mp-queries li:first-child { border-top: 1px solid var(--ink); }
+  .mp-queries .q { font-family: var(--font-display); font-style: italic; color: var(--ink); font-size: 1rem; }
+  .mp-queries .n { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: var(--rubric); white-space: nowrap; }
+</style>
+</head>
+<body class="ed" data-route="mapa">
+  <header class="ed-bar">
+    <a class="brand" href="/" title="← ana vanzin">
+      <img src="../assets/sun-seal.svg" alt=""><b>ana vanzin</b><span class="div"></span>
+      <span class="lbl" data-pt="mapa bibliográfico" data-en="bibliographic map">mapa bibliográfico</span>
+    </a>
+    <span class="sp"></span>
+    <nav class="avnav" aria-label="Navegação da pesquisa">
+      <a href="../iconocracia/" data-route="iconocracia" data-pt="iconocracia" data-en="iconocracy">iconocracia</a>
+      <a href="../marginalia/" data-route="marginalia" data-pt="marginália" data-en="marginalia">marginália</a>
+      <a href="../publicacoes/" data-route="publicacoes" data-pt="publicações" data-en="publications">publicações</a>
+      <a href="../sala-de-leitura/" data-route="leitura" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+      <a href="/mapa-bibliografico/" data-route="mapa" data-pt="mapa bibliográfico" data-en="bibliographic map">mapa bibliográfico</a>
+      <a href="/advocacia" data-route="advocacia" data-pt="advocacia" data-en="practice">advocacia</a>
+      <a href="/sobre" data-route="sobre" data-pt="sobre" data-en="about">sobre</a>
+    </nav>
+    <span class="langtog" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </header>
+
+  <main class="ed-page">
+    <a class="ed-back" href="../sala-de-leitura/"><span class="ar">←</span><span data-pt="SALA DE LEITURA" data-en="READING ROOM">SALA DE LEITURA</span></a>
+    <div class="ed-head">
+      <p class="kicker rise" data-pt="Bibliografia · dados e método" data-en="Bibliography · data and method">Bibliografia · dados e método</p>
+      <h1 class="ed-title rise" style="--d:.06s">mapa bibliográfico</h1>
+      <p class="dek rise" style="--d:.12s" data-pt="186 publicações que atravessam a pesquisa — iconografia jurídica, alegorias femininas da justiça, Warburg, Panofsky, Rancière e a produção brasileira — coletadas no Google Scholar e reunidas em um mapa filtrável." data-en="186 publications that run through the research — legal iconography, female allegories of justice, Warburg, Panofsky, Rancière and Brazilian scholarship — collected from Google Scholar and gathered in a filterable map.">186 publicações que atravessam a pesquisa — iconografia jurídica, alegorias femininas da justiça, Warburg, Panofsky, Rancière e a produção brasileira — coletadas no Google Scholar e reunidas em um mapa filtrável.</p>
+    </div>
+
+    <aside class="mp-note rise" style="--d:.18s" data-pt-html="<b>Nota metodológica.</b> Dados coletados via Google Scholar em set/2026 (22 buscas temáticas; 186 publicações únicas após deduplicação por título). Os resumos são <b>trechos</b> (snippets) retornados pela busca, não abstracts completos; as contagens de citação são <b>instantâneos</b> da data da coleta e mudam com o tempo. Campo ausente significa dado não retornado pela fonte — nada foi complementado externamente." data-en-html="<b>Methodological note.</b> Data collected via Google Scholar in Sept/2026 (22 thematic searches; 186 unique publications after deduplication by title). Abstracts are <b>snippets</b> returned by the search, not full abstracts; citation counts are <b>snapshots</b> from the collection date and change over time. A missing field means the source did not return it — nothing was supplemented externally."><b>Nota metodológica.</b> Dados coletados via Google Scholar em set/2026 (22 buscas temáticas; 186 publicações únicas após deduplicação por título). Os resumos são <b>trechos</b> (snippets) retornados pela busca, não abstracts completos; as contagens de citação são <b>instantâneos</b> da data da coleta e mudam com o tempo. Campo ausente significa dado não retornado pela fonte — nada foi complementado externamente.</aside>
+
+    <div id="tfilter" class="tfilter" role="group" aria-label="Filtrar por tema" data-aria-pt="Filtrar por tema" data-aria-en="Filter by theme"></div>
+
+    <div class="mp-toolbar">
+      <label class="sr-only" for="mp-q" data-pt="Buscar por título ou autor" data-en="Search by title or author">Buscar por título ou autor</label>
+      <input type="search" id="mp-q" autocomplete="off" spellcheck="false"
+        placeholder="buscar título ou autor…"
+        data-aria-pt="Buscar por título ou autor" data-aria-en="Search by title or author">
+      <label class="sr-only" for="mp-sort" data-pt="Ordenar resultados" data-en="Sort results">Ordenar resultados</label>
+      <select id="mp-sort" data-aria-pt="Ordenar resultados" data-aria-en="Sort results">
+        <option value="cit" data-pt="mais citados" data-en="most cited" selected>mais citados</option>
+        <option value="year" data-pt="mais recentes" data-en="most recent">mais recentes</option>
+        <option value="az" data-pt="A–Z" data-en="A–Z">A–Z</option>
+      </select>
+      <span class="mp-count" id="mp-count" role="status" aria-live="polite"></span>
+    </div>
+
+    <section aria-labelledby="mp-pub-h">
+      <h2 id="mp-pub-h" class="sr-only" data-pt="Publicações" data-en="Publications">Publicações</h2>
+      <ul class="mp-list" id="mp-list"></ul>
+      <p class="mp-empty" id="mp-empty" hidden data-pt="Nenhuma publicação encontrada para os filtros atuais." data-en="No publications found for the current filters.">Nenhuma publicação encontrada para os filtros atuais.</p>
+<noscript>
+      <p class="sh-note">Lista estática (sem JavaScript): as 20 publicações mais citadas do conjunto. Ative o JavaScript para filtrar, buscar e ordenar as 186 entradas.</p>
+      <ul class="rr-list">
+        <li class="rr-item"><span><span class="au">J Rancière</span><span class="ti"><a class="tl" href="https://repositorio.ufsc.br/bitstream/handle/praxis/411/Jacques%20Ranci%C3%A8re.doc?sequence=1">Partilha do sensível</a></span></span><span class="yr">2009</span><span class="ln">J Rancière - 2009 - repositorio.ufsc.br · 5267 cit.</span></li>
+        <li class="rr-item"><span><span class="au">JM De Carvalho</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=kcWxEAAAQBAJ&amp;oi=fnd&amp;pg=PT7&amp;dq=Rep%C3%BAblica+alegoria+feminina&amp;ots=fJ8GqeIvN7&amp;sig=FZqLxzyP6UWpzwsiIIpX9Gubpn0">A formação das almas: o imaginário da República no Brasil</a></span></span><span class="yr">2023</span><span class="ln">JM De Carvalho - 2023 - books.google.com · 3630 cit.</span></li>
+        <li class="rr-item"><span><span class="au">M Warner</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=KUrd5GqffyEC&amp;oi=fnd&amp;pg=PA1&amp;dq=female+allegory+justice&amp;ots=K8TKN0QNx_&amp;sig=8spcoZH1k6vM9-rGbE3UubpNZvo">Monuments and maidens: The allegory of the female form</a></span></span><span class="yr">2000</span><span class="ln">M Warner - 2000 - books.google.com · 1523 cit.</span></li>
+        <li class="rr-item"><span><span class="au">MA Holly</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=ZQtYRQK0YI0C&amp;oi=fnd&amp;pg=PA9&amp;dq=Panofsky+iconology&amp;ots=iG0z8bEjs9&amp;sig=E6qYhv1w5MAVg7w-NAhnEaFS3rg">Panofsky and the foundations of art history</a></span></span><span class="yr">1984</span><span class="ln">MA Holly - 1984 - books.google.com · 602 cit.</span></li>
+        <li class="rr-item"><span><span class="au">D Delaney</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=0y8vCgAAQBAJ&amp;oi=fnd&amp;pg=PP1&amp;dq=nocturnal+jurisprudence+Stramignoni&amp;ots=fjlFviAtIC&amp;sig=z-ZpJCJXPoT0ahfJj1L1nhJ2LYU">The spatial, the legal and the pragmatics of world-making: Nomospheric investigations</a></span></span><span class="yr">2010</span><span class="ln">D Delaney - 2010 - books.google.com · 548 cit.</span></li>
+        <li class="rr-item"><span><span class="au">G Teskey</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=jDVVo3BH31wC&amp;oi=fnd&amp;pg=PR9&amp;dq=female+allegory+justice&amp;ots=f2-943LFPn&amp;sig=r1E9I_sXwkLlSH1VmQbmr1UJYfs">Allegory and violence</a></span></span><span class="yr">1996</span><span class="ln">G Teskey - 1996 - books.google.com · 530 cit.</span></li>
+        <li class="rr-item"><span><span class="au">PA Michaud</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=eWb7EAAAQBAJ&amp;oi=fnd&amp;pg=PA405&amp;dq=Warburg+Nachleben+survival+of+images&amp;ots=OXaggZABx4&amp;sig=cJxIVE-UcecS_aNaYRidKf2KZjw">Aby Warburg and the image in motion</a></span></span><span class="yr">2024</span><span class="ln">PA Michaud - 2024 - books.google.com · 508 cit.</span></li>
+        <li class="rr-item"><span><span class="au">GA Mark</span><span class="ti"><a class="tl" href="https://access.heinonline.com/hol-cgi-bin/get_pdf.cgi?handle=hein.journals/uclr54&amp;section=62">The personification of the business corporation in American law</a></span></span><span class="yr">1987</span><span class="ln">GA Mark - U. Chi. L. Rev., 1987 - HeinOnline · 505 cit.</span></li>
+        <li class="rr-item"><span><span class="au">MJ Mondzain</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=-aYQ2nDA6AAC&amp;oi=fnd&amp;pg=PP11&amp;dq=Marie-Jos%C3%A9+Mondzain+image+economy&amp;ots=zW7EeOFT8r&amp;sig=gwvuipARccblIEMtigVDIm5VSxk">Image, icon, economy: the Byzantine origins of the contemporary imaginary</a></span></span><span class="yr">2005</span><span class="ln">MJ Mondzain - 2005 - books.google.com · 391 cit.</span></li>
+        <li class="rr-item"><span><span class="au">CD Johnson</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=UKgCGCnUUvUC&amp;oi=fnd&amp;pg=PR7&amp;dq=Warburg+Nachleben+survival+of+images&amp;ots=dn1hQSKh9q&amp;sig=ItIrmj-A57Yz5GVHI4sTt_bqXXQ">Memory, metaphor, and Aby Warburg&#x27;s Atlas of images</a></span></span><span class="yr">2012</span><span class="ln">CD Johnson - 2012 - books.google.com · 372 cit.</span></li>
+        <li class="rr-item"><span><span class="au">J Rancière</span><span class="ti"><a class="tl" href="https://www.journals.uchicago.edu/doi/abs/10.1086/606120">The aesthetic dimension: Aesthetics, politics, knowledge</a></span></span><span class="yr">2009</span><span class="ln">J Rancière - Critical Inquiry, 2009 - journals.uchicago.edu · 349 cit.</span></li>
+        <li class="rr-item"><span><span class="au">M Quilligan</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=2ow63xNWkmMC&amp;oi=fnd&amp;pg=PR9&amp;dq=female+allegory+justice&amp;ots=7b5kAB_IRe&amp;sig=Jqd73Yqg4iGXn3cUa-LTO9IsGZo">The allegory of female authority: Christine de Pizan&#x27;s Cité des dames</a></span></span><span class="yr">1991</span><span class="ln">M Quilligan - 1991 - books.google.com · 323 cit.</span></li>
+        <li class="rr-item"><span><span class="au">JJ Tanke</span><span class="ti"><a class="tl" href="https://www.torrossa.com/it/resources/an/5208947">Jacques Rancière: an introduction</a></span></span><span class="yr">2011</span><span class="ln">JJ Tanke - 2011 - torrossa.com · 317 cit.</span></li>
+        <li class="rr-item"><span><span class="au">DE Curtis, J Resnik</span><span class="ti"><a class="tl" href="https://access.heinonline.com/hol-cgi-bin/get_pdf.cgi?handle=hein.journals/ylr96&amp;section=74">Images of justice</a></span></span><span class="yr">1986</span><span class="ln">DE Curtis, J Resnik - Yale LJ, 1986 - HeinOnline · 304 cit.</span></li>
+        <li class="rr-item"><span><span class="au">MG Müller</span><span class="ti"><a class="tl" href="https://books.google.com/books?hl=zh-CN&amp;lr=&amp;id=AcBsjtkmPWkC&amp;oi=fnd&amp;pg=PA283&amp;dq=Panofsky+iconology&amp;ots=rR5Ph8JNSG&amp;sig=V8117L7sDsfaHW5J18sBmKTJAmQ">Iconography and iconology as a visual method and approach</a></span></span><span class="yr">2011</span><span class="ln">MG Müller - The SAGE handbook of visual research methods, 2011 - books.google.com · 222 cit.</span></li>
+        <li class="rr-item"><span><span class="au">P Goodrich</span><span class="ti"><a class="tl" href="https://www.cambridge.org/uz/universitypress/subjects/law/legal-history/legal-emblems-and-art-law-iobiter-depictai-vision-governance">Legal emblems and the art of law</a></span></span><span class="yr">1945</span><span class="ln">P Goodrich - American history, 1945 - cambridge.org · 222 cit.</span></li>
+        <li class="rr-item"><span><span class="au">C Hasenmueller</span><span class="ti"><a class="tl" href="https://www.jstor.org/stable/430439">Panofsky, iconography, and semiotics</a></span></span><span class="yr">1978</span><span class="ln">C Hasenmueller - The Journal of Aesthetics and Art Criticism, 1978 - JSTOR · 197 cit.</span></li>
+        <li class="rr-item"><span><span class="au">D Panagia</span><span class="ti"><a class="tl" href="https://api.taylorfrancis.com/content/chapters/edit/download?identifierName=doi&amp;identifierValue=10.4324/9781315711485-11&amp;type=chapterpdf">“Partage du sensible”: the distribution of the sensible</a></span></span><span class="yr">2014</span><span class="ln">D Panagia - Jacques Rancière, 2014 - api.taylorfrancis.com · 179 cit.</span></li>
+        <li class="rr-item"><span><span class="au">J Rancière</span><span class="ti"><a class="tl" href="https://periodicos.unb.br/index.php/rbb/article/download/7703/6354/13365">A partilha do sensível</a></span></span><span class="yr">2014</span><span class="ln">J Rancière - Revista Brasileira de Bioética, 2014 - periodicos.unb.br · 175 cit.</span></li>
+        <li class="rr-item"><span><span class="au">G Didi-Huberman, V Rehberg, B Belay</span><span class="ti"><a class="tl" href="https://muse.jhu.edu/pub/4/article/41437/summary">Artistic survival: Panofsky vs. Warburg and the exorcism of impure time</a></span></span><span class="yr">2003</span><span class="ln">G Didi-Huberman, V Rehberg, B Belay - Common Knowledge, 2003 - muse.jhu.edu · 151 cit.</span></li>
+      </ul>
+    </noscript>
+    </section>
+
+    <section class="rr-shelf" aria-labelledby="mp-aut-h">
+      <div class="sh-h"><h2 id="mp-aut-h" data-pt="autores-chave" data-en="key authors">autores-chave</h2></div>
+      <p class="sh-note" data-pt="Oito perfis de autor recuperados na mesma coleta — referências recorrentes do conjunto." data-en="Eight author profiles retrieved in the same collection — recurring references across the dataset.">Oito perfis de autor recuperados na mesma coleta — referências recorrentes do conjunto.</p>
+      <div class="mp-authors" id="mp-authors"></div>
+      <p class="mp-note" data-pt-html="<b>Sobre os perfis.</b> Métricas retornadas pelo agregador em set/2026. Os perfis de autores clássicos (Warburg, Panofsky) agregam obra póstuma. Os perfis de <b>Peter Goodrich</b> e <b>Arno Dal Ri</b> podem misturar homônimos — os interesses listados para Goodrich incluem «ionic liquids», fora do campo jurídico. O h-index aparece como 10 em quase todos os perfis, o que sugere um teto da ferramenta: trate todos os números como aproximações." data-en-html="<b>About the profiles.</b> Metrics returned by the aggregator in Sept/2026. Profiles of classic authors (Warburg, Panofsky) aggregate posthumous work. The profiles of <b>Peter Goodrich</b> and <b>Arno Dal Ri</b> may mix namesakes — the interests listed for Goodrich include «ionic liquids», outside the legal field. The h-index reads 10 for nearly every profile, suggesting a tool ceiling: treat all numbers as approximations."><b>Sobre os perfis.</b> Métricas retornadas pelo agregador em set/2026. Os perfis de autores clássicos (Warburg, Panofsky) agregam obra póstuma. Os perfis de <b>Peter Goodrich</b> e <b>Arno Dal Ri</b> podem misturar homônimos — os interesses listados para Goodrich incluem «ionic liquids», fora do campo jurídico. O h-index aparece como 10 em quase todos os perfis, o que sugere um teto da ferramenta: trate todos os números como aproximações.</p>
+    </section>
+
+    <section class="rr-shelf" aria-labelledby="mp-met-h">
+      <div class="sh-h"><h2 id="mp-met-h" data-pt="como os dados foram coletados" data-en="how the data was collected">como os dados foram coletados</h2></div>
+      <p class="sh-note" data-pt="Registro das 23 buscas executadas no Google Scholar (set/2026), com o número de resultados retornados e as observações da coleta. Das 23 entradas do registro, 22 buscas retornaram resultados; a restante foi uma tentativa com parâmetro de idioma que falhou na API e foi refeita com êxito. A contagem total por busca não foi reportada pela fonte." data-en="Log of the 23 searches run on Google Scholar (Sept/2026), with the number of results returned and collection notes. Of the 23 log entries, 22 searches returned results; the remaining one was a language-parameter attempt that failed at the API and was successfully rerun. Per-query totals were not reported by the source.">Registro das 23 buscas executadas no Google Scholar (set/2026), com o número de resultados retornados e as observações da coleta. Das 23 entradas do registro, 22 buscas retornaram resultados; a restante foi uma tentativa com parâmetro de idioma que falhou na API e foi refeita com êxito. A contagem total por busca não foi reportada pela fonte.</p>
+      <ul class="mp-queries" id="mp-queries"></ul>
+    </section>
+
+    <p class="dek" style="margin-top:clamp(40px,6vh,68px);max-width:60ch" data-pt-html="O mapa conversa com a <a class='tl' href='../sala-de-leitura/'>sala de leitura</a> — as prateleiras comentadas — e com os <a class='tl' href='../atlas/'>objetos do Atlas</a>." data-en-html="The map converses with the <a class='tl' href='../sala-de-leitura/'>reading room</a> — the annotated shelves — and with the <a class='tl' href='../atlas/'>Atlas objects</a>.">O mapa conversa com a <a class="tl" href="../sala-de-leitura/">sala de leitura</a> — as prateleiras comentadas — e com os <a class="tl" href="../atlas/">objetos do Atlas</a>.</p>
+  </main>
+
+  <footer class="ed-foot">
+    <div class="in">
+      <div class="zone brand">
+        <a class="id" href="/"><img src="/assets/monogram-av-inverse.svg" alt=""> <b>ana vanzin</b></a>
+        <p class="desc" data-pt="advogada · historiadora do direito · doutoranda PPGD/UFSC" data-en="lawyer · legal historian · PhD candidate, PPGD/UFSC">advogada · historiadora do direito · doutoranda PPGD/UFSC</p>
+      </div>
+      <nav class="zone nav" aria-label="Navegação do rodapé">
+        <span class="zt" data-pt="navegação" data-en="navigation">navegação</span>
+        <a href="/">mesa</a>
+        <a href="/iconocracia/">iconocracia</a>
+        <a href="/publicacoes/" data-pt="publicações" data-en="publications">publicações</a>
+        <a href="/sala-de-leitura/" data-pt="sala de leitura" data-en="reading room">sala de leitura</a>
+        <a href="/mapa-bibliografico/" data-pt="mapa bibliográfico" data-en="bibliographic map">mapa bibliográfico</a>
+        <a href="/sobre" data-pt="sobre" data-en="about">sobre</a>
+      </nav>
+      <div class="zone links">
+        <span class="zt" data-pt="canais" data-en="channels">canais</span>
+        <a href="mailto:ana@anavanzin.com">e-mail</a>
+        <a href="http://lattes.cnpq.br/9079096818962275" target="_blank" rel="noopener">Lattes ↗</a>
+        <a href="https://instagram.com/anavanzin" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="http://hookahr.tumblr.com/" target="_blank" rel="noopener">Tumblr ↗</a>
+      </div>
+    </div>
+    <div class="base">
+      <span class="cl">© 2026 ana vanzin · PPGD/UFSC · Ius Gentium · anavanzin.com</span>
+      <span class="flr">❧</span>
+      <a class="top" href="#" data-pt="voltar ao topo ↑" data-en="back to top ↑">voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <script src="../content.js"></script>
+  <script src="../editorial.js"></script>
+  <script src="mapa-data.js"></script>
+<script src="mapa-authors-01.js"></script>
+<script src="mapa-authors-02.js"></script>
+<script src="mapa-papers-01.js"></script>
+<script src="mapa-papers-02.js"></script>
+<script src="mapa-papers-03.js"></script>
+<script src="mapa-papers-04.js"></script>
+<script src="mapa-papers-05.js"></script>
+<script src="mapa-papers-06.js"></script>
+<script src="mapa-papers-07.js"></script>
+<script src="mapa-papers-08.js"></script>
+<script src="mapa-papers-09.js"></script>
+  <script>
+  (function () {
+    var D = window.MAPA_DATA;
+    if (!D) return;
+
+    function lang() { return (window.AV && window.AV.lang) || 'pt'; }
+    var T = {
+      all: { pt: 'tudo', en: 'all' },
+      searchPh: { pt: 'buscar título ou autor…', en: 'search title or author…' },
+      citations: { pt: 'citações', en: 'citations' },
+      citation: { pt: 'citação', en: 'citation' },
+      nd: { pt: 's.d.', en: 'n.d.' },
+      count: { pt: '{n} de {t} publicações', en: '{n} of {t} publications' },
+      interests: { pt: 'interesses', en: 'interests' },
+      results: { pt: 'resultados', en: 'results' },
+      papersUnit: { pt: 'publicações', en: 'publications' }
+    };
+    function t(k) { var v = T[k]; return v ? (v[lang()] || v.pt) : k; }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function norm(s) {
+      return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+    function num(n) {
+      try { return Number(n).toLocaleString(lang() === 'pt' ? 'pt-BR' : 'en-US'); }
+      catch (e) { return String(n); }
+    }
+
+    var slugByLabel = {};
+    D.themes.forEach(function (th) { slugByLabel[th.label] = th.slug; });
+
+    var state = { theme: 'all', q: '', sort: 'cit' };
+    var listEl = document.getElementById('mp-list');
+    var countEl = document.getElementById('mp-count');
+    var emptyEl = document.getElementById('mp-empty');
+    var qEl = document.getElementById('mp-q');
+    var sortEl = document.getElementById('mp-sort');
+    var filterEl = document.getElementById('tfilter');
+
+    /* ---------- chips de tema (padrão .tfilter do editorial.css) ---------- */
+    function paintChips() {
+      var btns = ['<button type="button" data-slug="all" aria-pressed="' + (state.theme === 'all') + '">' +
+        '<span class="n">' + D.papers.length + '</span>' + esc(t('all')) + '</button>'];
+      D.themes.forEach(function (th) {
+        btns.push('<button type="button" data-slug="' + th.slug + '" aria-pressed="' + (state.theme === th.slug) + '">' +
+          '<span class="n">' + th.count + '</span>' + esc(th.label) + '</button>');
+      });
+      filterEl.innerHTML = btns.join('');
+    }
+    filterEl.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('button[data-slug]');
+      if (!b) return;
+      state.theme = b.dataset.slug;
+      filterEl.querySelectorAll('button').forEach(function (x) {
+        x.setAttribute('aria-pressed', String(x.dataset.slug === state.theme));
+      });
+      paintList();
+    });
+
+    /* ---------- filtro + ordenação + render ---------- */
+    function current() {
+      var q = norm(state.q);
+      var out = D.papers.filter(function (p) {
+        if (state.theme !== 'all') {
+          var slugs = (p.themes || []).map(function (x) { return slugByLabel[x]; });
+          if (slugs.indexOf(state.theme) < 0) return false;
+        }
+        if (q) {
+          var hay = norm(p.title) + ' ' + norm((p.authors || []).join(' '));
+          if (hay.indexOf(q) < 0) return false;
+        }
+        return true;
+      });
+      if (state.sort === 'cit') {
+        out.sort(function (a, b) { return (b.citation_count != null ? b.citation_count : -1) - (a.citation_count != null ? a.citation_count : -1); });
+      } else if (state.sort === 'year') {
+        out.sort(function (a, b) { return (b.year || -1) - (a.year || -1); });
+      } else {
+        out.sort(function (a, b) { return norm(a.title).localeCompare(norm(b.title)); });
+      }
+      return out;
+    }
+
+    function itemHTML(p) {
+      var h = '<li class="mp-item">';
+      h += '<div class="mp-row"><span class="mp-au">' + esc((p.authors || []).join(', ')) + '</span>' +
+           '<span class="mp-yr">' + (p.year ? esc(p.year) : esc(t('nd'))) + '</span></div>';
+      var ti = esc(p.title);
+      h += '<span class="mp-ti">' + (p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + ti + '</a>' : ti) + '</span>';
+      var meta = [];
+      if (p.venue) meta.push(esc(p.venue));
+      if (p.citation_count != null) {
+        meta.push('<span class="mp-cit">' + num(p.citation_count) + ' ' +
+          esc(p.citation_count === 1 ? t('citation') : t('citations')) + '</span>');
+      }
+      if (meta.length) h += '<span class="mp-meta">' + meta.join(' · ') + '</span>';
+      if (p.abstract) h += '<span class="mp-sn">' + esc(p.abstract) + '</span>';
+      if (p.themes && p.themes.length) {
+        h += '<span class="mp-tags">' + p.themes.map(function (x) {
+          return '<button type="button" data-theme="' + esc(slugByLabel[x] || '') + '">' + esc(x) + '</button>';
+        }).join('') + '</span>';
+      }
+      return h + '</li>';
+    }
+
+    function paintList() {
+      var rows = current();
+      listEl.innerHTML = rows.map(itemHTML).join('');
+      emptyEl.hidden = rows.length > 0;
+      countEl.textContent = t('count').replace('{n}', rows.length).replace('{t}', D.papers.length);
+    }
+    listEl.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('button[data-theme]');
+      if (!b || !b.dataset.theme) return;
+      state.theme = b.dataset.theme;
+      paintChips();
+      paintList();
+      if (filterEl.scrollIntoView) filterEl.scrollIntoView({ block: 'nearest' });
+    });
+
+    qEl.addEventListener('input', function () { state.q = qEl.value; paintList(); });
+    sortEl.addEventListener('change', function () { state.sort = sortEl.value; paintList(); });
+
+    /* ---------- autores-chave ---------- */
+    function paintAuthors() {
+      var el = document.getElementById('mp-authors');
+      el.innerHTML = D.authors.map(function (a) {
+        var h = '<article class="mp-author"><h3>' + esc(a.author_name) + '</h3>';
+        if (a.affiliation) h += '<p class="mp-af">' + esc(a.affiliation) + '</p>';
+        if (a.research_interests && a.research_interests.length) {
+          h += '<p class="mp-int">' + esc(t('interests')) + ': ' + esc(a.research_interests.join(', ')) + '</p>';
+        }
+        var m = [];
+        if (a.total_citations != null) m.push(num(a.total_citations) + ' ' + t('citations'));
+        if (a.h_index != null) m.push('h-index ' + a.h_index);
+        if (a.career_span) m.push(esc(a.career_span));
+        if (m.length) h += '<p class="mp-m">' + m.join(' · ') + '</p>';
+        return h + '</article>';
+      }).join('');
+    }
+
+    /* ---------- registro de buscas ---------- */
+    function paintQueries() {
+      var el = document.getElementById('mp-queries');
+      el.innerHTML = D.queries.map(function (q) {
+        return '<li><span class="q">' + esc(q.query) + '</span>' +
+          '<span class="n">' + esc(q.results_returned) + ' ' + esc(t('results')) + '</span>' +
+          (q.notes ? '<span>' + esc(q.notes) + '</span>' : '') + '</li>';
+      }).join('');
+    }
+
+    function paintPlaceholders() { qEl.placeholder = t('searchPh'); }
+
+    function paint() {
+      paintPlaceholders();
+      paintChips();
+      paintList();
+      paintAuthors();
+      paintQueries();
+    }
+    window.addEventListener('av:lang', paint);
+    paint();
+  })();
+  </script>
+</body>
+</html>
